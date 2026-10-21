@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <!-- Neutral culture = Persian (fa). Every key here MUST have an English twin in Strings.en.resx
+       (enforced by LocalizationParityTests). -->
+  <data name="App.Title" xml:space="preserve"><value>گنجینه — مدیر رمز عبور آفلاین</value></data>
+  <data name="Top.VaultPlaceholder" xml:space="preserve"><value>گاوصندوقی باز نیست</value></data>
+  <data name="Top.Lock" xml:space="preserve"><value>قفل</value></data>
+  <data name="Top.ToggleTheme" xml:space="preserve"><value>تغییر پوسته (روشن/تاریک)</value></data>
+  <data name="Top.ToggleLanguage" xml:space="preserve"><value>تغییر زبان (فارسی/English)</value></data>
+  <data name="Search.Placeholder" xml:space="preserve"><value>جستجو در آیتم‌ها…</value></data>
+  <data name="Nav.Section.Vault" xml:space="preserve"><value>گاوصندوق</value></data>
+  <data name="Nav.AllItems" xml:space="preserve"><value>همه آیتم‌ها</value></data>
+  <data name="Nav.Favorites" xml:space="preserve"><value>علاقه‌مندی‌ها</value></data>
+  <data name="Nav.Folders" xml:space="preserve"><value>پوشه‌ها</value></data>
+  <data name="Nav.Tags" xml:space="preserve"><value>برچسب‌ها</value></data>
+  <data name="Nav.Trash" xml:space="preserve"><value>سطل زباله</value></data>
+  <data name="Nav.Section.Tools" xml:space="preserve"><value>ابزارها</value></data>
+  <data name="Nav.Generator" xml:space="preserve"><value>تولید رمز</value></data>
+  <data name="Nav.SecurityCenter" xml:space="preserve"><value>مرکز امنیت</value></data>
+  <data name="Nav.Backup" xml:space="preserve"><value>پشتیبان‌گیری و بازیابی</value></data>
+  <data name="Nav.Settings" xml:space="preserve"><value>تنظیمات</value></data>
+  <data name="Center.ListHeader" xml:space="preserve"><value>آیتم‌ها</value></data>
+  <data name="Center.NewItem" xml:space="preserve"><value>آیتم جدید</value></data>
+  <data name="Center.EmptyTitle" xml:space="preserve"><value>هنوز آیتمی نیست</value></data>
+  <data name="Center.EmptyText" xml:space="preserve"><value>برای شروع، اولین رمز خود را اضافه کنید.</value></data>
+  <data name="Details.PlaceholderTitle" xml:space="preserve"><value>آیتمی انتخاب نشده است</value></data>
+  <data name="Details.PlaceholderText" xml:space="preserve"><value>برای دیدن جزئیات، یک آیتم از فهرست انتخاب کنید.</value></data>
+  <data name="Menu.Theme.Light" xml:space="preserve"><value>روشن</value></data>
+  <data name="Menu.Theme.Dark" xml:space="preserve"><value>تاریک</value></data>
+  <data name="Theme.Status.Light" xml:space="preserve"><value>پوسته روشن فعال است</value></data>
+  <data name="Theme.Status.Dark" xml:space="preserve"><value>پوسته تاریک فعال است</value></data>
+  <data name="Language.Status.Fa" xml:space="preserve"><value>زبان: فارسی</value></data>
+  <data name="Language.Status.En" xml:space="preserve"><value>زبان: انگلیسی</value></data>
+  <data name="Shell.Status.Ready" xml:space="preserve"><value>آماده</value></data>
+  <data name="Error.AuthenticationFailed" xml:space="preserve"><value>احراز هویت ناموفق بود.</value></data>
+  <data name="Error.Cancelled" xml:space="preserve"><value>عملیات لغو شد.</value></data>
+  <data name="Error.Format" xml:space="preserve"><value>قالب داده نامعتبر است.</value></data>
+  <data name="Error.Storage" xml:space="preserve"><value>خطای ذخیره‌سازی رخ داد.</value></data>
+  <data name="Error.Policy" xml:space="preserve"><value>این عملیات مجاز نیست.</value></data>
+  <data name="Error.Unexpected" xml:space="preserve"><value>خطای غیرمنتظره‌ای رخ داد.</value></data>
+</root>

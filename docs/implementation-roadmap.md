@@ -46,3 +46,16 @@ the feature — no separate UI phase at the end.
 2. Every phase ends with: functionality report, outstanding risks, updated docs, next-step proposal.
 3. Security-sensitive changes require the relevant doc section update **in the same phase**.
 4. Any crypto-visible change (format, params, primitives) requires a new/updated ADR before code.
+
+## Progress Log
+
+- **2026-10-22 — Phase 0** delivered and approved by the user.
+- **2026-10-22 — Phase 1 complete.** 13-project skeleton (`PasswordManager.slnx`) with the
+  documented dependency rules; DI composition root in Desktop; three-column RTL shell
+  (nav/list/details placeholders); fa-neutral + en-satellite localization with live language and
+  FlowDirection switching; Light/Dark theme dictionaries with live swap; Vazirmatn vendored
+  (OFL). Zero-warning build (`TreatWarningsAsErrors`). Tests: 18/18 green — 5 Domain,
+  2 Application, 10 Integration (localization parity, theme parity, settings store incl.
+  portable detection), 1 FlaUI UIA3 smoke (launch → Persian nav → live EN switch → theme swap).
+  *Deferred to later phases, by design:* Lucide icon set (nav is text-only in the skeleton),
+  real navigation content, clipboard service (lands with item actions, Phase 3+).

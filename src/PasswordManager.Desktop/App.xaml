@@ -1,0 +1,16 @@
+﻿<Application x:Class="PasswordManager.Desktop.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             ShutdownMode="OnMainWindowClose">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Theme dictionary (index 0) is swapped at runtime by ThemeService. -->
+                <ResourceDictionary Source="pack://application:,,,/PasswordManager.Desktop;component/Themes/Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/PasswordManager.Desktop;component/Styles/Controls.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <!-- Vendored Vazirmatn (OFL); falls back to system fonts automatically if missing. -->
+            <FontFamily x:Key="App.FontFamily">pack://application:,,,/PasswordManager.Desktop;component/Assets/Fonts/#Vazirmatn</FontFamily>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -32,6 +32,18 @@ events) are defined **in Application** and implemented in Infrastructure — the
 points; no generic repositories, no CQRS machinery, no unit-of-work abstractions (contract §9:
 concrete needs only).
 
+**As built (Phase 1):**
+- Solution file is `PasswordManager.slnx` (.NET 10 SDK default XML solution format).
+- Test projects carry the `PasswordManager.` prefix (`PasswordManager.Domain.Tests`, …,
+  `PasswordManager.Desktop.UITests`); folders mirror the names under `tests/`.
+- `Directory.Build.props` enforces `Nullable=enable` + `TreatWarningsAsErrors=true`
+  (the zero-warnings baseline).
+- **Namespace collision to remember:** inside any `PasswordManager.*` namespace, the bare name
+  `Application` resolves to the *Application project's namespace*, not WPF's
+  `System.Windows.Application` — qualify it explicitly (UI tests and Desktop both hit this).
+- Vazirmatn (OFL) is vendored in `src/PasswordManager.Desktop/Assets/Fonts` (Regular/Medium/
+  SemiBold + OFL.txt), embedded as WPF resources with automatic system-font fallback.
+
 ## 2. Runtime Composition
 
 `Desktop` is the composition root (`Microsoft.Extensions.Hosting`):
