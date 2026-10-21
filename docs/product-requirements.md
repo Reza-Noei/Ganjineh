@@ -158,8 +158,8 @@ IDs are stable and referenced by other docs and the test plan.
 
 | Q | Question | Blocked on |
 |---|----------|-----------|
-| Q1 | SQLitePCLRaw.bundle_e_sqlcipher vs Zetetic commercial provider on .NET 10 | Phase 2 spike (ADR-002) |
-| Q2 | Argon2id baseline on target hardware class | Phase 2 benchmark |
+| Q1 | ~~SQLCipher provider on .NET 10~~ **Closed (Phase 2):** raw SQLitePCL + e_sqlcipher 2.1.11; Microsoft.Data.Sqlite rejected (battery race yields unencrypted engine — spike-verified). Zetetic remains a drop-in fallback. | — |
+| Q2 | ~~Argon2id baseline on target hardware class~~ **Closed (Phase 2):** m=128 MiB, t=3, p=1 ≈ 172 ms dev / 0.35–0.7 s min-spec projection; docs/security/cryptographic-test-results.md | — |
 | Q3 | zxcvbn C# port license/vetting vs in-house estimator | Phase 5 |
 | Q4 | Installer tech: WiX v5 MSI vs Inno Setup | Phase 7 |
 | Q5 | Code signing certificate availability/cost | Release |

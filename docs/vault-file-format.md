@@ -55,12 +55,9 @@ the local label or the file name, never a decrypted name.
 Header size is fixed for v1; future versions must keep `header_size` first-class and parse only
 declared fields (forward compatibility).
 
-**Authentication story (two layers):**
-1. *Pre-unlock:* both wrap records use `AAD = header[0x000–0x0FF]`, so any tampering with KDF
-   params, salts, IDs or the other wrap record fails the AEAD tag before VMK release.
-2. *Post-unlock:* `header_mac` (VMK-derived key) authenticates the same span and, with
-   `header_counter` checked against the registry high-water mark, detects whole-header rollback
-   (the one substitution layer 1 cannot see). Registry stores `lastHeaderCounter` per vaultId.
+**Authentication story (two layers) — Revision 1 (implemented; see docs/security/vault-header-format.md):**
+1. *Pre-unlock:* each wrap record's AEAD uses canonical AAD `"GPWRP1"‖purpose‖VaultID‖format_version‖kdf_id‖aead_id` — wrong credentials, wrong vault, KDF-parameter tampering (via PEK binding), and cross-vault substitution all fail authentication. *(The original full-span AAD design above was self-referential and would have broken the recovery wrap on every master-password change; superseded.)*
+2. *Post-unlock:* `header_mac` (VMK-derived key) authenticates the full 0x000–0x0FF span and, with `header_counter` checked against the registry high-water mark, detects whole-header rollback (the one substitution layer 1 cannot see). Registry stores `lastHeaderCounter` per vaultId. Authenticated encryption alone does not prevent rollback to an older internally-consistent snapshot.
 
 Header rewrites (MP change, recovery rotation, KDF change, counter bump) are atomic:
 write `header.bin.tmp` → `FileStream.Flush(flushToDisk: true)` → `File.Replace` → fsync directory

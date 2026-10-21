@@ -59,3 +59,14 @@ the feature — no separate UI phase at the end.
   portable detection), 1 FlaUI UIA3 smoke (launch → Persian nav → live EN switch → theme swap).
   *Deferred to later phases, by design:* Lucide icon set (nav is text-only in the skeleton),
   real navigation content, clipboard service (lands with item actions, Phase 3+).
+- **2026-10-22 — Phase 2 complete.** Cryptographic engine (AES-256-GCM envelopes, HKDF-SHA-256
+  domain separation, Argon2id KDF), VMK wrapping (password + recovery paths), Recovery Key
+  system (generation/PMRK1 codec/unlock/reset/rotation), 512-byte authenticated vault header
+  (strict codec, MAC, anti-rollback counter), raw e_sqlcipher persistence with identity
+  binding and genuineness gates, `VaultSession` lifecycle with zeroizing keyring, atomic
+  crash-safe header rewrites with fault-injection tests. Q1/Q2 closed; deviations documented
+  (engine parallelism p=1, wrap-AAD Revision 1, raw SQLitePCL instead of Microsoft.Data.Sqlite).
+  **Tests: 103/103 green** (Domain 5, Application 2, Cryptography 60 incl. KATs + BouncyCastle
+  cross-validation + benchmarks, Persistence 4, Integration 24, Security 7, UI smoke 1).
+  Docs: docs/security/* (7 files). *Deferred by design:* attachment chunk envelopes (Phase 4),
+  backup `.gvbak` writer (Phase 6), UI integration of unlock flows (Phase 3).

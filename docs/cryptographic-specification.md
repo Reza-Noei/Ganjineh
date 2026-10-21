@@ -47,23 +47,21 @@ HKDF `info` encoding (normative): `ASCII("ganjineh.v1") ‖ 0x00 ‖ ASCII("<lab
 `salt` = the 16-byte VaultID in every derivation — this binds every key to its vault and makes
 key reuse across vaults cryptographically detectable rather than merely forbidden.
 
-### 3.1 Argon2id Parameters
+### 3.1 Argon2id Parameters — revised as built (ADR-003 revision, see docs/security/cryptographic-implementation.md)
 
-| Parameter | Baseline | Floor (hard min, app refuses to create below) | Notes |
-|-----------|----------|--------|-------|
-| Memory `m` | 64 MiB (65536 KiB) | 16 MiB | Dominant cost dimension |
+| Parameter | Shipped baseline | Floor (hard min) | Notes |
+|-----------|------------------|------------------|-------|
+| Memory `m` | **128 MiB** | 16 MiB | Dominant cost dimension |
 | Iterations `t` | 3 | 2 | |
-| Parallelism `p` | 4 | 1 | Thread count |
+| Parallelism `p` | **1 (engine limit)** | 1 | NSec 26/libsodium supports p=1 only; field kept in metadata for future engines |
 | Salt | 16 B CSPRNG | 16 B | Per vault, stored in header |
-| Output | 32 B | | Becomes PEK IKM |
+| Output | 32 B | | IKM for HKDF |
 
-Unlock budget: 0.3–1.0 s on ≥2018 hardware. **Benchmark procedure (Phase 2 exit criterion):**
-measure median+ p95 over 20 runs on the target hardware class (min-spec laptop CPU);
-if p95 > 1.0 s reduce `t` to 2; if < 0.3 s raise `m` in 16 MiB steps up to 128 MiB.
-Recorded results go in this section. Parameters are per-vault, stored in the header, and
-authenticated (§6) — a tampered parameter set yields a wrong PEK and fails unwrap, so an
-attacker cannot downgrade cost. Opening a vault whose recorded params are below the floor
-warns and requires explicit confirmation (possible downgrade rollback, threat R-2).
+Benchmark (Q2 closed, 2026-10-22, dev machine): 128 MiB/t3/p1 ≈ **172 ms median** (p95 183 ms);
+projected 0.35–0.7 s on min-spec hardware — inside the 0.3–1.0 s unlock band. Measured points:
+32 MiB/t3 39 ms; 64 MiB/t3 85 ms; 64 MiB/t2 61 ms. Procedure unchanged; parameters are
+per-vault and authenticated (§6) — tampering yields a wrong PEK and fails unwrap, so an attacker
+cannot downgrade cost. Below-floor headers refuse to open (downgrade-rollback guard).
 
 ## 4. SQLCipher Keying (double-KDF pitfall)
 

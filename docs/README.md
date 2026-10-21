@@ -31,6 +31,18 @@ Offline, Persian-first, multi-vault password manager for Windows. WPF / .NET 10 
 | [ADR-006](adr/ADR-006-installer-portable-compatibility.md) | One format, two distributions, no DPAPI, no machine binding |
 | [ADR-007](adr/ADR-007-browser-extension-deferral.md) | Extension/native-messaging deferred; seams reserved, nothing built |
 
+## Security documentation (Phase 2, as built)
+
+| Document | Contents |
+|----------|----------|
+| [security/cryptographic-implementation.md](security/cryptographic-implementation.md) | Libraries/versions, parameters, envelope formats, documented deviations |
+| [security/key-hierarchy.md](security/key-hierarchy.md) | Derivation tree, wrap records, key lifecycle |
+| [security/recovery-implementation.md](security/recovery-implementation.md) | PMRK1 codec, workflows, forward-only revocation |
+| [security/vault-header-format.md](security/vault-header-format.md) | 512-byte header table, pre/post-unlock authentication, crash-safe rewrites |
+| [security/sqlcipher-integration.md](security/sqlcipher-integration.md) | Raw provider setup, pragmas, genuineness gates |
+| [security/secure-memory-limitations.md](security/secure-memory-limitations.md) | Zeroization guarantees and GC-runtime limits |
+| [security/cryptographic-test-results.md](security/cryptographic-test-results.md) | KAT/cross-validation results, benchmarks, residual risks |
+
 ## Unresolved items requiring verification (from the contract's Phase 0 mandate)
 
 - **Q1** SQLCipher provider (`SQLitePCLRaw.bundle_e_sqlcipher`) + NSec/libsodium native assets on
