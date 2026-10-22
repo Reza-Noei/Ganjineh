@@ -112,6 +112,9 @@ public sealed class ItemRepository
     public IReadOnlyList<ItemRow> ListTrashed() =>
         QueryRows("SELECT id, type, favorite, trashed_at, created_at, updated_at, folder_id FROM items WHERE trashed_at IS NOT NULL ORDER BY trashed_at DESC;");
 
+    public int CountLive() =>
+        int.TryParse(_database.Connection.ScalarText("SELECT COUNT(*) FROM items WHERE trashed_at IS NULL;"), out var n) ? n : 0;
+
     public void Trash(Guid id, long trashedAt) =>
         _database.Connection.Execute($"UPDATE items SET trashed_at = {trashedAt} WHERE id = '{id}';");
 

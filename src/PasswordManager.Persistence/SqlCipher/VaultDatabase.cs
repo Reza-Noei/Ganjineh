@@ -85,6 +85,27 @@ public sealed class VaultDatabase : IDisposable
     /// <summary>Connection access for same-assembly repositories (key-free envelope storage).</summary>
     internal SqlCipherConnection Connection => _connection;
 
+    /// <summary>Runs PRAGMA integrity_check; 'ok' or throws DatabaseCorruptionException.</summary>
+    public void VerifyIntegrity()
+    {
+        var result = _connection.ScalarText("PRAGMA integrity_check;");
+        if (!string.Equals(result, "ok", StringComparison.OrdinalIgnoreCase))
+        {
+            throw new DatabaseCorruptionException("Vault database failed the integrity check.");
+        }
+    }
+
+    /// <summary>Long scalar helper for count-style queries.</summary>
+    public long ScalarLong(string sql)
+    {
+        var text = _connection.ScalarText(sql);
+        return long.TryParse(text, out var value) ? value : 0;
+    }
+
+    /// <summary>Consistent committed snapshot (Phase 6 backups). No active transaction may exist.</summary>
+    public void VacuumInto(string path) =>
+        _connection.Execute($"VACUUM INTO '{path.Replace("'", "''")}';");
+
     public void CheckpointWal()
     {
         _connection.Execute("PRAGMA wal_checkpoint(TRUNCATE);");

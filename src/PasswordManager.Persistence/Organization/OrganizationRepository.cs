@@ -137,6 +137,12 @@ public sealed class OrganizationRepository
             .Select(MapAttachment)
             .ToList();
 
+    public IReadOnlyList<AttachmentRow> ListAllAttachmentRows() =>
+        _database.Connection.Query(
+                "SELECT id, item_id, filename_cipher, size_bytes, filekey_cipher, created_at FROM attachments ORDER BY created_at;")
+            .Select(MapAttachment)
+            .ToList();
+
     public AttachmentRow? GetAttachment(Guid id)
     {
         var rows = _database.Connection.Query(
