@@ -1,0 +1,25 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package Name="Ganjineh Password Manager"
+           Manufacturer="Ganjineh Project"
+           Version="1.0.0"
+           UpgradeCode="7A8B9C0D-1E2F-3A4B-5C6D-7E8F9A0B1C2D"
+           Scope="perMachineOrPerUser">
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+    <StandardDirectory Id="ProgramFiles64Folder">
+      <Directory Id="INSTALLFOLDER" Name="Ganjineh" />
+    </StandardDirectory>
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="GanjinehMenuDir" Name="Ganjineh" />
+    </StandardDirectory>
+    <Feature Id="Main" Title="Ganjineh Password Manager" Level="1">
+      <FilesFromDirectory Id="AppBinaries" DirectoryId="INSTALLFOLDER" Source="publish/win-x64" />
+      <Shortcut Id="StartMenuShortcut" Directory="GanjinehMenuDir" Name="Ganjineh"
+                WorkingDirectory="INSTALLFOLDER" Icon="AppIcon.exe" Advertise="yes" />
+    </Feature>
+    <Icon Id="AppIcon.exe" SourceFile="publish/win-x64/Ganjineh.exe" />
+    <Property Id="ARPPRODUCTICON" Value="AppIcon.exe" />
+    <Property Id="ARPHELPLINK" Value="https://github.com/ganjineh/ganjineh" />
+    <Property Id="ARPNOREPAIR" Value="1" Secure="yes" />
+  </Package>
+</Wix>

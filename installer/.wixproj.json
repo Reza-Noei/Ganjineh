@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "source": "installer/Ganjineh.Installer.wxs",
+      "destination": "installer/Ganjineh.Installer.wxs"
+    }
+  ]
+}
