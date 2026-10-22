@@ -1,0 +1,4 @@
+EFF Large Wordlist (https://www.eff.org/dice)
+Copyright (c) 2016 Electronic Frontier Foundation.
+Licensed under the Creative Commons Attribution 4.0 International license (CC BY 4.0).
+https://creativecommons.org/licenses/by/4.0/

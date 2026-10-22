@@ -238,6 +238,12 @@
                                        AutomationProperties.AutomationId="WorkspaceVaultName" />
                         </StackPanel>
                         <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Button Content="{loc:Loc Nav.Generator}" Style="{StaticResource IconButton}"
+                                    Command="{Binding OpenGeneratorCommand}" Margin="0,0,8,0"
+                                    AutomationProperties.AutomationId="OpenGenerator" />
+                            <Button Content="{loc:Loc Nav.SecurityCenter}" Style="{StaticResource IconButton}"
+                                    Command="{Binding OpenSecurityCenterCommand}" Margin="0,0,8,0"
+                                    AutomationProperties.AutomationId="OpenSecurityCenter" />
                             <Button Content="{loc:Loc Main.SwitchVault}" Style="{StaticResource IconButton}"
                                     Command="{Binding LockCommand}" Margin="0,0,8,0"
                                     AutomationProperties.AutomationId="SwitchVaultButton" />
@@ -367,31 +373,121 @@
                                 </Grid>
                             </Border>
                             <Grid Grid.Row="1">
-                                <ListBox ItemsSource="{Binding RowsView}" SelectedItem="{Binding SelectedCredential}"
-                                         Background="Transparent" BorderThickness="0"
-                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                         AutomationProperties.AutomationId="CredentialList">
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Margin="8,8" AutomationProperties.AutomationId="CredentialRow">
-                                                <TextBlock Text="{Binding Title}" FontSize="14" FontWeight="Medium"
-                                                           Foreground="{DynamicResource Text.Primary}"
-                                                           AutomationProperties.AutomationId="RowTitle" />
-                                                <TextBlock Text="{Binding Username}" FontSize="12"
-                                                           Foreground="{DynamicResource Text.Secondary}"
-                                                           AutomationProperties.AutomationId="RowUsername" />
+                                <!-- Security Center dashboard (Phase 5) -->
+                                <StackPanel Margin="16"
+                                            Visibility="{Binding SecuritySectionActive, Converter={StaticResource BoolToVisible}}"
+                                            AutomationProperties.AutomationId="SecurityCenter">
+                                    <TextBlock Text="{loc:Loc Nav.SecurityCenter}" Style="{StaticResource TitleText}" />
+                                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                        <TextBlock Text="{loc:Loc Security.Score}" Style="{StaticResource SecondaryText}" VerticalAlignment="Center" />
+                                        <TextBlock Text="{Binding SecurityScoreText}" FontSize="22" FontWeight="SemiBold"
+                                                   Foreground="{DynamicResource Accent}" Margin="8,0,0,0"
+                                                   AutomationProperties.AutomationId="SecurityScore" />
+                                        <Button Content="{loc:Loc Security.Refresh}" Style="{StaticResource IconButton}"
+                                                Command="{Binding RunSecurityAnalysisCommand}" Margin="16,0,0,0"
+                                                AutomationProperties.AutomationId="SecurityRefresh" />
+                                        <TextBlock Text="{loc:Loc Security.Working}" Style="{StaticResource SecondaryText}"
+                                                   VerticalAlignment="Center" Margin="8,0,0,0"
+                                                   Visibility="{Binding SecurityAnalysisBusy, Converter={StaticResource BoolToVisible}}" />
+                                    </StackPanel>
+                                    <UniformGrid Columns="4" Margin="0,14,0,0">
+                                        <Border Margin="0,0,8,8" Style="{StaticResource CardBorder}" Padding="10">
+                                            <StackPanel>
+                                                <TextBlock Text="{loc:Loc Security.TotalLogins}" Style="{StaticResource SecondaryText}" />
+                                                <TextBlock Text="{Binding TotalLogins}" FontSize="20" FontWeight="SemiBold" Foreground="{DynamicResource Text.Primary}" />
                                             </StackPanel>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                            Visibility="{Binding HasNoResults, Converter={StaticResource BoolToVisible}}"
-                                            AutomationProperties.AutomationId="CenterEmpty">
-                                    <TextBlock Text="{loc:Loc Center.EmptyTitle}" Style="{StaticResource TitleText}"
-                                               HorizontalAlignment="Center" />
-                                    <TextBlock Text="{loc:Loc Center.EmptyText}" Style="{StaticResource SecondaryText}"
-                                               HorizontalAlignment="Center" Margin="0,8,0,0" />
+                                        </Border>
+                                        <Border Margin="0,0,8,8" Style="{StaticResource CardBorder}" Padding="10">
+                                            <StackPanel>
+                                                <TextBlock Text="{loc:Loc Security.Weak}" Style="{StaticResource SecondaryText}" />
+                                                <TextBlock Text="{Binding WeakCount}" FontSize="20" FontWeight="SemiBold" Foreground="{DynamicResource Danger}" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Margin="0,0,8,8" Style="{StaticResource CardBorder}" Padding="10">
+                                            <StackPanel>
+                                                <TextBlock Text="{loc:Loc Security.Reused}" Style="{StaticResource SecondaryText}" />
+                                                <TextBlock Text="{Binding ReusedCount}" FontSize="20" FontWeight="SemiBold" Foreground="{DynamicResource Warning}" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Style="{StaticResource CardBorder}" Padding="10">
+                                            <StackPanel>
+                                                <TextBlock Text="{loc:Loc Security.Expiring}" Style="{StaticResource SecondaryText}" />
+                                                <TextBlock Text="{Binding ExpiringCount}" FontSize="20" FontWeight="SemiBold" Foreground="{DynamicResource Warning}" />
+                                            </StackPanel>
+                                        </Border>
+                                    </UniformGrid>
+                                    <TextBlock Text="{loc:Loc Security.Findings}" Style="{StaticResource SectionHeader}" />
+                                    <ListBox ItemsSource="{Binding FindingsView}" MinHeight="120" MaxHeight="260"
+                                             Background="Transparent" BorderThickness="0"
+                                             AutomationProperties.AutomationId="FindingsList">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Button Content="{Binding ItemTitle, Mode=OneWay}" Style="{StaticResource IconButton}"
+                                                        HorizontalAlignment="Stretch" HorizontalContentAlignment="Right"
+                                                        Command="{Binding DataContext.OpenFindingItemCommand,
+                                                            RelativeSource={RelativeSource AncestorType=Window}}"
+                                                        CommandParameter="{Binding}">
+                                                    <Button.ToolTip>
+                                                        <TextBlock>
+                                                            <Run Text="{Binding Kind, Mode=OneWay}" />
+                                                            <Run Text="{Binding DetailKey, Mode=OneWay}" />
+                                                        </TextBlock>
+                                                    </Button.ToolTip>
+                                                </Button>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
                                 </StackPanel>
+
+                                <!-- Normal item list -->
+                                <Grid Visibility="{Binding SecuritySectionActive, Converter={StaticResource FalseToVisible}}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Border Grid.Row="0" BorderBrush="{DynamicResource Divider}" BorderThickness="0,0,0,1"
+                                        Padding="16,12">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox Style="{StaticResource SearchBoxStyle}"
+                                                 Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged, Delay=150}"
+                                                 AutomationProperties.AutomationId="SearchBox" />
+                                        <Button Grid.Column="1" Content="{loc:Loc Center.NewItem}"
+                                                Command="{Binding BeginCreateCommand}" Margin="10,0,0,0"
+                                                AutomationProperties.AutomationId="AddCredential" />
+                                    </Grid>
+                                </Border>
+                                <Grid Grid.Row="1">
+                                    <ListBox ItemsSource="{Binding RowsView}" SelectedItem="{Binding SelectedCredential}"
+                                             Background="Transparent" BorderThickness="0"
+                                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                             AutomationProperties.AutomationId="CredentialList">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Margin="8,8" AutomationProperties.AutomationId="CredentialRow">
+                                                    <TextBlock Text="{Binding Title}" FontSize="14" FontWeight="Medium"
+                                                               Foreground="{DynamicResource Text.Primary}"
+                                                               AutomationProperties.AutomationId="RowTitle" />
+                                                    <TextBlock Text="{Binding Subtitle}" FontSize="12"
+                                                               Foreground="{DynamicResource Text.Secondary}"
+                                                               AutomationProperties.AutomationId="RowUsername" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                Visibility="{Binding HasNoResults, Converter={StaticResource BoolToVisible}}"
+                                                AutomationProperties.AutomationId="CenterEmpty">
+                                        <TextBlock Text="{loc:Loc Center.EmptyTitle}" Style="{StaticResource TitleText}"
+                                                   HorizontalAlignment="Center" />
+                                        <TextBlock Text="{loc:Loc Center.EmptyText}" Style="{StaticResource SecondaryText}"
+                                                   HorizontalAlignment="Center" Margin="0,8,0,0" />
+                                    </StackPanel>
+                                </Grid>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Border>
@@ -517,6 +613,29 @@
                                         <Button Content="{loc:Loc Trash.Empty}" Style="{StaticResource IconButton}"
                                                 Command="{Binding EmptyTrashCommand}" Margin="10,0,0,0"
                                                 AutomationProperties.AutomationId="EmptyTrash" />
+                                    </StackPanel>
+
+                                    <!-- Phase 4: TOTP (login items) -->
+                                    <StackPanel Margin="0,14,0,0"
+                                                Visibility="{Binding TotpAvailable, Converter={StaticResource BoolToVisible}}"
+                                                AutomationProperties.AutomationId="TotpSection">
+                                        <TextBlock Text="{loc:Loc Totp.Title}" Style="{StaticResource SecondaryText}" />
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding TotpCode}" FontSize="22" FontWeight="SemiBold"
+                                                       FontFamily="Consolas" VerticalAlignment="Center"
+                                                       AutomationProperties.AutomationId="TotpCode" />
+                                            <TextBlock Margin="10,0,0,0" VerticalAlignment="Center"
+                                                       AutomationProperties.AutomationId="TotpSeconds"
+                                                       Style="{StaticResource SecondaryText}">
+                                                <Run Text="{Binding TotpSecondsRemaining, Mode=OneWay}" />
+                                                <Run Text="{loc:Loc Totp.Seconds}" />
+                                            </TextBlock>
+                                            <Button Content="{loc:Loc Details.CopyPassword}" Style="{StaticResource IconButton}"
+                                                    Command="{Binding CopyTotpCommand}" Margin="10,0,0,0"
+                                                    AutomationProperties.AutomationId="CopyTotp" />
+                                        </StackPanel>
+                                        <TextBlock Text="{loc:Loc Totp.FactorWarning}" Style="{StaticResource SecondaryText}"
+                                                   TextWrapping="Wrap" Margin="0,4,0,0" />
                                     </StackPanel>
 
                                     <!-- Phase 4: generic type-specific fields -->
@@ -754,6 +873,92 @@
                                 <Button Content="{loc:Loc Editor.Save}" Command="{Binding SaveEditorCommand}"
                                         IsDefault="True" Click="OnEditorSaveClick"
                                         AutomationProperties.AutomationId="EditorSave" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- Generator overlay (Phase 5) -->
+                <Grid Grid.RowSpan="3" Background="#88000000"
+                      Visibility="{Binding GeneratorVisible, Converter={StaticResource BoolToVisible}}">
+                    <Border MaxWidth="620" Style="{StaticResource CardBorder}" Padding="24"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            AutomationProperties.AutomationId="GeneratorPane">
+                        <StackPanel>
+                            <TextBlock Text="{loc:Loc Nav.Generator}" Style="{StaticResource TitleText}"
+                                       AutomationProperties.AutomationId="GeneratorTitle" />
+                            <StackPanel Orientation="Horizontal" Margin="0,12,0,4">
+                                <RadioButton Content="{loc:Loc Generator.Password}" IsChecked="{Binding PassphraseMode, Converter={StaticResource FalseToVisible}}"
+                                             GroupName="GenMode" Margin="0,0,16,0" />
+                                <RadioButton Content="{loc:Loc Generator.Passphrase}" IsChecked="{Binding PassphraseMode}"
+                                             GroupName="GenMode" />
+                            </StackPanel>
+
+                            <!-- Character mode -->
+                            <StackPanel Visibility="{Binding PassphraseMode, Converter={StaticResource FalseToVisible}}">
+                                <TextBlock AutomationProperties.AutomationId="GeneratorOutput"
+                                           Text="{Binding GeneratedPassword}" FontSize="18" FontWeight="SemiBold"
+                                           FontFamily="Consolas" TextWrapping="Wrap" Foreground="{DynamicResource Text.Primary}" />
+                                <TextBlock Style="{StaticResource SecondaryText}" Margin="0,4,0,0">
+                                    <Run Text="{Binding GeneratorEntropyText, Mode=OneWay}" />
+                                    <Run Text="bit" />
+                                </TextBlock>
+                                <TextBlock Text="طول" Style="{StaticResource SecondaryText}" Margin="0,10,0,0" />
+                                <Slider Minimum="8" Maximum="64" Value="{Binding GeneratorLength}"
+                                        IsSnapToTickEnabled="True" TickFrequency="1"
+                                        AutomationProperties.AutomationId="GeneratorLength" />
+                                <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                                    <CheckBox Content="a-z" IsChecked="{Binding GenLowercase}" Margin="0,0,12,0" />
+                                    <CheckBox Content="A-Z" IsChecked="{Binding GenUppercase}" Margin="0,0,12,0" />
+                                    <CheckBox Content="0-9" IsChecked="{Binding GenDigits}" Margin="0,0,12,0" />
+                                    <CheckBox Content="!@#" IsChecked="{Binding GenSymbols}" Margin="0,0,12,0" />
+                                    <CheckBox Content="{loc:Loc Generator.NoAmbiguous}" IsChecked="{Binding GenExcludeAmbiguous}" />
+                                </StackPanel>
+                                <TextBox Text="{Binding GenExcludedCharacters, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource SearchBoxStyle}" Margin="0,8,0,0" MaxLength="100"
+                                         AutomationProperties.AutomationId="GeneratorExcluded" />
+                            </StackPanel>
+
+                            <!-- Passphrase mode -->
+                            <StackPanel Visibility="{Binding PassphraseMode, Converter={StaticResource BoolToVisible}}">
+                                <TextBlock AutomationProperties.AutomationId="PassphraseOutput"
+                                           Text="{Binding GeneratedPassphrase}" FontSize="18" FontWeight="SemiBold"
+                                           FontFamily="Consolas" TextWrapping="Wrap" Foreground="{DynamicResource Text.Primary}" />
+                                <TextBlock Style="{StaticResource SecondaryText}" Margin="0,4,0,0">
+                                    <Run Text="{Binding PassphraseEntropyText, Mode=OneWay}" />
+                                    <Run Text="bit" />
+                                </TextBlock>
+                                <TextBlock Text="{loc:Loc Generator.Words}" Style="{StaticResource SecondaryText}" Margin="0,10,0,0" />
+                                <Slider Minimum="3" Maximum="12" Value="{Binding PassphraseWordCount}"
+                                        IsSnapToTickEnabled="True" TickFrequency="1"
+                                        AutomationProperties.AutomationId="PassphraseWords" />
+                                <TextBox Text="{Binding PassphraseSeparator, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource SearchBoxStyle}" MaxLength="3" Width="80"
+                                         HorizontalAlignment="Left" Margin="0,8,0,0"
+                                         AutomationProperties.AutomationId="PassphraseSeparator" />
+                                <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                                    <CheckBox Content="{loc:Loc Generator.Capitalize}" IsChecked="{Binding PassphraseCapitalize}"
+                                              Margin="0,0,16,0" />
+                                    <CheckBox Content="{loc:Loc Generator.NumberSuffix}" IsChecked="{Binding PassphraseNumber}" />
+                                </StackPanel>
+                            </StackPanel>
+
+                            <TextBlock Text="{Binding GeneratorStrengthText}" Foreground="{DynamicResource Warning}"
+                                       Style="{StaticResource SecondaryText}" Margin="0,8,0,0" />
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16,0,0">
+                                <Button Content="{loc:Loc Generator.Regenerate}" Style="{StaticResource IconButton}"
+                                        Command="{Binding GenerateNowCommand}" Margin="0,0,10,0"
+                                        AutomationProperties.AutomationId="Regenerate" />
+                                <Button Content="{loc:Loc Details.CopyPassword}" Style="{StaticResource IconButton}"
+                                        Command="{Binding CopyGeneratedPasswordCommand}" Margin="0,0,10,0"
+                                        AutomationProperties.AutomationId="CopyGenerated" />
+                                <Button Content="{loc:Loc Generator.UseInEditor}" Command="{Binding UseInEditorCommand}"
+                                        AutomationProperties.AutomationId="UseInEditor"
+                                        Visibility="{Binding GeneratorTargetIsEditor, Converter={StaticResource BoolToVisible}}" />
+                                <Button Content="{loc:Loc Picker.Cancel}" Style="{StaticResource IconButton}"
+                                        Command="{Binding CloseGeneratorCommand}" Margin="10,0,0,0"
+                                        AutomationProperties.AutomationId="CloseGenerator" />
                             </StackPanel>
                         </StackPanel>
                     </Border>

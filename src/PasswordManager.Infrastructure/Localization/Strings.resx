@@ -203,4 +203,42 @@
   <data name="Validation.FieldInvalidBoolean" xml:space="preserve"><value>مقدار بولی معتبر نیست.</value></data>
   <data name="Validation.ItemTrashed" xml:space="preserve"><value>این آیتم در سطل زباله است؛ ابتدا آن را بازیابی کنید.</value></data>
   <data name="Validation.AttachmentTooLarge" xml:space="preserve"><value>حجم پیوست بیش از حد مجاز است (۱۰۰ مگابایت).</value></data>
+  <data name="Generator.Password" xml:space="preserve"><value>رمز</value></data>
+  <data name="Generator.Passphrase" xml:space="preserve"><value>عبارت رمز</value></data>
+  <data name="Generator.NoAmbiguous" xml:space="preserve"><value>حذف نویسه‌های گیج‌کننده</value></data>
+  <data name="Generator.Words" xml:space="preserve"><value>تعداد کلمات</value></data>
+  <data name="Generator.Capitalize" xml:space="preserve"><value>حرف اول بزرگ</value></data>
+  <data name="Generator.NumberSuffix" xml:space="preserve"><value>افزودن عدد</value></data>
+  <data name="Generator.Regenerate" xml:space="preserve"><value>تولید دوباره</value></data>
+  <data name="Generator.UseInEditor" xml:space="preserve"><value>استفاده در آیتم</value></data>
+  <data name="Security.Score" xml:space="preserve"><value>امتیاز سلامت (راهنما، نه تضمین):</value></data>
+  <data name="Security.Refresh" xml:space="preserve"><value>بررسی مجدد</value></data>
+  <data name="Security.Working" xml:space="preserve"><value>در حال بررسی…</value></data>
+  <data name="Security.TotalLogins" xml:space="preserve"><value>ورودها</value></data>
+  <data name="Security.Weak" xml:space="preserve"><value>رمزهای ضعیف</value></data>
+  <data name="Security.Reused" xml:space="preserve"><value>رمزهای تکراری</value></data>
+  <data name="Security.Expiring" xml:space="preserve"><value>در حال انقضا</value></data>
+  <data name="Security.Findings" xml:space="preserve"><value>یافته‌ها</value></data>
+  <data name="Totp.Title" xml:space="preserve"><value>رمز یک‌بارمصم (TOTP)</value></data>
+  <data name="Totp.Seconds" xml:space="preserve"><value>ثانیه</value></data>
+  <data name="Totp.FactorWarning" xml:space="preserve"><value>توجه: نگهداری رمز عبور و کلید TOTP در یک آیتم، جداسازی عوامل احراز هویت را کاهش می‌دهد.</value></data>
+  <data name="Findings.WeakPassword" xml:space="preserve"><value>رمز عبور ضعیف است.</value></data>
+  <data name="Findings.ReusedPassword" xml:space="preserve"><value>این رمز در آیتم‌های دیگری هم استفاده شده است.</value></data>
+  <data name="Findings.EmptyPassword" xml:space="preserve"><value>رمز عبوری ذخیره نشده است.</value></data>
+  <data name="Findings.OldPassword" xml:space="preserve"><value>این رمز مدت زیادی تغییر نکرده است (صرفاً اطلاع‌رسانی).</value></data>
+  <data name="Findings.MissingAuthenticator" xml:space="preserve"><value>کلید احرازکننده‌ای ذخیره نشده است (لزوماً به معنای خاموش‌بودن ورود دومرحله‌ای نیست).</value></data>
+  <data name="Findings.DuplicateAccount" xml:space="preserve"><value>آیتم مشابهی وجود دارد؛ بازبینی کنید.</value></data>
+  <data name="Findings.ExpiringSoon" xml:space="preserve"><value>تاریخ انقضای این آیتم نزدیک است.</value></data>
+  <data name="Findings.Expired" xml:space="preserve"><value>تاریخ انقضای این آیتم گذشته است.</value></data>
+  <data name="Strength.Warn.Dictionary" xml:space="preserve"><value>شبیه کلمات رایج است؛ از عبارات پیش‌بینی‌پذیر پرهیز کنید.</value></data>
+  <data name="Strength.Warn.Sequence" xml:space="preserve"><value>شامل دنباله‌ای قابل حدس است.</value></data>
+  <data name="Strength.Warn.Repeat" xml:space="preserve"><value>شامل تکرار زیاد یک نویسه است.</value></data>
+  <data name="Strength.Warn.Date" xml:space="preserve"><value>شامل تاریخ یا سال قابل حدس است.</value></data>
+  <data name="Strength.Warn.Common" xml:space="preserve"><value>طول و تنوع بیشتری توصیه می‌شود.</value></data>
+  <data name="Strength.Suggestion.ImproveLength" xml:space="preserve"><value>طول بیشتری استفاده کنید.</value></data>
+  <data name="Validation.GeneratorLength" xml:space="preserve"><value>طول رمز در محدوده مجاز نیست.</value></data>
+  <data name="Validation.GeneratorNoClasses" xml:space="preserve"><value>حداقل یک دسته نویسه را انتخاب کنید.</value></data>
+  <data name="Validation.GeneratorImpossible" xml:space="preserve"><value>این ترکیب امکان‌پذیر نیست (طول/حداقل‌ها را اصلاح کنید).</value></data>
+  <data name="Validation.GeneratorEmptyClass" xml:space="preserve"><value>با این محدودیت‌ها، یک دسته نویسه خالی می‌ماند.</value></data>
+  <data name="Validation.GeneratorWordCount" xml:space="preserve"><value>تعداد کلمات باید ۳ تا ۱۲ باشد.</value></data>
 </root>

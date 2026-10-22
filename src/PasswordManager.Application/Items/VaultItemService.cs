@@ -444,6 +444,8 @@ public sealed class VaultItemService : IVaultItemService
 
     /// <summary>Converts JsonElement values back into plain strings / string lists so consumers
     /// never see serializer artifacts.</summary>
+    public void NormalizeForDisplay(Dictionary<string, object?> data) => NormalizeData(data);
+
     private static void NormalizeData(Dictionary<string, object?> data)
     {
         foreach (var key in data.Keys.ToList())

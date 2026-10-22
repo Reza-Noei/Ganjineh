@@ -2,7 +2,9 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using PasswordManager.Application.Abstractions;
 using PasswordManager.Application.Items;
+using PasswordManager.Application.Security;
 using PasswordManager.Application.Vaults;
+using PasswordManager.Cryptography.Generation;
 
 namespace PasswordManager.Desktop.ViewModels;
 
@@ -57,6 +59,11 @@ public sealed partial class AppViewModel : ObservableObject
         IFolderService folders,
         ITagService tags,
         IAttachmentService attachments,
+        IPasswordGenerator passwordGenerator,
+        IPassphraseGenerator passphraseGenerator,
+        IVaultSecurityAnalyzer analyzer,
+        IOtpApplicationService otp,
+        IPasswordStrengthEstimator estimator,
         IAppSettingsStore settings,
         ILocalizer localizer,
         IDialogService dialogs,
@@ -72,7 +79,9 @@ public sealed partial class AppViewModel : ObservableObject
         Create = new CreateVaultViewModel(lifecycle, localizer);
         Unlock = new UnlockViewModel(lifecycle, localizer);
         Workspace = new VaultWorkspaceViewModel(
-            lifecycle, sessions, items, folders, tags, attachments, clipboard, localizer);
+            lifecycle, sessions, items, folders, tags, attachments,
+            passwordGenerator, passphraseGenerator, analyzer, otp, estimator,
+            clipboard, localizer);
 
         Picker.CreateRequested += (_, _) => { Screen = AppScreen.CreateVault; };
         Picker.UnlockRequested += (_, row) =>

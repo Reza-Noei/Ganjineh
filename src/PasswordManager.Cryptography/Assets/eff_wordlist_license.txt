@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<!--
+
+   /\_____/\
+  /  o   o  \     E L E C T R O N I C
+ ( ==  ^  == )    F R O N T I E R
+  \_________/     F O U N D A T I O N
+
+-->
+  <!--[if IEMobile 7]><html class="no-js ie iem7" lang="en" dir="ltr"><![endif]-->
+  <!--[if lte IE 6]><html class="no-js ie lt-ie9 lt-ie8 lt-ie7" lang="en" dir="ltr"><![endif]-->
+  <!--[if (IE 7)&(!IEMobile)]><html class="no-js ie lt-ie9 lt-ie8" lang="en" dir="ltr"><![endif]-->
+  <!--[if IE 8]><html class="no-js ie lt-ie9" lang="en" dir="ltr"><![endif]-->
+  <!--[if (gte IE 9)|(gt IEMobile 7)]><html class="no-js ie" lang="en" dir="ltr" prefix="fb: http://ogp.me/ns/fb# og: http://ogp.me/ns#"><![endif]-->
+  <!--[if !IE]><!--><html class="no-js" lang="en" dir="ltr" prefix="fb: http://ogp.me/ns/fb# og: http://ogp.me/ns#"><!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+<link href="https://www.eff.org/copyright" rel="alternate" hreflang="en" />
+<link rel="shortcut icon" href="https://www.eff.org/sites/all/themes/frontier/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="profile" href="http://www.w3.org/1999/xhtml/vocab" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="MobileOptimized" content="width" />
+<meta http-equiv="cleartype" content="on" />
+<link rel="apple-touch-icon-precomposed" href="https://www.eff.org/sites/all/themes/phoenix/apple-touch-icon-precomposed.png" />
+<link rel="apple-touch-icon" href="https://www.eff.org/sites/all/themes/phoenix/apple-touch-icon.png" />
+<meta name="description" content="Creative Commons Any and all original material on the EFF website may be freely distributed at will under the Creative Commons Attribution 4.0 International License (CC-BY), unless otherwise noted. All material that is not original to EFF may require permission from the copyright holder to..." />
+<meta name="viewport" content="width=device-width" />
+<link rel="canonical" href="https://www.eff.org/copyright" />
+<link rel="shortlink" href="https://www.eff.org/node/58676" />
+<meta property="og:site_name" content="Electronic Frontier Foundation" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="EFF&#039;s Copyright Policy" />
+<meta property="og:url" content="https://www.eff.org/copyright" />
+<meta property="og:description" content="Creative Commons Any and all original material on the EFF website may be freely distributed at will under the Creative Commons Attribution 4.0 International License (CC-BY), unless otherwise noted. All material that is not original to EFF may require permission from the copyright holder to..." />
+<meta property="og:updated_time" content="2025-02-03T10:55:59-08:00" />
+<meta property="og:image" content="https://www.eff.org/files/banner_library/EFF-work-icons.png" />
+<meta property="og:image:url" content="https://www.eff.org/files/banner_library/EFF-work-icons.png" />
+<meta property="og:image:secure_url" content="https://www.eff.org/files/banner_library/EFF-work-icons.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:image:height" content="600" />
+<meta name="twitter:site" content="@eff" />
+<meta name="twitter:title" content="EFF&#039;s Copyright Policy" />
+<meta name="twitter:description" content="Creative Commons Any and all original material on the EFF website may be freely distributed at will under the Creative Commons Attribution 4.0 International License (CC-BY), unless otherwise noted." />
+<meta name="twitter:image" content="https://www.eff.org/files/banner_library/EFF-work-icons.png" />
+<meta name="twitter:image:width" content="1200" />
+<meta name="twitter:image:height" content="600" />
+<meta property="article:publisher" content="https://www.facebook.com/eff" />
+<meta property="article:published_time" content="2007-07-13T16:25:26-07:00" />
+<meta property="article:modified_time" content="2025-02-03T10:55:59-08:00" />
+<meta itemprop="name" content="EFF&#039;s Copyright Policy" />
+<meta itemprop="description" content="Creative Commons Any and all original material on the EFF website may be freely distributed at will under the Creative Commons Attribution 4.0 International License (CC-BY), unless otherwise noted. All material that is not original to EFF may require permission from the copyright holder to..." />
+<meta itemprop="image" content="https://www.eff.org/files/banner_library/EFF-work-icons.png" />
+<link rel="publisher" href="https://www.eff.org/" />
+  <title>EFF's Copyright Policy | Electronic Frontier Foundation</title>
+  <link type="text/css" rel="stylesheet" href="https://www.eff.org/files/css/css_ys5BgHL2TNyP6_lBf6AQ-QeeC9qTVIuIwGCz7AJJrJA.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://www.eff.org/files/css/css_V3McJKq84FPXUFuViKaKZOcc8gTSkV2_ZXfIfELkuN4.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://www.eff.org/files/css/css_u28Jt3rgsgh6QpftxZffpa9prCI6GNUvNRm5p_TOpMg.css" media="all" />
+  <script>/**
+ * @licstart The following is the entire license notice for the JavaScript
+ * code in this page.
+ *
+ * Copyright (C) 2026  Electronic Frontier Foundation.
+ *
+ * The JavaScript code in this page is free software: you can redistribute
+ * it and/or modify it under the terms of the GNU General Public License
+ * (GNU GPL) as published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.  The code is
+ * distributed WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU GPL
+ * for more details.
+ *
+ * As additional permission under GNU GPL version 3 section 7, you may
+ * distribute non-source (e.g., minimized or compacted) forms of that code
+ * without the copy of the GNU GPL normally required by section 4, provided
+ * you include this license notice and a URL through which recipients can
+ * access the Corresponding Source.
+ *
+ * @licend The above is the entire license notice for the JavaScript code
+ * in this page.
+ */
+</script>
+<script src="https://www.eff.org/files/js/js_qd8BaywA4mj4edyGLb52Px4-BwFqScI7dgPymNmaueA.js"></script>
+<script src="https://www.eff.org/files/js/js_x2A4oj9_rCj5CWR_dGMHrobZW14ZVI9ruZKCDG7yyfM.js"></script>
+<script src="https://www.eff.org/files/js/js_SN-M68YPimsxjKBGXXDOXuxvMRFy2qulwK9OXflHVZo.js"></script>
+<script src="https://www.eff.org/files/js/js_g7t6BFiX3T9qjjMlQee69jfHL0muKHZPePq_j6OMDUA.js"></script>
+<script src="https://www.eff.org/files/js/js_2FILAggDHS_2RhgL_aP_Rg7nb-x9ae4CETvszwpVGP8.js"></script>
+<script>jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","setHasJsCookie":0,"lightbox2":{"rtl":"0","file_path":"\/(\\w\\w\/)public:\/","default_image":"\/sites\/all\/modules\/contrib\/lightbox2\/images\/brokenimage.jpg","border_size":10,"font_color":"000","box_color":"fff","top_position":"","overlay_opacity":"0.8","overlay_color":"000","disable_close_click":1,"resize_sequence":0,"resize_speed":10,"fade_in_speed":300,"slide_down_speed":10,"use_alt_layout":1,"disable_resize":0,"disable_zoom":1,"force_show_nav":0,"show_caption":1,"loop_items":1,"node_link_text":"","node_link_target":0,"image_count":"","video_count":"","page_count":"","lite_press_x_close":"press \u003Ca href=\u0022#\u0022 onclick=\u0022hideLightbox(); return FALSE;\u0022\u003E\u003Ckbd\u003Ex\u003C\/kbd\u003E\u003C\/a\u003E to close","download_link_text":"","enable_login":false,"enable_contact":false,"keys_close":"c x 27","keys_previous":"p 37","keys_next":"n 39","keys_zoom":"z","keys_play_pause":"32","display_image_size":"original","image_node_sizes":"()","trigger_lightbox_classes":"","trigger_lightbox_group_classes":"","trigger_slideshow_classes":"","trigger_lightframe_classes":"","trigger_lightframe_group_classes":"","custom_class_handler":0,"custom_trigger_classes":"","disable_for_gallery_lists":true,"disable_for_acidfree_gallery_lists":true,"enable_acidfree_videos":true,"slideshow_interval":5000,"slideshow_automatic_start":true,"slideshow_automatic_exit":true,"show_play_pause":true,"pause_on_next_click":false,"pause_on_previous_click":true,"loop_slides":false,"iframe_width":600,"iframe_height":400,"iframe_border":1,"enable_video":0,"useragent":"Mozilla\/5.0 (Windows NT; Windows NT 10.0; zh-CN) WindowsPowerShell\/5.1.19041.2673"},"responsive_menus":[{"selectors":"#header-sls-menu","container":"body","trigger_txt":"\u003Cspan class=\u0022mean-burger\u0022 \/\u003E\u003Cspan class=\u0022mean-burger\u0022 \/\u003E\u003Cspan class=\u0022mean-burger\u0022 \/\u003E","close_txt":"X","close_size":"18px","position":"right","media_size":"480","show_children":"1","expand_children":"0","expand_txt":"+","contract_txt":"-","remove_attrs":"1","responsive_menus_style":"mean_menu"}],"urlIsAjaxTrusted":{"\/search\/site":true},"piwikNoscript":{"image":"\u003Cimg style=\u0022position: absolute\u0022 src=\u0022https:\/\/anon-stats.eff.org\/js\/?idsite=1\u0026amp;rec=1\u0026amp;url=https%3A\/\/www.eff.org\/copyright\u0026amp;action_name=\u0026amp;urlref=\u0026amp;dimension2=page\u0026amp;dimension3=58676\u0022 width=\u00220\u0022 height=\u00220\u0022 alt=\u0022\u0022 \/\u003E"}});</script>
+</head>
+<body class="html not-front not-logged-in page-node page-node- page-node-58676 node-type-page i18n-en section-copyright no-secondary-nav no-right-sidebar">
+  <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+    
+<div id="mobile-nav" class="navigation">
+  <div>
+    <div class="panel-pane pane-main-nav-menu">
+            <ul class="menu"><li class=""><a href="/about" title="">About</a><ul class="menu"><li class="first leaf"><a href="/about/contact">Contact</a></li>
+<li class="leaf"><a href="/press/contact">Press</a></li>
+<li class="leaf"><a href="/about/staff" title="Details and contact information for the EFF&#039;s staff">People</a></li>
+<li class="last leaf"><a href="/about/opportunities">Opportunities</a></li>
+</ul></li>
+<li class=""><a href="/work">Issues</a><ul class="menu"><li class="first leaf"><a href="/issues/free-speech">Free Speech</a></li>
+<li class="leaf"><a href="/issues/privacy">Privacy</a></li>
+<li class="leaf"><a href="/issues/innovation">Creativity and Innovation</a></li>
+<li class="leaf"><a href="/issues/transparency">Transparency</a></li>
+<li class="leaf"><a href="/issues/international">International</a></li>
+<li class="leaf"><a href="/issues/security">Security</a></li>
+<li class="last leaf"><a href="/issues/ai" title="AI">Artificial Intelligence</a></li>
+</ul></li>
+<li class=""><a href="/updates">Our Work</a><ul class="menu"><li class="first leaf"><a href="/deeplinks">Deeplinks Blog</a></li>
+<li class="leaf"><a href="/updates?type=press_release">Press Releases</a></li>
+<li class="leaf"><a href="https://www.eff.org/events/list?type=event&amp;type=event" title="">Events</a></li>
+<li class="leaf"><a href="/pages/legal-cases" title="">Legal Cases</a></li>
+<li class="leaf"><a href="/updates?type=whitepaper">Whitepapers</a></li>
+<li class="leaf"><a href="https://www.eff.org/pages/keep-digital-rights-eff-podcasts" title="">Podcasts</a></li>
+<li class="last leaf"><a href="https://www.eff.org/about/annual-reports-and-financials" title="">Annual Reports</a></li>
+</ul></li>
+<li class=""><a href="https://act.eff.org/">Take Action</a><ul class="menu"><li class="first leaf"><a href="https://act.eff.org/">Action Center</a></li>
+<li class="leaf"><a href="/about/opportunities/volunteer">Volunteer</a></li>
+<li class="last leaf"><a href="https://www.eff.org/pages/where-find-eff" title="">Follow EFF</a></li>
+</ul></li>
+<li class=""><a href="/pages/tools">Tools</a><ul class="menu"><li class="first leaf"><a href="https://www.eff.org/pages/privacy-badger" title="">Privacy Badger</a></li>
+<li class="leaf"><a href="https://www.eff.org/pages/surveillance-self-defense" title="">Surveillance Self-Defense</a></li>
+<li class="leaf"><a href="https://www.eff.org/pages/certbot" title="">Certbot</a></li>
+<li class="leaf"><a href="https://www.eff.org/pages/atlas-surveillance" title="">Atlas of Surveillance</a></li>
+<li class="leaf"><a href="https://www.eff.org/pages/cover-your-tracks" title="">Cover Your Tracks</a></li>
+<li class="leaf"><a href="https://sls.eff.org/" title="">Street Level Surveillance</a></li>
+<li class="last leaf"><a href="/pages/apkeep" title="">apkeep</a></li>
+</ul></li>
+<li class="leaf"><a href="https://shop.eff.org" title="">Shop</a></li>
+<li class=""><a href="https://supporters.eff.org/donate/join-eff-today" title="Donate to EFF">Donate</a><ul class="menu"><li class="first leaf"><a href="https://supporters.eff.org/donate/join-eff-today">Donate to EFF</a></li>
+<li class="leaf"><a href="https://shop.eff.org">Shop</a></li>
+<li class="leaf"><a href="/givingsociety" title="">Giving Societies</a></li>
+<li class="leaf"><a href="https://www.eff.org/thanks#organizational_members" title="">Sponsorships</a></li>
+<li class="leaf"><a href="https://www.eff.org/pages/other-ways-give-and-donor-support" title="">Other Ways to Give</a></li>
+<li class="last leaf"><a href="/pages/membership-faq" title="Frequently Asked Questions and other information about EFF Memberships.">Membership FAQ</a></li>
+</ul></li>
+</ul>    </div>
+  </div>
+  <hr/>
+  <div id="mobile-signup">
+    Email updates on news, actions,<br/>
+    and events in your area.
+  </div>
+  <div id="mobile-signup-button">
+    <a  href="https://eff.org/signup">Join EFF Lists</a>
+  </div>
+  <div id="mobile-footer-bottom">
+    <div class="panel-pane pane-block pane-menu-menu-footer-bottom">
+            <ul class="menu"><li class="first leaf active-trail"><a href="/copyright" class="active-trail active">Copyright (CC BY)</a></li>
+<li class="leaf"><a href="/pages/trademark-and-brand-usage-policy" title="Trademark and Brand Usage Policy">Trademark</a></li>
+<li class="leaf"><a href="/policy">Privacy Policy</a></li>
+<li class="last leaf"><a href="/thanks">Thanks</a></li>
+</ul>    </div>
+  </div>
+</div>
+
+<div id="masthead-mobile-wrapper">
+  <div id="masthead-mobile">
+    <div class="branding">
+      <div class="panel-pane pane-page-site-name">
+            <a href="/">Electronic Frontier Foundation</a>    </div>
+    </div>
+
+    <div class="hamburger"></div>
+
+    <div class="donate">
+      <a href="https://supporters.eff.org/donate/site-m--m">Donate</a>
+    </div>
+  </div>
+</div>
+
+<div class="donate-banner-wrapper" data-pane_id="donate-banner" data-banner_type="image">
+  <div class="donate-banner" >
+    <img src="/sites/all/themes/phoenix/images/logo-monogram-white.svg"><span>If you use technology, this fight is yours.</span><a href="https://supporters.eff.org/donate/join-4--wssn">Donate today</a>
+  </div>
+  <a class="close" title="Close"></a>
+</div>
+
+<div id="site_banner">
+  </div>
+
+<header id="header">
+  <div id="page">
+    <div id="masthead-wrapper">
+      <div id="masthead">
+        <div class="branding">
+          <div class="panel-pane pane-page-site-name">
+            <a href="/">Electronic Frontier Foundation</a>    </div>
+        </div>
+        <div id="main-menu-nav" class="navigation">
+          <div>
+            <div class="panel-pane pane-main-nav-menu">
+            <ul class="menu"><li class=""><a href="/about" title="">About</a><ul class="menu"><li class="first leaf"><a href="/about/contact">Contact</a></li>
+<li class="leaf"><a href="/press/contact">Press</a></li>
+<li class="leaf"><a href="/about/staff" title="Details and contact information for the EFF&#039;s staff">People</a></li>
+<li class="last leaf"><a href="/about/opportunities">Opportunities</a></li>
+</ul></li>
+<li class=""><a href="/work">Issues</a><ul class="menu"><li class="first leaf"><a href="/issues/free-speech">Free Speech</a></li>
+<li class="leaf"><a href="/issues/privacy">Privacy</a></li>
+<li class="leaf"><a href="/issues/innovation">Creativity and Innovation</a></li>
+<li class="leaf"><a href="/issues/transparency">Transparency</a></li>
+<li class="leaf"><a href="/issues/international">International</a></li>
+<li class="leaf"><a href="/issues/security">Security</a></li>
+<li class="last leaf"><a href="/issues/ai" title="AI">Artificial Intelligence</a></li>
+</ul></li>
+<li class=""><a href="/updates">Our Work</a><ul class="menu"><li class="first leaf"><a href="/deeplinks">Deeplinks Blog</a></li>
+<li class="leaf"><a href="/updates?type=press_release">Press Releases</a></li>
+<li class="leaf"><a href="https://www.eff.org/events/list?type=event&amp;type=event" title="">Events</a></li>
+<li class="leaf"><a href="/pages/legal-cases" title="">Legal Cases</a></li>
+<li class="leaf"><a href="/updates?type=whitepaper">Whitepapers</a></li>
+<li class="leaf"><a href="https://www.eff.org/pages/keep-digital-rights-eff-podcasts" title="">Podcasts</a></li>
+<li class="last leaf"><a href="https://www.eff.org/about/annual-reports-and-financials" title="">Annual Reports</a></li>
+</ul></li>
+<li class=""><a href="https://act.eff.org/">Take Action</a><ul class="menu"><li class="first leaf"><a href="https://act.eff.org/">Action Center</a></li>
+<li class="leaf"><a href="/about/opportunities/volunteer">Volunteer</a></li>
+<li class="last leaf"><a href="https://www.eff.org/pages/where-find-eff" title="">Follow EFF</a></li>
+</ul></li>
+<li class=""><a href="/pages/tools">Tools</a><ul class="menu"><li class="first leaf"><a href="https://www.eff.org/pages/privacy-badger" title="">Privacy Badger</a></li>
+<li class="leaf"><a href="https://www.eff.org/pages/surveillance-self-defense" title="">Surveillance Self-Defense</a></li>
+<li class="leaf"><a href="https://www.eff.org/pages/certbot" title="">Certbot</a></li>
+<li class="leaf"><a href="https://www.eff.org/pages/atlas-surveillance" title="">Atlas of Surveillance</a></li>
+<li class="leaf"><a href="https://www.eff.org/pages/cover-your-tracks" title="">Cover Your Tracks</a></li>
+<li class="leaf"><a href="https://sls.eff.org/" title="">Street Level Surveillance</a></li>
+<li class="last leaf"><a href="/pages/apkeep" title="">apkeep</a></li>
+</ul></li>
+<li class="leaf"><a href="https://shop.eff.org" title="">Shop</a></li>
+<li class=""><a href="https://supporters.eff.org/donate/join-eff-today" title="Donate to EFF">Donate</a><ul class="menu"><li class="first leaf"><a href="https://supporters.eff.org/donate/join-eff-today">Donate to EFF</a></li>
+<li class="leaf"><a href="https://shop.eff.org">Shop</a></li>
+<li class="leaf"><a href="/givingsociety" title="">Giving Societies</a></li>
+<li class="leaf"><a href="https://www.eff.org/thanks#organizational_members" title="">Sponsorships</a></li>
+<li class="leaf"><a href="https://www.eff.org/pages/other-ways-give-and-donor-support" title="">Other Ways to Give</a></li>
+<li class="last leaf"><a href="/pages/membership-faq" title="Frequently Asked Questions and other information about EFF Memberships.">Membership FAQ</a></li>
+</ul></li>
+</ul>    </div>
+          </div>
+          <div id="search-box">
+                      </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<noscript>
+  <div class="primary-nav-nojs">
+  </div>
+</noscript>
+
+<!-- See if there's anything above the banner -->
+  <div class="above-banner">
+    <div class="panel-pane pane-page-title">
+            <h1>EFF&#039;s Copyright Policy</h1>
+    </div>
+<div class="panel-pane pane-eff-content-type">
+            PAGE    </div>
+  </div>
+
+<!-- See if there's anything in the banner -->
+  <div class="banner-wrapper">
+    <div class="panel-pane pane-banner  column">
+            <div class="banner"><img src="https://www.eff.org/files/banner_library/EFF-work-icons.png" alt="" /></div>    </div>
+  </div>
+
+  <div id="main-content">
+    <div id="breadcrumb">
+          </div>
+
+          <div class="main-column">
+            <div class="panel-pane pane-page-title">
+            <h1>EFF&#039;s Copyright Policy</h1>
+    </div>
+<div class="panel-pane pane-page-content">
+            
+<div class="long-read">
+    <div class="onecol column content-wrapper">
+          </div>
+
+    <div class="onecol column content-banner">
+          </div>
+
+    <div class="onecol column content-wrapper">
+      <div class="column main-content">
+        <div class="panel-pane pane-node-content">
+            <article role="article" class="node node--page node--promoted node--full node--page--full">
+  
+  
+  <div class="node__content">
+    <div class="eff-translation-links"></div><div class="field field--name-body field--type-text-with-summary field--label-hidden"><div class="field__items"><div class="field__item even"><h2>Creative Commons</h2>
+<p><a rel="license" href="http://creativecommons.org/licenses/by/3.0/us/"><img src="/files/2020/01/17/cc88x31.png" alt="Creative Commons License" class="align-left" border="0" align="left" /></a> Any and all original material on the EFF website may be freely distributed at will under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License (CC-BY)</a>, unless otherwise noted. All material that is not original to EFF may require permission from the copyright holder to redistribute.</p>
+<p>You do NOT have to ask permission to post original EFF material on a mailing list or newsgroup, to use an EFF logo as a pointer to us on your web site, or to reprint an EFF statement in a newspaper article. <b>Permission to do such things is explicitly granted.</b> Please do <b>not</b> write to us asking for permission, as this wastes our time and yours.</p>
+<p>If you redistribute something you got from the EFF site, it is appreciated if you make it known where the file originated, so people can get more info or updated versions.</p>
+<h2><a id="notify"></a>Copyright Infringement Notification</h2>
+<p>If you believe there is content on the EFF website that violates copyright law, let us know. Specifically, send us an email or letter that includes substantially the following:</p>
+<p>A physical or electronic signature of a person authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.</p>
+<ul>
+<li>Identification of the copyrighted work claimed to have been infringed, or, if multiple copyrighted works at a single online site are covered by a single notification, a representative list of such works at that site.</li>
+<li>Identification of the material that is claimed to be infringing or to be the subject of infringing activity and that is to be removed or access to which is to be disabled, and information reasonably sufficient to permit the service provider to locate the material.</li>
+<li>Information reasonably sufficient to permit the service provider to contact the complaining party, such as an address, telephone number, and, if available, an electronic mail address at which the complaining party may be contacted.</li>
+<li>A statement that the complaining party has a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.</li>
+<li>A statement that the information in the notification is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.</li>
+</ul>
+<p>The notice should be sent to our designated agent, Corynne McSherry, via email (dmca-notice@eff.org) or fax (415-436-9993).</p>
+<p>We may display a copy of your DMCA notice in place of the removed content.</p>
+<p>Note: Under Section 512(f) of the DMCA, any person who knowingly materially misrepresents that material or activity is infringing may be subject to liability for damages. One company that sent an infringement notification seeking removal of online materials that were protected by the fair use doctrine was ordered to pay such costs and attorneys fees under this provision. See http://www.eff.org/cases/online-policy-group-v-diebold. In addition, “in order for a copyright owner to proceed under the DMCA with “a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law,” the owner must evaluate whether the material makes fair use of the copyright.” Lenz v. Universal, 572 F. Supp. 2d 1150, 1155 (2008)</p>
+<p>EFF reserves the right to review the allegedly infringing material and independently determine whether it is infringing.</p>
+<p>Please also note that the information provided in this legal notice will be forwarded to the person who provided the allegedly infringing content. A copy of this legal notice may also be sent (with your personal information removed) to a third-party that may publish and/or annotate it for noncommercial research and educational purposes.</p>
+<h2>Counter-Notification: What You Can Do If Your Content Was Removed</h2>
+<p>If you believe material you posted to EFF’s site was not infringing, you can submit a counter-notice. If you need assistance in determining whether the material was not infringing, please contact our Intake Coordinator (via email at info@eff.org), who may be able to help you find an independent attorney to evaluate your situation.</p>
+<p>A counter-notification must include the following:</p>
+<ul>
+<li>Identification of the specific URLs of material that EFF has removed or to which EFF has disabled access.</li>
+<li>Your full name, address, telephone number, and email address.</li>
+<li>The statement: "I consent to the jurisdiction of the Federal District Court for the district in which my address is located, or if my address is outside of the United States, the judicial district in which EFF is located, and will accept service of process from the claimant." EFF is located in the Northern District of California.</li>
+<li>The statement: "I swear, under penalty of perjury, that I have a good faith belief that the material was removed or disabled as a result of a mistake or misidentification of the material to be removed or disabled."</li>
+</ul>
+<p>A scanned physical signature or a valid electronic signature is fine.</p>
+<p>Please send your counter-notice to Corynne McSherry, via email (dmca-notice@eff.org) or fax (415-436-9993)</p>
+<p>Please note that under Section 512(f) of the Copyright Act, any person who knowingly materially misrepresents that material or activity was removed or disabled by mistake or misidentification may be subject to liability.</p>
+<p>After we receive your counter-notification, we will forward it to the party who submitted the original claim of copyright infringement. Please note that when we forward the counter-notification, it includes your personal information. If you are concerned about protecting your anonymity, please consult with an attorney about other options.</p>
+<p>After we send out the counter-notification, the claimant must then notify us within 10 business days that the claimant has filed an action seeking a court order to restrain you from engaging in infringing activity relating to the material on EFF’s site. If we receive such notification we will be unable to restore the material. If we do not receive such notification, generally we will reinstate the material.</p>
+<p>Please also be advised that in appropriate circumstances we terminate repeat infringers.</p>
+
+</div></div></div>  </div>
+
+          </article>
+    </div>
+      </div>
+
+      <div class="column side-content">
+              </div>
+    </div>
+
+    <div class="onecol column content-footer">
+          </div>
+
+</div>
+    </div>
+      </div>
+
+      <div class="clear-block"></div>
+
+    </div>
+    
+    <p class="faq-toc"><a href="#main-content">Back to top</a></p>
+
+  </div>
+
+
+  <div id="footer">
+    <div class="panel-pane pane-footer-logo">
+            <a href="https://www.eff.org"><img src="https://www.eff.org/sites/all/modules/custom/eff_library/images/eff-logo-1color-blue.svg" alt="EFF Home" /></a>    </div>
+<div class="panel-pane pane-menu-tree pane-menu-footer-social-links">
+          <h2 class="pane-title">Follow EFF:</h2>
+        <div class="menu-block-wrapper menu-block-ctools-menu-footer-social-links-1 menu-name-menu-footer-social-links parent-mlid-0 menu-level-1">
+  <ul class="menu"><li class="first leaf menu-mlid-16459"><a href="https://mastodon.social/@eff" title="" rel="me">mastodon</a></li>
+<li class="leaf menu-mlid-13409"><a href="https://www.facebook.com/eff" title="EFF on facebook">facebook</a></li>
+<li class="leaf menu-mlid-13410"><a href="https://www.instagram.com/efforg/" title="EFF on Instagram">instagram</a></li>
+<li class="leaf menu-mlid-16603"><a href="https://bsky.app/profile/eff.org" title="">Blue Sky</a></li>
+<li class="leaf menu-mlid-13411"><a href="https://www.youtube.com/efforg" title="EFF on YouTube">youtube</a></li>
+<li class="leaf menu-mlid-13412"><a href="https://www.flickr.com/photos/electronicfrontierfoundation">flicker</a></li>
+<li class="leaf menu-mlid-16445"><a href="https://www.linkedin.com/company/EFF" title="">linkedin</a></li>
+<li class="leaf menu-mlid-16460"><a href="https://www.tiktok.com/@efforg" title="">tiktok</a></li>
+<li class="last leaf menu-mlid-16475"><a href="https://www.threads.net/@efforg" title="">threads</a></li>
+</ul></div>
+    </div>
+<div class="panel-pane pane-custom pane-1">
+            <p>Check out our 4-star rating on <a href="https://www.charitynavigator.org/ein/043091431" target="_blank" rel="noopener noreferrer">Charity Navigator</a>.</p>
+
+    </div>
+<div class="panel-pane pane-block pane-menu-menu-contact-footer-menu">
+          <h2 class="pane-title">Contact</h2>
+        <ul class="menu"><li class="first leaf"><a href="/about/contact">General</a></li>
+<li class="leaf"><a href="/pages/legal-assistance">Legal</a></li>
+<li class="leaf"><a href="/security">Security</a></li>
+<li class="leaf"><a href="/about/contact">Membership</a></li>
+<li class="last leaf"><a href="/press/contact">Press</a></li>
+</ul>    </div>
+<div class="panel-pane pane-block pane-menu-menu-about-footer-menu">
+          <h2 class="pane-title">About</h2>
+        <ul class="menu"><li class="first leaf"><a href="/event" title="">Calendar</a></li>
+<li class="leaf"><a href="/about/opportunities/volunteer" title="">Volunteer</a></li>
+<li class="leaf"><a href="/victories" title="">Victories</a></li>
+<li class="leaf"><a href="/about/history" title="">History</a></li>
+<li class="leaf"><a href="/about/opportunities/interns" title="">Internships</a></li>
+<li class="leaf"><a href="https://www.paycomonline.net/v4/ats/web.php/jobs?clientkey=28620672D234BF368306CEB4A2746667" title="">Jobs</a></li>
+<li class="leaf"><a href="/about/staff" title="">Staff</a></li>
+<li class="last leaf"><a href="/pages/effs-diversity-statement" title="">Diversity &amp; Inclusion</a></li>
+</ul>    </div>
+<div class="panel-pane pane-block pane-menu-menu-footer-menu-issues">
+          <h2 class="pane-title">Issues</h2>
+        <ul class="menu"><li class="first leaf"><a href="/issues/free-speech">Free Speech</a></li>
+<li class="leaf"><a href="/issues/privacy">Privacy</a></li>
+<li class="leaf"><a href="/issues/innovation">Creativity &amp; Innovation</a></li>
+<li class="leaf"><a href="/issues/transparency">Transparency</a></li>
+<li class="leaf"><a href="/issues/international">International</a></li>
+<li class="last leaf"><a href="/issues/security">Security</a></li>
+</ul>    </div>
+<div class="panel-pane pane-block pane-menu-menu-footer-updates-menu">
+          <h2 class="pane-title">Updates</h2>
+        <ul class="menu"><li class="first leaf"><a href="https://www.eff.org/deeplinks?type=blog" title="">Blog</a></li>
+<li class="leaf"><a href="/updates?type=press_release">Press Releases</a></li>
+<li class="leaf"><a href="https://www.eff.org/updates?type=event&amp;type=event" title="">Events</a></li>
+<li class="leaf"><a href="https://www.eff.org/pages/legal-cases" title="">Legal Cases</a></li>
+<li class="leaf"><a href="/updates?type=whitepaper">Whitepapers</a></li>
+<li class="last leaf"><a href="https://www.eff.org/effector" title="">EFFector Newsletter</a></li>
+</ul>    </div>
+<div class="panel-pane pane-block pane-menu-menu-footer-press-menu">
+          <h2 class="pane-title">Press</h2>
+        <ul class="menu"><li class="first last leaf"><a href="/press/contact">Press Contact</a></li>
+</ul>    </div>
+<div class="panel-pane pane-block pane-menu-menu-footer-donate-menu">
+          <h2 class="pane-title">Donate</h2>
+        <ul class="menu"><li class="first leaf"><a href="https://supporters.eff.org/donate/donate-df" title="">Join or Renew Membership Online</a></li>
+<li class="leaf"><a href="https://supporters.eff.org/donate/donate-df" title="">One-Time Donation Online</a></li>
+<li class="leaf"><a href="/givingsociety" title="">Giving Societies</a></li>
+<li class="leaf"><a href="https://www.eff.org/thanks#organizational_members" title="">Corporate Giving and Sponsorship</a></li>
+<li class="leaf"><a href="https://shop.eff.org">Shop</a></li>
+<li class="last leaf"><a href="/helpout">Other Ways to Give</a></li>
+</ul>    </div>
+  </div>
+  <div id="footer-bottom">
+    <div class="panel-pane pane-block pane-menu-menu-footer-bottom">
+            <ul class="menu"><li class="first leaf active-trail"><a href="/copyright" class="active-trail active">Copyright (CC BY)</a></li>
+<li class="leaf"><a href="/pages/trademark-and-brand-usage-policy" title="Trademark and Brand Usage Policy">Trademark</a></li>
+<li class="leaf"><a href="/policy">Privacy Policy</a></li>
+<li class="last leaf"><a href="/thanks">Thanks</a></li>
+</ul>    </div>
+  </div>
+  <a href="/librejs/jslicense" rel="jslicense" style="display: none">JavaScript license information</a><div id="piwik-noscript"></div><noscript><img style="position: absolute" src="https://anon-stats.eff.org/js/?idsite=1&amp;rec=1&amp;url=https%3A//www.eff.org/copyright&amp;action_name=EFF%27s%20Copyright%20Policy%20%7C%20Electronic%20Frontier%20Foundation&amp;dimension2=page&amp;dimension3=58676" width="0" height="0" alt="" /></noscript>
+<script src="https://www.eff.org/files/js/js_lMrfy51aI91p2ZAdgpEs4r3pZi-E809QDyWJpbMpnTw.js"></script>
+</body>
+</html>

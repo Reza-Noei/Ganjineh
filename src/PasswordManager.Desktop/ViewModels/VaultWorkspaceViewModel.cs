@@ -6,7 +6,9 @@ using CommunityToolkit.Mvvm.Input;
 using PasswordManager.Application.Abstractions;
 using PasswordManager.Application.Credentials;
 using PasswordManager.Application.Items;
+using PasswordManager.Application.Security;
 using PasswordManager.Application.Vaults;
+using PasswordManager.Cryptography.Generation;
 using PasswordManager.Desktop.Services;
 using PasswordManager.Persistence.Items;
 using PasswordManager.Persistence.VaultHeader;
@@ -89,6 +91,11 @@ public sealed partial class VaultWorkspaceViewModel : ObservableObject
     private readonly IFolderService _folders;
     private readonly ITagService _tags;
     private readonly IAttachmentService _attachments;
+    private readonly IPasswordGenerator _passwordGenerator;
+    private readonly IPassphraseGenerator _passphraseGenerator;
+    private readonly IVaultSecurityAnalyzer _analyzer;
+    private readonly IOtpApplicationService _otp;
+    private readonly IPasswordStrengthEstimator _estimator;
     private readonly ClipboardService _clipboard;
     private readonly ILocalizer _localizer;
 
@@ -99,6 +106,11 @@ public sealed partial class VaultWorkspaceViewModel : ObservableObject
         IFolderService folders,
         ITagService tags,
         IAttachmentService attachments,
+        IPasswordGenerator passwordGenerator,
+        IPassphraseGenerator passphraseGenerator,
+        IVaultSecurityAnalyzer analyzer,
+        IOtpApplicationService otp,
+        IPasswordStrengthEstimator estimator,
         ClipboardService clipboard,
         ILocalizer localizer)
     {
@@ -108,6 +120,11 @@ public sealed partial class VaultWorkspaceViewModel : ObservableObject
         _folders = folders;
         _tags = tags;
         _attachments = attachments;
+        _passwordGenerator = passwordGenerator;
+        _passphraseGenerator = passphraseGenerator;
+        _analyzer = analyzer;
+        _otp = otp;
+        _estimator = estimator;
         _clipboard = clipboard;
         _localizer = localizer;
         _sessions.SessionChanged += OnSessionChanged;
@@ -382,6 +399,7 @@ public sealed partial class VaultWorkspaceViewModel : ObservableObject
             OnPropertyChanged(nameof(DetailNotesText));
             OnPropertyChanged(nameof(DetailDates));
             RebuildDetailRows();
+            RefreshTotp();
             Attachments.Clear();
             foreach (var attachment in await _attachments.ListAsync(Session, id))
             {
@@ -1049,6 +1067,12 @@ public sealed partial class VaultWorkspaceViewModel : ObservableObject
         SearchText = string.Empty;
         EditorVisible = false;
         DeleteConfirmVisible = false;
+        GeneratorVisible = false;
+        SecurityReport = null;
+        FindingsView.Clear();
+        FindingFilter = null;
+        TotpAvailable = false;
+        TotpCode = string.Empty;
         VaultDisplayName = string.Empty;
     }
 

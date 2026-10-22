@@ -197,4 +197,42 @@
   <data name="Validation.FieldInvalidBoolean" xml:space="preserve"><value>The field boolean is invalid.</value></data>
   <data name="Validation.ItemTrashed" xml:space="preserve"><value>This item is in the trash; restore it first.</value></data>
   <data name="Validation.AttachmentTooLarge" xml:space="preserve"><value>The attachment exceeds the 100 MB limit.</value></data>
+  <data name="Generator.Password" xml:space="preserve"><value>Password</value></data>
+  <data name="Generator.Passphrase" xml:space="preserve"><value>Passphrase</value></data>
+  <data name="Generator.NoAmbiguous" xml:space="preserve"><value>Avoid ambiguous</value></data>
+  <data name="Generator.Words" xml:space="preserve"><value>Word count</value></data>
+  <data name="Generator.Capitalize" xml:space="preserve"><value>Capitalize</value></data>
+  <data name="Generator.NumberSuffix" xml:space="preserve"><value>Append number</value></data>
+  <data name="Generator.Regenerate" xml:space="preserve"><value>Regenerate</value></data>
+  <data name="Generator.UseInEditor" xml:space="preserve"><value>Use in item</value></data>
+  <data name="Security.Score" xml:space="preserve"><value>Health score (guide, not a guarantee):</value></data>
+  <data name="Security.Refresh" xml:space="preserve"><value>Re-analyze</value></data>
+  <data name="Security.Working" xml:space="preserve"><value>Analyzing…</value></data>
+  <data name="Security.TotalLogins" xml:space="preserve"><value>Logins</value></data>
+  <data name="Security.Weak" xml:space="preserve"><value>Weak passwords</value></data>
+  <data name="Security.Reused" xml:space="preserve"><value>Reused passwords</value></data>
+  <data name="Security.Expiring" xml:space="preserve"><value>Expiring</value></data>
+  <data name="Security.Findings" xml:space="preserve"><value>Findings</value></data>
+  <data name="Totp.Title" xml:space="preserve"><value>One-time code (TOTP)</value></data>
+  <data name="Totp.Seconds" xml:space="preserve"><value>s</value></data>
+  <data name="Totp.FactorWarning" xml:space="preserve"><value>Note: storing a password and its TOTP seed in one item reduces factor separation.</value></data>
+  <data name="Findings.WeakPassword" xml:space="preserve"><value>The password is weak.</value></data>
+  <data name="Findings.ReusedPassword" xml:space="preserve"><value>This password is used by other items.</value></data>
+  <data name="Findings.EmptyPassword" xml:space="preserve"><value>No password is stored.</value></data>
+  <data name="Findings.OldPassword" xml:space="preserve"><value>This password has not changed in a long time (informational).</value></data>
+  <data name="Findings.MissingAuthenticator" xml:space="preserve"><value>No authenticator is stored (this does not mean 2FA is off).</value></data>
+  <data name="Findings.DuplicateAccount" xml:space="preserve"><value>A similar item exists; review it.</value></data>
+  <data name="Findings.ExpiringSoon" xml:space="preserve"><value>This item expires soon.</value></data>
+  <data name="Findings.Expired" xml:space="preserve"><value>This item has expired.</value></data>
+  <data name="Strength.Warn.Dictionary" xml:space="preserve"><value>Looks like common words; avoid predictable phrases.</value></data>
+  <data name="Strength.Warn.Sequence" xml:space="preserve"><value>Contains a guessable sequence.</value></data>
+  <data name="Strength.Warn.Repeat" xml:space="preserve"><value>Contains heavy repetition.</value></data>
+  <data name="Strength.Warn.Date" xml:space="preserve"><value>Contains a guessable date or year.</value></data>
+  <data name="Strength.Warn.Common" xml:space="preserve"><value>More length and variety recommended.</value></data>
+  <data name="Strength.Suggestion.ImproveLength" xml:space="preserve"><value>Use more characters.</value></data>
+  <data name="Validation.GeneratorLength" xml:space="preserve"><value>Password length is out of range.</value></data>
+  <data name="Validation.GeneratorNoClasses" xml:space="preserve"><value>Select at least one character class.</value></data>
+  <data name="Validation.GeneratorImpossible" xml:space="preserve"><value>This combination is impossible (adjust length/minimums).</value></data>
+  <data name="Validation.GeneratorEmptyClass" xml:space="preserve"><value>With these exclusions a character class is empty.</value></data>
+  <data name="Validation.GeneratorWordCount" xml:space="preserve"><value>Word count must be 3–12.</value></data>
 </root>
