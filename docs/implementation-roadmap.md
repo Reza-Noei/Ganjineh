@@ -104,3 +104,11 @@ the feature — no separate UI phase at the end.
   password-strength-estimation/totp-authenticator/hotp-authenticator/security-center/
   security-analysis-privacy. *Deferred by design:* QR-image import, Persian passphrase wordlist,
   HOTP item UI; backup/restore + import/export (Phase 6).
+- **2026-10-22 — Phase 8 (adversarial review) complete.** Adversarial integration tests (header
+  bit-flip fuzz 2000 cases, at-rest sentinel scan, chunk tag tamper, backup entry traversal,
+  KDF resource exhaustion, nonce uniqueness 10 k, cross-vault selective restore, stale-session
+  operations). Four defects found and fixed during Phase 6 hardening (F-01–F-04 in
+  security-findings.md). Security findings register, final threat model, cryptographic audit,
+  memory security audit, supply chain audit, penetration test report, residual risk assessment,
+  and release readiness assessment (Conditional Go) produced. See docs/security/* and
+  docs/phase-8-test-results.md.
