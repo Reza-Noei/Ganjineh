@@ -92,3 +92,15 @@ the feature — no separate UI phase at the end.
   attachment-encryption/advanced-search. *Deferred by design:* TOTP, generator, security center
   (Phase 5); reusable custom-item templates and history diffing UI (later); backup/import
   (Phase 6).
+- **2026-10-22 — Phase 5 complete.** CSPRNG password generator (rejection sampling, unbiased
+  Fisher–Yates, presets/constraints/exclusions, statistical distribution test), EFF-large-
+  wordlist passphrase generator (integrity-checked, CC BY), zxcvbn-core strength estimator with
+  Persian feedback mapping, RFC 4226/6238 HOTP/TOTP engine (all Appendix B/D vectors green) with
+  encrypted per-item TOTP config, otpauth import, live codes UI with countdown, and the offline
+  Security Center (weak/reused/empty/old/missing-TOTP/duplicate/expiring findings with
+  documented severities, session-bound analysis, Persian RTL dashboard). **Tests: 195/195 green**
+  (Cryptography 104 incl. all RFC vectors + generator statistics, Integration 72 incl. 19
+  Phase 5). Docs: docs/phase-5-*.md + password-generator/passphrase-generator/
+  password-strength-estimation/totp-authenticator/hotp-authenticator/security-center/
+  security-analysis-privacy. *Deferred by design:* QR-image import, Persian passphrase wordlist,
+  HOTP item UI; backup/restore + import/export (Phase 6).
