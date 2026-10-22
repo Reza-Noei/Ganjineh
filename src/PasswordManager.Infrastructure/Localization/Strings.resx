@@ -42,4 +42,88 @@
   <data name="Error.Storage" xml:space="preserve"><value>خطای ذخیره‌سازی رخ داد.</value></data>
   <data name="Error.Policy" xml:space="preserve"><value>این عملیات مجاز نیست.</value></data>
   <data name="Error.Unexpected" xml:space="preserve"><value>خطای غیرمنتظره‌ای رخ داد.</value></data>
+  <!-- Phase 3: vault picker -->
+  <data name="Picker.Title" xml:space="preserve"><value>گاوصندوق‌های شما</value></data>
+  <data name="Picker.CreateVault" xml:space="preserve"><value>ساخت گاوصندوق جدید</value></data>
+  <data name="Picker.OpenExisting" xml:space="preserve"><value>بازکردن گاوصندوق موجود</value></data>
+  <data name="Picker.RemoveFromList" xml:space="preserve"><value>حذف از فهرست</value></data>
+  <data name="Picker.DeleteVault" xml:space="preserve"><value>حذف کامل گاوصندوق</value></data>
+  <data name="Picker.Unlock" xml:space="preserve"><value>بازکردن</value></data>
+  <data name="Picker.NoVaults" xml:space="preserve"><value>هنوز گاوصندوقی ثبت نشده است.</value></data>
+  <data name="Picker.LastOpened" xml:space="preserve"><value>آخرین بازکردن:</value></data>
+  <data name="Picker.ConfirmRemoveTitle" xml:space="preserve"><value>حذف از فهرست؟</value></data>
+  <data name="Picker.ConfirmRemoveText" xml:space="preserve"><value>گاوصندوق از فهرست حذف می‌شود اما فایل‌های آن روی دیسک باقی می‌مانند.</value></data>
+  <data name="Picker.ConfirmDeleteTitle" xml:space="preserve"><value>حذف کامل گاوصندوق؟</value></data>
+  <data name="Picker.ConfirmDeleteText" xml:space="preserve"><value>همه فایل‌های این گاوصندوق برای همیشه حذف می‌شوند و این عمل بازگشت‌پذیر نیست. توجه: حذف، پاک‌سازی امن از حافظه SSD را تضمین نمی‌کند.</value></data>
+  <data name="Picker.Yes" xml:space="preserve"><value>بله، حذف کن</value></data>
+  <data name="Picker.Cancel" xml:space="preserve"><value>انصراف</value></data>
+  <data name="Picker.Confirm" xml:space="preserve"><value>تأیید</value></data>
+  <!-- Phase 3: create vault -->
+  <data name="Create.Title" xml:space="preserve"><value>ساخت گاوصندوق جدید</value></data>
+  <data name="Create.NameLabel" xml:space="preserve"><value>نام گاوصندوق</value></data>
+  <data name="Create.NameHint" xml:space="preserve"><value>نام به‌صورت رمزنگاری‌شده داخل خود گاوصندوق ذخیره می‌شود.</value></data>
+  <data name="Create.LocationLabel" xml:space="preserve"><value>محل ذخیره‌سازی</value></data>
+  <data name="Create.Browse" xml:space="preserve"><value>انتخاب پوشه…</value></data>
+  <data name="Create.PasswordLabel" xml:space="preserve"><value>رمز عبور اصلی</value></data>
+  <data name="Create.ConfirmPasswordLabel" xml:space="preserve"><value>تکرار رمز عبور</value></data>
+  <data name="Create.PasswordMismatch" xml:space="preserve"><value>رمزهای عبور یکسان نیستند.</value></data>
+  <data name="Create.Next" xml:space="preserve"><value>ساخت گاوصندوق</value></data>
+  <data name="Create.Working" xml:space="preserve"><value>در حال ساخت گاوصندوق…</value></data>
+  <data name="Create.RecoveryTitle" xml:space="preserve"><value>کلید بازیابی شما</value></data>
+  <data name="Create.RecoveryExplain" xml:space="preserve"><value>این کلید را جایی امن ذخیره کنید (چاپ کنید یا در جای دیگری نگه دارید). اگر رمز عبور اصلی را فراموش کنید، تنها راه بازکردن گاوصندوق همین کلید است. هر کس این کلید را داشته باشد به گاوصندوق دسترسی کامل دارد. پس از تأیید، این کلید دیگر هرگز نمایش داده نمی‌شود.</value></data>
+  <data name="Create.RecoveryCopy" xml:space="preserve"><value>کپی کلید</value></data>
+  <data name="Create.RecoveryChallenge" xml:space="preserve"><value>برای تأیید اینکه کلید را ذخیره کرده‌اید، گروه {0} از کلید را وارد کنید:</value></data>
+  <data name="Create.RecoveryChallengeMismatch" xml:space="preserve"><value>گروه وارد‌شده درست نیست.</value></data>
+  <data name="Create.RecoveryConfirm" xml:space="preserve"><value>ذخیره کردم — گاوصندوق را باز کن</value></data>
+  <data name="Create.Back" xml:space="preserve"><value>بازگشت</value></data>
+  <!-- Phase 3: unlock -->
+  <data name="Unlock.Unlock" xml:space="preserve"><value>بازکردن گاوصندوق</value></data>
+  <data name="Unlock.Working" xml:space="preserve"><value>در حال بازکردن… (این تأخیر امنیتی عمدی است)</value></data>
+  <data name="Unlock.WrongPassword" xml:space="preserve"><value>رمز عبور اشتباه است یا گاوصندوق دستکاری شده است.</value></data>
+  <data name="Unlock.UseRecovery" xml:space="preserve"><value>بازکردن با کلید بازیابی</value></data>
+  <data name="Unlock.UsePassword" xml:space="preserve"><value>بازکردن با رمز عبور اصلی</value></data>
+  <data name="Unlock.RecoveryLabel" xml:space="preserve"><value>کلید بازیابی</value></data>
+  <data name="Unlock.ShowPassword" xml:space="preserve"><value>نمایش رمز</value></data>
+  <data name="Unlock.HidePassword" xml:space="preserve"><value>پنهان‌کردن رمز</value></data>
+  <data name="Unlock.Back" xml:space="preserve"><value>بازگشت به فهرست گاوصندوق‌ها</value></data>
+  <!-- Phase 3: details / editor / status -->
+  <data name="Details.Username" xml:space="preserve"><value>نام کاربری</value></data>
+  <data name="Details.Password" xml:space="preserve"><value>رمز عبور</value></data>
+  <data name="Details.Website" xml:space="preserve"><value>وب‌سایت</value></data>
+  <data name="Details.Notes" xml:space="preserve"><value>یادداشت‌ها</value></data>
+  <data name="Details.CopyUsername" xml:space="preserve"><value>کپی نام کاربری</value></data>
+  <data name="Details.CopyPassword" xml:space="preserve"><value>کپی رمز عبور</value></data>
+  <data name="Details.Reveal" xml:space="preserve"><value>نمایش</value></data>
+  <data name="Details.Hide" xml:space="preserve"><value>پنهان</value></data>
+  <data name="Details.Edit" xml:space="preserve"><value>ویرایش</value></data>
+  <data name="Details.Delete" xml:space="preserve"><value>حذف</value></data>
+  <data name="Details.Created" xml:space="preserve"><value>ایجاد:</value></data>
+  <data name="Details.Modified" xml:space="preserve"><value>آخرین تغییر:</value></data>
+  <data name="Details.OpenSite" xml:space="preserve"><value>بازکردن وب‌سایت</value></data>
+  <data name="Editor.Save" xml:space="preserve"><value>ذخیره</value></data>
+  <data name="Editor.Cancel" xml:space="preserve"><value>انصراف</value></data>
+  <data name="Editor.NewItemTitle" xml:space="preserve"><value>آیتم جدید</value></data>
+  <data name="Editor.EditItemTitle" xml:space="preserve"><value>ویرایش آیتم</value></data>
+  <data name="Editor.PasswordKeep" xml:space="preserve"><value>رمز عبور جدید (برای حفظ رمز قبلی خالی بگذارید)</value></data>
+  <data name="Confirm.DeleteTitle" xml:space="preserve"><value>حذف آیتم؟</value></data>
+  <data name="Confirm.DeleteText" xml:space="preserve"><value>این آیتم برای همیشه حذف می‌شود.</value></data>
+  <data name="Status.CopiedUsername" xml:space="preserve"><value>نام کاربری کپی شد — به‌زودی پاک می‌شود.</value></data>
+  <data name="Status.CopiedPassword" xml:space="preserve"><value>رمز کپی شد — کلیپ‌بورد به‌زودی پاک می‌شود.</value></data>
+  <data name="Status.ClipboardCleared" xml:space="preserve"><value>کلیپ‌بورد پاک شد.</value></data>
+  <data name="Status.ClipboardFailed" xml:space="preserve"><value>دسترسی به کلیپ‌بورد ممکن نشد.</value></data>
+  <data name="Warning.ClipboardHistory" xml:space="preserve"><value>توجه: تاریخچه کلیپ‌بورد ویندوز (Win+V) ممکن است محتوای کپی‌شده را نگه دارد.</value></data>
+  <data name="Validation.PasswordRequired" xml:space="preserve"><value>رمز عبور الزامی است.</value></data>
+  <data name="Validation.RecoveryRequired" xml:space="preserve"><value>کلید بازیابی را وارد کنید.</value></data>
+  <data name="Validation.RecoveryInvalid" xml:space="preserve"><value>قالب کلید بازیابی درست نیست.</value></data>
+  <data name="Validation.TitleTooLong" xml:space="preserve"><value>عنوان بیش از حد طولانی است.</value></data>
+  <data name="Validation.UsernameTooLong" xml:space="preserve"><value>نام کاربری بیش از حد طولانی است.</value></data>
+  <data name="Validation.PasswordTooLong" xml:space="preserve"><value>رمز عبور بیش از حد طولانی است.</value></data>
+  <data name="Validation.UrlTooLong" xml:space="preserve"><value>آدرس وب‌سایت بیش از حد طولانی است.</value></data>
+  <data name="Validation.NotesTooLong" xml:space="preserve"><value>یادداشت‌ها بیش از حد طولانی هستند.</value></data>
+  <data name="Error.VaultMissing" xml:space="preserve"><value>فایل گاوصندوق پیدا نشد.</value></data>
+  <data name="Error.UnsupportedFormat" xml:space="preserve"><value>این گاوصندوق با نسخه جدیدتری از برنامه ساخته شده است.</value></data>
+  <data name="Error.OpenUrl" xml:space="preserve"><value>بازکردن مرورگر ممکن نشد.</value></data>
+  <data name="Error.UnsafeUrl" xml:space="preserve"><value>آدرس وب‌سایت معتبر نیست.</value></data>
+  <data name="Main.LockVault" xml:space="preserve"><value>قفل گاوصندوق</value></data>
+  <data name="Main.SwitchVault" xml:space="preserve"><value>تغییر گاوصندوق</value></data>
 </root>

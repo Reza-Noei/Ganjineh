@@ -11,10 +11,11 @@ namespace PasswordManager.Persistence.Registry;
 /// </summary>
 public sealed class VaultRegistry
 {
-    private sealed record RegistryEntry(
+    public sealed record RegistryEntry(
         string VaultId,
         string Path,
-        DateTimeOffset LastOpenedAt,
+        string? LocalLabel,
+        DateTimeOffset? LastOpenedAt,
         ulong LastHeaderCounter);
 
     private sealed record RegistryFile(int Version, List<RegistryEntry> Vaults);
@@ -33,7 +34,35 @@ public sealed class VaultRegistry
     public ulong GetHeaderCounterHighWater(string vaultId) =>
         Find(vaultId)?.LastHeaderCounter ?? 0;
 
-    public void RecordOpen(string vaultId, string path, ulong headerCounter)
+    public string? GetPath(string vaultId) => Find(vaultId)?.Path;
+
+    public IReadOnlyList<RegistryEntry> List() => _state.Vaults.ToList();
+
+    public void Remove(string vaultId)
+    {
+        var entry = Find(vaultId);
+        if (entry is not null)
+        {
+            _state.Vaults.Remove(entry);
+            Save();
+        }
+    }
+
+    public void SetLabel(string vaultId, string? label)
+    {
+        var entry = Find(vaultId);
+        if (entry is null)
+        {
+            return;
+        }
+
+        _state.Vaults.Remove(entry);
+        _state.Vaults.Add(entry with { LocalLabel = string.IsNullOrWhiteSpace(label) ? null : label.Trim() });
+        Save();
+    }
+
+    /// <summary>Optional user-facing label; plain text by explicit design (this device only).</summary>
+    public void RecordOpen(string vaultId, string path, ulong headerCounter, string? localLabel = null)
     {
         var entry = Find(vaultId);
         if (entry is not null)
@@ -44,6 +73,7 @@ public sealed class VaultRegistry
         _state.Vaults.Add(new RegistryEntry(
             vaultId,
             path,
+            localLabel ?? entry?.LocalLabel,
             DateTimeOffset.UtcNow,
             Math.Max(headerCounter, entry?.LastHeaderCounter ?? 0)));
         Save();

@@ -2,8 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:loc="clr-namespace:PasswordManager.Desktop.Localization"
+        xmlns:vm="clr-namespace:PasswordManager.Desktop.ViewModels"
         Title="{loc:Loc App.Title}"
-        Width="1180" Height="760" MinWidth="980" MinHeight="600"
+        Width="1180" Height="780" MinWidth="980" MinHeight="640"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource Bg.Base}"
         FontFamily="{StaticResource App.FontFamily}"
@@ -12,166 +13,526 @@
 
     <Window.Resources>
         <!-- The shell is authored RTL-first: the FIRST grid column paints on the RIGHT. -->
-        <Style x:Key="NavHeader" TargetType="TextBlock" BasedOn="{StaticResource SectionHeader}" />
-    </Window.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="52" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="26" />
-        </Grid.RowDefinitions>
+        <!-- ═══════════════ Vault picker ═══════════════ -->
+        <DataTemplate DataType="{x:Type vm:VaultPickerViewModel}">
+            <Grid Margin="40">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="{loc:Loc Picker.Title}" FontSize="28" FontWeight="SemiBold"
+                           Foreground="{DynamicResource Text.Primary}" Margin="0,0,0,20" />
 
-        <!-- Top bar -->
-        <Border Grid.Row="0" Background="{DynamicResource Bg.Card}" BorderBrush="{DynamicResource Divider}"
-                BorderThickness="0,0,0,1">
-            <Grid Margin="14,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+                <Border Grid.Row="1" Style="{StaticResource CardBorder}" Padding="8"
+                        AutomationProperties.AutomationId="PickerList">
+                    <Grid>
+                        <ListBox ItemsSource="{Binding Vaults}" SelectedItem="{Binding SelectedVault}"
+                                 Background="Transparent" BorderThickness="0"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                 AutomationProperties.AutomationId="VaultList">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="8,10" AutomationProperties.AutomationId="VaultRow">
+                                        <TextBlock Text="{Binding DisplayName}" FontSize="16" FontWeight="Medium"
+                                                   Foreground="{DynamicResource Text.Primary}" />
+                                        <TextBlock Text="{Binding Path}" FontSize="11" TextTrimming="CharacterEllipsis"
+                                                   Foreground="{DynamicResource Text.Secondary}" />
+                                        <TextBlock FontSize="11" Foreground="{DynamicResource Text.Secondary}">
+                                            <Run Text="{loc:Loc Picker.LastOpened}" />
+                                            <Run Text="{Binding LastOpenedAt, TargetNullValue=—}" />
+                                        </TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <TextBlock Text="{loc:Loc Picker.NoVaults}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Style="{StaticResource SecondaryText}"
+                                   Visibility="{Binding Vaults.Count, Converter={StaticResource ZeroToVisible}}" />
+                    </Grid>
+                </Border>
 
-                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                    <Border Width="26" Height="26" CornerRadius="6" Background="{DynamicResource Accent}"
-                            VerticalAlignment="Center">
-                        <TextBlock Text="گ" Foreground="#FFFFFF" FontWeight="SemiBold" FontSize="14"
-                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Border>
-                    <TextBlock Text="{loc:Loc Top.VaultPlaceholder}" Style="{StaticResource SubtitleText}"
-                               Margin="10,0,0,0" VerticalAlignment="Center" />
-                </StackPanel>
-
-                <Grid Grid.Column="1" MaxWidth="520" VerticalAlignment="Center" Margin="18,0">
-                    <TextBox x:Name="SearchBox" Style="{StaticResource SearchBoxStyle}"
-                             AutomationProperties.AutomationId="SearchBox" />
-                    <TextBlock Text="{loc:Loc Search.Placeholder}"
-                               Margin="12,0,0,0" VerticalAlignment="Center" IsHitTestVisible="False"
-                               AutomationProperties.AutomationId="SearchPlaceholder">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource SecondaryText}">
-                                <Setter Property="Visibility" Value="Collapsed" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
-                                        <Setter Property="Visibility" Value="Visible" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                </Grid>
-
-                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
-                    <Button AutomationProperties.AutomationId="LanguageToggle"
-                            Command="{Binding ToggleLanguageCommand}"
-                            ToolTip="{loc:Loc Top.ToggleLanguage}"
-                            Style="{StaticResource IconButton}"
-                            Content="{Binding LanguageButtonLabel}" />
-                    <Button AutomationProperties.AutomationId="ThemeToggle"
-                            Command="{Binding ToggleThemeCommand}"
-                            ToolTip="{loc:Loc Top.ToggleTheme}"
-                            Style="{StaticResource IconButton}"
-                            Content="{Binding ThemeGlyph}" />
-                    <Button AutomationProperties.AutomationId="LockButton"
-                            Command="{Binding LockCommand}"
-                            ToolTip="{loc:Loc Top.Lock}"
-                            Style="{StaticResource IconButton}"
-                            Content="{loc:Loc Top.Lock}" />
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                    <Button Content="{loc:Loc Picker.CreateVault}" Command="{Binding CreateCommand}"
+                            AutomationProperties.AutomationId="PickerCreate" Margin="0,0,10,0" />
+                    <Button Content="{loc:Loc Picker.OpenExisting}" Command="{Binding OpenExistingCommand}"
+                            AutomationProperties.AutomationId="PickerOpenExisting" Style="{StaticResource IconButton}"
+                            Foreground="{DynamicResource Accent}" Margin="0,0,10,0" />
+                    <Button Content="{loc:Loc Picker.RemoveFromList}" Command="{Binding RemoveFromListCommand}"
+                            AutomationProperties.AutomationId="PickerRemove" Style="{StaticResource IconButton}"
+                            Margin="0,0,10,0" />
+                    <Button Content="{loc:Loc Picker.Unlock}" Command="{Binding UnlockCommand}"
+                            AutomationProperties.AutomationId="PickerUnlock" IsDefault="True" />
                 </StackPanel>
             </Grid>
-        </Border>
+        </DataTemplate>
 
-        <!-- Three-column shell: nav (right) / list (center) / details (left) in RTL. -->
-        <Grid Grid.Row="1" Margin="0,10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="240" />
-                <ColumnDefinition Width="*" MinWidth="320" />
-                <ColumnDefinition Width="380" />
-            </Grid.ColumnDefinitions>
+        <!-- ═══════════════ Create vault wizard ═══════════════ -->
+        <DataTemplate DataType="{x:Type vm:CreateVaultViewModel}">
+            <Grid MaxWidth="640" Margin="40" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-            <!-- Navigation -->
-            <Border Grid.Column="0" Margin="10,0,0,10" Style="{StaticResource CardBorder}">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel>
-                        <TextBlock Text="{loc:Loc Nav.Section.Vault}" Style="{StaticResource NavHeader}" />
-                        <Button AutomationProperties.AutomationId="Nav.AllItems" Content="{loc:Loc Nav.AllItems}"
-                                Style="{StaticResource NavItemButton}" Command="{Binding SelectSectionCommand}"
-                                CommandParameter="AllItems" />
-                        <Button AutomationProperties.AutomationId="Nav.Favorites" Content="{loc:Loc Nav.Favorites}"
-                                Style="{StaticResource NavItemButton}" Command="{Binding SelectSectionCommand}"
-                                CommandParameter="Favorites" />
-                        <Button AutomationProperties.AutomationId="Nav.Folders" Content="{loc:Loc Nav.Folders}"
-                                Style="{StaticResource NavItemButton}" Command="{Binding SelectSectionCommand}"
-                                CommandParameter="Folders" />
-                        <Button AutomationProperties.AutomationId="Nav.Tags" Content="{loc:Loc Nav.Tags}"
-                                Style="{StaticResource NavItemButton}" Command="{Binding SelectSectionCommand}"
-                                CommandParameter="Tags" />
-                        <Button AutomationProperties.AutomationId="Nav.Trash" Content="{loc:Loc Nav.Trash}"
-                                Style="{StaticResource NavItemButton}" Command="{Binding SelectSectionCommand}"
-                                CommandParameter="Trash" />
-                        <TextBlock Text="{loc:Loc Nav.Section.Tools}" Style="{StaticResource NavHeader}" />
-                        <Button AutomationProperties.AutomationId="Nav.Generator" Content="{loc:Loc Nav.Generator}"
-                                Style="{StaticResource NavItemButton}" Command="{Binding SelectSectionCommand}"
-                                CommandParameter="Generator" />
-                        <Button AutomationProperties.AutomationId="Nav.SecurityCenter"
-                                Content="{loc:Loc Nav.SecurityCenter}" Style="{StaticResource NavItemButton}"
-                                Command="{Binding SelectSectionCommand}" CommandParameter="SecurityCenter" />
-                        <Button AutomationProperties.AutomationId="Nav.Backup" Content="{loc:Loc Nav.Backup}"
-                                Style="{StaticResource NavItemButton}" Command="{Binding SelectSectionCommand}"
-                                CommandParameter="Backup" />
-                        <Button AutomationProperties.AutomationId="Nav.Settings" Content="{loc:Loc Nav.Settings}"
-                                Style="{StaticResource NavItemButton}" Command="{Binding SelectSectionCommand}"
-                                CommandParameter="Settings" />
+                <!-- Step 1: details -->
+                <StackPanel Grid.Row="0" AutomationProperties.AutomationId="CreateDetails">
+                    <TextBlock Text="{loc:Loc Create.Title}" FontSize="28" FontWeight="SemiBold"
+                               Foreground="{DynamicResource Text.Primary}" Margin="0,0,0,24" />
+                    <TextBlock Text="{loc:Loc Create.NameLabel}" Style="{StaticResource BodyText}" />
+                    <TextBox Text="{Binding VaultName, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource SearchBoxStyle}" Margin="0,6,0,4"
+                             AutomationProperties.AutomationId="CreateName" MaxLength="100" />
+                    <TextBlock Text="{loc:Loc Create.NameHint}" Style="{StaticResource SecondaryText}" Margin="0,0,0,16" />
+
+                    <TextBlock Text="{loc:Loc Create.LocationLabel}" Style="{StaticResource BodyText}" />
+                    <Grid Margin="0,6,0,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Text="{Binding Location, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource SearchBoxStyle}" IsReadOnly="True"
+                                 AutomationProperties.AutomationId="CreateLocation" />
+                        <Button Grid.Column="1" Content="{loc:Loc Create.Browse}" Style="{StaticResource IconButton}"
+                                Command="{Binding BrowseCommand}" Margin="8,0,0,0"
+                                AutomationProperties.AutomationId="CreateBrowse" />
+                    </Grid>
+
+                    <TextBlock Text="{loc:Loc Create.PasswordLabel}" Style="{StaticResource BodyText}" />
+                    <PasswordBox x:Name="CreatePassword" Margin="0,6,0,12" Style="{StaticResource PasswordBoxStyle}"
+                                 AutomationProperties.AutomationId="CreatePassword" MaxLength="1000" />
+                    <TextBlock Text="{loc:Loc Create.ConfirmPasswordLabel}" Style="{StaticResource BodyText}" />
+                    <PasswordBox x:Name="CreatePasswordConfirm" Margin="0,6,0,4" Style="{StaticResource PasswordBoxStyle}"
+                                 AutomationProperties.AutomationId="CreatePasswordConfirm" MaxLength="1000" />
+                    <TextBlock x:Name="StrengthText" Text="{Binding StrengthHint}" Style="{StaticResource SecondaryText}"
+                               Margin="0,4,0,0" AutomationProperties.AutomationId="StrengthHint" />
+                </StackPanel>
+
+                <!-- Step 2: recovery key -->
+                <StackPanel Grid.Row="0" Visibility="{Binding RecoveryStage, Converter={StaticResource BoolToVisible}}"
+                            AutomationProperties.AutomationId="RecoveryStage">
+                    <TextBlock Text="{loc:Loc Create.RecoveryTitle}" FontSize="28" FontWeight="SemiBold"
+                               Foreground="{DynamicResource Text.Primary}" Margin="0,0,0,16" />
+                    <TextBlock Text="{loc:Loc Create.RecoveryExplain}" Style="{StaticResource BodyText}"
+                               TextWrapping="Wrap" Margin="0,0,0,16" />
+                    <Border Style="{StaticResource CardBorder}" Padding="16" Background="{DynamicResource Bg.Sunken}">
+                        <TextBlock Text="{Binding RecoveryKey}" FontSize="16" FontWeight="Medium" TextWrapping="Wrap"
+                                   Foreground="{DynamicResource Text.Primary}" TextAlignment="Center"
+                                   AutomationProperties.AutomationId="RecoveryKeyText" />
+                    </Border>
+                    <Button Content="{loc:Loc Create.RecoveryCopy}" Style="{StaticResource IconButton}"
+                            HorizontalAlignment="Center" Margin="0,10,0,0"
+                            Click="OnCopyRecoveryKeyClick" AutomationProperties.AutomationId="RecoveryCopy" />
+                    <TextBlock Text="{Binding ChallengePrompt}" Style="{StaticResource BodyText}"
+                               TextWrapping="Wrap" Margin="0,20,0,4"
+                               AutomationProperties.AutomationId="RecoveryChallengePrompt" />
+                    <TextBox Text="{Binding ChallengeInput, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource SearchBoxStyle}" MaxLength="8"
+                             AutomationProperties.AutomationId="RecoveryChallengeInput" />
+                    <TextBlock Text="{Binding ChallengeError}" Foreground="{DynamicResource Danger}"
+                               Style="{StaticResource SecondaryText}" Margin="0,4,0,0" />
+                </StackPanel>
+
+                <!-- Footer -->
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,24,0,0">
+                    <TextBlock Text="{Binding Error}" Foreground="{DynamicResource Danger}"
+                               Style="{StaticResource SecondaryText}" VerticalAlignment="Center" Margin="0,0,12,0" />
+                    <TextBlock Text="{loc:Loc Create.Working}" Style="{StaticResource SecondaryText}"
+                               VerticalAlignment="Center" Margin="0,0,12,0"
+                               Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisible}}" />
+                    <Button Content="{loc:Loc Create.Back}" Style="{StaticResource IconButton}"
+                            Command="{Binding CancelCommand}" Margin="0,0,10,0" />
+                    <Button Content="{loc:Loc Create.Next}" Command="{Binding CreateCommand}" IsDefault="True"
+                            Click="OnCreateNextClick"
+                            AutomationProperties.AutomationId="CreateNext"
+                            Visibility="{Binding RecoveryStage, Converter={StaticResource FalseToVisible}}" />
+                    <Button Content="{loc:Loc Create.RecoveryConfirm}" Command="{Binding ConfirmRecoverySavedCommand}"
+                            IsDefault="True" AutomationProperties.AutomationId="RecoveryConfirm"
+                            Visibility="{Binding RecoveryStage, Converter={StaticResource BoolToVisible}}" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <!-- ═══════════════ Unlock ═══════════════ -->
+        <DataTemplate DataType="{x:Type vm:UnlockViewModel}">
+            <Grid MaxWidth="480" Margin="40" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel>
+                    <TextBlock Text="{Binding VaultDisplayName}" FontSize="28" FontWeight="SemiBold"
+                               Foreground="{DynamicResource Text.Primary}" Margin="0,0,0,4"
+                               AutomationProperties.AutomationId="UnlockVaultName" />
+                    <TextBlock Text="{Binding VaultPath}" Style="{StaticResource SecondaryText}"
+                               TextTrimming="CharacterEllipsis" Margin="0,0,0,24" />
+
+                    <Grid Visibility="{Binding RecoveryMode, Converter={StaticResource FalseToVisible}}"
+                          AutomationProperties.AutomationId="UnlockPasswordPane">
+                        <TextBlock Text="{loc:Loc Create.PasswordLabel}" Style="{StaticResource BodyText}" />
+                        <PasswordBox x:Name="UnlockPassword" Margin="0,6,0,4" Style="{StaticResource PasswordBoxStyle}"
+                                     AutomationProperties.AutomationId="UnlockPasswordBox" MaxLength="1000"
+                                     KeyDown="OnUnlockPasswordKeyDown" />
+                    </Grid>
+
+                    <StackPanel Visibility="{Binding RecoveryMode, Converter={StaticResource BoolToVisible}}"
+                                AutomationProperties.AutomationId="UnlockRecoveryPane">
+                        <TextBlock Text="{loc:Loc Unlock.RecoveryLabel}" Style="{StaticResource BodyText}" />
+                        <TextBox Text="{Binding RecoveryKey, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource SearchBoxStyle}" Margin="0,6,0,0"
+                                 AutomationProperties.AutomationId="UnlockRecoveryInput" />
                     </StackPanel>
-                </ScrollViewer>
-            </Border>
 
-            <!-- Center: item list (empty in Phase 1) -->
-            <Border Grid.Column="1" Margin="0,0,0,10" Style="{StaticResource CardBorder}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Border Grid.Row="0" BorderBrush="{DynamicResource Divider}" BorderThickness="0,0,0,1"
-                            Padding="16,12">
+                    <TextBlock Text="{Binding Error}" Foreground="{DynamicResource Danger}"
+                               Style="{StaticResource SecondaryText}" Margin="0,12,0,0" TextWrapping="Wrap"
+                               AutomationProperties.AutomationId="UnlockError" />
+                    <TextBlock Text="{loc:Loc Unlock.Working}" Style="{StaticResource SecondaryText}" Margin="0,12,0,0"
+                               Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisible}}"
+                               AutomationProperties.AutomationId="UnlockBusy" />
+
+                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                        <Button Content="{loc:Loc Picker.Cancel}" Style="{StaticResource IconButton}"
+                                Command="{Binding BackCommand}" Margin="0,0,10,0" />
+                        <Button Content="{loc:Loc Unlock.UseRecovery}" Style="{StaticResource IconButton}"
+                                Command="{Binding ToggleRecoveryModeCommand}" Margin="0,0,10,0"
+                                AutomationProperties.AutomationId="ToggleRecoveryMode" />
+                        <Button Command="{Binding UnlockWithRecoveryCommand}" IsDefault="True"
+                                AutomationProperties.AutomationId="UnlockConfirmRecovery"
+                                Visibility="{Binding RecoveryMode, Converter={StaticResource BoolToVisible}}">
+                            <Button.Content>
+                                <TextBlock Text="{loc:Loc Unlock.Unlock}" />
+                            </Button.Content>
+                        </Button>
+                        <Button Content="{loc:Loc Unlock.Unlock}" Command="{Binding UnlockCommand}" IsDefault="True"
+                                AutomationProperties.AutomationId="UnlockButton"
+                                Visibility="{Binding RecoveryMode, Converter={StaticResource FalseToVisible}}" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <!-- ═══════════════ Workspace (three-column) ═══════════════ -->
+        <DataTemplate DataType="{x:Type vm:VaultWorkspaceViewModel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="52" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="28" />
+                </Grid.RowDefinitions>
+
+                <!-- Top bar -->
+                <Border Grid.Row="0" Background="{DynamicResource Bg.Card}" BorderBrush="{DynamicResource Divider}"
+                        BorderThickness="0,0,0,1">
+                    <Grid Margin="14,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Border Width="26" Height="26" CornerRadius="6" Background="{DynamicResource Accent}">
+                                <TextBlock Text="گ" Foreground="#FFFFFF" FontWeight="SemiBold" FontSize="14"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <TextBlock Text="{Binding VaultDisplayName}" Style="{StaticResource SubtitleText}"
+                                       Margin="10,0,0,0" VerticalAlignment="Center"
+                                       AutomationProperties.AutomationId="WorkspaceVaultName" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Button Content="{loc:Loc Main.SwitchVault}" Style="{StaticResource IconButton}"
+                                    Command="{Binding LockCommand}" Margin="0,0,8,0"
+                                    AutomationProperties.AutomationId="SwitchVaultButton" />
+                            <Button Content="{loc:Loc Main.LockVault}" Command="{Binding LockCommand}"
+                                    AutomationProperties.AutomationId="LockVaultButton" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Three columns: nav (right) / list (center) / details (left) in RTL -->
+                <Grid Grid.Row="1" Margin="0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="240" />
+                        <ColumnDefinition Width="*" MinWidth="320" />
+                        <ColumnDefinition Width="380" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" Margin="10,0,0,10" Style="{StaticResource CardBorder}">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel>
+                                <TextBlock Text="{loc:Loc Nav.Section.Vault}" Style="{StaticResource SectionHeader}" />
+                                <Button Content="{loc:Loc Nav.AllItems}" Style="{StaticResource NavItemButton}"
+                                        IsEnabled="False" FontWeight="SemiBold" />
+                                <Button Content="{loc:Loc Nav.Favorites}" Style="{StaticResource NavItemButton}"
+                                        IsEnabled="False" Opacity="0.5" ToolTip="بعداً" />
+                                <Button Content="{loc:Loc Nav.Folders}" Style="{StaticResource NavItemButton}"
+                                        IsEnabled="False" Opacity="0.5" ToolTip="بعداً" />
+                                <Button Content="{loc:Loc Nav.Tags}" Style="{StaticResource NavItemButton}"
+                                        IsEnabled="False" Opacity="0.5" ToolTip="بعداً" />
+                                <Button Content="{loc:Loc Nav.Trash}" Style="{StaticResource NavItemButton}"
+                                        IsEnabled="False" Opacity="0.5" ToolTip="بعداً" />
+                                <TextBlock Text="{loc:Loc Nav.Section.Tools}" Style="{StaticResource SectionHeader}" />
+                                <Button Content="{loc:Loc Nav.Generator}" Style="{StaticResource NavItemButton}"
+                                        IsEnabled="False" Opacity="0.5" ToolTip="بعداً" />
+                                <Button Content="{loc:Loc Nav.SecurityCenter}" Style="{StaticResource NavItemButton}"
+                                        IsEnabled="False" Opacity="0.5" ToolTip="بعداً" />
+                                <Button Content="{loc:Loc Nav.Backup}" Style="{StaticResource NavItemButton}"
+                                        IsEnabled="False" Opacity="0.5" ToolTip="بعداً" />
+                                <Button Content="{loc:Loc Nav.Settings}" Style="{StaticResource NavItemButton}"
+                                        IsEnabled="False" Opacity="0.5" ToolTip="بعداً"
+                                        AutomationProperties.AutomationId="NavSettingsDisabled" />
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Border>
+
+                    <!-- Center list -->
+                    <Border Grid.Column="1" Margin="0,0,0,10" Style="{StaticResource CardBorder}">
                         <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="{loc:Loc Center.ListHeader}" Style="{StaticResource SubtitleText}"
-                                       VerticalAlignment="Center" />
-                            <Button Grid.Column="1" Content="{loc:Loc Center.NewItem}" IsEnabled="False" />
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" BorderBrush="{DynamicResource Divider}" BorderThickness="0,0,0,1"
+                                    Padding="16,12">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Style="{StaticResource SearchBoxStyle}"
+                                             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged, Delay=150}"
+                                             AutomationProperties.AutomationId="SearchBox" />
+                                    <Button Grid.Column="1" Content="{loc:Loc Center.NewItem}"
+                                            Command="{Binding BeginCreateCommand}" Margin="10,0,0,0"
+                                            AutomationProperties.AutomationId="AddCredential" />
+                                </Grid>
+                            </Border>
+                            <Grid Grid.Row="1">
+                                <ListBox ItemsSource="{Binding RowsView}" SelectedItem="{Binding SelectedCredential}"
+                                         Background="Transparent" BorderThickness="0"
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                         AutomationProperties.AutomationId="CredentialList">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="8,8" AutomationProperties.AutomationId="CredentialRow">
+                                                <TextBlock Text="{Binding Title}" FontSize="14" FontWeight="Medium"
+                                                           Foreground="{DynamicResource Text.Primary}"
+                                                           AutomationProperties.AutomationId="RowTitle" />
+                                                <TextBlock Text="{Binding Username}" FontSize="12"
+                                                           Foreground="{DynamicResource Text.Secondary}"
+                                                           AutomationProperties.AutomationId="RowUsername" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                            Visibility="{Binding HasNoResults, Converter={StaticResource BoolToVisible}}"
+                                            AutomationProperties.AutomationId="CenterEmpty">
+                                    <TextBlock Text="{loc:Loc Center.EmptyTitle}" Style="{StaticResource TitleText}"
+                                               HorizontalAlignment="Center" />
+                                    <TextBlock Text="{loc:Loc Center.EmptyText}" Style="{StaticResource SecondaryText}"
+                                               HorizontalAlignment="Center" Margin="0,8,0,0" />
+                                </StackPanel>
+                            </Grid>
                         </Grid>
                     </Border>
-                    <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                AutomationProperties.AutomationId="CenterEmpty">
-                        <TextBlock Text="{loc:Loc Center.EmptyTitle}" Style="{StaticResource TitleText}"
-                                   HorizontalAlignment="Center" />
-                        <TextBlock Text="{loc:Loc Center.EmptyText}" Style="{StaticResource SecondaryText}"
-                                   HorizontalAlignment="Center" Margin="0,8,0,0" />
-                    </StackPanel>
+
+                    <!-- Details -->
+                    <Border Grid.Column="2" Margin="0,0,10,10" Style="{StaticResource CardBorder}" Padding="20"
+                            AutomationProperties.AutomationId="DetailsPane">
+                        <Grid>
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
+                                        Visibility="{Binding Detail, Converter={StaticResource NullToVisible}}">
+                                <TextBlock Text="{loc:Loc Details.PlaceholderTitle}" Style="{StaticResource TitleText}"
+                                           HorizontalAlignment="Center" TextAlignment="Center" />
+                                <TextBlock Text="{loc:Loc Details.PlaceholderText}" Style="{StaticResource SecondaryText}"
+                                           HorizontalAlignment="Center" TextAlignment="Center" Margin="0,8,0,0"
+                                           MaxWidth="260" TextWrapping="Wrap" />
+                            </StackPanel>
+
+                            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                          Visibility="{Binding Detail, Converter={StaticResource NullToCollapsed}}">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Detail.Title}" Style="{StaticResource TitleText}"
+                                               TextWrapping="Wrap" AutomationProperties.AutomationId="DetailTitle" />
+                                    <TextBlock Text="{Binding Detail.Username}" Style="{StaticResource SecondaryText}"
+                                               Margin="0,4,0,0" AutomationProperties.AutomationId="DetailUsername" />
+
+                                    <TextBlock Text="{loc:Loc Details.Username}" Style="{StaticResource SecondaryText}"
+                                               Margin="0,20,0,2" />
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding Detail.Username}" Style="{StaticResource BodyText}"
+                                                   TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+                                        <Button Grid.Column="1" Content="{loc:Loc Details.CopyUsername}"
+                                                Style="{StaticResource IconButton}" Command="{Binding CopyUsernameCommand}"
+                                                AutomationProperties.AutomationId="CopyUsername" />
+                                    </Grid>
+
+                                    <TextBlock Text="{loc:Loc Details.Password}" Style="{StaticResource SecondaryText}"
+                                               Margin="0,14,0,2" />
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding PasswordDisplay}" Style="{StaticResource BodyText}"
+                                                   FontFamily="Consolas" VerticalAlignment="Center"
+                                                   AutomationProperties.AutomationId="DetailPassword" />
+                                        <Button Grid.Column="1" Style="{StaticResource IconButton}"
+                                                Command="{Binding ToggleRevealCommand}" Margin="4,0,0,0"
+                                                AutomationProperties.AutomationId="RevealPassword">
+                                            <Button.Content>
+                                                <TextBlock>
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock" BasedOn="{StaticResource SecondaryText}">
+                                                            <Setter Property="Text" Value="{loc:Loc Details.Reveal}" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding PasswordRevealed}" Value="True">
+                                                                    <Setter Property="Text" Value="{loc:Loc Details.Hide}" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button Grid.Column="2" Content="{loc:Loc Details.CopyPassword}"
+                                                Style="{StaticResource IconButton}" Command="{Binding CopyPasswordCommand}"
+                                                Margin="4,0,0,0" AutomationProperties.AutomationId="CopyPassword" />
+                                    </Grid>
+
+                                    <TextBlock Text="{loc:Loc Details.Website}" Style="{StaticResource SecondaryText}"
+                                               Margin="0,14,0,2" />
+                                    <Grid Visibility="{Binding Detail.WebsiteUrl, Converter={StaticResource NullToCollapsed}}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding Detail.WebsiteUrl}" Style="{StaticResource BodyText}"
+                                                   TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+                                        <Button Grid.Column="1" Content="{loc:Loc Details.OpenSite}"
+                                                Style="{StaticResource IconButton}" Command="{Binding OpenWebsiteCommand}"
+                                                Margin="4,0,0,0" />
+                                    </Grid>
+
+                                    <TextBlock Text="{loc:Loc Details.Notes}" Style="{StaticResource SecondaryText}"
+                                               Margin="0,14,0,2"
+                                               Visibility="{Binding Detail.Notes, Converter={StaticResource NullToCollapsed}}" />
+                                    <TextBlock Text="{Binding Detail.Notes}" Style="{StaticResource BodyText}"
+                                               TextWrapping="Wrap"
+                                               Visibility="{Binding Detail.Notes, Converter={StaticResource NullToCollapsed}}" />
+
+                                    <TextBlock Margin="0,20,0,0" Style="{StaticResource SecondaryText}"
+                                               AutomationProperties.AutomationId="DetailDates">
+                                        <Run Text="{loc:Loc Details.Created}" />
+                                        <Run Text="{Binding Detail.CreatedAt, Mode=OneWay}" />
+                                        <Run Text="  |  " />
+                                        <Run Text="{loc:Loc Details.Modified}" />
+                                        <Run Text="{Binding Detail.UpdatedAt, Mode=OneWay}" />
+                                    </TextBlock>
+
+                                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                                        <Button Content="{loc:Loc Details.Edit}" Command="{Binding BeginEditCommand}"
+                                                Margin="0,0,10,0" AutomationProperties.AutomationId="EditCredential" />
+                                        <Button Content="{loc:Loc Details.Delete}" Command="{Binding BeginDeleteCommand}"
+                                                Background="{DynamicResource Danger}"
+                                                AutomationProperties.AutomationId="DeleteCredential" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Grid>
+                    </Border>
                 </Grid>
-            </Border>
 
-            <!-- Details placeholder -->
-            <Border Grid.Column="2" Margin="0,0,10,10" Style="{StaticResource CardBorder}"
-                    AutomationProperties.AutomationId="DetailsPane">
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock Text="{loc:Loc Details.PlaceholderTitle}" Style="{StaticResource TitleText}"
-                               HorizontalAlignment="Center" TextAlignment="Center" />
-                    <TextBlock Text="{loc:Loc Details.PlaceholderText}" Style="{StaticResource SecondaryText}"
-                               HorizontalAlignment="Center" TextAlignment="Center" Margin="0,8,0,0"
-                               MaxWidth="260" TextWrapping="Wrap" />
-                </StackPanel>
-            </Border>
-        </Grid>
+                <!-- Status bar -->
+                <Border Grid.Row="2" Background="{DynamicResource Bg.Sunken}">
+                    <TextBlock Text="{Binding StatusMessage}" Style="{StaticResource SecondaryText}" Margin="14,0"
+                               VerticalAlignment="Center" AutomationProperties.AutomationId="StatusText" />
+                </Border>
 
-        <!-- Status bar -->
-        <Border Grid.Row="2" Background="{DynamicResource Bg.Sunken}">
-            <TextBlock x:Name="StatusText" Text="{loc:Loc Shell.Status.Ready}"
-                       Style="{StaticResource SecondaryText}" Margin="14,0" VerticalAlignment="Center" />
-        </Border>
-    </Grid>
+                <!-- Editor overlay -->
+                <Grid Grid.RowSpan="3" Background="#88000000" Visibility="{Binding EditorVisible, Converter={StaticResource BoolToVisible}}">
+                    <Border MaxWidth="560" Style="{StaticResource CardBorder}" Padding="24"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            AutomationProperties.AutomationId="EditorPane">
+                        <StackPanel>
+                            <TextBlock Margin="0,0,0,16">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock" BasedOn="{StaticResource TitleText}">
+                                        <Setter Property="Text" Value="{loc:Loc Editor.NewItemTitle}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding EditingId, Converter={StaticResource NullToBool}}" Value="True">
+                                                <Setter Property="Text" Value="{loc:Loc Editor.EditItemTitle}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock Text="{loc:Loc Details.Title}" Style="{StaticResource SecondaryText}" />
+                            <TextBox Text="{Binding EditorTitle, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource SearchBoxStyle}" Margin="0,4,0,10" MaxLength="200"
+                                     AutomationProperties.AutomationId="EditorTitle" />
+                            <TextBlock Text="{loc:Loc Details.Username}" Style="{StaticResource SecondaryText}" />
+                            <TextBox Text="{Binding EditorUsername, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource SearchBoxStyle}" Margin="0,4,0,10" MaxLength="320"
+                                     AutomationProperties.AutomationId="EditorUsername" />
+                            <TextBlock Text="{loc:Loc Details.Password}" Style="{StaticResource SecondaryText}" />
+                            <PasswordBox x:Name="EditorPassword" Margin="0,4,0,2" Style="{StaticResource PasswordBoxStyle}"
+                                         MaxLength="1000" AutomationProperties.AutomationId="EditorPassword" />
+                            <TextBlock Text="{loc:Loc Editor.PasswordKeep}" Style="{StaticResource SecondaryText}"
+                                       Margin="0,0,0,10" />
+                            <TextBlock Text="{loc:Loc Details.Website}" Style="{StaticResource SecondaryText}" />
+                            <TextBox Text="{Binding EditorWebsiteUrl, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource SearchBoxStyle}" Margin="0,4,0,10" MaxLength="2048"
+                                     AutomationProperties.AutomationId="EditorWebsite" />
+                            <TextBlock Text="{loc:Loc Details.Notes}" Style="{StaticResource SecondaryText}" />
+                            <TextBox Text="{Binding EditorNotes, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource SearchBoxStyle}" Margin="0,4,0,4" MaxLength="10000"
+                                     AcceptsReturn="True" TextWrapping="Wrap" MinHeight="70" VerticalScrollBarVisibility="Auto"
+                                     AutomationProperties.AutomationId="EditorNotes" />
+                            <TextBlock Text="{Binding EditorError}" Foreground="{DynamicResource Danger}"
+                                       Style="{StaticResource SecondaryText}" Margin="0,4,0,0" />
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16,0,0">
+                                <Button Content="{loc:Loc Editor.Cancel}" Style="{StaticResource IconButton}"
+                                        Command="{Binding CancelEditorCommand}" Margin="0,0,10,0"
+                                        AutomationProperties.AutomationId="EditorCancel" />
+                                <Button Content="{loc:Loc Editor.Save}" Command="{Binding SaveEditorCommand}"
+                                        IsDefault="True" Click="OnEditorSaveClick"
+                                        AutomationProperties.AutomationId="EditorSave" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- Delete confirmation overlay -->
+                <Grid Grid.RowSpan="3" Background="#88000000"
+                      Visibility="{Binding DeleteConfirmVisible, Converter={StaticResource BoolToVisible}}">
+                    <Border MaxWidth="440" Style="{StaticResource CardBorder}" Padding="24"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            AutomationProperties.AutomationId="DeleteConfirmPane">
+                        <StackPanel>
+                            <TextBlock Text="{loc:Loc Confirm.DeleteTitle}" Style="{StaticResource TitleText}" />
+                            <TextBlock Style="{StaticResource BodyText}" TextWrapping="Wrap" Margin="0,10,0,0">
+                                <Run Text="{loc:Loc Confirm.DeleteText}" />
+                                <Run Text="{Binding SelectedCredential.Title, Mode=OneWay}" FontWeight="SemiBold" />
+                            </TextBlock>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,18,0,0">
+                                <Button Content="{loc:Loc Picker.Cancel}" Style="{StaticResource IconButton}"
+                                        Command="{Binding CancelDeleteCommand}" Margin="0,0,10,0"
+                                        AutomationProperties.AutomationId="DeleteCancel" />
+                                <Button Content="{loc:Loc Picker.Yes}" Command="{Binding ConfirmDeleteCommand}"
+                                        Background="{DynamicResource Danger}"
+                                        AutomationProperties.AutomationId="DeleteConfirm" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+
+    <ContentControl Content="{Binding CurrentView}" Focusable="False" />
 </Window>

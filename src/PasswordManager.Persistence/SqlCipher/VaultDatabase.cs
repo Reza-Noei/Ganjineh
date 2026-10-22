@@ -73,6 +73,15 @@ public sealed class VaultDatabase : IDisposable
         connection.Execute($"INSERT OR REPLACE INTO app_meta (key, value) VALUES ('{key}', x'{hex}');");
     }
 
+    /// <summary>Stores an application-encrypted metadata blob (e.g. the vault display name envelope).</summary>
+    public void SetEncryptedMeta(string key, byte[] envelope) => SetMeta(_connection, key, envelope);
+
+    public byte[]? GetEncryptedMeta(string key) =>
+        _connection.ScalarBlob($"SELECT value FROM app_meta WHERE key = '{key}';");
+
+    /// <summary>Connection access for same-assembly repositories (key-free envelope storage).</summary>
+    internal SqlCipherConnection Connection => _connection;
+
     public void CheckpointWal()
     {
         _connection.Execute("PRAGMA wal_checkpoint(TRUNCATE);");

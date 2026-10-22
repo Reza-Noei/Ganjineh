@@ -1,5 +1,7 @@
 using System.Security.Cryptography;
+using System.Text;
 using PasswordManager.Cryptography;
+using PasswordManager.Cryptography.Aead;
 using PasswordManager.Cryptography.Kdf;
 using PasswordManager.Cryptography.KeyWrapping;
 using PasswordManager.Cryptography.Keys;
@@ -26,6 +28,7 @@ public sealed class VaultLifecycleService : IVaultLifecycle
     private readonly VaultKeyDeriver _keyDeriver;
     private readonly IRandomGenerator _random;
     private readonly HeaderFileStore _headerStore;
+    private readonly IAuthenticatedEncryptionService _encryption = new AesGcmAuthenticatedEncryption();
     private readonly Func<VaultRegistry> _registryFactory;
 
     public VaultLifecycleService(
@@ -242,6 +245,62 @@ public sealed class VaultLifecycleService : IVaultLifecycle
                 RecoveryKeyEncoded = encoded,
             };
         }, cancellationToken);
+    }
+
+    public async Task RenameVaultAsync(VaultSession session, string newName, CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(newName))
+        {
+            throw new PolicyViolationException("Vault name must not be empty.");
+        }
+
+        newName = newName.Trim();
+        if (newName.Length > 100)
+        {
+            throw new PolicyViolationException("Vault name is too long (max 100 characters).");
+        }
+
+        await Task.Run(() =>
+        {
+            // Authoritative name: encrypted under the item key inside the vault database.
+            using var nameMaterial = KeyMaterial.FromBytes(Encoding.UTF8.GetBytes(newName));
+            var nameEnvelope = _encryption.Encrypt(
+                nameMaterial.Span, session.Keyring.ItemKey, KeyDomain.Meta, AadForVaultName(session.Header.VaultId));
+            session.Database.SetEncryptedMeta("vault_name", nameEnvelope.Serialize());
+
+            // Plain-text convenience label (this device only, flagged in the UI).
+            _registryFactory().SetLabel(ToIdString(session.Header.VaultId), newName);
+        }, cancellationToken);
+    }
+
+    /// <summary>Decrypts the vault display name from an open database; null when unset.</summary>
+    public string? GetVaultName(VaultSession session)
+    {
+        var envelopeBytes = session.Database.GetEncryptedMeta("vault_name");
+        if (envelopeBytes is null)
+        {
+            return null;
+        }
+
+        var payload = EncryptedPayload.Parse(envelopeBytes);
+        var json = _encryption.Decrypt(payload, session.Keyring.ItemKey, AadForVaultName(session.Header.VaultId));
+        try
+        {
+            return Encoding.UTF8.GetString(json);
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(json);
+        }
+    }
+
+    private static byte[] AadForVaultName(ReadOnlySpan<byte> vaultId)
+    {
+        var recordId = Encoding.UTF8.GetBytes("vault-name");
+        var aad = new byte[vaultId.Length + recordId.Length];
+        vaultId.CopyTo(aad);
+        recordId.CopyTo(aad, vaultId.Length);
+        return aad;
     }
 
     // ---- internals ----

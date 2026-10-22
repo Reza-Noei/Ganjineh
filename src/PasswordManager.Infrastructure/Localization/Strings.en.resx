@@ -41,4 +41,84 @@
   <data name="Error.Storage" xml:space="preserve"><value>A storage error occurred.</value></data>
   <data name="Error.Policy" xml:space="preserve"><value>This operation is not allowed.</value></data>
   <data name="Error.Unexpected" xml:space="preserve"><value>An unexpected error occurred.</value></data>
+  <data name="Picker.Title" xml:space="preserve"><value>Your vaults</value></data>
+  <data name="Picker.CreateVault" xml:space="preserve"><value>Create new vault</value></data>
+  <data name="Picker.OpenExisting" xml:space="preserve"><value>Open existing vault</value></data>
+  <data name="Picker.RemoveFromList" xml:space="preserve"><value>Remove from list</value></data>
+  <data name="Picker.DeleteVault" xml:space="preserve"><value>Delete vault permanently</value></data>
+  <data name="Picker.Unlock" xml:space="preserve"><value>Unlock</value></data>
+  <data name="Picker.NoVaults" xml:space="preserve"><value>No vaults registered yet.</value></data>
+  <data name="Picker.LastOpened" xml:space="preserve"><value>Last opened:</value></data>
+  <data name="Picker.ConfirmRemoveTitle" xml:space="preserve"><value>Remove from list?</value></data>
+  <data name="Picker.ConfirmRemoveText" xml:space="preserve"><value>The vault is removed from the list but its files remain on disk.</value></data>
+  <data name="Picker.ConfirmDeleteTitle" xml:space="preserve"><value>Delete vault permanently?</value></data>
+  <data name="Picker.ConfirmDeleteText" xml:space="preserve"><value>All files of this vault will be deleted permanently. This cannot be undone. Note: deletion does not securely erase SSD storage.</value></data>
+  <data name="Picker.Yes" xml:space="preserve"><value>Yes, delete</value></data>
+  <data name="Picker.Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Picker.Confirm" xml:space="preserve"><value>Confirm</value></data>
+  <data name="Create.Title" xml:space="preserve"><value>Create a new vault</value></data>
+  <data name="Create.NameLabel" xml:space="preserve"><value>Vault name</value></data>
+  <data name="Create.NameHint" xml:space="preserve"><value>The name is stored encrypted inside the vault itself.</value></data>
+  <data name="Create.LocationLabel" xml:space="preserve"><value>Storage location</value></data>
+  <data name="Create.Browse" xml:space="preserve"><value>Choose folder…</value></data>
+  <data name="Create.PasswordLabel" xml:space="preserve"><value>Master password</value></data>
+  <data name="Create.ConfirmPasswordLabel" xml:space="preserve"><value>Confirm password</value></data>
+  <data name="Create.PasswordMismatch" xml:space="preserve"><value>Passwords do not match.</value></data>
+  <data name="Create.Next" xml:space="preserve"><value>Create vault</value></data>
+  <data name="Create.Working" xml:space="preserve"><value>Creating the vault…</value></data>
+  <data name="Create.RecoveryTitle" xml:space="preserve"><value>Your Recovery Key</value></data>
+  <data name="Create.RecoveryExplain" xml:space="preserve"><value>Save this key somewhere safe (print it or keep it elsewhere). If you forget your master password, this key is the only way to open the vault. Anyone holding this key has full access to the vault. After confirmation, this key will never be shown again.</value></data>
+  <data name="Create.RecoveryCopy" xml:space="preserve"><value>Copy key</value></data>
+  <data name="Create.RecoveryChallenge" xml:space="preserve"><value>To confirm you saved the key, enter group {0} of the key:</value></data>
+  <data name="Create.RecoveryChallengeMismatch" xml:space="preserve"><value>The entered group is not correct.</value></data>
+  <data name="Create.RecoveryConfirm" xml:space="preserve"><value>Saved — open the vault</value></data>
+  <data name="Create.Back" xml:space="preserve"><value>Back</value></data>
+  <data name="Unlock.Unlock" xml:space="preserve"><value>Unlock vault</value></data>
+  <data name="Unlock.Working" xml:space="preserve"><value>Unlocking… (this delay is a security feature)</value></data>
+  <data name="Unlock.WrongPassword" xml:space="preserve"><value>Wrong password, or the vault has been tampered with.</value></data>
+  <data name="Unlock.UseRecovery" xml:space="preserve"><value>Unlock with Recovery Key</value></data>
+  <data name="Unlock.UsePassword" xml:space="preserve"><value>Unlock with master password</value></data>
+  <data name="Unlock.RecoveryLabel" xml:space="preserve"><value>Recovery Key</value></data>
+  <data name="Unlock.ShowPassword" xml:space="preserve"><value>Show password</value></data>
+  <data name="Unlock.HidePassword" xml:space="preserve"><value>Hide password</value></data>
+  <data name="Unlock.Back" xml:space="preserve"><value>Back to vault list</value></data>
+  <data name="Details.Username" xml:space="preserve"><value>Username</value></data>
+  <data name="Details.Password" xml:space="preserve"><value>Password</value></data>
+  <data name="Details.Website" xml:space="preserve"><value>Website</value></data>
+  <data name="Details.Notes" xml:space="preserve"><value>Notes</value></data>
+  <data name="Details.CopyUsername" xml:space="preserve"><value>Copy username</value></data>
+  <data name="Details.CopyPassword" xml:space="preserve"><value>Copy password</value></data>
+  <data name="Details.Reveal" xml:space="preserve"><value>Reveal</value></data>
+  <data name="Details.Hide" xml:space="preserve"><value>Hide</value></data>
+  <data name="Details.Edit" xml:space="preserve"><value>Edit</value></data>
+  <data name="Details.Delete" xml:space="preserve"><value>Delete</value></data>
+  <data name="Details.Created" xml:space="preserve"><value>Created:</value></data>
+  <data name="Details.Modified" xml:space="preserve"><value>Modified:</value></data>
+  <data name="Details.OpenSite" xml:space="preserve"><value>Open website</value></data>
+  <data name="Editor.Save" xml:space="preserve"><value>Save</value></data>
+  <data name="Editor.Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Editor.NewItemTitle" xml:space="preserve"><value>New item</value></data>
+  <data name="Editor.EditItemTitle" xml:space="preserve"><value>Edit item</value></data>
+  <data name="Editor.PasswordKeep" xml:space="preserve"><value>New password (leave empty to keep the current one)</value></data>
+  <data name="Confirm.DeleteTitle" xml:space="preserve"><value>Delete item?</value></data>
+  <data name="Confirm.DeleteText" xml:space="preserve"><value>This item will be deleted permanently.</value></data>
+  <data name="Status.CopiedUsername" xml:space="preserve"><value>Username copied — clears soon.</value></data>
+  <data name="Status.CopiedPassword" xml:space="preserve"><value>Password copied — clipboard clears soon.</value></data>
+  <data name="Status.ClipboardCleared" xml:space="preserve"><value>Clipboard cleared.</value></data>
+  <data name="Status.ClipboardFailed" xml:space="preserve"><value>Could not access the clipboard.</value></data>
+  <data name="Warning.ClipboardHistory" xml:space="preserve"><value>Note: Windows Clipboard History (Win+V) may retain copied content.</value></data>
+  <data name="Validation.PasswordRequired" xml:space="preserve"><value>Password is required.</value></data>
+  <data name="Validation.RecoveryRequired" xml:space="preserve"><value>Enter the Recovery Key.</value></data>
+  <data name="Validation.RecoveryInvalid" xml:space="preserve"><value>The Recovery Key format is invalid.</value></data>
+  <data name="Validation.TitleTooLong" xml:space="preserve"><value>The title is too long.</value></data>
+  <data name="Validation.UsernameTooLong" xml:space="preserve"><value>The username is too long.</value></data>
+  <data name="Validation.PasswordTooLong" xml:space="preserve"><value>The password is too long.</value></data>
+  <data name="Validation.UrlTooLong" xml:space="preserve"><value>The website URL is too long.</value></data>
+  <data name="Validation.NotesTooLong" xml:space="preserve"><value>The notes are too long.</value></data>
+  <data name="Error.VaultMissing" xml:space="preserve"><value>The vault file could not be found.</value></data>
+  <data name="Error.UnsupportedFormat" xml:space="preserve"><value>This vault was created by a newer version of the application.</value></data>
+  <data name="Error.OpenUrl" xml:space="preserve"><value>Could not open the browser.</value></data>
+  <data name="Error.UnsafeUrl" xml:space="preserve"><value>The website URL is not valid.</value></data>
+  <data name="Main.LockVault" xml:space="preserve"><value>Lock vault</value></data>
+  <data name="Main.SwitchVault" xml:space="preserve"><value>Switch vault</value></data>
 </root>

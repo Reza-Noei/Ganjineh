@@ -1,6 +1,7 @@
 ﻿<Application x:Class="PasswordManager.Desktop.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:PasswordManager.Desktop.Localization"
              ShutdownMode="OnMainWindowClose">
     <Application.Resources>
         <ResourceDictionary>
@@ -11,6 +12,13 @@
             </ResourceDictionary.MergedDictionaries>
             <!-- Vendored Vazirmatn (OFL); falls back to system fonts automatically if missing. -->
             <FontFamily x:Key="App.FontFamily">pack://application:,,,/PasswordManager.Desktop;component/Assets/Fonts/#Vazirmatn</FontFamily>
+            <!-- FontFamily resource declared above; converters registered here. -->
+            <loc:BoolToVisibilityConverter x:Key="BoolToVisible" />
+            <loc:BoolToVisibilityConverter x:Key="FalseToVisible" Invert="True" />
+            <loc:NullToVisibilityConverter x:Key="NullToVisible" WhenNotNull="False" />
+            <loc:NullToVisibilityConverter x:Key="NullToCollapsed" WhenNotNull="True" />
+            <loc:NullToBoolConverter x:Key="NullToBool" />
+            <loc:ZeroToVisibleConverter x:Key="ZeroToVisible" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

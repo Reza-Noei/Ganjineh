@@ -14,6 +14,10 @@ public sealed record AppSettings
     public string Language { get; init; } = "fa";
     public string Theme { get; init; } = "Light";
     public bool FirstRunCompleted { get; init; }
+    /// <summary>Clipboard seconds-to-live after copy (10–120; default 30 per Phase 3 contract).</summary>
+    public int ClipboardTimeoutSeconds { get; init; } = 30;
+    /// <summary>Idle minutes before auto-lock; 0 disables.</summary>
+    public int AutoLockMinutes { get; init; } = 10;
 }
 
 /// <summary>Persists <see cref="AppSettings"/> atomically; implementations must never store secrets.</summary>

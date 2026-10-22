@@ -98,6 +98,47 @@ public sealed class SqlCipherConnection : IDisposable
 
     public SqlCipherTransaction BeginTransaction() => new(_db ?? throw new ObjectDisposedException(nameof(SqlCipherConnection)));
 
+    /// <summary>
+    /// Runs a query and materializes all rows as cell values (string, long, byte[] or null).
+    /// Callers convert to their row shapes; no SQL abstraction layer is introduced.
+    /// </summary>
+    public IReadOnlyList<object?[]> Query(string sql)
+    {
+        var db = _db ?? throw new ObjectDisposedException(nameof(SqlCipherConnection));
+        if (raw.sqlite3_prepare_v2(db, sql, out var stmt) != raw.SQLITE_OK)
+        {
+            throw new StorageIoException($"Query failed: {raw.sqlite3_errmsg(db).utf8_to_string()}");
+        }
+
+        var rows = new List<object?[]>();
+        try
+        {
+            while (raw.sqlite3_step(stmt) == raw.SQLITE_ROW)
+            {
+                var columns = raw.sqlite3_column_count(stmt);
+                var cells = new object?[columns];
+                for (var c = 0; c < columns; c++)
+                {
+                    cells[c] = raw.sqlite3_column_type(stmt, c) switch
+                    {
+                        raw.SQLITE_INTEGER => raw.sqlite3_column_int64(stmt, c),
+                        raw.SQLITE_TEXT => raw.sqlite3_column_text(stmt, c).utf8_to_string(),
+                        raw.SQLITE_BLOB => ReadBlob(stmt, c),
+                        _ => null,
+                    };
+                }
+
+                rows.Add(cells);
+            }
+        }
+        finally
+        {
+            raw.sqlite3_finalize(stmt);
+        }
+
+        return rows;
+    }
+
     /// <summary>Checkpoints and closes the WAL cleanly (call before copying/backup, on lock).</summary>
     public void Close()
     {

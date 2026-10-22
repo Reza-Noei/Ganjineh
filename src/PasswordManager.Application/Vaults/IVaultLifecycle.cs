@@ -36,6 +36,15 @@ public interface IVaultLifecycle
 
     /// <summary>Generates a new Recovery Key; the old wrap is revoked atomically. Data untouched.</summary>
     Task<CreatedVaultSessionRecovery> RotateRecoveryKeyAsync(VaultSession session, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Renames the vault: writes the encrypted display name into the vault database (authoritative)
+    /// and refreshes the plain-text local label in the registry. Cryptographic identity untouched.
+    /// </summary>
+    Task RenameVaultAsync(VaultSession session, string newName, CancellationToken cancellationToken = default);
+
+    /// <summary>Decrypts the vault display name from the open database; null when unset.</summary>
+    string? GetVaultName(VaultSession session);
 }
 
 /// <summary>Rotation result: the new Recovery Key (display once, then dispose).</summary>

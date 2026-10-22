@@ -43,6 +43,9 @@ public sealed class VaultSession : IDisposable
 
     public VaultHeaderData Header { get; private set; }
 
+    /// <summary>Vault ID as canonical UUID text (for fallback display labels).</summary>
+    public string VaultIdText => new Guid(Header.VaultId).ToString();
+
     public VaultSessionState State => _state;
 
     /// <summary>True when the opened header's counter regressed against the registry high-water mark

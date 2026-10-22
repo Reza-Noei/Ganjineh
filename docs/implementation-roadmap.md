@@ -70,3 +70,12 @@ the feature — no separate UI phase at the end.
   cross-validation + benchmarks, Persistence 4, Integration 24, Security 7, UI smoke 1).
   Docs: docs/security/* (7 files). *Deferred by design:* attachment chunk envelopes (Phase 4),
   backup `.gvbak` writer (Phase 6), UI integration of unlock flows (Phase 3).
+- **2026-10-22 — Phase 3 complete.** Vault management (picker, guided creation with recovery
+  challenge, unlock password/recovery, lock/switch/rename/remove/delete, auto-lock + session-lock),
+  login-credential CRUD over a Phase-4-ready item schema (key-free repository, envelope payloads,
+  versioned rows), debounced Persian-normalized search with password-free in-memory index,
+  ownership-safe clipboard with 30 s expiry, full three-column RTL workspace with localized
+  fa/en flows. **Tests: 113/113 green** including a 22 s FlaUI E2E of the complete user journey.
+  Docs: docs/phase-3-*.md + vault-management/credential-management/search-design/clipboard-security/
+  session-lifecycle. *Deferred by design:* favorites/folders/tags/trash/history UI (Phase 4),
+  generator/TOTP/security-center screens (Phase 5), settings screens beyond defaults (Phase 7).
