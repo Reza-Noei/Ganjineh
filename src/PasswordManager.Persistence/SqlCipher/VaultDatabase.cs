@@ -28,9 +28,10 @@ public sealed class VaultDatabase : IDisposable
         {
             connection.Execute(
                 "CREATE TABLE IF NOT EXISTS app_meta (key TEXT PRIMARY KEY, value BLOB NOT NULL);");
+            Migrations.SchemaMigrator.MigrateToCurrent(new VaultDatabase(connection, vaultId, path));
             using var tx = connection.BeginTransaction();
             SetMeta(connection, "vault_id", vaultId);
-            SetMeta(connection, "schema_version", BitConverter.GetBytes(SchemaVersion));
+            SetMeta(connection, "schema_version", BitConverter.GetBytes(Migrations.SchemaMigrator.CurrentVersion));
             SetMeta(connection, "format_version", BitConverter.GetBytes((short)1));
             SetMeta(connection, "created_at_unix", BitConverter.GetBytes(createdAtUnix));
             tx.Commit();
@@ -57,7 +58,9 @@ public sealed class VaultDatabase : IDisposable
                 throw new VaultIdentityMismatchException("Vault database identity does not match its header.");
             }
 
-            return new VaultDatabase(connection, expectedVaultId, path);
+            var database = new VaultDatabase(connection, expectedVaultId, path);
+            Migrations.SchemaMigrator.MigrateToCurrent(database);
+            return database;
         }
         catch
         {

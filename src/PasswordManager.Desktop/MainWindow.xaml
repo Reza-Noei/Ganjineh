@@ -1,4 +1,4 @@
-﻿<Window x:Class="PasswordManager.Desktop.MainWindow"
+<Window x:Class="PasswordManager.Desktop.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:loc="clr-namespace:PasswordManager.Desktop.Localization"
@@ -260,15 +260,73 @@
                             <StackPanel>
                                 <TextBlock Text="{loc:Loc Nav.Section.Vault}" Style="{StaticResource SectionHeader}" />
                                 <Button Content="{loc:Loc Nav.AllItems}" Style="{StaticResource NavItemButton}"
-                                        IsEnabled="False" FontWeight="SemiBold" />
+                                        Command="{Binding SetSectionCommand}" CommandParameter="All"
+                                        AutomationProperties.AutomationId="NavAllItems" />
                                 <Button Content="{loc:Loc Nav.Favorites}" Style="{StaticResource NavItemButton}"
-                                        IsEnabled="False" Opacity="0.5" ToolTip="بعداً" />
-                                <Button Content="{loc:Loc Nav.Folders}" Style="{StaticResource NavItemButton}"
-                                        IsEnabled="False" Opacity="0.5" ToolTip="بعداً" />
-                                <Button Content="{loc:Loc Nav.Tags}" Style="{StaticResource NavItemButton}"
-                                        IsEnabled="False" Opacity="0.5" ToolTip="بعداً" />
-                                <Button Content="{loc:Loc Nav.Trash}" Style="{StaticResource NavItemButton}"
-                                        IsEnabled="False" Opacity="0.5" ToolTip="بعداً" />
+                                        Command="{Binding SetSectionCommand}" CommandParameter="Favorites"
+                                        AutomationProperties.AutomationId="NavFavorites" />
+                                <Button Content="{loc:Loc Type.Login}" Style="{StaticResource NavItemButton}"
+                                        Command="{Binding SetSectionCommand}" CommandParameter="Type:Login" />
+                                <Button Content="{loc:Loc Type.Note}" Style="{StaticResource NavItemButton}"
+                                        Command="{Binding SetSectionCommand}" CommandParameter="Type:SecureNote" />
+                                <Button Content="{loc:Loc Type.Card}" Style="{StaticResource NavItemButton}"
+                                        Command="{Binding SetSectionCommand}" CommandParameter="Type:PaymentCard" />
+                                <Button Content="{loc:Loc Type.Identity}" Style="{StaticResource NavItemButton}"
+                                        Command="{Binding SetSectionCommand}" CommandParameter="Type:Identity" />
+                                <Button Content="{loc:Loc Type.Wifi}" Style="{StaticResource NavItemButton}"
+                                        Command="{Binding SetSectionCommand}" CommandParameter="Type:Wifi" />
+                                <Button Content="{loc:Loc Type.Api}" Style="{StaticResource NavItemButton}"
+                                        Command="{Binding SetSectionCommand}" CommandParameter="Type:ApiCredential" />
+                                <Button Content="{loc:Loc Type.License}" Style="{StaticResource NavItemButton}"
+                                        Command="{Binding SetSectionCommand}" CommandParameter="Type:SoftwareLicense" />
+                                <Button Content="{loc:Loc Type.Codes}" Style="{StaticResource NavItemButton}"
+                                        Command="{Binding SetSectionCommand}" CommandParameter="Type:RecoveryCodes" />
+                                <TextBlock Text="{loc:Loc Nav.Folders}" Style="{StaticResource SectionHeader}" />
+                                <StackPanel Orientation="Horizontal" Margin="8,1">
+                                    <TextBox Text="{Binding NewFolderName, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource SearchBoxStyle}" Width="128" MaxLength="100"
+                                             AutomationProperties.AutomationId="NewFolderInput" />
+                                    <Button Content="+" Style="{StaticResource IconButton}" Command="{Binding AddFolderCommand}"
+                                            Margin="6,0,0,0" AutomationProperties.AutomationId="AddFolderButton" />
+                                    <Button Content="×" Style="{StaticResource IconButton}"
+                                            Command="{Binding DeleteFolderCommand}" Margin="2,0,0,0"
+                                            AutomationProperties.AutomationId="DeleteFolderButton" />
+                                </StackPanel>
+                                <ListBox ItemsSource="{Binding FolderNav}" SelectedItem="{Binding SelectedFolderNav}"
+                                         Background="Transparent" BorderThickness="0" MinHeight="28"
+                                         AutomationProperties.AutomationId="FolderList">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Margin="8,3">
+                                                <Run Text="{Binding Name, Mode=OneWay}" />
+                                                <Run Text="{Binding Count, Mode=OneWay, StringFormat=({0})}" Foreground="{DynamicResource Text.Secondary}" />
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <TextBlock Text="{loc:Loc Nav.Tags}" Style="{StaticResource SectionHeader}" />
+                                <StackPanel Orientation="Horizontal" Margin="8,1">
+                                    <TextBox Text="{Binding NewTagName, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource SearchBoxStyle}" Width="128" MaxLength="60"
+                                             AutomationProperties.AutomationId="NewTagInput" />
+                                    <Button Content="+" Style="{StaticResource IconButton}" Command="{Binding AddTagCommand}"
+                                            Margin="6,0,0,0" AutomationProperties.AutomationId="AddTagButton" />
+                                    <Button Content="×" Style="{StaticResource IconButton}"
+                                            Command="{Binding DeleteTagCommand}" Margin="2,0,0,0"
+                                            AutomationProperties.AutomationId="DeleteTagButton" />
+                                </StackPanel>
+                                <ListBox ItemsSource="{Binding TagNav}" SelectedItem="{Binding SelectedTagNav}"
+                                         Background="Transparent" BorderThickness="0" MinHeight="28"
+                                         AutomationProperties.AutomationId="TagList">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Margin="8,3">
+                                                <Run Text="{Binding Name, Mode=OneWay}" />
+                                                <Run Text="{Binding Count, Mode=OneWay, StringFormat=({0})}" Foreground="{DynamicResource Text.Secondary}" />
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
                                 <TextBlock Text="{loc:Loc Nav.Section.Tools}" Style="{StaticResource SectionHeader}" />
                                 <Button Content="{loc:Loc Nav.Generator}" Style="{StaticResource NavItemButton}"
                                         IsEnabled="False" Opacity="0.5" ToolTip="بعداً" />
@@ -279,6 +337,9 @@
                                 <Button Content="{loc:Loc Nav.Settings}" Style="{StaticResource NavItemButton}"
                                         IsEnabled="False" Opacity="0.5" ToolTip="بعداً"
                                         AutomationProperties.AutomationId="NavSettingsDisabled" />
+                                <Button Content="{loc:Loc Nav.Trash}" Style="{StaticResource NavItemButton}"
+                                        Command="{Binding SetSectionCommand}" CommandParameter="Trash"
+                                        AutomationProperties.AutomationId="NavTrash" />
                             </StackPanel>
                         </ScrollViewer>
                     </Border>
@@ -440,7 +501,134 @@
                                         <Button Content="{loc:Loc Details.Delete}" Command="{Binding BeginDeleteCommand}"
                                                 Background="{DynamicResource Danger}"
                                                 AutomationProperties.AutomationId="DeleteCredential" />
+                                        <Button Content="{loc:Loc Details.Favorite}" Style="{StaticResource IconButton}"
+                                                Command="{Binding ToggleFavoriteCommand}" Margin="10,0,0,0"
+                                                AutomationProperties.AutomationId="ToggleFavorite" />
                                     </StackPanel>
+
+                                    <!-- Phase 4: trash actions -->
+                                    <StackPanel Orientation="Horizontal" Margin="0,16,0,0"
+                                                Visibility="{Binding TrashView, Converter={StaticResource BoolToVisible}}">
+                                        <Button Content="{loc:Loc Trash.Restore}" Command="{Binding RestoreFromTrashCommand}"
+                                                Margin="0,0,10,0" AutomationProperties.AutomationId="RestoreFromTrash" />
+                                        <Button Content="{loc:Loc Trash.Purge}" Command="{Binding BeginPurgeFromTrashCommand}"
+                                                Background="{DynamicResource Danger}"
+                                                AutomationProperties.AutomationId="PurgeFromTrash" />
+                                        <Button Content="{loc:Loc Trash.Empty}" Style="{StaticResource IconButton}"
+                                                Command="{Binding EmptyTrashCommand}" Margin="10,0,0,0"
+                                                AutomationProperties.AutomationId="EmptyTrash" />
+                                    </StackPanel>
+
+                                    <!-- Phase 4: generic type-specific fields -->
+                                    <ItemsControl ItemsSource="{Binding DetailDataRows}" Margin="0,16,0,0"
+                                                  Visibility="{Binding IsGenericDetail, Converter={StaticResource BoolToVisible}}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Margin="0,4">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding Label}" Style="{StaticResource SecondaryText}" />
+                                                        <TextBlock Text="{Binding Display}" Style="{StaticResource BodyText}"
+                                                                   TextWrapping="Wrap" />
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                                        <Button Content="{loc:Loc Details.Reveal}" Style="{StaticResource IconButton}"
+                                                                Command="{Binding DataContext.RevealFieldRowCommand,
+                                                                    RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                CommandParameter="{Binding}"
+                                                                Visibility="{Binding Masked, Converter={StaticResource BoolToVisible}}" />
+                                                        <Button Content="{loc:Loc Editor.Copy}" Style="{StaticResource IconButton}"
+                                                                Command="{Binding DataContext.CopyFieldRowCommand,
+                                                                    RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                CommandParameter="{Binding}" />
+                                                    </StackPanel>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                    <ItemsControl ItemsSource="{Binding DetailCustomRows}" Margin="0,8,0,0"
+                                                  Visibility="{Binding IsGenericDetail, Converter={StaticResource BoolToVisible}}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Margin="0,4">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding Label}" Style="{StaticResource SecondaryText}" />
+                                                        <TextBlock Text="{Binding Display}" Style="{StaticResource BodyText}"
+                                                                   TextWrapping="Wrap" />
+                                                    </StackPanel>
+                                                    <Button Grid.Column="1" Content="{loc:Loc Editor.Copy}" Style="{StaticResource IconButton}"
+                                                            Command="{Binding DataContext.CopyFieldRowCommand,
+                                                                RelativeSource={RelativeSource AncestorType=Window}}"
+                                                            CommandParameter="{Binding}" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                    <!-- Phase 4: attachments -->
+                                    <TextBlock Text="{loc:Loc Attachments.Title}" Style="{StaticResource SectionHeader}"
+                                               Visibility="{Binding IsLoginDetail, Converter={StaticResource FalseToVisible}}" />
+                                    <ItemsControl ItemsSource="{Binding Attachments}"
+                                                  Visibility="{Binding IsLoginDetail, Converter={StaticResource FalseToVisible}}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Margin="0,3">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="{Binding Filename}" Style="{StaticResource BodyText}"
+                                                               TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+                                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                                        <Button Content="{loc:Loc Attachments.Export}" Style="{StaticResource IconButton}"
+                                                                Click="OnExportAttachmentClick" Command="{Binding DataContext.BeginExportAttachmentCommand,
+                                                                    RelativeSource={RelativeSource AncestorType=Window}}" />
+                                                        <Button Content="{loc:Loc Editor.Cancel}" Style="{StaticResource IconButton}"
+                                                                Command="{Binding DataContext.DeleteAttachmentCommand,
+                                                                    RelativeSource={RelativeSource AncestorType=Window}}" />
+                                                    </StackPanel>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                    <StackPanel Orientation="Horizontal" Margin="0,6,0,0"
+                                                Visibility="{Binding IsLoginDetail, Converter={StaticResource FalseToVisible}}">
+                                        <Button Content="{loc:Loc Attachments.Add}" Style="{StaticResource IconButton}"
+                                                Click="OnAddAttachmentClick"
+                                                AutomationProperties.AutomationId="AddAttachment" />
+                                    </StackPanel>
+
+                                    <!-- Phase 4: history -->
+                                    <TextBlock Text="{loc:Loc History.Title}" Style="{StaticResource SectionHeader}" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Content="{loc:Loc History.Load}" Style="{StaticResource IconButton}"
+                                                Command="{Binding LoadHistoryCommand}"
+                                                AutomationProperties.AutomationId="LoadHistory" />
+                                        <Button Content="{loc:Loc History.Restore}" Style="{StaticResource IconButton}"
+                                                Command="{Binding RestoreVersionCommand}" Margin="8,0,0,0"
+                                                AutomationProperties.AutomationId="RestoreVersion" />
+                                    </StackPanel>
+                                    <ListBox ItemsSource="{Binding Versions}" SelectedItem="{Binding SelectedVersion}"
+                                             Background="Transparent" BorderThickness="0" MinHeight="26" MaxHeight="110"
+                                             AutomationProperties.AutomationId="VersionList">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Margin="8,3" Style="{StaticResource BodyText}">
+                                                    <Run Text="v" />
+                                                    <Run Text="{Binding Version, Mode=OneWay}" />
+                                                    <Run Text=" — " />
+                                                    <Run Text="{Binding CreatedAt, Mode=OneWay}" />
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
                                 </StackPanel>
                             </ScrollViewer>
                         </Grid>
@@ -493,6 +681,70 @@
                                      Style="{StaticResource SearchBoxStyle}" Margin="0,4,0,4" MaxLength="10000"
                                      AcceptsReturn="True" TextWrapping="Wrap" MinHeight="70" VerticalScrollBarVisibility="Auto"
                                      AutomationProperties.AutomationId="EditorNotes" />
+                            <TextBlock Text="{loc:Loc Editor.Description}" Style="{StaticResource SecondaryText}" />
+                            <TextBox Text="{Binding EditorDescription, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource SearchBoxStyle}" Margin="0,4,0,10" MaxLength="2000"
+                                     AcceptsReturn="True" TextWrapping="Wrap" MinHeight="50" />
+
+                            <!-- Phase 4: type-specific dynamic rows -->
+                            <ItemsControl ItemsSource="{Binding EditorDataFields}" Margin="0,0,0,4">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="0,4,0,6">
+                                            <TextBlock Text="{Binding LabelKey, Converter={StaticResource LocKey}}"
+                                                       Style="{StaticResource SecondaryText}" />
+                                            <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                                                     Style="{StaticResource SearchBoxStyle}" MaxLength="2000"
+                                                     Visibility="{Binding IsSingleLine, Converter={StaticResource BoolToVisible}}" />
+                                            <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                                                     Style="{StaticResource SearchBoxStyle}" MinHeight="60"
+                                                     AcceptsReturn="True" TextWrapping="Wrap"
+                                                     Visibility="{Binding IsMultiline, Converter={StaticResource BoolToVisible}}" />
+                                            <CheckBox Content="{Binding DataKey}" IsChecked="{Binding BooleanValue}"
+                                                      Visibility="{Binding IsBoolean, Converter={StaticResource BoolToVisible}}" />
+                                        </StackPanel>
+                                        </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <!-- Phase 4: custom fields -->
+                            <TextBlock Text="{loc:Loc Editor.CustomFields}" Style="{StaticResource SecondaryText}" Margin="0,6,0,2" />
+                            <ItemsControl ItemsSource="{Binding EditorCustomFields}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="2*" />
+                                                <ColumnDefinition Width="90" />
+                                                <ColumnDefinition Width="2*" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBox Text="{Binding Label, UpdateSourceTrigger=PropertyChanged}"
+                                                     Style="{StaticResource SearchBoxStyle}" Margin="0,0,4,0" MaxLength="100" />
+                                            <ComboBox Grid.Column="1" SelectedIndex="{Binding TypeIndex}" Margin="0,0,4,0"
+                                                      ItemsSource="{x:Static vm:CustomFieldEditorViewModel.CustomFieldTypeValues}" />
+                                            <TextBox Grid.Column="2" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                                                     Style="{StaticResource SearchBoxStyle}" Margin="0,0,4,0" MaxLength="5000" />
+                                            <CheckBox Grid.Column="3" IsChecked="{Binding Concealed}" VerticalAlignment="Center"
+                                                      ToolTip="{loc:Loc Details.Hide}" />
+                                            <Button Grid.Column="4" Content="×" Style="{StaticResource IconButton}"
+                                                    Command="{Binding DataContext.RemoveCustomFieldCommand,
+                                                        RelativeSource={RelativeSource AncestorType=Window}}"
+                                                    CommandParameter="{Binding}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <Button Content="{loc:Loc Editor.AddField}" Style="{StaticResource IconButton}"
+                                    Command="{Binding AddCustomFieldCommand}" HorizontalAlignment="Left" Margin="0,2,0,8"
+                                    AutomationProperties.AutomationId="AddCustomField" />
+
+                            <!-- Phase 4: folder + tags -->
+                            <TextBlock Text="{loc:Loc Editor.Tags}" Style="{StaticResource SecondaryText}" />
+                            <TextBox Text="{Binding EditorTagNames, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource SearchBoxStyle}" Margin="0,4,0,10" MaxLength="500"
+                                     AutomationProperties.AutomationId="EditorTags" />
                             <TextBlock Text="{Binding EditorError}" Foreground="{DynamicResource Danger}"
                                        Style="{StaticResource SecondaryText}" Margin="0,4,0,0" />
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16,0,0">

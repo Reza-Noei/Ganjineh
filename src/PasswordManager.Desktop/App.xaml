@@ -19,6 +19,7 @@
             <loc:NullToVisibilityConverter x:Key="NullToCollapsed" WhenNotNull="True" />
             <loc:NullToBoolConverter x:Key="NullToBool" />
             <loc:ZeroToVisibleConverter x:Key="ZeroToVisible" />
+            <loc:LocKeyConverter x:Key="LocKey" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

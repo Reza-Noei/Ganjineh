@@ -126,4 +126,81 @@
   <data name="Error.UnsafeUrl" xml:space="preserve"><value>آدرس وب‌سایت معتبر نیست.</value></data>
   <data name="Main.LockVault" xml:space="preserve"><value>قفل گاوصندوق</value></data>
   <data name="Main.SwitchVault" xml:space="preserve"><value>تغییر گاوصندوق</value></data>
+  <!-- Phase 4 -->
+  <data name="Type.Login" xml:space="preserve"><value>ورودها</value></data>
+  <data name="Type.Note" xml:space="preserve"><value>یادداشت‌های امن</value></data>
+  <data name="Type.Card" xml:space="preserve"><value>کارت‌های بانکی</value></data>
+  <data name="Type.Identity" xml:space="preserve"><value>هویت‌ها</value></data>
+  <data name="Type.Wifi" xml:space="preserve"><value>وای‌فای</value></data>
+  <data name="Type.Api" xml:space="preserve"><value>اعتبارنامه‌های API</value></data>
+  <data name="Type.License" xml:space="preserve"><value>لایسنس‌ها</value></data>
+  <data name="Type.Codes" xml:space="preserve"><value>کدهای بازیابی</value></data>
+  <data name="Type.Custom" xml:space="preserve"><value>سفارشی</value></data>
+  <data name="Details.Content" xml:space="preserve"><value>محتوا</value></data>
+  <data name="Details.Category" xml:space="preserve"><value>دسته</value></data>
+  <data name="Details.Title" xml:space="preserve"><value>عنوان</value></data>
+  <data name="Details.Favorite" xml:space="preserve"><value>علاقه‌مندی</value></data>
+  <data name="Card.Holder" xml:space="preserve"><value>نام دارنده</value></data>
+  <data name="Card.Number" xml:space="preserve"><value>شماره کارت</value></data>
+  <data name="Card.ExpMonth" xml:space="preserve"><value>ماه انقضا</value></data>
+  <data name="Card.ExpYear" xml:space="preserve"><value>سال انقضا</value></data>
+  <data name="Card.Cvv" xml:space="preserve"><value>کد امنیتی (CVV)</value></data>
+  <data name="Card.Issuer" xml:space="preserve"><value>صادرکننده</value></data>
+  <data name="Identity.FullName" xml:space="preserve"><value>نام کامل</value></data>
+  <data name="Identity.Dob" xml:space="preserve"><value>تاریخ تولد</value></data>
+  <data name="Identity.Emails" xml:space="preserve"><value>ایمیل‌ها</value></data>
+  <data name="Identity.Phones" xml:space="preserve"><value>تلفن‌ها</value></data>
+  <data name="Identity.Address" xml:space="preserve"><value>نشانی</value></data>
+  <data name="Identity.IdNumbers" xml:space="preserve"><value>شماره‌های شناسایی</value></data>
+  <data name="Wifi.Ssid" xml:space="preserve"><value>نام شبکه (SSID)</value></data>
+  <data name="Wifi.Security" xml:space="preserve"><value>نوع امنیت</value></data>
+  <data name="Wifi.Hidden" xml:space="preserve"><value>شبکه مخفی</value></data>
+  <data name="Api.Service" xml:space="preserve"><value>نام سرویس</value></data>
+  <data name="Api.Key" xml:space="preserve"><value>کلید API</value></data>
+  <data name="Api.Secret" xml:space="preserve"><value>رمز API</value></data>
+  <data name="Api.Token" xml:space="preserve"><value>توکن</value></data>
+  <data name="Api.Endpoint" xml:space="preserve"><value>آدرس سرویس</value></data>
+  <data name="Api.Environment" xml:space="preserve"><value>محیط</value></data>
+  <data name="Api.Expires" xml:space="preserve"><value>تاریخ انقضا</value></data>
+  <data name="License.Product" xml:space="preserve"><value>نام محصول</value></data>
+  <data name="License.Key" xml:space="preserve"><value>کلید لایسنس</value></data>
+  <data name="License.Email" xml:space="preserve"><value>ایمیل دارنده لایسنس</value></data>
+  <data name="License.Purchased" xml:space="preserve"><value>تاریخ خرید</value></data>
+  <data name="License.Expires" xml:space="preserve"><value>تاریخ انقضا</value></data>
+  <data name="License.Vendor" xml:space="preserve"><value>وب‌سایت فروشنده</value></data>
+  <data name="Codes.Service" xml:space="preserve"><value>نام سرویس</value></data>
+  <data name="Codes.Codes" xml:space="preserve"><value>کدهای بازیابی</value></data>
+  <data name="Attachments.Title" xml:space="preserve"><value>پیوست‌ها</value></data>
+  <data name="Attachments.Add" xml:space="preserve"><value>افزودن پیوست</value></data>
+  <data name="Attachments.Export" xml:space="preserve"><value>خروجی</value></data>
+  <data name="History.Title" xml:space="preserve"><value>تاریخچه</value></data>
+  <data name="History.Load" xml:space="preserve"><value>نمایش تاریخچه</value></data>
+  <data name="History.Restore" xml:space="preserve"><value>بازیابی نسخه انتخابی</value></data>
+  <data name="Trash.Restore" xml:space="preserve"><value>بازیابی</value></data>
+  <data name="Trash.Purge" xml:space="preserve"><value>حذف همیشگی</value></data>
+  <data name="Trash.Empty" xml:space="preserve"><value>خالی‌کردن سطل زباله</value></data>
+  <data name="Status.VersionRestored" xml:space="preserve"><value>نسخه انتخابی بازیابی شد.</value></data>
+  <data name="Status.Restored" xml:space="preserve"><value>آیتم از سطل زباله بازیابی شد.</value></data>
+  <data name="Status.TrashEmptied" xml:space="preserve"><value>{0} آیتم برای همیشه حذف شد.</value></data>
+  <data name="Editor.Description" xml:space="preserve"><value>توضیح</value></data>
+  <data name="Editor.Tags" xml:space="preserve"><value>برچسب‌ها (با کاما جدا کنید)</value></data>
+  <data name="Editor.Folder" xml:space="preserve"><value>پوشه</value></data>
+  <data name="Editor.Copy" xml:space="preserve"><value>کپی</value></data>
+  <data name="Editor.CustomFields" xml:space="preserve"><value>فیلدهای سفارشی</value></data>
+  <data name="Editor.AddField" xml:space="preserve"><value>+ فیلد</value></data>
+  <data name="Validation.FolderNameRequired" xml:space="preserve"><value>نام پوشه الزامی است.</value></data>
+  <data name="Validation.FolderNameTooLong" xml:space="preserve"><value>نام پوشه بیش از حد طولانی است.</value></data>
+  <data name="Validation.FolderCircularMove" xml:space="preserve"><value>پوشه را نمی‌توان داخل خودش یا زیرمجموعه‌اش منتقل کرد.</value></data>
+  <data name="Validation.TagNameRequired" xml:space="preserve"><value>نام برچسب الزامی است.</value></data>
+  <data name="Validation.TagNameTooLong" xml:space="preserve"><value>نام برچسب بیش از حد طولانی است.</value></data>
+  <data name="Validation.TagDuplicate" xml:space="preserve"><value>برچسبی با همین نام وجود دارد.</value></data>
+  <data name="Validation.FieldLabelRequired" xml:space="preserve"><value>برچسب فیلد الزامی است.</value></data>
+  <data name="Validation.FieldLabelTooLong" xml:space="preserve"><value>برچسب فیلد بیش از حد طولانی است.</value></data>
+  <data name="Validation.FieldInvalidUrl" xml:space="preserve"><value>آدرس فیلد معتبر نیست.</value></data>
+  <data name="Validation.FieldInvalidEmail" xml:space="preserve"><value>ایمیل فیلد معتبر نیست.</value></data>
+  <data name="Validation.FieldInvalidNumber" xml:space="preserve"><value>مقدار عددی معتبر نیست.</value></data>
+  <data name="Validation.FieldInvalidDate" xml:space="preserve"><value>تاریخ معتبر نیست.</value></data>
+  <data name="Validation.FieldInvalidBoolean" xml:space="preserve"><value>مقدار بولی معتبر نیست.</value></data>
+  <data name="Validation.ItemTrashed" xml:space="preserve"><value>این آیتم در سطل زباله است؛ ابتدا آن را بازیابی کنید.</value></data>
+  <data name="Validation.AttachmentTooLarge" xml:space="preserve"><value>حجم پیوست بیش از حد مجاز است (۱۰۰ مگابایت).</value></data>
 </root>

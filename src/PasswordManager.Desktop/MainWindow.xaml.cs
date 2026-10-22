@@ -154,4 +154,37 @@ public partial class MainWindow : Window
         _viewModel.Workspace.EditorPasswordHandoff = TakeChars(passwordBox);
         _viewModel.Workspace.SaveEditorCommand.Execute(null);
     }
+
+    private async void OnAddAttachmentClick(object sender, RoutedEventArgs e)
+    {
+        var dialog = new Microsoft.Win32.OpenFileDialog { Title = "Ganjineh" };
+        if (dialog.ShowDialog() == true)
+        {
+            await _viewModel.Workspace.AddAttachmentFromFileAsync(dialog.FileName);
+        }
+    }
+
+    private async void OnExportAttachmentClick(object sender, RoutedEventArgs e)
+    {
+        var suggested = _viewModel.Workspace.SelectedAttachment?.Filename ?? "attachment";
+        var dialog = new Microsoft.Win32.SaveFileDialog
+        {
+            Title = "Ganjineh",
+            FileName = suggested.ReplaceInvalidFileNameChars(),
+        };
+        if (dialog.ShowDialog() == true)
+        {
+            await _viewModel.Workspace.ExportAttachmentToFileAsync(dialog.FileName);
+        }
+    }
+}
+
+internal static class FileNameSanitizer
+{
+    public static string ReplaceInvalidFileNameChars(this string name)
+    {
+        var invalid = System.IO.Path.GetInvalidFileNameChars();
+        var cleaned = new string(name.Select(c => invalid.Contains(c) ? '_' : c).ToArray());
+        return string.IsNullOrWhiteSpace(cleaned) ? "attachment" : cleaned;
+    }
 }

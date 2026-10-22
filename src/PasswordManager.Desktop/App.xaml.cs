@@ -4,6 +4,7 @@ using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using PasswordManager.Application.Abstractions;
 using PasswordManager.Application.Credentials;
+using PasswordManager.Application.Items;
 using PasswordManager.Application.Vaults;
 using PasswordManager.Desktop.Services;
 using PasswordManager.Desktop.ViewModels;
@@ -42,6 +43,10 @@ public partial class App : System.Windows.Application
         services.AddSingleton<IVaultSessionManager, VaultSessionManager>();
         services.AddSingleton<ItemEncryption>();
         services.AddSingleton<ICredentialService, CredentialService>();
+        services.AddSingleton<IVaultItemService, VaultItemService>();
+        services.AddSingleton<IFolderService, FolderService>();
+        services.AddSingleton<ITagService, TagService>();
+        services.AddSingleton<IAttachmentService, AttachmentService>();
         services.AddSingleton<AutoLockService>();
         services.AddSingleton<AppViewModel>();
         services.AddSingleton<MainWindow>();

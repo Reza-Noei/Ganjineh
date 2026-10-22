@@ -121,4 +121,80 @@
   <data name="Error.UnsafeUrl" xml:space="preserve"><value>The website URL is not valid.</value></data>
   <data name="Main.LockVault" xml:space="preserve"><value>Lock vault</value></data>
   <data name="Main.SwitchVault" xml:space="preserve"><value>Switch vault</value></data>
+  <data name="Type.Login" xml:space="preserve"><value>Logins</value></data>
+  <data name="Type.Note" xml:space="preserve"><value>Secure notes</value></data>
+  <data name="Type.Card" xml:space="preserve"><value>Payment cards</value></data>
+  <data name="Type.Identity" xml:space="preserve"><value>Identities</value></data>
+  <data name="Type.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
+  <data name="Type.Api" xml:space="preserve"><value>API credentials</value></data>
+  <data name="Type.License" xml:space="preserve"><value>Software licenses</value></data>
+  <data name="Type.Codes" xml:space="preserve"><value>Recovery codes</value></data>
+  <data name="Type.Custom" xml:space="preserve"><value>Custom</value></data>
+  <data name="Details.Content" xml:space="preserve"><value>Content</value></data>
+  <data name="Details.Category" xml:space="preserve"><value>Category</value></data>
+  <data name="Details.Title" xml:space="preserve"><value>Title</value></data>
+  <data name="Details.Favorite" xml:space="preserve"><value>Favorite</value></data>
+  <data name="Card.Holder" xml:space="preserve"><value>Cardholder</value></data>
+  <data name="Card.Number" xml:space="preserve"><value>Card number</value></data>
+  <data name="Card.ExpMonth" xml:space="preserve"><value>Expiry month</value></data>
+  <data name="Card.ExpYear" xml:space="preserve"><value>Expiry year</value></data>
+  <data name="Card.Cvv" xml:space="preserve"><value>Security code (CVV)</value></data>
+  <data name="Card.Issuer" xml:space="preserve"><value>Issuer</value></data>
+  <data name="Identity.FullName" xml:space="preserve"><value>Full name</value></data>
+  <data name="Identity.Dob" xml:space="preserve"><value>Date of birth</value></data>
+  <data name="Identity.Emails" xml:space="preserve"><value>Emails</value></data>
+  <data name="Identity.Phones" xml:space="preserve"><value>Phones</value></data>
+  <data name="Identity.Address" xml:space="preserve"><value>Address</value></data>
+  <data name="Identity.IdNumbers" xml:space="preserve"><value>ID numbers</value></data>
+  <data name="Wifi.Ssid" xml:space="preserve"><value>Network name (SSID)</value></data>
+  <data name="Wifi.Security" xml:space="preserve"><value>Security type</value></data>
+  <data name="Wifi.Hidden" xml:space="preserve"><value>Hidden network</value></data>
+  <data name="Api.Service" xml:space="preserve"><value>Service</value></data>
+  <data name="Api.Key" xml:space="preserve"><value>API key</value></data>
+  <data name="Api.Secret" xml:space="preserve"><value>API secret</value></data>
+  <data name="Api.Token" xml:space="preserve"><value>Token</value></data>
+  <data name="Api.Endpoint" xml:space="preserve"><value>Endpoint</value></data>
+  <data name="Api.Environment" xml:space="preserve"><value>Environment</value></data>
+  <data name="Api.Expires" xml:space="preserve"><value>Expires</value></data>
+  <data name="License.Product" xml:space="preserve"><value>Product</value></data>
+  <data name="License.Key" xml:space="preserve"><value>License key</value></data>
+  <data name="License.Email" xml:space="preserve"><value>Licensed email</value></data>
+  <data name="License.Purchased" xml:space="preserve"><value>Purchased</value></data>
+  <data name="License.Expires" xml:space="preserve"><value>Expires</value></data>
+  <data name="License.Vendor" xml:space="preserve"><value>Vendor website</value></data>
+  <data name="Codes.Service" xml:space="preserve"><value>Service</value></data>
+  <data name="Codes.Codes" xml:space="preserve"><value>Recovery codes</value></data>
+  <data name="Attachments.Title" xml:space="preserve"><value>Attachments</value></data>
+  <data name="Attachments.Add" xml:space="preserve"><value>Add attachment</value></data>
+  <data name="Attachments.Export" xml:space="preserve"><value>Export</value></data>
+  <data name="History.Title" xml:space="preserve"><value>History</value></data>
+  <data name="History.Load" xml:space="preserve"><value>Load history</value></data>
+  <data name="History.Restore" xml:space="preserve"><value>Restore selected version</value></data>
+  <data name="Trash.Restore" xml:space="preserve"><value>Restore</value></data>
+  <data name="Trash.Purge" xml:space="preserve"><value>Delete permanently</value></data>
+  <data name="Trash.Empty" xml:space="preserve"><value>Empty trash</value></data>
+  <data name="Status.VersionRestored" xml:space="preserve"><value>The selected version was restored.</value></data>
+  <data name="Status.Restored" xml:space="preserve"><value>Item restored from trash.</value></data>
+  <data name="Status.TrashEmptied" xml:space="preserve"><value>{0} item(s) purged.</value></data>
+  <data name="Editor.Description" xml:space="preserve"><value>Description</value></data>
+  <data name="Editor.Tags" xml:space="preserve"><value>Tags (comma separated)</value></data>
+  <data name="Editor.Folder" xml:space="preserve"><value>Folder</value></data>
+  <data name="Editor.Copy" xml:space="preserve"><value>Copy</value></data>
+  <data name="Editor.CustomFields" xml:space="preserve"><value>Custom fields</value></data>
+  <data name="Editor.AddField" xml:space="preserve"><value>+ Field</value></data>
+  <data name="Validation.FolderNameRequired" xml:space="preserve"><value>Folder name is required.</value></data>
+  <data name="Validation.FolderNameTooLong" xml:space="preserve"><value>Folder name is too long.</value></data>
+  <data name="Validation.FolderCircularMove" xml:space="preserve"><value>A folder cannot be moved into itself or its descendants.</value></data>
+  <data name="Validation.TagNameRequired" xml:space="preserve"><value>Tag name is required.</value></data>
+  <data name="Validation.TagNameTooLong" xml:space="preserve"><value>Tag name is too long.</value></data>
+  <data name="Validation.TagDuplicate" xml:space="preserve"><value>A tag with this name already exists.</value></data>
+  <data name="Validation.FieldLabelRequired" xml:space="preserve"><value>Field label is required.</value></data>
+  <data name="Validation.FieldLabelTooLong" xml:space="preserve"><value>Field label is too long.</value></data>
+  <data name="Validation.FieldInvalidUrl" xml:space="preserve"><value>The field URL is invalid.</value></data>
+  <data name="Validation.FieldInvalidEmail" xml:space="preserve"><value>The field email is invalid.</value></data>
+  <data name="Validation.FieldInvalidNumber" xml:space="preserve"><value>The field number is invalid.</value></data>
+  <data name="Validation.FieldInvalidDate" xml:space="preserve"><value>The field date is invalid.</value></data>
+  <data name="Validation.FieldInvalidBoolean" xml:space="preserve"><value>The field boolean is invalid.</value></data>
+  <data name="Validation.ItemTrashed" xml:space="preserve"><value>This item is in the trash; restore it first.</value></data>
+  <data name="Validation.AttachmentTooLarge" xml:space="preserve"><value>The attachment exceeds the 100 MB limit.</value></data>
 </root>

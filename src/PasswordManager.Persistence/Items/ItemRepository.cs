@@ -16,6 +16,7 @@ public enum ItemType : int
     ApiCredential = 6,
     SoftwareLicense = 7,
     RecoveryCodes = 8,
+  Custom = 9,
 }
 
 /// <summary>Structural row of an item (non-sensitive columns; payload is an envelope).</summary>
@@ -25,7 +26,8 @@ public sealed record ItemRow(
     bool Favorite,
     long? TrashedAt,
     long CreatedAt,
-    long UpdatedAt);
+    long UpdatedAt,
+    Guid? FolderId = null);
 
 /// <summary>
 /// Key-free item persistence: the repository stores/returns envelope blobs only — encryption and
@@ -95,18 +97,94 @@ public sealed class ItemRepository
         _database.Connection.Execute($"UPDATE items SET favorite = {value}, updated_at = {nowUnix} WHERE id = '{id}';");
     }
 
-    /// <summary>Permanent delete (trash/restore arrive in Phase 4). Cascades to versions.</summary>
+    /// <summary>Permanent delete (trash restore path). Cascades to versions and tags.</summary>
     public void Delete(Guid id) =>
         _database.Connection.Execute($"DELETE FROM items WHERE id = '{id}';");
 
-    public ItemRow? GetRow(Guid id) => QueryRow($"SELECT id, type, favorite, trashed_at, created_at, updated_at FROM items WHERE id = '{id}';");
+    public ItemRow? GetRow(Guid id) => QueryRow($"SELECT id, type, favorite, trashed_at, created_at, updated_at, folder_id FROM items WHERE id = '{id}';");
 
     public IReadOnlyList<ItemRow> ListRows(int type) =>
-        QueryRows($"SELECT id, type, favorite, trashed_at, created_at, updated_at FROM items WHERE type = {type} AND trashed_at IS NULL ORDER BY updated_at DESC;");
+        QueryRows($"SELECT id, type, favorite, trashed_at, created_at, updated_at, folder_id FROM items WHERE type = {type} AND trashed_at IS NULL ORDER BY updated_at DESC;");
+
+    public IReadOnlyList<ItemRow> ListAllLive() =>
+        QueryRows("SELECT id, type, favorite, trashed_at, created_at, updated_at, folder_id FROM items WHERE trashed_at IS NULL ORDER BY updated_at DESC;");
+
+    public IReadOnlyList<ItemRow> ListTrashed() =>
+        QueryRows("SELECT id, type, favorite, trashed_at, created_at, updated_at, folder_id FROM items WHERE trashed_at IS NOT NULL ORDER BY trashed_at DESC;");
+
+    public void Trash(Guid id, long trashedAt) =>
+        _database.Connection.Execute($"UPDATE items SET trashed_at = {trashedAt} WHERE id = '{id}';");
+
+    public void Restore(Guid id)
+    {
+        var row = GetRow(id) ?? throw new InvalidOperationException("Item not found.");
+        _database.Connection.Execute($"UPDATE items SET trashed_at = NULL, updated_at = {row.UpdatedAt} WHERE id = '{id}';");
+    }
+
+    /// <summary>Permanently removes items soft-deleted before the cutoff. Returns affected ids.</summary>
+    public IReadOnlyList<Guid> PurgeTrashedBefore(long cutoffUnix)
+    {
+        var rows = QueryRows($"SELECT id, type, favorite, trashed_at, created_at, updated_at, folder_id FROM items WHERE trashed_at IS NOT NULL AND trashed_at < {cutoffUnix};");
+        var ids = rows.Select(r => r.Id).ToList();
+        foreach (var id in ids)
+        {
+            Delete(id);
+        }
+
+        return ids;
+    }
+
+    public void SetFolder(Guid id, Guid? folderId)
+    {
+        var value = folderId is null ? "NULL" : $"'{folderId}'";
+        _database.Connection.Execute($"UPDATE items SET folder_id = {value} WHERE id = '{id}';");
+    }
+
+    public IReadOnlyList<Guid> GetTagIds(Guid id) =>
+        _database.Connection.Query($"SELECT tag_id FROM item_tags WHERE item_id = '{id}';")
+            .Select(r => new Guid((string)r[0]!))
+            .ToList();
+
+    public void SetTags(Guid id, IReadOnlyCollection<Guid> tagIds)
+    {
+        using var tx = _database.Connection.BeginTransaction();
+        _database.Connection.Execute($"DELETE FROM item_tags WHERE item_id = '{id}';");
+        foreach (var tagId in tagIds.Distinct())
+        {
+            _database.Connection.Execute($"INSERT OR IGNORE INTO item_tags (item_id, tag_id) VALUES ('{id}', '{tagId}');");
+        }
+
+        tx.Commit();
+    }
+
+    public IReadOnlyList<(Guid TagId, int Count)> TagUsageCounts() =>
+        _database.Connection.Query(
+                "SELECT t.id, COUNT(it.item_id) FROM tags t LEFT JOIN item_tags it ON it.tag_id = t.id GROUP BY t.id;")
+            .Select(r => (new Guid((string)r[0]!), (int)(long)r[1]!))
+            .ToList();
+
+    public IReadOnlyList<(Guid? FolderId, int Count)> FolderItemCounts() =>
+        _database.Connection.Query(
+                "SELECT folder_id, COUNT(*) FROM items WHERE trashed_at IS NULL GROUP BY folder_id;")
+            .Select(r => ((Guid?)r[0] is null ? (Guid?)null : new Guid((string)r[0]!), (int)(long)r[1]!))
+            .ToList();
 
     public byte[]? GetCurrentPayload(Guid id) =>
         _database.Connection.ScalarBlob(
             $"SELECT payload_cipher FROM item_versions WHERE item_id = '{id}' ORDER BY version DESC;");
+
+    public byte[]? GetVersionPayload(Guid id, int version) =>
+        _database.Connection.ScalarBlob(
+            $"SELECT payload_cipher FROM item_versions WHERE item_id = '{id}' AND version = {version};");
+
+    public IReadOnlyList<(int Version, long CreatedAt)> ListVersions(Guid id) =>
+        _database.Connection.Query(
+                $"SELECT version, created_at FROM item_versions WHERE item_id = '{id}' ORDER BY version;")
+            .Select(r => ((int)(long)r[0]!, (long)r[1]!))
+            .ToList();
+
+    public void DeleteVersion(Guid id, int version) =>
+        _database.Connection.Execute($"DELETE FROM item_versions WHERE item_id = '{id}' AND version = {version};");
 
     private void InsertVersion(Guid id, int version, byte[] payloadCipher, long nowUnix)
     {
@@ -138,7 +216,8 @@ public sealed class ItemRepository
                 Favorite: (long)cells[2]! != 0,
                 TrashedAt: (long?)cells[3],
                 CreatedAt: (long)cells[4]!,
-                UpdatedAt: (long)cells[5]!));
+                UpdatedAt: (long)cells[5]!,
+                FolderId: cells.Length > 6 && cells[6] is string folderId ? new Guid(folderId) : null));
         }
 
         return rows;

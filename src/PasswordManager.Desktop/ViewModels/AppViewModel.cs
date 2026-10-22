@@ -1,7 +1,7 @@
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using PasswordManager.Application.Abstractions;
-using PasswordManager.Application.Credentials;
+using PasswordManager.Application.Items;
 using PasswordManager.Application.Vaults;
 
 namespace PasswordManager.Desktop.ViewModels;
@@ -53,7 +53,10 @@ public sealed partial class AppViewModel : ObservableObject
         IVaultLifecycle lifecycle,
         IVaultCatalog catalog,
         IVaultSessionManager sessions,
-        ICredentialService credentials,
+        IVaultItemService items,
+        IFolderService folders,
+        ITagService tags,
+        IAttachmentService attachments,
         IAppSettingsStore settings,
         ILocalizer localizer,
         IDialogService dialogs,
@@ -68,7 +71,8 @@ public sealed partial class AppViewModel : ObservableObject
         Picker = new VaultPickerViewModel(catalog, dialogs, localizer);
         Create = new CreateVaultViewModel(lifecycle, localizer);
         Unlock = new UnlockViewModel(lifecycle, localizer);
-        Workspace = new VaultWorkspaceViewModel(lifecycle, sessions, credentials, clipboard, localizer, catalog);
+        Workspace = new VaultWorkspaceViewModel(
+            lifecycle, sessions, items, folders, tags, attachments, clipboard, localizer);
 
         Picker.CreateRequested += (_, _) => { Screen = AppScreen.CreateVault; };
         Picker.UnlockRequested += (_, row) =>

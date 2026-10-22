@@ -79,3 +79,16 @@ the feature — no separate UI phase at the end.
   Docs: docs/phase-3-*.md + vault-management/credential-management/search-design/clipboard-security/
   session-lifecycle. *Deferred by design:* favorites/folders/tags/trash/history UI (Phase 4),
   generator/TOTP/security-center screens (Phase 5), settings screens beyond defaults (Phase 7).
+- **2026-10-22 — Phase 4 complete.** Unified item architecture (9 kinds, payload v1 with
+  custom-fields engine, v0-compat deserializer — additive schema migration to v2), folders/tags
+  (encrypted names, cycle-safe, cascade semantics), favorites, encrypted version history with
+  retention + restore, trash with restore/purge/empty, streamed chunked-AEAD attachments
+  (4 MiB chunks, TLS-1.3-style nonces, terminator auth, failure-safe ordering), advanced search
+  across kinds with folder/tag/favorite filters, and the extended Persian RTL UI (kind sections,
+  folder/tag panels, dynamic metadata-driven editor and details, attachments/history/trash
+  panels). **Tests: 137/137 green** (65 Cryptography incl. 5 chunked-AEAD protocol tests,
+  53 Integration incl. 19 Phase 4, UI E2E still green). Docs: docs/phase-4-*.md +
+  vault-item-model/custom-fields/folders-and-tags/item-history/trash-management/
+  attachment-encryption/advanced-search. *Deferred by design:* TOTP, generator, security center
+  (Phase 5); reusable custom-item templates and history diffing UI (later); backup/import
+  (Phase 6).

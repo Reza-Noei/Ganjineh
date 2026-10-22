@@ -165,6 +165,60 @@ public sealed class ItemEncryption
         }
     }
 
+    /// <summary>Serializes and seals a unified v1 payload (Application/Items model).</summary>
+    public byte[] EncryptPayload(VaultKeyring keyring, ReadOnlySpan<byte> vaultId, Guid itemId, PasswordManager.Application.Items.ItemPayload payload)
+    {
+        var json = System.Text.Encoding.UTF8.GetBytes(System.Text.Json.JsonSerializer.Serialize(payload));
+        try
+        {
+            return EncryptBytes(keyring, vaultId, itemId, json);
+        }
+        finally
+        {
+            System.Security.Cryptography.CryptographicOperations.ZeroMemory(json);
+        }
+    }
+
+    /// <summary>Seals arbitrary plaintext under the item key with the payload binding.</summary>
+    public byte[] EncryptBytes(VaultKeyring keyring, ReadOnlySpan<byte> vaultId, Guid itemId, ReadOnlySpan<byte> plaintext) =>
+        _aead.Encrypt(plaintext, keyring.ItemKey, KeyDomain.Item, Aad(vaultId, itemId)).Serialize();
+
+    /// <summary>Opens a payload envelope to raw JSON bytes (zeroized by the caller).</summary>
+    public byte[] DecryptToBytes(VaultKeyring keyring, ReadOnlySpan<byte> vaultId, Guid itemId, byte[] envelope)
+    {
+        var payload = EncryptedPayload.Parse(envelope);
+        return _aead.Decrypt(payload, keyring.ItemKey, Aad(vaultId, itemId));
+    }
+
+    /// <summary>Static variant for Phase 3 compatibility paths.</summary>
+    public static byte[] DecryptJson(VaultKeyring keyring, ReadOnlySpan<byte> vaultId, Guid itemId, byte[] envelope)
+    {
+        var payload = EncryptedPayload.Parse(envelope);
+        return DefaultAead.Decrypt(payload, keyring.ItemKey, Aad(vaultId, itemId));
+    }
+
+    /// <summary>Seals metadata (folder/tag/vault names) under the item key, AAD-bound to the vault and record.</summary>
+    public byte[] EncryptMeta(VaultKeyring keyring, ReadOnlySpan<byte> vaultId, string recordId, ReadOnlySpan<byte> plaintext) =>
+        _aead.Encrypt(plaintext, keyring.ItemKey, KeyDomain.Meta, MetaAad(vaultId, recordId)).Serialize();
+
+    /// <summary>Opens a metadata envelope; returns raw plaintext bytes (zeroize after use).</summary>
+    public byte[] DecryptMeta(VaultKeyring keyring, ReadOnlySpan<byte> vaultId, string recordId, byte[] envelope)
+    {
+        var payload = EncryptedPayload.Parse(envelope);
+        return _aead.Decrypt(payload, keyring.ItemKey, MetaAad(vaultId, recordId));
+    }
+
+    private static byte[] MetaAad(ReadOnlySpan<byte> vaultId, string recordId)
+    {
+        var recordBytes = System.Text.Encoding.UTF8.GetBytes(recordId);
+        var aad = new byte[vaultId.Length + recordBytes.Length];
+        vaultId.CopyTo(aad);
+        recordBytes.CopyTo(aad, vaultId.Length);
+        return aad;
+    }
+
+    private static readonly IAuthenticatedEncryptionService DefaultAead = new AesGcmAuthenticatedEncryption();
+
     private static byte[] Aad(ReadOnlySpan<byte> vaultId, Guid itemId)
     {
         if (vaultId.Length != CryptoFormat.VaultIdSize)

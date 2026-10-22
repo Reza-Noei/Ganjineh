@@ -69,6 +69,7 @@ public class Phase3UiTests
                 () => window.FindFirstDescendant(cf => cf.ByAutomationId("RowTitle"))?.Name?
                     .Contains("بانک ملی", StringComparison.Ordinal) == true,
                 TimeSpan.FromSeconds(10));
+            Thread.Sleep(700); // let the debounce settle before selecting
 
             // ── Details: select the first row; password masked by default ──
             WaitFor(window, "CredentialList", TimeSpan.FromSeconds(5)).AsListBox().Select(0);

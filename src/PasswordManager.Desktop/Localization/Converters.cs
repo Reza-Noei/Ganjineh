@@ -49,3 +49,17 @@ public sealed class ZeroToVisibleConverter : IValueConverter
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
         throw new NotSupportedException();
 }
+
+/// <summary>Resolves a localization resource KEY arriving through a binding.</summary>
+public sealed class LocKeyConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        var localizer = Desktop.App.Services?.GetService(typeof(Application.Abstractions.ILocalizer))
+            as Application.Abstractions.ILocalizer;
+        return localizer is null || value is not string key ? value ?? string.Empty : localizer[key];
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        throw new NotSupportedException();
+}
