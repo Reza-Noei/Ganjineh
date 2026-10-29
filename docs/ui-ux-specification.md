@@ -1,6 +1,6 @@
 # UI/UX Specification — Ganjineh (Persian-first RTL)
 
-Status: **Phase 0 — Proposed** | WPF on .NET 10, Fluent-inspired, RTL-native.
+Status: **Implemented** | WPF on .NET 10, Material Design (MaterialDesignThemes 5.3.2), RTL-native.
 
 ## 1. Design Principles
 
@@ -14,32 +14,47 @@ Status: **Phase 0 — Proposed** | WPF on .NET 10, Fluent-inspired, RTL-native.
 
 ## 2. Visual Language
 
+- **Design system:** Material Design 3 via `MaterialDesignThemes` 5.3.2 (as of 2026-10-23,
+  replacing the Phase-1 hand-rolled Fluent-inspired styles). Implicit control styles come from
+  `Themes/MaterialDesign3.Defaults.xaml`; `Styles/Controls.xaml` rebases the Ganjineh styles
+  (`IconButton` → Material flat, inputs → Material implicit TextBox/PasswordBox, destructive
+  actions → `DangerButton`) on top. Light/Dark flips rebuild Material's `BundledTheme` at runtime
+  (`ThemeService`), then the Ganjineh token dictionary below. The vendored Vazirmatn font also
+  overrides Material's `MaterialDesignFont` resource, so Material chrome uses it too.
 - **Typography:** Vazirmatn (OFL) as UI font, weights Regular/Medium/SemiBold; Latin fallback
   Segoe UI Variable. Scale: 12 / 14 (body) / 16 (subtitle) / 20 / 28 (title). Tabular figures
   for codes and counters. *As built (Phase 1): vendored at
   `src/PasswordManager.Desktop/Assets/Fonts` (Regular/Medium/SemiBold + OFL.txt), embedded as
   pack resources; missing-font fallback is automatic.*
-- **Iconography:** Lucide outline icons (ISC license), converted to XAML `PathGeometry` resources,
-  16/20/24 px grid, `1.5` stroke. Directional icons mirrored for RTL via theme transform list.
-- **Spacing:** 4-px base grid; card padding 16; list row height 44; section gap 24.
-- **Corner radius:** cards 8, buttons 6, inputs 6; focus: 2-px accent ring (visible, RTL-aware).
-- **Elevation:** flat surfaces + 1-px hairline borders (Fluent-ish, no heavy shadows).
+- **Iconography:** Material Design Icons via `materialDesign:PackIcon` (compile-checked
+  `PackIconKind` enum), 16/20/24 px. Directional icons mirror with `FlowDirection`.
+- **Spacing:** 4-px base grid; card padding 16; list row height 44; section gap 24. RTL spacing
+  rule: physical margins do not mirror with `FlowDirection`, so in stretch+auto column pairs the
+  stretching element carries symmetric horizontal margins, and auto siblings use symmetric
+  `4,0`-style margins — gaps stay identical in RTL and LTR (no touching/overlapping elements).
+- **Corner radius:** cards 12, Material buttons/inputs per MD3; focus: Material ripple + focus ring.
+- **Elevation:** Material cards with 1-px hairline borders (tone cards, no heavy shadows —
+  keeps the "calm density" principle).
 
 ### Theme tokens (Light / Dark)
 
-| Token | Light | Dark |
-|-------|-------|------|
-| `Bg.Base` | #F5F5F7 | #1C1C1F |
-| `Bg.Card` | #FFFFFF | #26262B |
-| `Bg.Sunken` | #ECECEF | #151518 |
-| `Text.Primary` | #1A1A1E | #F2F2F5 |
-| `Text.Secondary` | #5A5A66 | #A8A8B4 |
-| `Accent` | #2F6FED | #6E9BFF |
-| `Accent.Soft` | #E3ECFF | #1F335C |
-| `Danger` | #C42B1C | #FF99A4 |
-| `Success` | #0F7B3E | #6CCB5F |
-| `Warning` | #9A6700 | #E2B93B |
-| `Divider` | #E3E3E8 | #3A3A42 |
+Ganjineh brand tokens, mapped to the Material palette; consumed via DynamicResource and swapped
+together with Material's `BundledTheme` on theme change. Plus an `Overlay.Scrim` token
+(Light #66000000 / Dark #99000000) for modal overlays.
+
+| Token | Light | Dark | Material source |
+|-------|-------|------|-----------------|
+| `Bg.Base` | #F5F5F5 | #121212 | Grey 100 / dark surface |
+| `Bg.Card` | #FFFFFF | #1E1E1E | surface / elevated surface |
+| `Bg.Sunken` | #EEEEEE | #161616 | Grey 200 |
+| `Text.Primary` | #212121 | #F5F5F5 | Grey 900 / Grey 50 |
+| `Text.Secondary` | #757575 | #BDBDBD | Grey 600 / Grey 400 |
+| `Accent` | #1976D2 | #2196F3 | Blue 700 / Blue 500 |
+| `Accent.Soft` | #E3F2FD | #0D2B45 | Blue 50 |
+| `Danger` | #D32F2F | #E57373 | Red 700 / Red 300 |
+| `Success` | #388E3C | #81C784 | Green 700 / Green 300 |
+| `Warning` | #FF6F00 | #FFB74D | Amber 900 / Orange 300 |
+| `Divider` | #E0E0E0 | #424242 | Grey 300 / Grey 800 |
 
 Text contrast ≥ 4.5:1 in both themes (checked in Phase 1); accent used for interactive elements,
 never for body text on tinted backgrounds.

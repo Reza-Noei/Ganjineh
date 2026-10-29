@@ -206,6 +206,7 @@
   <data name="Generator.Password" xml:space="preserve"><value>رمز</value></data>
   <data name="Generator.Passphrase" xml:space="preserve"><value>عبارت رمز</value></data>
   <data name="Generator.NoAmbiguous" xml:space="preserve"><value>حذف نویسه‌های گیج‌کننده</value></data>
+  <data name="Generator.Length" xml:space="preserve"><value>طول</value></data>
   <data name="Generator.Words" xml:space="preserve"><value>تعداد کلمات</value></data>
   <data name="Generator.Capitalize" xml:space="preserve"><value>حرف اول بزرگ</value></data>
   <data name="Generator.NumberSuffix" xml:space="preserve"><value>افزودن عدد</value></data>
@@ -241,4 +242,46 @@
   <data name="Validation.GeneratorImpossible" xml:space="preserve"><value>این ترکیب امکان‌پذیر نیست (طول/حداقل‌ها را اصلاح کنید).</value></data>
   <data name="Validation.GeneratorEmptyClass" xml:space="preserve"><value>با این محدودیت‌ها، یک دسته نویسه خالی می‌ماند.</value></data>
   <data name="Validation.GeneratorWordCount" xml:space="preserve"><value>تعداد کلمات باید ۳ تا ۱۲ باشد.</value></data>
+  <data name="Sort.Label" xml:space="preserve"><value>مرتب‌سازی</value></data>
+  <data name="Sort.Updated" xml:space="preserve"><value>تازه‌ترین تغییر</value></data>
+  <data name="Sort.Title" xml:space="preserve"><value>عنوان (الفبایی)</value></data>
+  <data name="Sort.Created" xml:space="preserve"><value>جدیدترین</value></data>
+  <data name="Nav.AddFolder" xml:space="preserve"><value>افزودن پوشه</value></data>
+  <data name="Nav.DeleteFolder" xml:space="preserve"><value>حذف پوشه</value></data>
+  <data name="Nav.AddTag" xml:space="preserve"><value>افزودن برچسب</value></data>
+  <data name="Nav.DeleteTag" xml:space="preserve"><value>حذف برچسب</value></data>
+  <data name="Security.OfflineNote" xml:space="preserve"><value>تحلیل کاملاً آفلاین و روی همین دستگاه انجام می‌شود.</value></data>
+  <data name="Security.NoFindings" xml:space="preserve"><value>مشکل قابل توجهی پیدا نشد.</value></data>
+  <data name="Security.AllFindings" xml:space="preserve"><value>همه</value></data>
+  <data name="Findings.ExpiringSecret" xml:space="preserve"><value>راز در حال انقضا</value></data>
+  <data name="Totp.Copy" xml:space="preserve"><value>کپی کد</value></data>
+  <data name="Editor.Type" xml:space="preserve"><value>نوع آیتم</value></data>
+  <data name="Editor.Remove" xml:space="preserve"><value>حذف</value></data>
+  <data name="Confirm.EmptyTrashTitle" xml:space="preserve"><value>خالی کردن سطل زباله</value></data>
+  <data name="Confirm.EmptyTrashText" xml:space="preserve"><value>همهٔ آیتم‌های سطل زباله برای همیشه حذف می‌شوند؛ این کار قابل بازگشت نیست.</value></data>
+  <data name="Settings.Language" xml:space="preserve"><value>زبان</value></data>
+  <data name="Settings.Theme" xml:space="preserve"><value>پوسته</value></data>
+  <data name="Settings.Clipboard" xml:space="preserve"><value>پاک‌سازی خودکار کلیپ‌بورد</value></data>
+  <data name="Settings.ClipboardHint" xml:space="preserve"><value>محتوای حساس پس از این مدت از کلیپ‌بورد پاک می‌شود. توجه: تاریخچهٔ کلیپ‌بورد ویندوز (Win+V) می‌تواند آن را نگه دارد.</value></data>
+  <data name="Settings.AutoLock" xml:space="preserve"><value>قفل خودکار</value></data>
+  <data name="Settings.AutoLockNever" xml:space="preserve"><value>غیرفعال</value></data>
+  <data name="Settings.Seconds" xml:space="preserve"><value>ثانیه</value></data>
+  <data name="Backup.Verified" xml:space="preserve"><value>نسخهٔ پشتیبان معتبر است</value></data>
+  <data name="Backup.ItemCount" xml:space="preserve"><value>آیتم‌ها</value></data>
+  <data name="Backup.AttachmentCount" xml:space="preserve"><value>پیوست‌ها</value></data>
+  <data name="Backup.CreatedAt" xml:space="preserve"><value>تاریخ ایجاد</value></data>
+  <data name="Backup.CreateTitle" xml:space="preserve"><value>ساختن نسخهٔ پشتیبان</value></data>
+  <data name="Backup.VerifyTitle" xml:space="preserve"><value>بررسی نسخهٔ پشتیبان</value></data>
+  <data name="Backup.RestoreTitle" xml:space="preserve"><value>بازیابی از نسخهٔ پشتیبان</value></data>
+  <data name="Backup.RestoreDest" xml:space="preserve"><value>مقصد بازیابی</value></data>
+  <data name="Backup.RestorePassword" xml:space="preserve"><value>رمز اصلیِ نسخهٔ پشتیبان</value></data>
+  <data name="Backup.Browse" xml:space="preserve"><value>مرور…</value></data>
+  <data name="Status.BackupCreated" xml:space="preserve"><value>نسخهٔ پشتیبان ساخته شد.</value></data>
+  <data name="Status.RestoreCompleted" xml:space="preserve"><value>بازیابی کامل شد</value></data>
+  <data name="Generator.Excluded" xml:space="preserve"><value>نویسه‌های مستثنی</value></data>
+  <data name="Generator.Separator" xml:space="preserve"><value>جداکننده</value></data>
+  <data name="Generator.Preset.Standard" xml:space="preserve"><value>استاندارد</value></data>
+  <data name="Generator.Preset.Strong" xml:space="preserve"><value>قوی</value></data>
+  <data name="Generator.Preset.Compat" xml:space="preserve"><value>حداکثر سازگاری</value></data>
+  <data name="Generator.Preset.Pin" xml:space="preserve"><value>پین عددی</value></data>
 </root>

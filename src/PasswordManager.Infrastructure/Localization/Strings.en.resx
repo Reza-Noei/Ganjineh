@@ -200,6 +200,7 @@
   <data name="Generator.Password" xml:space="preserve"><value>Password</value></data>
   <data name="Generator.Passphrase" xml:space="preserve"><value>Passphrase</value></data>
   <data name="Generator.NoAmbiguous" xml:space="preserve"><value>Avoid ambiguous</value></data>
+  <data name="Generator.Length" xml:space="preserve"><value>Length</value></data>
   <data name="Generator.Words" xml:space="preserve"><value>Word count</value></data>
   <data name="Generator.Capitalize" xml:space="preserve"><value>Capitalize</value></data>
   <data name="Generator.NumberSuffix" xml:space="preserve"><value>Append number</value></data>
@@ -235,4 +236,46 @@
   <data name="Validation.GeneratorImpossible" xml:space="preserve"><value>This combination is impossible (adjust length/minimums).</value></data>
   <data name="Validation.GeneratorEmptyClass" xml:space="preserve"><value>With these exclusions a character class is empty.</value></data>
   <data name="Validation.GeneratorWordCount" xml:space="preserve"><value>Word count must be 3–12.</value></data>
+  <data name="Sort.Label" xml:space="preserve"><value>Sort</value></data>
+  <data name="Sort.Updated" xml:space="preserve"><value>Recently changed</value></data>
+  <data name="Sort.Title" xml:space="preserve"><value>Title (A-Z)</value></data>
+  <data name="Sort.Created" xml:space="preserve"><value>Newest first</value></data>
+  <data name="Nav.AddFolder" xml:space="preserve"><value>Add folder</value></data>
+  <data name="Nav.DeleteFolder" xml:space="preserve"><value>Delete folder</value></data>
+  <data name="Nav.AddTag" xml:space="preserve"><value>Add tag</value></data>
+  <data name="Nav.DeleteTag" xml:space="preserve"><value>Delete tag</value></data>
+  <data name="Security.OfflineNote" xml:space="preserve"><value>Analysis runs entirely offline on this device.</value></data>
+  <data name="Security.NoFindings" xml:space="preserve"><value>No notable issues found.</value></data>
+  <data name="Security.AllFindings" xml:space="preserve"><value>All</value></data>
+  <data name="Findings.ExpiringSecret" xml:space="preserve"><value>Expiring secret</value></data>
+  <data name="Totp.Copy" xml:space="preserve"><value>Copy code</value></data>
+  <data name="Editor.Type" xml:space="preserve"><value>Item type</value></data>
+  <data name="Editor.Remove" xml:space="preserve"><value>Remove</value></data>
+  <data name="Confirm.EmptyTrashTitle" xml:space="preserve"><value>Empty trash</value></data>
+  <data name="Confirm.EmptyTrashText" xml:space="preserve"><value>Everything in the trash will be permanently deleted. This cannot be undone.</value></data>
+  <data name="Settings.Language" xml:space="preserve"><value>Language</value></data>
+  <data name="Settings.Theme" xml:space="preserve"><value>Theme</value></data>
+  <data name="Settings.Clipboard" xml:space="preserve"><value>Clipboard auto-clear</value></data>
+  <data name="Settings.ClipboardHint" xml:space="preserve"><value>Sensitive content is cleared from the clipboard after this long. Note: Windows clipboard history (Win+V) may retain it.</value></data>
+  <data name="Settings.AutoLock" xml:space="preserve"><value>Auto-lock</value></data>
+  <data name="Settings.AutoLockNever" xml:space="preserve"><value>Disabled</value></data>
+  <data name="Settings.Seconds" xml:space="preserve"><value>seconds</value></data>
+  <data name="Backup.Verified" xml:space="preserve"><value>Backup verified</value></data>
+  <data name="Backup.ItemCount" xml:space="preserve"><value>Items</value></data>
+  <data name="Backup.AttachmentCount" xml:space="preserve"><value>Attachments</value></data>
+  <data name="Backup.CreatedAt" xml:space="preserve"><value>Created</value></data>
+  <data name="Backup.CreateTitle" xml:space="preserve"><value>Create backup</value></data>
+  <data name="Backup.VerifyTitle" xml:space="preserve"><value>Verify backup</value></data>
+  <data name="Backup.RestoreTitle" xml:space="preserve"><value>Restore from backup</value></data>
+  <data name="Backup.RestoreDest" xml:space="preserve"><value>Restore destination</value></data>
+  <data name="Backup.RestorePassword" xml:space="preserve"><value>Backup master password</value></data>
+  <data name="Backup.Browse" xml:space="preserve"><value>Browse</value></data>
+  <data name="Status.BackupCreated" xml:space="preserve"><value>Backup created.</value></data>
+  <data name="Status.RestoreCompleted" xml:space="preserve"><value>Restore completed</value></data>
+  <data name="Generator.Excluded" xml:space="preserve"><value>Excluded characters</value></data>
+  <data name="Generator.Separator" xml:space="preserve"><value>Separator</value></data>
+  <data name="Generator.Preset.Standard" xml:space="preserve"><value>Standard</value></data>
+  <data name="Generator.Preset.Strong" xml:space="preserve"><value>Strong</value></data>
+  <data name="Generator.Preset.Compat" xml:space="preserve"><value>Max compatibility</value></data>
+  <data name="Generator.Preset.Pin" xml:space="preserve"><value>Numeric PIN</value></data>
 </root>

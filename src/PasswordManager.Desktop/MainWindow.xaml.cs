@@ -40,6 +40,45 @@ public partial class MainWindow : Window
                 viewModel.Workspace.StatusMessage = localizer["Status.ClipboardCleared"];
             }
         };
+
+        // Backup flows: the shell owns the Win32 file dialogs and hands paths into the VM.
+        viewModel.Backup.CreateBackupRequested += async (_, _) =>
+        {
+            var dialog = new Microsoft.Win32.SaveFileDialog
+            {
+                Title = "Ganjineh",
+                Filter = "Ganjineh Backup (*.gvbak)|*.gvbak",
+                FileName = $"ganjineh-backup-{DateTime.Now:yyyyMMdd-HHmm}.gvbak",
+            };
+            if (dialog.ShowDialog(this) == true)
+            {
+                await viewModel.Backup.CreateBackupToAsync(dialog.FileName);
+            }
+        };
+        viewModel.Backup.VerifyBackupRequested += async (_, _) =>
+        {
+            var dialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Title = "Ganjineh",
+                Filter = "Ganjineh Backup (*.gvbak)|*.gvbak|All files|*.*",
+            };
+            if (dialog.ShowDialog(this) == true)
+            {
+                await viewModel.Backup.VerifyBackupAtAsync(dialog.FileName);
+            }
+        };
+        viewModel.Backup.PickRestoreFileRequested += (_, _) =>
+        {
+            var dialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Title = "Ganjineh",
+                Filter = "Ganjineh Backup (*.gvbak)|*.gvbak|All files|*.*",
+            };
+            if (dialog.ShowDialog(this) == true)
+            {
+                viewModel.Backup.SetRestoreFile(dialog.FileName);
+            }
+        };
     }
 
     /// <summary>Copies a PasswordBox's content into a char[] and clears the box.</summary>
@@ -176,6 +215,121 @@ public partial class MainWindow : Window
         {
             await _viewModel.Workspace.ExportAttachmentToFileAsync(dialog.FileName);
         }
+    }
+
+    /// <summary>Restore confirm: reads the master PasswordBox and hands it to the backup VM.
+    /// (The RestoreRequest contract takes the credential as a string; the box is cleared here.)</summary>
+    private async void OnBackupRestoreConfirmClick(object sender, RoutedEventArgs e)
+    {
+        var password = BackupRestorePassword.Password;
+        BackupRestorePassword.Clear();
+        await _viewModel.Backup.ConfirmRestoreAsync(password);
+    }
+
+    // ── keyboard: spec §7 (Ctrl+F search, Ctrl+N new, Ctrl+G generator, Ctrl+L lock), Esc closes
+    //    the topmost overlay ──
+
+    protected override void OnPreviewKeyDown(KeyEventArgs e)
+    {
+        base.OnPreviewKeyDown(e);
+        if (_viewModel.Screen != AppScreen.Workspace)
+        {
+            return;
+        }
+
+        if (e.Key == Key.Escape)
+        {
+            if (TryCloseTopOverlay())
+            {
+                e.Handled = true;
+            }
+
+            return;
+        }
+
+        if (Keyboard.Modifiers != ModifierKeys.Control)
+        {
+            return;
+        }
+
+        var workspace = _viewModel.Workspace;
+        switch (e.Key)
+        {
+            case Key.F:
+                workspace.FocusSearchCommand.Execute(null);
+                e.Handled = true;
+                break;
+            case Key.N when NoOverlayOpen():
+                workspace.BeginCreateCommand.Execute(null);
+                e.Handled = true;
+                break;
+            case Key.G when NoOverlayOpen():
+                workspace.OpenGeneratorCommand.Execute(null);
+                e.Handled = true;
+                break;
+            case Key.L:
+                workspace.LockCommand.Execute(null);
+                e.Handled = true;
+                break;
+        }
+    }
+
+    private bool NoOverlayOpen() =>
+        !_viewModel.Workspace.EditorVisible
+        && !_viewModel.Workspace.GeneratorVisible
+        && !_viewModel.Workspace.DeleteConfirmVisible
+        && !_viewModel.Workspace.EmptyTrashConfirmVisible
+        && !_viewModel.Settings.IsVisible
+        && !_viewModel.Backup.IsVisible;
+
+    private bool TryCloseTopOverlay()
+    {
+        var workspace = _viewModel.Workspace;
+        if (_viewModel.Settings.IsVisible)
+        {
+            _viewModel.Settings.IsVisible = false;
+            return true;
+        }
+
+        if (_viewModel.Backup.IsVisible)
+        {
+            if (_viewModel.Backup.RestoreStage)
+            {
+                _viewModel.Backup.CancelRestoreStageCommand.Execute(null);
+            }
+            else
+            {
+                _viewModel.Backup.IsVisible = false;
+            }
+
+            return true;
+        }
+
+        if (workspace.EmptyTrashConfirmVisible)
+        {
+            workspace.CancelEmptyTrashCommand.Execute(null);
+            return true;
+        }
+
+        if (workspace.DeleteConfirmVisible)
+        {
+            workspace.CancelDeleteCommand.Execute(null);
+            return true;
+        }
+
+        if (workspace.GeneratorVisible)
+        {
+            workspace.CloseGeneratorCommand.Execute(null);
+            return true;
+        }
+
+        if (workspace.EditorVisible)
+        {
+            workspace.CancelEditorCommand.Execute(null);
+            return true;
+        }
+
+        return false;
     }
 }
 

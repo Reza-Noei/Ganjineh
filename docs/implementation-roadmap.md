@@ -112,3 +112,15 @@ the feature — no separate UI phase at the end.
   memory security audit, supply chain audit, penetration test report, residual risk assessment,
   and release readiness assessment (Conditional Go) produced. See docs/security/* and
   docs/phase-8-test-results.md.
+- **2026-10-23 — Material Design adoption + RTL layout fixes.** Replaced the Phase-1
+  hand-rolled Fluent-inspired styles with Material Design 3 (MaterialDesignThemes 5.3.2):
+  `BundledTheme` (Blue/LightBlue, live Light/Dark rebuild in ThemeService), MD3 default control
+  styles rebased under Styles/Controls.xaml, Material PackIcon navigation/toolbar iconography,
+  Vazirmatn wired into Material's font resource. Brand tokens remapped to the Material palette
+  (+ `Overlay.Scrim`). Fixed RTL overlap/clipping defects: Unlock label/password stacked in one
+  grid cell, duplicated search header in the item-list card, physical left-margins that collapsed
+  gaps under RTL (search/add, folder/tag +/-, detail copy rows — now flow-neutral symmetric
+  margins), editor/generator/delete overlays now scroll instead of clipping, and
+  direction-dependent Left/Right alignments removed. Added `Generator.Length` fa/en key
+  (replaces hard-coded "طول"). **Tests: UI E2E green; full solution builds 0 warnings.**
+  Docs: ui-ux-specification.md §2 rewritten.

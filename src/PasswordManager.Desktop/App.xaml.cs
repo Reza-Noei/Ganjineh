@@ -3,6 +3,7 @@ using System.Windows.Input;
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using PasswordManager.Application.Abstractions;
+using PasswordManager.Application.Backup;
 using PasswordManager.Application.Credentials;
 using PasswordManager.Application.Items;
 using PasswordManager.Application.Security;
@@ -54,7 +55,10 @@ public partial class App : System.Windows.Application
         services.AddSingleton<IVaultSecurityAnalyzer, VaultSecurityAnalyzer>();
         services.AddSingleton<IOtpApplicationService, OtpApplicationService>();
         services.AddSingleton<IPasswordStrengthEstimator, ZxcvbnStrengthEstimator>();
+        services.AddSingleton<IVaultBackupService, VaultBackupService>();
         services.AddSingleton<AutoLockService>();
+        services.AddSingleton<SettingsViewModel>();
+        services.AddSingleton<BackupViewModel>();
         services.AddSingleton<AppViewModel>();
         services.AddSingleton<MainWindow>();
         Services = services.BuildServiceProvider();

@@ -59,6 +59,7 @@ public partial class VaultWorkspaceViewModel
     public int DuplicateCount => SecurityReport?.Count(FindingKind.DuplicateAccount) ?? 0;
     public int EmptyCount => SecurityReport?.Count(FindingKind.EmptyPassword) ?? 0;
     public int OldCount => SecurityReport?.Count(FindingKind.OldPassword) ?? 0;
+    public int MissingAuthenticatorCount => SecurityReport?.Count(FindingKind.MissingAuthenticator) ?? 0;
     public int ExpiringCount => SecurityReport?.Count(FindingKind.ExpiringSecret) ?? 0;
 
     // ── TOTP display state ──
@@ -238,6 +239,7 @@ public partial class VaultWorkspaceViewModel
             OnPropertyChanged(nameof(DuplicateCount));
             OnPropertyChanged(nameof(EmptyCount));
             OnPropertyChanged(nameof(OldCount));
+            OnPropertyChanged(nameof(MissingAuthenticatorCount));
             OnPropertyChanged(nameof(ExpiringCount));
         }
         catch (StaleSessionException)

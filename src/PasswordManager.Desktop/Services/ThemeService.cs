@@ -1,13 +1,17 @@
 using System.Windows;
-
+using MaterialDesignColors;
+using MaterialDesignThemes.Wpf;
 
 
 
 namespace PasswordManager.Desktop.Services;
 
 /// <summary>
-/// Swaps the theme ResourceDictionary in Application.Resources.MergedDictionaries; all styles
-/// reference tokens via DynamicResource, so the swap propagates live without restart.
+/// Live theme switching, Material Design edition. Two swaps per Apply():
+/// 1. the <see cref="BundledTheme"/> ResourceDictionary (regenerates every Material brush +
+///    color scheme for Light/Dark), and
+/// 2. the Ganjineh brand-token dictionary (Themes/Light|Dark.xaml), whose brushes are consumed
+///    via DynamicResource, so both swaps propagate without restart.
 /// </summary>
 public sealed class ThemeService
 {
@@ -17,6 +21,9 @@ public sealed class ThemeService
     private static readonly Uri DarkUri =
         new("pack://application:,,,/PasswordManager.Desktop;component/Themes/Dark.xaml");
 
+    private const PrimaryColor Primary = PrimaryColor.Blue;
+    private const SecondaryColor Secondary = SecondaryColor.LightBlue;
+
     /// <summary>Normalized current theme: "Light" or "Dark".</summary>
     public string Current { get; private set; } = "Light";
 
@@ -24,18 +31,45 @@ public sealed class ThemeService
     {
         ArgumentNullException.ThrowIfNull(theme);
         var isDark = string.Equals(theme, "Dark", StringComparison.OrdinalIgnoreCase);
-        var dictionary = new ResourceDictionary { Source = isDark ? DarkUri : LightUri };
-
         var merged = System.Windows.Application.Current.Resources.MergedDictionaries;
-        var existing = merged.FirstOrDefault(d =>
-            d.Source?.OriginalString.Contains("/Themes/", StringComparison.Ordinal) == true);
-        if (existing is not null)
+
+        // 1) Material Design: replace the BundledTheme instance so all MD brushes re-resolve.
+        var bundled = new BundledTheme
         {
-            merged[merged.IndexOf(existing)] = dictionary;
+            BaseTheme = isDark ? BaseTheme.Dark : BaseTheme.Light,
+            PrimaryColor = Primary,
+            SecondaryColor = Secondary,
+        };
+        var bundledIndex = -1;
+        for (var i = 0; i < merged.Count; i++)
+        {
+            if (merged[i] is BundledTheme)
+            {
+                bundledIndex = i;
+                break;
+            }
+        }
+        if (bundledIndex >= 0)
+        {
+            merged[bundledIndex] = bundled;
         }
         else
         {
-            merged.Insert(0, dictionary);
+            merged.Insert(0, bundled);
+        }
+
+        // 2) Brand tokens: swap the Themes/* dictionary (matched by URI, not "/Themes/" — the MD
+        //    defaults dictionary also lives under a Themes path).
+        var tokenDictionary = new ResourceDictionary { Source = isDark ? DarkUri : LightUri };
+        var existing = merged.FirstOrDefault(d =>
+            Uri.Equals(d.Source, LightUri) || Uri.Equals(d.Source, DarkUri));
+        if (existing is not null)
+        {
+            merged[merged.IndexOf(existing)] = tokenDictionary;
+        }
+        else
+        {
+            merged.Insert(1, tokenDictionary);
         }
 
         Current = isDark ? "Dark" : "Light";

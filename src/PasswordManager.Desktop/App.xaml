@@ -2,24 +2,42 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:loc="clr-namespace:PasswordManager.Desktop.Localization"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              ShutdownMode="OnMainWindowClose">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!-- Theme dictionary (index 0) is swapped at runtime by ThemeService. -->
+                <!-- Material Design theme (index 0): rebuilt at runtime by ThemeService for dark mode. -->
+                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Blue" SecondaryColor="LightBlue" />
+                <!-- Material Design control set: implicit styles for Button/TextBox/PasswordBox/ComboBox/
+                     CheckBox/RadioButton/Slider/ListBox/etc. rebased in Styles/Controls.xaml. -->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+                <!-- Brand token dictionary (index 2) is swapped at runtime by ThemeService; keys must
+                     match Themes/Dark.xaml exactly. -->
                 <ResourceDictionary Source="pack://application:,,,/PasswordManager.Desktop;component/Themes/Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/PasswordManager.Desktop;component/Styles/Controls.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <!-- Vendored Vazirmatn (OFL); falls back to system fonts automatically if missing. -->
+            <!-- Vendored Vazirmatn (OFL); falls back to system fonts automatically if missing.
+             Applied to the window (App.FontFamily) and to Material Design's font resource so MD
+             chrome (hints, snackbar, tooltips) uses the same face. -->
             <FontFamily x:Key="App.FontFamily">pack://application:,,,/PasswordManager.Desktop;component/Assets/Fonts/#Vazirmatn</FontFamily>
-            <!-- FontFamily resource declared above; converters registered here. -->
+            <FontFamily x:Key="MaterialDesignFont">pack://application:,,,/PasswordManager.Desktop;component/Assets/Fonts/#Vazirmatn</FontFamily>
+            <!-- FontFamily resources declared above; converters registered here. -->
             <loc:BoolToVisibilityConverter x:Key="BoolToVisible" />
             <loc:BoolToVisibilityConverter x:Key="FalseToVisible" Invert="True" />
             <loc:NullToVisibilityConverter x:Key="NullToVisible" WhenNotNull="False" />
             <loc:NullToVisibilityConverter x:Key="NullToCollapsed" WhenNotNull="True" />
             <loc:NullToBoolConverter x:Key="NullToBool" />
             <loc:ZeroToVisibleConverter x:Key="ZeroToVisible" />
+            <loc:ZeroToVisibleConverter x:Key="ZeroToCollapsed" Invert="True" />
+            <loc:IntEqualsConverter x:Key="IndexEquals" />
+            <loc:EmptyToVisibleConverter x:Key="EmptyToVisible" />
             <loc:LocKeyConverter x:Key="LocKey" />
+            <loc:StringEqualsConverter x:Key="SectionEquals" />
+            <loc:ItemTypeToIconConverter x:Key="TypeToIcon" />
+            <loc:ItemTypeToLabelConverter x:Key="TypeToLabel" />
+            <loc:FindingKindConverter x:Key="FindingKindLabel" />
+            <loc:FindingDetailConverter x:Key="FindingDetail" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

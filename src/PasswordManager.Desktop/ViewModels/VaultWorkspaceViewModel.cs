@@ -166,7 +166,22 @@ public sealed partial class VaultWorkspaceViewModel : ObservableObject
     [ObservableProperty] private string _editorTagNames = string.Empty;
     [ObservableProperty] private string? _editorError;
     public char[] EditorPasswordHandoff { get; set; } = [];
-    public Guid? EditingId { get; private set; }
+
+    private Guid? _editingId;
+
+    /// <summary>Observable so the editor header (new vs. edit) and create-only controls react.</summary>
+    public Guid? EditingId
+    {
+        get => _editingId;
+        private set
+        {
+            if (_editingId != value)
+            {
+                _editingId = value;
+                OnPropertyChanged(nameof(EditingId));
+            }
+        }
+    }
 
     public ObservableCollection<FieldEditorViewModel> EditorDataFields { get; } = [];
     public ObservableCollection<CustomFieldEditorViewModel> EditorCustomFields { get; } = [];
@@ -204,32 +219,45 @@ public sealed partial class VaultWorkspaceViewModel : ObservableObject
     public event EventHandler? AddAttachmentRequested;
     public event EventHandler<(Guid AttachmentId, string SuggestedName)>? ExportAttachmentRequested;
 
-    // ── derived display ──
+    // ── derived display (all null-safe: bindings evaluate with Detail cleared on delete/lock) ──
 
     public string DetailTitleText => Detail?.Title ?? string.Empty;
     public string DetailUsernameText =>
-        Detail?.Kind == ItemType.Login ? Detail.Data.GetValueOrDefault("username") as string ?? string.Empty : ItemKindInfo.SubtitleFor(Detail!.Kind, Detail.Data) ?? string.Empty;
+        Detail is null
+            ? string.Empty
+            : Detail.Kind == ItemType.Login
+                ? Detail.Data.GetValueOrDefault("username") as string ?? string.Empty
+                : ItemKindInfo.SubtitleFor(Detail.Kind, Detail.Data) ?? string.Empty;
     public string DetailWebsiteText =>
         Detail?.Kind == ItemType.Login ? FirstUrl(Detail) ?? string.Empty : string.Empty;
-    public string DetailNotesText =>
-        Detail?.Kind == ItemType.Login ? Detail.Description ?? string.Empty : Detail?.Description ?? string.Empty;
+    public string DetailNotesText => Detail?.Description ?? string.Empty;
     public string DetailDates =>
         Detail is null ? string.Empty : $"{_localizer["Details.Created"]} {Detail.CreatedAt.LocalDateTime:yyyy/MM/dd HH:mm}   |   {_localizer["Details.Modified"]} {Detail.UpdatedAt.LocalDateTime:yyyy/MM/dd HH:mm}";
 
-    private static string? FirstUrl(ItemDetail detail) =>
-        detail.Data.TryGetValue("urls", out var value) && value is System.Text.Json.JsonElement el
-        && el.ValueKind == System.Text.Json.JsonValueKind.Array
-        && el.EnumerateArray().FirstOrDefault().ValueKind == System.Text.Json.JsonValueKind.String
-            ? el.EnumerateArray().First().GetString()
-            : null;
+    private static string? FirstUrl(ItemDetail detail)
+    {
+        if (!detail.Data.TryGetValue("urls", out var value))
+        {
+            return null;
+        }
+
+        // NormalizeData hands arrays back as List<string>; raw payloads arrive as JsonElement.
+        return value switch
+        {
+            System.Text.Json.JsonElement { ValueKind: System.Text.Json.JsonValueKind.Array } el
+                => el.EnumerateArray()
+                    .FirstOrDefault(e => e.ValueKind == System.Text.Json.JsonValueKind.String)
+                    .GetString(),
+            IEnumerable<string> urls => urls.FirstOrDefault(),
+            string single => string.IsNullOrWhiteSpace(single) ? null : single,
+            _ => null,
+        };
+    }
 
     partial void OnPasswordRevealedChanged(bool value) => OnPropertyChanged(nameof(PasswordDisplay));
 
-    partial void OnSectionChanged(string value)
-    {
-        TrashView = value == "Trash";
-        _ = LoadAsync();
-    }
+    // (Section change handling lives in VaultWorkspaceViewModel.Redesign.cs — it also clears the
+    // folder/tag filters and refreshes the contextual list header.)
 
     partial void OnFilterFolderIdChanged(Guid? value) => ApplyFilter();
     partial void OnFilterTagIdChanged(Guid? value) => ApplyFilter();
@@ -270,11 +298,20 @@ public sealed partial class VaultWorkspaceViewModel : ObservableObject
 
     public bool IsLoginDetail => Detail?.Kind == ItemType.Login;
     public bool IsGenericDetail => Detail is { Kind: not ItemType.Login };
+    public bool DetailIsFavorite => Detail?.Favorite ?? false;
 
     partial void OnDetailChanged(ItemDetail? value)
     {
         OnPropertyChanged(nameof(IsLoginDetail));
         OnPropertyChanged(nameof(IsGenericDetail));
+        OnPropertyChanged(nameof(DetailIsFavorite));
+        // Clear derived strings immediately when Detail drops (delete/lock), so no stale
+        // identity text lingers under the empty pane.
+        OnPropertyChanged(nameof(DetailTitleText));
+        OnPropertyChanged(nameof(DetailUsernameText));
+        OnPropertyChanged(nameof(DetailWebsiteText));
+        OnPropertyChanged(nameof(DetailNotesText));
+        OnPropertyChanged(nameof(DetailDates));
     }
 
     [RelayCommand]
