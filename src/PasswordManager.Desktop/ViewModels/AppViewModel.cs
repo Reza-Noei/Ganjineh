@@ -36,6 +36,7 @@ public sealed partial class AppViewModel : ObservableObject
     public VaultWorkspaceViewModel Workspace { get; }
     public SettingsViewModel Settings { get; }
     public BackupViewModel Backup { get; }
+    public BrowserImportViewModel BrowserImport { get; }
 
     /// <summary>fa renders right-to-left; en mirrors the shell to left-to-right.</summary>
     public FlowDirection ShellFlowDirection { get; private set; } = FlowDirection.RightToLeft;
@@ -75,7 +76,8 @@ public sealed partial class AppViewModel : ObservableObject
         IDialogService dialogs,
         Services.ClipboardService clipboard,
         Services.ThemeService theme,
-        IVaultBackupService backups)
+        IVaultBackupService backups,
+        Application.Import.IBrowserImportService import)
     {
         _sessions = sessions;
         _localizer = localizer;
@@ -93,6 +95,7 @@ public sealed partial class AppViewModel : ObservableObject
             clipboard, localizer);
         Settings = new SettingsViewModel(settings, localizer, theme);
         Backup = new BackupViewModel(backups, sessions, localizer, dialogs);
+        BrowserImport = new BrowserImportViewModel(import, sessions, localizer);
 
         Picker.CreateRequested += (_, _) => { Screen = AppScreen.CreateVault; };
         Picker.UnlockRequested += (_, row) =>
@@ -149,6 +152,15 @@ public sealed partial class AppViewModel : ObservableObject
     // ── top-bar toggles (persist immediately; services react live) ──
 
     public bool ThemeIsDark => string.Equals(_theme.Current, "Dark", StringComparison.OrdinalIgnoreCase);
+
+    /// <summary>Settings → Import &amp; Export entry: closes the settings overlay and opens the
+    /// shared wizard with the browser preconfigured ("chrome" / "firefox").</summary>
+    [RelayCommand]
+    private void OpenImportWizard(string which)
+    {
+        Settings.IsVisible = false;
+        BrowserImport.OpenBrowserCommand.Execute(which);
+    }
 
     [RelayCommand]
     private void ToggleTheme()

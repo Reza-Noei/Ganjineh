@@ -264,6 +264,9 @@ Generated_Code/
 # because we have git ;-)
 _UpgradeReport_Files/
 Backup*/
+# Ganjineh: the vault backup service source lives under Application/Backup — never ignore it
+!src/PasswordManager.Application/Backup/
+!src/PasswordManager.Application/Backup/**
 UpgradeLog*.XML
 UpgradeLog*.htm
 ServiceFabricBackup/

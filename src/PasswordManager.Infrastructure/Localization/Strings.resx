@@ -284,4 +284,60 @@
   <data name="Generator.Preset.Strong" xml:space="preserve"><value>قوی</value></data>
   <data name="Generator.Preset.Compat" xml:space="preserve"><value>حداکثر سازگاری</value></data>
   <data name="Generator.Preset.Pin" xml:space="preserve"><value>پین عددی</value></data>
+  <data name="Settings.ImportExport" xml:space="preserve"><value>وارد کردن و برون‌بری</value></data>
+  <data name="Settings.ImportChrome" xml:space="preserve"><value>وارد کردن رمزها از Google Chrome</value></data>
+  <data name="Settings.ImportFirefox" xml:space="preserve"><value>وارد کردن رمزها از Mozilla Firefox</value></data>
+  <data name="Settings.ImportChromeHint" xml:space="preserve"><value>وارد کردن رمزهای ذخیره‌شده در Chrome با استفاده از فایل CSV برون‌بردشده</value></data>
+  <data name="Settings.ImportFirefoxHint" xml:space="preserve"><value>وارد کردن رمزهای ذخیره‌شده در Firefox با استفاده از فایل CSV برون‌بردشده</value></data>
+  <data name="Import.WizardTitleChrome" xml:space="preserve"><value>وارد کردن رمزها از Google Chrome</value></data>
+  <data name="Import.WizardTitleFirefox" xml:space="preserve"><value>وارد کردن رمزها از Mozilla Firefox</value></data>
+  <data name="Import.StepOf" xml:space="preserve"><value>از ۴</value></data>
+  <data name="Import.InstructionsChrome" xml:space="preserve"><value>در Chrome مسیر زیر را دنبال کنید: تنظیمات ← «پر کردن خودکار و رمزهای عبور» ← Google Password Manager ← تنظیمات ← «برون‌بری رمزهای عبور». ویندوز رمز دستگاه را می‌پرسد و سپس فایل CSV ذخیره می‌شود. نام و محل این گزینه‌ها ممکن است در نسخه‌های مختلف Chrome اندکی متفاوت باشد.</value></data>
+  <data name="Import.InstructionsFirefox" xml:space="preserve"><value>در Firefox مسیر زیر را دنبال کنید: تنظیمات ← «حریم خصوصی و امنیت» ← بخش «نام‌های کاربری و رمزهای عبور» ← دکمهٔ «…» ← «برون‌بری نام‌های کاربری…». فایل CSV در محل انتخاب‌شده ذخیره می‌شود. نام و محل این گزینه‌ها ممکن است در نسخه‌های مختلف Firefox اندکی متفاوت باشد.</value></data>
+  <data name="Import.PlainTextWarning" xml:space="preserve"><value>هشدار: فایل CSV برون‌بردشده همهٔ رمزها را به‌صورت متن آشکار و بدون رمزنگاری نگه می‌دارد. تا پایان وارد کردن آن را در جای امن نگه دارید و سپس به‌صورت امن حذفش کنید.</value></data>
+  <data name="Import.ProceedToFile" xml:space="preserve"><value>ادامه و انتخاب فایل</value></data>
+  <data name="Import.PickFileHint" xml:space="preserve"><value>فایل CSV برون‌بردشده از مرورگر را انتخاب کنید. فایل فقط خوانده می‌شود و تغییر داده نمی‌شود.</value></data>
+  <data name="Import.ParseFile" xml:space="preserve"><value>خواندن فایل</value></data>
+  <data name="Import.FilterLabel" xml:space="preserve"><value>فیلتر</value></data>
+  <data name="Import.SelectAll" xml:space="preserve"><value>انتخاب همه</value></data>
+  <data name="Import.DeselectAll" xml:space="preserve"><value>لغو انتخاب همه</value></data>
+  <data name="Import.ColumnTitle" xml:space="preserve"><value>عنوان</value></data>
+  <data name="Import.ColumnOrigin" xml:space="preserve"><value>وب‌سایت</value></data>
+  <data name="Import.ColumnStatus" xml:space="preserve"><value>وضعیت</value></data>
+  <data name="Import.ColumnDuplicateOf" xml:space="preserve"><value>تکراری با</value></data>
+  <data name="Import.ColumnAction" xml:space="preserve"><value>کنش</value></data>
+  <data name="Import.ActionSkip" xml:space="preserve"><value>رد کردن</value></data>
+  <data name="Import.ActionUpdate" xml:space="preserve"><value>به‌روزرسانی آیتم موجود</value></data>
+  <data name="Import.ActionCopy" xml:space="preserve"><value>ایجاد نسخهٔ جدید</value></data>
+  <data name="Import.StatusReady" xml:space="preserve"><value>آماده</value></data>
+  <data name="Import.StatusDuplicate" xml:space="preserve"><value>تکراری در گاوصندوق</value></data>
+  <data name="Import.StatusRepeat" xml:space="preserve"><value>تکرار در همین فایل</value></data>
+  <data name="Import.StatusInvalid" xml:space="preserve"><value>نامعتبر</value></data>
+  <data name="Import.NoPasswordInPreview" xml:space="preserve"><value>به دلایل امنیتی رمزها در این پیش‌نمایش نمایش داده نمی‌شوند.</value></data>
+  <data name="Import.BeginImport" xml:space="preserve"><value>وارد کردن موارد انتخاب‌شده</value></data>
+  <data name="Import.BackToFiles" xml:space="preserve"><value>بازگشت</value></data>
+  <data name="Import.CountsLine" xml:space="preserve"><value>آماده: {0} | تکراری: {1} | نامعتبر: {2} | ردیف خالی: {3} | ردیف خراب: {4}</value></data>
+  <data name="Import.UnsupportedColumns" xml:space="preserve"><value>ستون‌های واردنشده: {0}</value></data>
+  <data name="Import.ResultDone" xml:space="preserve"><value>وارد کردن پایان یافت.</value></data>
+  <data name="Import.ResultStopped" xml:space="preserve"><value>وارد کردن زودتر متوقف شد (قفل یا تغییر گاوصندوق). موارد انجام‌شده ذخیره شده‌اند و شمارش بالا دقیق است.</value></data>
+  <data name="Import.ResultCounts" xml:space="preserve"><value>واردشده: {0} | به‌روزرسانی‌شده: {1} | ردشده: {2} | ناموفق: {3}</value></data>
+  <data name="Import.FailureLine" xml:space="preserve"><value>ردیف {0}: {1}</value></data>
+  <data name="Import.ShowImported" xml:space="preserve"><value>نمایش آیتم واردشده</value></data>
+  <data name="Import.OpenSourceFolder" xml:space="preserve"><value>نمایش پوشهٔ فایل CSV</value></data>
+  <data name="Import.SourceCleanupWarning" xml:space="preserve"><value>فایل CSV اصلی همچنان رمزها را بدون رمزنگاری نگه می‌دارد. آن را امن نگه دارید یا حذف کنید. توجه: حذف فایل تضمینی برای پاک‌شدن کامل از حافظهٔ دستگاه یا نسخه‌های پشتیبان نیست.</value></data>
+  <data name="Import.RowInvalidTitle" xml:space="preserve"><value>عنوان نامعتبر</value></data>
+  <data name="Import.RowInvalidUrl" xml:space="preserve"><value>نشانی اینترنتی نامعتبر</value></data>
+  <data name="Import.RowInvalidNote" xml:space="preserve"><value>یادداشت بیش از حد بلند</value></data>
+  <data name="Import.ErrorFileTooLarge" xml:space="preserve"><value>حجم فایل از حد مجاز (۱۰ مگابایت) بیشتر است.</value></data>
+  <data name="Import.ErrorTooManyRecords" xml:space="preserve"><value>تعداد ردیف‌ها از حد مجاز (۵۰٬۰۰۰) بیشتر است.</value></data>
+  <data name="Import.ErrorEncoding" xml:space="preserve"><value>محتوای فایل UTF-8 معتبر نیست و خوانده نشد.</value></data>
+  <data name="Import.ErrorMalformed" xml:space="preserve"><value>ساختار CSV در یک یا چند ردیف نامعتبر است.</value></data>
+  <data name="Import.ErrorUnknownFormat" xml:space="preserve"><value>این فایل با هیچ قالب شناخته‌شده‌ای از برون‌بری مرورگرها هم‌خوانی ندارد. ستون‌های لازم: url، username، password.</value></data>
+  <data name="Import.ErrorWrongBrowser" xml:space="preserve"><value>این فایل برون‌برد {0} است؛ از گزینهٔ همان مرورگر استفاده کنید.</value></data>
+  <data name="Import.ErrorNoRecords" xml:space="preserve"><value>هیچ ردیف قابل واردکردنی در فایل پیدا نشد.</value></data>
+  <data name="Import.ErrorNotFound" xml:space="preserve"><value>فایل پیدا نشد.</value></data>
+  <data name="Import.ErrorReadFailed" xml:space="preserve"><value>خواندن فایل ممکن نشد.</value></data>
+  <data name="Import.SourceChrome" xml:space="preserve"><value>Chrome</value></data>
+  <data name="Import.SourceFirefox" xml:space="preserve"><value>Firefox</value></data>
+  <data name="Error.SessionLost" xml:space="preserve"><value>گاوصندوق قفل شد؛ عملیات متوقف شد.</value></data>
 </root>

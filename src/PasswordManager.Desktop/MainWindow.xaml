@@ -1615,6 +1615,26 @@
                 </Grid>
             </Grid>
         </DataTemplate>
+        <!-- Import wizard preview cells (check/status/action) — plain content cells; the other
+             columns bind through DisplayMemberBinding. -->
+        <DataTemplate x:Key="ImportCheckCell">
+            <CheckBox IsChecked="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}"
+                      IsEnabled="{Binding IsSelectable}"
+                      HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </DataTemplate>
+        <DataTemplate x:Key="ImportStatusCell">
+            <TextBlock Text="{Binding StatusText}" Style="{StaticResource SecondaryText}" TextWrapping="Wrap"
+                       VerticalAlignment="Center" />
+        </DataTemplate>
+        <DataTemplate x:Key="ImportActionCell">
+            <ComboBox SelectedIndex="{Binding ConflictIndex}" MinWidth="118" FontSize="12"
+                      VerticalAlignment="Center"
+                      Visibility="{Binding IsDuplicate, Converter={StaticResource BoolToVisible}}">
+                <ComboBoxItem Content="{loc:Loc Import.ActionSkip}" />
+                <ComboBoxItem Content="{loc:Loc Import.ActionUpdate}" />
+                <ComboBoxItem Content="{loc:Loc Import.ActionCopy}" />
+            </ComboBox>
+        </DataTemplate>
     </Window.Resources>
 
     <Grid>
@@ -1694,6 +1714,26 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                     </StackPanel>
+
+                    <TextBlock Text="{loc:Loc Settings.ImportExport}" Style="{StaticResource FieldLabel}" Margin="0,18,0,4" />
+                    <Button Style="{StaticResource NavItemButton}" Margin="0,2"
+                            Command="{Binding OpenImportWizardCommand}" CommandParameter="chrome"
+                            AutomationProperties.AutomationId="ImportFromChrome"
+                            ToolTip="{loc:Loc Settings.ImportChromeHint}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="GoogleChrome" Width="20" Height="20" VerticalAlignment="Center" />
+                            <TextBlock Text="{loc:Loc Settings.ImportChrome}" Margin="10,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource NavItemButton}" Margin="0,2"
+                            Command="{Binding OpenImportWizardCommand}" CommandParameter="firefox"
+                            AutomationProperties.AutomationId="ImportFromFirefox"
+                            ToolTip="{loc:Loc Settings.ImportFirefoxHint}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Firefox" Width="20" Height="20" VerticalAlignment="Center" />
+                            <TextBlock Text="{loc:Loc Settings.ImportFirefox}" Margin="10,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
             </Border>
         </Grid>
@@ -1786,6 +1826,201 @@
                     <TextBlock Text="{Binding Backup.StatusMessage}" Foreground="{DynamicResource Accent}"
                                Style="{StaticResource SecondaryText}" TextWrapping="Wrap" Margin="0,6,0,0"
                                AutomationProperties.AutomationId="BackupStatus" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- ═══════════════ Browser import wizard (app-level, shared Chrome/Firefox) ═══════════════ -->
+        <Grid Background="{DynamicResource Overlay.Scrim}"
+              Visibility="{Binding BrowserImport.IsVisible, Converter={StaticResource BoolToVisible}}">
+            <Border MaxWidth="720" MinWidth="520" Style="{StaticResource CardBorder}" Margin="24"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    AutomationProperties.AutomationId="ImportWizardPane">
+                <StackPanel Margin="24,20">
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="34" Height="34" CornerRadius="9" Background="{DynamicResource Accent.Soft}">
+                                <Grid>
+                                    <materialDesign:PackIcon Kind="GoogleChrome" Width="18" Height="18"
+                                                             Foreground="{DynamicResource Accent}"
+                                                             HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                             Visibility="{Binding BrowserImport.BrowserIndex, Converter={StaticResource IndexEquals}, ConverterParameter=0}" />
+                                    <materialDesign:PackIcon Kind="Firefox" Width="18" Height="18"
+                                                             Foreground="{DynamicResource Accent}"
+                                                             HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                             Visibility="{Binding BrowserImport.BrowserIndex, Converter={StaticResource IndexEquals}, ConverterParameter=1}" />
+                                </Grid>
+                            </Border>
+                            <TextBlock Text="{Binding BrowserImport.WizardTitle}" Style="{StaticResource TitleText}"
+                                       Margin="10,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <Button Style="{StaticResource IconActionButton}" HorizontalAlignment="Right"
+                                Command="{Binding BrowserImport.CloseCommand}" ToolTip="{loc:Loc Picker.Cancel}"
+                                AutomationProperties.AutomationId="ImportClose">
+                            <materialDesign:PackIcon Kind="Close" Width="18" Height="18" />
+                        </Button>
+                    </Grid>
+
+                    <!-- Step indicator (text only — no fragile progress geometry in RTL) -->
+                    <TextBlock Style="{StaticResource SecondaryText}" Margin="0,10,0,0"
+                               AutomationProperties.AutomationId="ImportStepLabel">
+                        <Run Text="{Binding BrowserImport.Step, Mode=OneWay}" />
+                        <Run Text="{loc:Loc Import.StepOf}" />
+                    </TextBlock>
+
+                    <!-- ── Step 1: export instructions ── -->
+                    <StackPanel Visibility="{Binding BrowserImport.IsInstructionsStep, Converter={StaticResource BoolToVisible}}">
+                        <TextBlock Text="{loc:Loc Import.InstructionsChrome}" Style="{StaticResource BodyText}"
+                                   TextWrapping="Wrap" Margin="0,12,0,0"
+                                   Visibility="{Binding BrowserImport.BrowserIndex, Converter={StaticResource IndexEquals}, ConverterParameter=0}" />
+                        <TextBlock Text="{loc:Loc Import.InstructionsFirefox}" Style="{StaticResource BodyText}"
+                                   TextWrapping="Wrap" Margin="0,12,0,0"
+                                   Visibility="{Binding BrowserImport.BrowserIndex, Converter={StaticResource IndexEquals}, ConverterParameter=1}" />
+                        <Border BorderBrush="{DynamicResource Warning}" BorderThickness="1" CornerRadius="8"
+                                Padding="12,10" Margin="0,14,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="AlertOutline" Width="20" Height="20"
+                                                         Foreground="{DynamicResource Warning}" VerticalAlignment="Top" />
+                                <TextBlock Text="{loc:Loc Import.PlainTextWarning}" Style="{StaticResource BodyText}"
+                                           TextWrapping="Wrap" Margin="10,0,0,0" />
+                            </StackPanel>
+                        </Border>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,18,0,0">
+                            <Button Content="{loc:Loc Picker.Cancel}" Style="{StaticResource IconButton}"
+                                    Command="{Binding BrowserImport.CloseCommand}" Margin="8,0" />
+                            <Button Content="{loc:Loc Import.ProceedToFile}"
+                                    Command="{Binding BrowserImport.BeginFileSelectionCommand}"
+                                    AutomationProperties.AutomationId="ImportInstructionsNext" Margin="8,0" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- ── Step 2: select CSV file ── -->
+                    <StackPanel Visibility="{Binding BrowserImport.IsFileStep, Converter={StaticResource BoolToVisible}}">
+                        <TextBlock Text="{loc:Loc Import.PickFileHint}" Style="{StaticResource SecondaryText}"
+                                   TextWrapping="Wrap" Margin="0,12,0,4" />
+                        <Grid Margin="0,4,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding BrowserImport.SelectedFilePath, Mode=OneWay}"
+                                     Style="{StaticResource SearchBoxStyle}" IsReadOnly="True"
+                                     AutomationProperties.AutomationId="ImportFilePath" />
+                            <Button Grid.Column="1" Content="{loc:Loc Backup.Browse}" Style="{StaticResource IconButton}"
+                                    Command="{Binding BrowserImport.BrowseForFileCommand}" Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
+                                    AutomationProperties.AutomationId="ImportBrowse" />
+                        </Grid>
+                        <TextBlock Text="{Binding BrowserImport.FileError}" Foreground="{DynamicResource Danger}"
+                                   Style="{StaticResource SecondaryText}" TextWrapping="Wrap" Margin="0,8,0,0"
+                                   AutomationProperties.AutomationId="ImportFileError" />
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16,0,0">
+                            <Button Content="{loc:Loc Picker.Cancel}" Style="{StaticResource IconButton}"
+                                    Command="{Binding BrowserImport.CloseCommand}" Margin="8,0" />
+                            <Button Content="{loc:Loc Import.ParseFile}" Style="{StaticResource OutlineButton}"
+                                    Command="{Binding BrowserImport.ParseFileCommand}" Margin="8,0"
+                                    AutomationProperties.AutomationId="ImportParse" />
+                        </StackPanel>
+                        <ProgressBar Height="4" IsIndeterminate="True" Margin="0,12,0,0"
+                                     Visibility="{Binding BrowserImport.IsParsing, Converter={StaticResource BoolToVisible}}" />
+                    </StackPanel>
+
+                    <!-- ── Step 3: preview and conflict resolution ── -->
+                    <StackPanel Visibility="{Binding BrowserImport.IsPreviewStep, Converter={StaticResource BoolToVisible}}">
+                        <TextBlock Text="{Binding BrowserImport.CountsLine}" Style="{StaticResource SecondaryText}"
+                                   TextWrapping="Wrap" Margin="0,10,0,0"
+                                   AutomationProperties.AutomationId="ImportCounts" />
+                        <TextBlock Text="{Binding BrowserImport.UnsupportedLine}" Style="{StaticResource SecondaryText}"
+                                   TextWrapping="Wrap" Margin="0,4,0,0" />
+                        <Grid Margin="0,8,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding BrowserImport.FilterText, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource SearchBoxStyle}"
+                                     materialDesign:HintAssist.Hint="{loc:Loc Import.FilterLabel}"
+                                     AutomationProperties.AutomationId="ImportFilter" />
+                            <Button Grid.Column="1" Content="{loc:Loc Import.SelectAll}" Style="{StaticResource IconButton}"
+                                    Command="{Binding BrowserImport.SelectAllCommand}" Margin="8,0,0,0"
+                                    VerticalAlignment="Center" AutomationProperties.AutomationId="ImportSelectAll" />
+                            <Button Grid.Column="2" Content="{loc:Loc Import.DeselectAll}" Style="{StaticResource IconButton}"
+                                    Command="{Binding BrowserImport.DeselectAllCommand}" Margin="4,0,0,0"
+                                    VerticalAlignment="Center" AutomationProperties.AutomationId="ImportDeselectAll" />
+                        </Grid>
+                        <ListView ItemsSource="{Binding BrowserImport.RowsView}" MaxHeight="340" Margin="0,8,0,0"
+                                  SelectionMode="Single" BorderBrush="{DynamicResource Divider}" BorderThickness="0,1"
+                                  AutomationProperties.AutomationId="ImportPreviewList"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn CellTemplate="{StaticResource ImportCheckCell}" Width="36" />
+                                    <GridViewColumn Header="{loc:Loc Import.ColumnTitle}"
+                                                    DisplayMemberBinding="{Binding Title}" Width="150" />
+                                    <GridViewColumn Header="{loc:Loc Import.ColumnOrigin}"
+                                                    DisplayMemberBinding="{Binding OriginDisplay}" Width="170" />
+                                    <GridViewColumn Header="{loc:Loc Details.Username}"
+                                                    DisplayMemberBinding="{Binding Username}" Width="140" />
+                                    <GridViewColumn Header="{loc:Loc Import.ColumnStatus}"
+                                                    CellTemplate="{StaticResource ImportStatusCell}" Width="130" />
+                                    <GridViewColumn Header="{loc:Loc Import.ColumnDuplicateOf}"
+                                                    DisplayMemberBinding="{Binding DuplicateOfTitle}" Width="110" />
+                                    <GridViewColumn Header="{loc:Loc Import.ColumnAction}"
+                                                    CellTemplate="{StaticResource ImportActionCell}" Width="130" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <TextBlock Text="{loc:Loc Import.NoPasswordInPreview}" Style="{StaticResource SecondaryText}"
+                                   TextWrapping="Wrap" Margin="0,6,0,0" />
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,14,0,0">
+                            <Button Content="{loc:Loc Picker.Cancel}" Style="{StaticResource IconButton}"
+                                    Command="{Binding BrowserImport.CloseCommand}" Margin="8,0" />
+                            <Button Content="{loc:Loc Import.BackToFiles}" Style="{StaticResource OutlineButton}"
+                                    Command="{Binding BrowserImport.BeginFileSelectionCommand}" Margin="8,0" />
+                            <Button Content="{loc:Loc Import.BeginImport}" Command="{Binding BrowserImport.BeginImportCommand}"
+                                    Margin="8,0" AutomationProperties.AutomationId="ImportBegin" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- ── Step 4: progress and results ── -->
+                    <StackPanel Visibility="{Binding BrowserImport.IsProgressStep, Converter={StaticResource BoolToVisible}}">
+                        <ProgressBar Height="4" IsIndeterminate="True" Margin="0,14,0,0"
+                                     Visibility="{Binding BrowserImport.IsImporting, Converter={StaticResource BoolToVisible}}" />
+                        <TextBlock Style="{StaticResource SecondaryText}" Margin="0,8,0,0"
+                                   HorizontalAlignment="Center"
+                                   AutomationProperties.AutomationId="ImportProgress">
+                            <Run Text="{Binding BrowserImport.Processed, Mode=OneWay}" />
+                            <Run Text="/" />
+                            <Run Text="{Binding BrowserImport.Total, Mode=OneWay}" />
+                        </TextBlock>
+                        <TextBlock Text="{Binding BrowserImport.ResultSummary}" Style="{StaticResource BodyText}"
+                                   TextWrapping="Wrap" Margin="0,10,0,0"
+                                   AutomationProperties.AutomationId="ImportStatus" />
+                        <TextBlock Text="{Binding BrowserImport.ResultFailures}" Foreground="{DynamicResource Danger}"
+                                   Style="{StaticResource SecondaryText}" TextWrapping="Wrap" Margin="0,6,0,0" />
+                        <Border BorderBrush="{DynamicResource Warning}" BorderThickness="1" CornerRadius="8"
+                                Padding="12,10" Margin="0,14,0,0"
+                                Visibility="{Binding BrowserImport.IsImporting, Converter={StaticResource FalseToVisible}}">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="FileAlertOutline" Width="20" Height="20"
+                                                         Foreground="{DynamicResource Warning}" VerticalAlignment="Top" />
+                                <TextBlock Text="{loc:Loc Import.SourceCleanupWarning}" Style="{StaticResource BodyText}"
+                                           TextWrapping="Wrap" Margin="10,0,0,0" />
+                            </StackPanel>
+                        </Border>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16,0,0">
+                            <Button Content="{loc:Loc Picker.Cancel}" Style="{StaticResource IconButton}"
+                                    Command="{Binding BrowserImport.CloseCommand}" Margin="8,0" />
+                            <Button Content="{loc:Loc Import.OpenSourceFolder}" Style="{StaticResource OutlineButton}"
+                                    Command="{Binding BrowserImport.OpenSourceFolderCommand}" Margin="8,0"
+                                    Visibility="{Binding BrowserImport.CanOpenSourceFolder, Converter={StaticResource BoolToVisible}}"
+                                    AutomationProperties.AutomationId="ImportOpenFolder" />
+                            <Button Content="{loc:Loc Import.ShowImported}" Command="{Binding BrowserImport.ShowImportedItemCommand}"
+                                    Margin="8,0" Visibility="{Binding BrowserImport.HasWrittenItems, Converter={StaticResource BoolToVisible}}"
+                                    AutomationProperties.AutomationId="ImportShowItem" />
+                        </StackPanel>
+                    </StackPanel>
                 </StackPanel>
             </Border>
         </Grid>

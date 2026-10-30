@@ -134,4 +134,20 @@ public partial class VaultWorkspaceViewModel
 
     [RelayCommand]
     private void FocusSearch() => FocusSearchRequested?.Invoke(this, EventArgs.Empty);
+
+    // ── post-import navigation (Phase 9) ──
+
+    /// <summary>Refreshes the list and selects the item written by the import wizard, so the
+    /// user lands directly on the imported/updated credential.</summary>
+    public async Task SelectItemByIdAsync(Guid id)
+    {
+        Section = "All";
+        SearchText = string.Empty;
+        await LoadAsync();
+        var row = RowsView.FirstOrDefault(r => r.Id == id);
+        if (row is not null)
+        {
+            SelectedCredential = row;
+        }
+    }
 }

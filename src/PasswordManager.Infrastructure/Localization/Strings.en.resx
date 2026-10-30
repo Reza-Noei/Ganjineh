@@ -278,4 +278,60 @@
   <data name="Generator.Preset.Strong" xml:space="preserve"><value>Strong</value></data>
   <data name="Generator.Preset.Compat" xml:space="preserve"><value>Max compatibility</value></data>
   <data name="Generator.Preset.Pin" xml:space="preserve"><value>Numeric PIN</value></data>
+  <data name="Settings.ImportExport" xml:space="preserve"><value>Import &amp; Export</value></data>
+  <data name="Settings.ImportChrome" xml:space="preserve"><value>Import Passwords from Google Chrome</value></data>
+  <data name="Settings.ImportFirefox" xml:space="preserve"><value>Import Passwords from Mozilla Firefox</value></data>
+  <data name="Settings.ImportChromeHint" xml:space="preserve"><value>Import passwords saved in Chrome using an exported CSV file</value></data>
+  <data name="Settings.ImportFirefoxHint" xml:space="preserve"><value>Import passwords saved in Firefox using an exported CSV file</value></data>
+  <data name="Import.WizardTitleChrome" xml:space="preserve"><value>Import Passwords from Google Chrome</value></data>
+  <data name="Import.WizardTitleFirefox" xml:space="preserve"><value>Import Passwords from Mozilla Firefox</value></data>
+  <data name="Import.StepOf" xml:space="preserve"><value>of 4</value></data>
+  <data name="Import.InstructionsChrome" xml:space="preserve"><value>In Chrome, follow: Settings → “Autofill and passwords” → Google Password Manager → Settings → “Export passwords”. Windows asks for your device password, then a CSV file is saved. Menu names and locations can differ slightly between Chrome versions.</value></data>
+  <data name="Import.InstructionsFirefox" xml:space="preserve"><value>In Firefox, follow: Settings → “Privacy &amp; Security” → “Logins and Passwords” → the “…” button → “Export Logins…”. The CSV file is saved to the chosen location. Menu names and locations can differ slightly between Firefox versions.</value></data>
+  <data name="Import.PlainTextWarning" xml:space="preserve"><value>Warning: the exported CSV file keeps every password as plain, unencrypted text. Keep it somewhere safe until the import finishes, then delete it securely.</value></data>
+  <data name="Import.ProceedToFile" xml:space="preserve"><value>Continue to file selection</value></data>
+  <data name="Import.PickFileHint" xml:space="preserve"><value>Select the CSV file exported from your browser. The file is only read and never modified.</value></data>
+  <data name="Import.ParseFile" xml:space="preserve"><value>Read file</value></data>
+  <data name="Import.FilterLabel" xml:space="preserve"><value>Filter</value></data>
+  <data name="Import.SelectAll" xml:space="preserve"><value>Select all</value></data>
+  <data name="Import.DeselectAll" xml:space="preserve"><value>Deselect all</value></data>
+  <data name="Import.ColumnTitle" xml:space="preserve"><value>Title</value></data>
+  <data name="Import.ColumnOrigin" xml:space="preserve"><value>Website</value></data>
+  <data name="Import.ColumnStatus" xml:space="preserve"><value>Status</value></data>
+  <data name="Import.ColumnDuplicateOf" xml:space="preserve"><value>Duplicate of</value></data>
+  <data name="Import.ColumnAction" xml:space="preserve"><value>Action</value></data>
+  <data name="Import.ActionSkip" xml:space="preserve"><value>Skip</value></data>
+  <data name="Import.ActionUpdate" xml:space="preserve"><value>Update existing</value></data>
+  <data name="Import.ActionCopy" xml:space="preserve"><value>Create copy</value></data>
+  <data name="Import.StatusReady" xml:space="preserve"><value>Ready</value></data>
+  <data name="Import.StatusDuplicate" xml:space="preserve"><value>Duplicate in vault</value></data>
+  <data name="Import.StatusRepeat" xml:space="preserve"><value>Repeat in file</value></data>
+  <data name="Import.StatusInvalid" xml:space="preserve"><value>Invalid</value></data>
+  <data name="Import.NoPasswordInPreview" xml:space="preserve"><value>For security reasons, passwords are not shown in this preview.</value></data>
+  <data name="Import.BeginImport" xml:space="preserve"><value>Import selected</value></data>
+  <data name="Import.BackToFiles" xml:space="preserve"><value>Back</value></data>
+  <data name="Import.CountsLine" xml:space="preserve"><value>Ready: {0} | Duplicates: {1} | Invalid: {2} | Empty rows: {3} | Malformed rows: {4}</value></data>
+  <data name="Import.UnsupportedColumns" xml:space="preserve"><value>Columns not imported: {0}</value></data>
+  <data name="Import.ResultDone" xml:space="preserve"><value>Import finished.</value></data>
+  <data name="Import.ResultStopped" xml:space="preserve"><value>Import stopped early (vault locked or switched). Completed records were kept and the counts above are exact.</value></data>
+  <data name="Import.ResultCounts" xml:space="preserve"><value>Imported: {0} | Updated: {1} | Skipped: {2} | Failed: {3}</value></data>
+  <data name="Import.FailureLine" xml:space="preserve"><value>Row {0}: {1}</value></data>
+  <data name="Import.ShowImported" xml:space="preserve"><value>Show imported item</value></data>
+  <data name="Import.OpenSourceFolder" xml:space="preserve"><value>Show CSV folder</value></data>
+  <data name="Import.SourceCleanupWarning" xml:space="preserve"><value>The original CSV file still contains unencrypted passwords. Store or remove it securely. Note: deleting a file does not guarantee forensic erasure from SSDs, backups or synced folders.</value></data>
+  <data name="Import.RowInvalidTitle" xml:space="preserve"><value>Invalid title</value></data>
+  <data name="Import.RowInvalidUrl" xml:space="preserve"><value>Invalid URL</value></data>
+  <data name="Import.RowInvalidNote" xml:space="preserve"><value>Note too long</value></data>
+  <data name="Import.ErrorFileTooLarge" xml:space="preserve"><value>The file exceeds the size limit (10 MB).</value></data>
+  <data name="Import.ErrorTooManyRecords" xml:space="preserve"><value>The file exceeds the record limit (50,000).</value></data>
+  <data name="Import.ErrorEncoding" xml:space="preserve"><value>The file content is not valid UTF-8 and was not read.</value></data>
+  <data name="Import.ErrorMalformed" xml:space="preserve"><value>The CSV structure is invalid in one or more rows.</value></data>
+  <data name="Import.ErrorUnknownFormat" xml:space="preserve"><value>This file does not match any known browser export format. Required columns: url, username, password.</value></data>
+  <data name="Import.ErrorWrongBrowser" xml:space="preserve"><value>This file is a {0} export; use the matching browser&apos;s import action.</value></data>
+  <data name="Import.ErrorNoRecords" xml:space="preserve"><value>No importable rows were found in the file.</value></data>
+  <data name="Import.ErrorNotFound" xml:space="preserve"><value>File not found.</value></data>
+  <data name="Import.ErrorReadFailed" xml:space="preserve"><value>The file could not be read.</value></data>
+  <data name="Import.SourceChrome" xml:space="preserve"><value>Chrome</value></data>
+  <data name="Import.SourceFirefox" xml:space="preserve"><value>Firefox</value></data>
+  <data name="Error.SessionLost" xml:space="preserve"><value>The vault was locked; the operation was stopped.</value></data>
 </root>

@@ -12,6 +12,7 @@
 | CommunityToolkit.Mvvm | 8.4.2 | MIT | Microsoft | Active | |
 | Microsoft.Extensions.DependencyInjection | 10.0.13 | MIT | Microsoft | Active | |
 | zxcvbn-core | 7.0.92 | MIT | trichards57 | Active | Strength estimation |
+| Sylvan.Data.Csv | 1.4.4 | MIT | Mark Pflug | Active | RFC 4180 parser for browser-CSV import (Phase 9); no transitive dependencies; single purpose — parsing only, no type mapping |
 
 ## Direct dependencies (test-only, not shipped)
 

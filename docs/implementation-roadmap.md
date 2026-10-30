@@ -124,3 +124,22 @@ the feature — no separate UI phase at the end.
   direction-dependent Left/Right alignments removed. Added `Generator.Length` fa/en key
   (replaces hard-coded "طول"). **Tests: UI E2E green; full solution builds 0 warnings.**
   Docs: ui-ux-specification.md §2 rewritten.
+- **2026-10-30 — Phase 9.0 (browser import) complete.** Chrome/Firefox CSV import into the
+  live vault: bounded RFC 4180 parsing (Sylvan.Data.Csv 1.4.4 + own bounds/encoding/malformed
+  layer), header-based browser adapters with alias/reorder/duplicate-header tolerance,
+  per-row validation with the credential caps, duplicate detection (origin+username,
+  www-folded, scheme-aware, subdomain-preserving, Persian-folded usernames) against the live
+  session only, Skip/Update-Existing/Create-Copy conflict resolution (update merges and
+  preserves TOTP/custom fields/favorite/history; empty CSV password never blanks), per-record
+  transactional writes through `IVaultItemService` with per-write session revalidation,
+  encrypted provenance keys, shared four-step wizard under Settings → Import & Export with
+  Persian RTL + dark/light, post-import navigation and CSV-cleanup warning. Reported the
+  Phase 6 import gap (documented pipeline never existed in the repo) and the `Backup*/`
+  gitignore bug that left `Application/Backup/*.cs` untracked since Phase 6. **Tests: 268/268
+  green** (35 import unit, 13 Phase 9 integration, 4 Phase 9 UI). Docs:
+  browser-import / chrome-import / firefox-import / import-security / phase-9-0-*.md;
+  import-export.md corrected. Known limitation: the FlaUI E2E covers the shell up to the file
+  dialog — this host's modal-dialog UIA provider cannot be automated (see
+  phase-9-0-test-results.md); the wizard journey is covered at the view-model boundary.
+  *Deferred by design:* extensions/native messaging (ADR-007); generic CSV/Bitwarden import
+  and plaintext export (documented gap from the Phase 6 docs).

@@ -79,6 +79,39 @@ public partial class MainWindow : Window
                 viewModel.Backup.SetRestoreFile(dialog.FileName);
             }
         };
+
+        // Browser import wizard: the shell owns the Win32 dialogs and the post-import navigation.
+        viewModel.BrowserImport.PickFileRequested += (_, _) =>
+        {
+            var dialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Title = "Ganjineh",
+                Filter = "CSV (*.csv)|*.csv|All files|*.*",
+                CheckFileExists = true,
+            };
+            if (dialog.ShowDialog(this) == true)
+            {
+                viewModel.BrowserImport.SetSelectedFile(dialog.FileName);
+            }
+        };
+        viewModel.BrowserImport.OpenItemRequested += async (_, itemId) =>
+        {
+            await viewModel.Workspace.SelectItemByIdAsync(itemId);
+        };
+        viewModel.BrowserImport.OpenSourceFolderRequested += (_, sourcePath) =>
+        {
+            // Best-effort: highlight the source file so the user can delete it (§13). The app
+            // itself never deletes or modifies the CSV.
+            try
+            {
+                _ = System.Diagnostics.Process.Start(
+                    new System.Diagnostics.ProcessStartInfo("explorer.exe", "/select,\"" + sourcePath + "\""));
+            }
+            catch
+            {
+                // Explorer may be unavailable in restricted environments; nothing to recover.
+            }
+        };
     }
 
     /// <summary>Copies a PasswordBox's content into a char[] and clears the box.</summary>
@@ -280,11 +313,19 @@ public partial class MainWindow : Window
         && !_viewModel.Workspace.DeleteConfirmVisible
         && !_viewModel.Workspace.EmptyTrashConfirmVisible
         && !_viewModel.Settings.IsVisible
-        && !_viewModel.Backup.IsVisible;
+        && !_viewModel.Backup.IsVisible
+        && !_viewModel.BrowserImport.IsVisible;
 
     private bool TryCloseTopOverlay()
     {
         var workspace = _viewModel.Workspace;
+        if (_viewModel.BrowserImport.IsVisible)
+        {
+            // Close cancels any running import and drops the parsed session (Esc = safe exit).
+            _viewModel.BrowserImport.CloseCommand.Execute(null);
+            return true;
+        }
+
         if (_viewModel.Settings.IsVisible)
         {
             _viewModel.Settings.IsVisible = false;
