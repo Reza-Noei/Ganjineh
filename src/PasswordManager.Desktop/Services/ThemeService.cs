@@ -21,8 +21,8 @@ public sealed class ThemeService
     private static readonly Uri DarkUri =
         new("pack://application:,,,/PasswordManager.Desktop;component/Themes/Dark.xaml");
 
-    private const PrimaryColor Primary = PrimaryColor.Blue;
-    private const SecondaryColor Secondary = SecondaryColor.LightBlue;
+    private const PrimaryColor Primary = PrimaryColor.Indigo;
+    private const SecondaryColor Secondary = SecondaryColor.Indigo;
 
     /// <summary>Normalized current theme: "Light" or "Dark".</summary>
     public string Current { get; private set; } = "Light";

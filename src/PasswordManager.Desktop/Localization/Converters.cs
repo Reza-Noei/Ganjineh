@@ -172,3 +172,26 @@ public sealed class FindingDetailConverter : IValueConverter
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
         throw new NotSupportedException();
 }
+
+/// <summary>
+/// FindingKind → severity brush, resolved from the live theme dictionaries so it follows
+/// light/dark swaps: credential-quality defects (weak/reused/empty password) read as danger,
+/// hygiene findings (old, missing authenticator, duplicates, expiring) read as warning.
+/// </summary>
+public sealed class FindingKindBrushConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        var danger = System.Windows.Application.Current?.TryFindResource("Danger") as System.Windows.Media.Brush;
+        var warning = System.Windows.Application.Current?.TryFindResource("Warning") as System.Windows.Media.Brush;
+        return value is Application.Security.FindingKind kind
+            && kind is Application.Security.FindingKind.WeakPassword
+                or Application.Security.FindingKind.ReusedPassword
+                or Application.Security.FindingKind.EmptyPassword
+            ? danger ?? warning!
+            : warning ?? danger!;
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        throw new NotSupportedException();
+}

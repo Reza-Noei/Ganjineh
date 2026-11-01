@@ -5,7 +5,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:vm="clr-namespace:PasswordManager.Desktop.ViewModels"
         Title="{loc:Loc App.Title}"
-        Width="1180" Height="780" MinWidth="980" MinHeight="640"
+        Width="1240" Height="800" MinWidth="1000" MinHeight="680"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource Bg.Base}"
         FontFamily="{StaticResource App.FontFamily}"
@@ -25,28 +25,30 @@
 
         <!-- ═══════════════ Vault picker ═══════════════ -->
         <DataTemplate DataType="{x:Type vm:VaultPickerViewModel}">
-            <Grid Margin="40">
+            <Grid MaxWidth="640" Margin="40" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" MaxHeight="420" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" MaxHeight="400" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,24">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Border Width="52" Height="52" CornerRadius="14"
-                                Background="{DynamicResource Accent.Soft}">
-                            <materialDesign:PackIcon Kind="ShieldKey" Width="28" Height="28"
-                                                     Foreground="{DynamicResource Accent}"
-                                                     HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </Border>
-                    </StackPanel>
-                    <TextBlock Text="{loc:Loc Picker.Title}" FontSize="26" FontWeight="SemiBold"
-                               Foreground="{DynamicResource Text.Primary}" HorizontalAlignment="Center"
-                               Margin="0,14,0,0" />
+                <!-- Brand hero -->
+                <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,6">
+                    <Border Width="56" Height="56" CornerRadius="16"
+                            Background="{DynamicResource Accent.Soft}" HorizontalAlignment="Center">
+                        <materialDesign:PackIcon Kind="ShieldKey" Width="28" Height="28"
+                                                 Foreground="{DynamicResource Accent}"
+                                                 HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <TextBlock Text="{loc:Loc Picker.Title}" Style="{StaticResource TitleText}"
+                               HorizontalAlignment="Center" Margin="0,14,0,0" />
+                    <TextBlock Text="{loc:Loc Picker.Subtitle}" Style="{StaticResource SecondaryText}"
+                               HorizontalAlignment="Center" Margin="0,6,0,0" />
                 </StackPanel>
 
-                <Border Grid.Row="1" Style="{StaticResource CardBorder}" Padding="8"
+                <!-- Vault cards -->
+                <Border Grid.Row="2" Style="{StaticResource CardBorder}" Padding="8" Margin="0,20,0,0"
                         AutomationProperties.AutomationId="PickerList">
                     <Grid>
                         <ListBox ItemsSource="{Binding Vaults}" SelectedItem="{Binding SelectedVault}"
@@ -55,26 +57,28 @@
                                  AutomationProperties.AutomationId="VaultList">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid Margin="8,10">
+                                    <Grid Margin="8,8" AutomationProperties.AutomationId="VaultCard">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <Border Width="38" Height="38" CornerRadius="10"
+                                        <Border Width="40" Height="40" CornerRadius="10"
                                                 Background="{DynamicResource Accent.Soft}">
                                             <materialDesign:PackIcon Kind="DatabaseOutline" Width="20" Height="20"
                                                                      Foreground="{DynamicResource Accent}"
                                                                      HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Border>
-                                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="10,0">
-                                            <TextBlock Text="{Binding DisplayName}" FontSize="15" FontWeight="Medium"
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="12,0">
+                                            <TextBlock Text="{Binding DisplayName}" FontSize="14" FontWeight="SemiBold"
                                                        Foreground="{DynamicResource Text.Primary}" />
-                                            <TextBlock Text="{Binding Path}" FontSize="11" TextTrimming="CharacterEllipsis"
-                                                       Foreground="{DynamicResource Text.Secondary}" />
-                                            <TextBlock FontSize="11" Foreground="{DynamicResource Text.Secondary}">
+                                            <TextBlock FontSize="11" Foreground="{DynamicResource Text.Secondary}" Margin="0,2,0,0">
                                                 <Run Text="{loc:Loc Picker.LastOpened}" />
                                                 <Run Text="{Binding LastOpenedAt, TargetNullValue=—}" />
                                             </TextBlock>
+                                            <TextBlock Text="{Binding Path}" FontSize="11"
+                                                       Foreground="{DynamicResource Text.Disabled}"
+                                                       TextTrimming="CharacterEllipsis" Margin="0,2,0,0"
+                                                       ToolTip="{Binding Path}" />
                                         </StackPanel>
                                     </Grid>
                                 </DataTemplate>
@@ -86,41 +90,106 @@
                     </Grid>
                 </Border>
 
-                <!-- Footer: one raised primary (unlock), one outlined create, quiet links. -->
-                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,24,0,0">
-                    <Button Command="{Binding CreateCommand}" Margin="8,0"
+                <!-- Footer: single raised primary (Unlock), outlined create, quiet links.
+                     Symmetric margins only — physical margins do not mirror (RTL law). -->
+                <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,24,0,0">
+                    <Button Content="{loc:Loc Picker.Unlock}" Command="{Binding UnlockCommand}"
+                            AutomationProperties.AutomationId="PickerUnlock" IsDefault="True" Margin="4,0" />
+                    <Button Command="{Binding CreateCommand}" Style="{StaticResource OutlineButton}" Margin="4,0"
                             AutomationProperties.AutomationId="PickerCreate">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Plus" Width="18" Height="18" VerticalAlignment="Center" />
+                            <materialDesign:PackIcon Kind="Plus" Width="16" Height="16" VerticalAlignment="Center" />
                             <TextBlock Text="{loc:Loc Picker.CreateVault}" Margin="6,0,0,0" VerticalAlignment="Center" />
                         </StackPanel>
                     </Button>
                     <Button Content="{loc:Loc Picker.OpenExisting}" Command="{Binding OpenExistingCommand}"
-                            Style="{StaticResource OutlineButton}"
-                            AutomationProperties.AutomationId="PickerOpenExisting" Margin="8,0" />
+                            Style="{StaticResource IconButton}"
+                            AutomationProperties.AutomationId="PickerOpenExisting" Margin="4,0" />
                     <Button Content="{loc:Loc Picker.RemoveFromList}" Command="{Binding RemoveFromListCommand}"
                             Style="{StaticResource IconButton}" AutomationProperties.AutomationId="PickerRemove"
-                            Margin="8,0" />
-                    <Button Content="{loc:Loc Picker.Unlock}" Command="{Binding UnlockCommand}"
-                            AutomationProperties.AutomationId="PickerUnlock" IsDefault="True" Margin="24,0" />
+                            Margin="4,0" />
                 </StackPanel>
             </Grid>
         </DataTemplate>
 
         <!-- ═══════════════ Create vault wizard ═══════════════ -->
         <DataTemplate DataType="{x:Type vm:CreateVaultViewModel}">
-            <Grid MaxWidth="640" Margin="40" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid MaxWidth="620" Margin="40" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <!-- Step 1: details (hidden while the recovery stage is shown — both share Row 0) -->
-                <StackPanel Grid.Row="0" AutomationProperties.AutomationId="CreateDetails"
+                <!-- Step indicator: mirrored grid columns keep it direction-correct in RTL/LTR -->
+                <Grid Grid.Row="0" Margin="40,0,40,24">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <Border Height="4" CornerRadius="2">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Background" Value="{DynamicResource Accent}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RecoveryStage}" Value="True">
+                                            <Setter Property="Background" Value="{DynamicResource Accent.Soft}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+                        <TextBlock Text="{loc:Loc Create.Step.Details}" FontSize="11" Margin="0,6,0,0" TextAlignment="Center">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource SecondaryText}">
+                                    <Setter Property="FontWeight" Value="SemiBold" />
+                                    <Setter Property="Foreground" Value="{DynamicResource Accent}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RecoveryStage}" Value="True">
+                                            <Setter Property="Foreground" Value="{DynamicResource Text.Disabled}" />
+                                            <Setter Property="FontWeight" Value="Regular" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2">
+                        <Border Height="4" CornerRadius="2">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Background" Value="{DynamicResource Divider}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RecoveryStage}" Value="True">
+                                            <Setter Property="Background" Value="{DynamicResource Accent}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+                        <TextBlock Text="{loc:Loc Create.Step.Recovery}" FontSize="11" Margin="0,6,0,0" TextAlignment="Center">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource SecondaryText}">
+                                    <Setter Property="Foreground" Value="{DynamicResource Text.Disabled}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RecoveryStage}" Value="True">
+                                            <Setter Property="Foreground" Value="{DynamicResource Accent}" />
+                                            <Setter Property="FontWeight" Value="SemiBold" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Step 1: details (hidden while the recovery stage is shown — both share Row 1) -->
+                <StackPanel Grid.Row="1" AutomationProperties.AutomationId="CreateDetails"
                             Visibility="{Binding RecoveryStage, Converter={StaticResource FalseToVisible}}">
-                    <TextBlock Text="{loc:Loc Create.Title}" FontSize="26" FontWeight="SemiBold"
-                               Foreground="{DynamicResource Text.Primary}" Margin="0,0,0,24" />
+                    <TextBlock Text="{loc:Loc Create.Title}" Style="{StaticResource TitleText}" Margin="0,0,0,20" />
                     <TextBlock Text="{loc:Loc Create.NameLabel}" Style="{StaticResource BodyText}" />
                     <TextBox Text="{Binding VaultName, UpdateSourceTrigger=PropertyChanged}"
                              Style="{StaticResource SearchBoxStyle}" Margin="0,6,0,4"
@@ -156,13 +225,12 @@
                 </StackPanel>
 
                 <!-- Step 2: recovery key -->
-                <StackPanel Grid.Row="0" Visibility="{Binding RecoveryStage, Converter={StaticResource BoolToVisible}}"
+                <StackPanel Grid.Row="1" Visibility="{Binding RecoveryStage, Converter={StaticResource BoolToVisible}}"
                             AutomationProperties.AutomationId="RecoveryStage">
-                    <TextBlock Text="{loc:Loc Create.RecoveryTitle}" FontSize="26" FontWeight="SemiBold"
-                               Foreground="{DynamicResource Text.Primary}" Margin="0,0,0,16" />
+                    <TextBlock Text="{loc:Loc Create.RecoveryTitle}" Style="{StaticResource TitleText}" Margin="0,0,0,12" />
                     <TextBlock Text="{loc:Loc Create.RecoveryExplain}" Style="{StaticResource BodyText}"
                                TextWrapping="Wrap" Margin="0,0,0,16" />
-                    <Border Style="{StaticResource CardBorder}" Padding="16" Background="{DynamicResource Bg.Sunken}">
+                    <Border Style="{StaticResource WellBorder}" Padding="16">
                         <TextBlock Text="{Binding RecoveryKey}" FontSize="16" FontWeight="Medium" TextWrapping="Wrap"
                                    Foreground="{DynamicResource Text.Primary}"
                                    Style="{StaticResource LtrValueText}" TextAlignment="Center"
@@ -203,21 +271,25 @@
 
         <!-- ═══════════════ Unlock ═══════════════ -->
         <DataTemplate DataType="{x:Type vm:UnlockViewModel}">
-            <Grid MaxWidth="480" Margin="40" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid MaxWidth="460" Margin="40" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
-                        <Border Width="52" Height="52" CornerRadius="14"
-                                Background="{DynamicResource Accent.Soft}">
-                            <materialDesign:PackIcon Kind="LockOpenOutline" Width="28" Height="28"
+                    <!-- Vault identity -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,22">
+                        <Border Width="44" Height="44" CornerRadius="12"
+                                Background="{DynamicResource Accent.Soft}" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="LockOpenOutline" Width="22" Height="22"
                                                      Foreground="{DynamicResource Accent}"
                                                      HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
+                        <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding VaultDisplayName}" FontSize="17" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource Text.Primary}"
+                                       AutomationProperties.AutomationId="UnlockVaultName" />
+                            <TextBlock Text="{Binding VaultPath}" Style="{StaticResource MicroText}"
+                                       TextTrimming="CharacterEllipsis" Margin="0,2,0,0"
+                                       ToolTip="{Binding VaultPath}" />
+                        </StackPanel>
                     </StackPanel>
-                    <TextBlock Text="{Binding VaultDisplayName}" FontSize="26" FontWeight="SemiBold"
-                               Foreground="{DynamicResource Text.Primary}" Margin="0,0,0,4"
-                               AutomationProperties.AutomationId="UnlockVaultName" />
-                    <TextBlock Text="{Binding VaultPath}" Style="{StaticResource SecondaryText}"
-                               TextTrimming="CharacterEllipsis" Margin="0,0,0,24" />
 
                     <StackPanel Visibility="{Binding RecoveryMode, Converter={StaticResource FalseToVisible}}"
                                 AutomationProperties.AutomationId="UnlockPasswordPane">
@@ -242,29 +314,38 @@
                                Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisible}}"
                                AutomationProperties.AutomationId="UnlockBusy" />
 
-                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                        <Button Content="{loc:Loc Picker.Cancel}" Style="{StaticResource IconButton}"
-                                Command="{Binding BackCommand}" Margin="8,0" />
-                        <Button Content="{loc:Loc Unlock.UseRecovery}" Style="{StaticResource IconButton}"
-                                Command="{Binding ToggleRecoveryModeCommand}" Margin="10,0"
-                                AutomationProperties.AutomationId="ToggleRecoveryMode" />
-                        <Button Command="{Binding UnlockWithRecoveryCommand}" IsDefault="True" Margin="24,0"
+                    <!-- Footer: quiet helpers leading, single raised primary trailing.
+                         The spacer column mirrors with FlowDirection (RTL-safe trailing). -->
+                    <Grid Margin="0,22,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Button Content="{loc:Loc Picker.Cancel}" Style="{StaticResource IconButton}"
+                                    Command="{Binding BackCommand}" Margin="4,0" />
+                            <Button Content="{loc:Loc Unlock.UseRecovery}" Style="{StaticResource IconButton}"
+                                    Command="{Binding ToggleRecoveryModeCommand}" Margin="4,0"
+                                    AutomationProperties.AutomationId="ToggleRecoveryMode" />
+                        </StackPanel>
+                        <Button Grid.Column="2" Command="{Binding UnlockWithRecoveryCommand}" IsDefault="True" Margin="10,0,0,0"
                                 AutomationProperties.AutomationId="UnlockConfirmRecovery"
                                 Visibility="{Binding RecoveryMode, Converter={StaticResource BoolToVisible}}">
                             <Button.Content>
                                 <TextBlock Text="{loc:Loc Unlock.Unlock}" />
                             </Button.Content>
                         </Button>
-                        <Button Command="{Binding UnlockCommand}" IsDefault="True" Margin="24,0"
+                        <Button Grid.Column="2" Command="{Binding UnlockCommand}" IsDefault="True" Margin="10,0,0,0"
                                 AutomationProperties.AutomationId="UnlockButton"
                                 Visibility="{Binding RecoveryMode, Converter={StaticResource FalseToVisible}}">
                             <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="LockOpenOutline" Width="18" Height="18"
+                                <materialDesign:PackIcon Kind="LockOpenOutline" Width="16" Height="16"
                                                          VerticalAlignment="Center" />
                                 <TextBlock Text="{loc:Loc Unlock.Unlock}" Margin="6,0,0,0" VerticalAlignment="Center" />
                             </StackPanel>
                         </Button>
-                    </StackPanel>
+                    </Grid>
                 </StackPanel>
             </Grid>
         </DataTemplate>
@@ -275,25 +356,30 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="56" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="30" />
                 </Grid.RowDefinitions>
 
-                <!-- Top bar: brand + vault name / theme, language, lock -->
-                <Border Grid.Row="0" Background="{DynamicResource Bg.Card}" BorderBrush="{DynamicResource Divider}"
-                        BorderThickness="0,0,0,1">
-                    <Grid Margin="16,0">
+                <!-- Top bar: brand + vault identity (leading) / quiet global toggles + Lock
+                     (trailing, the single emphasized action) -->
+                <Border Grid.Row="0" Background="{DynamicResource Bg.Base}"
+                        BorderBrush="{DynamicResource Divider}" BorderThickness="0,0,0,1">
+                    <Grid Margin="20,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <Border Width="30" Height="30" CornerRadius="8" Background="{DynamicResource Accent}">
-                                <TextBlock Text="گ" Foreground="#FFFFFF" FontWeight="SemiBold" FontSize="16"
+                            <Border Width="32" Height="32" CornerRadius="9" Background="{DynamicResource Accent}">
+                                <TextBlock Text="{loc:Loc App.Brand}" Foreground="#FFFFFF" FontWeight="SemiBold" FontSize="17"
                                            HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Border>
+                            <TextBlock Text="{loc:Loc App.Brand}" FontSize="15" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource Text.Primary}" Margin="10,0,0,0"
+                                       VerticalAlignment="Center" />
+                            <TextBlock Text="·" Foreground="{DynamicResource Text.Disabled}" FontSize="15"
+                                       Margin="10,0" VerticalAlignment="Center" />
                             <TextBlock Text="{Binding VaultDisplayName}" Style="{StaticResource SubtitleText}"
-                                       Margin="12,0" VerticalAlignment="Center"
+                                       FontSize="14" VerticalAlignment="Center"
                                        AutomationProperties.AutomationId="WorkspaceVaultName" />
                         </StackPanel>
                         <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
@@ -323,10 +409,10 @@
                                     AutomationProperties.AutomationId="ToggleLanguageButton">
                                 <materialDesign:PackIcon Kind="Translate" Width="18" Height="18" />
                             </Button>
-                            <Button Command="{Binding LockCommand}" Margin="10,0"
+                            <Button Command="{Binding LockCommand}" Margin="14,0,0,0" Padding="14,6"
                                     AutomationProperties.AutomationId="LockVaultButton">
                                 <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="Lock" Width="18" Height="18" VerticalAlignment="Center" />
+                                    <materialDesign:PackIcon Kind="Lock" Width="16" Height="16" VerticalAlignment="Center" />
                                     <TextBlock Text="{loc:Loc Top.Lock}" Margin="6,0,0,0" VerticalAlignment="Center" />
                                 </StackPanel>
                             </Button>
@@ -334,50 +420,30 @@
                     </Grid>
                 </Border>
 
-                <!-- Three columns: nav (right) / list (center) / details (left) in RTL.
-                     The stretching CENTER border carries the symmetric 10px gutters; the outer
-                     borders carry none, so gaps are identical in RTL and LTR. -->
-                <Grid Grid.Row="1" Margin="10,8,10,8">
+                <!-- Body shell: sidebar (surface) | hairline | list (canvas) | hairline | details
+                     (surface). The 1px divider COLUMNS mirror with FlowDirection, so each
+                     separator stays on the center-facing edge of its panel in RTL and LTR;
+                     panels run flush to the window edges — no floating cards. -->
+                <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="240" />
+                        <ColumnDefinition Width="236" />
+                        <ColumnDefinition Width="1" />
                         <ColumnDefinition Width="*" MinWidth="320" />
-                        <ColumnDefinition Width="380" />
+                        <ColumnDefinition Width="1" />
+                        <ColumnDefinition Width="392" />
                     </Grid.ColumnDefinitions>
 
                     <!-- ══ Navigation sidebar ══ -->
-                    <Border Grid.Column="0" Style="{StaticResource CardBorder}">
-                        <ScrollViewer VerticalScrollBarVisibility="Auto"
-                                      AutomationProperties.AutomationId="NavScroller">
+                    <Border Grid.Column="0" Background="{DynamicResource Bg.Card}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto"
+                                          AutomationProperties.AutomationId="NavScroller">
                             <StackPanel>
-                                <!-- Vault block -->
-                                <Grid Margin="12,12,12,4">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                        <Border Width="30" Height="30" CornerRadius="8"
-                                                Background="{DynamicResource Accent.Soft}">
-                                            <materialDesign:PackIcon Kind="ShieldKey" Width="17" Height="17"
-                                                                     Foreground="{DynamicResource Accent}"
-                                                                     HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
-                                        <TextBlock Text="{Binding VaultDisplayName}" FontSize="14" FontWeight="Medium"
-                                                   Foreground="{DynamicResource Text.Primary}" Margin="10,0"
-                                                   VerticalAlignment="Center" TextTrimming="CharacterEllipsis"
-                                                   MaxWidth="150" />
-                                    </StackPanel>
-                                    <Button Grid.Column="1" Style="{StaticResource IconActionButton}"
-                                            Command="{Binding LockCommand}"
-                                            ToolTip="{loc:Loc Main.SwitchVault}"
-                                            AutomationProperties.Name="{loc:Loc Main.SwitchVault}"
-                                            AutomationProperties.AutomationId="SwitchVaultButton">
-                                        <materialDesign:PackIcon Kind="SwapHorizontal" Width="17" Height="17" />
-                                    </Button>
-                                </Grid>
-                                <Separator Margin="12,6" Background="{DynamicResource Divider}" />
-
-                                <TextBlock Text="{loc:Loc Nav.Section.Vault}" Style="{StaticResource SectionHeader}" />
+                                <TextBlock Text="{loc:Loc Nav.Section.Vault}" Style="{StaticResource SectionHeader}" Margin="16,12,16,4" />
                                 <RadioButton GroupName="Nav" Style="{StaticResource NavRadioButtonItem}"
                                              Command="{Binding SetSectionCommand}" CommandParameter="All"
                                              IsChecked="{Binding Section, Converter={StaticResource SectionEquals}, ConverterParameter=All}"
@@ -469,10 +535,12 @@
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBox Text="{Binding NewFolderName, UpdateSourceTrigger=PropertyChanged}"
-                                             Style="{StaticResource SearchBoxStyle}" MinWidth="0"
-                                             Margin="8,0" MaxLength="100"
-                                             AutomationProperties.AutomationId="NewFolderInput" />
+                                    <Border Background="{DynamicResource Bg.Sunken}" CornerRadius="8"
+                                            Margin="8,0" VerticalAlignment="Center">
+                                        <TextBox Text="{Binding NewFolderName, UpdateSourceTrigger=PropertyChanged}"
+                                                 Style="{StaticResource InlineFieldStyle}" MaxLength="100"
+                                                 AutomationProperties.AutomationId="NewFolderInput" />
+                                    </Border>
                                     <Button Grid.Column="1" Style="{StaticResource IconActionButton}" Margin="4,0"
                                             Command="{Binding AddFolderCommand}"
                                             ToolTip="{loc:Loc Nav.AddFolder}"
@@ -515,10 +583,12 @@
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBox Text="{Binding NewTagName, UpdateSourceTrigger=PropertyChanged}"
-                                             Style="{StaticResource SearchBoxStyle}" MinWidth="0"
-                                             Margin="8,0" MaxLength="60"
-                                             AutomationProperties.AutomationId="NewTagInput" />
+                                    <Border Background="{DynamicResource Bg.Sunken}" CornerRadius="8"
+                                            Margin="8,0" VerticalAlignment="Center">
+                                        <TextBox Text="{Binding NewTagName, UpdateSourceTrigger=PropertyChanged}"
+                                                 Style="{StaticResource InlineFieldStyle}" MaxLength="60"
+                                                 AutomationProperties.AutomationId="NewTagInput" />
+                                    </Border>
                                     <Button Grid.Column="1" Style="{StaticResource IconActionButton}" Margin="4,0"
                                             Command="{Binding AddTagCommand}"
                                             ToolTip="{loc:Loc Nav.AddTag}"
@@ -591,26 +661,72 @@
                                     </StackPanel>
                                 </RadioButton>
 
-                                <Button Style="{StaticResource NavItemButton}" Margin="8,12,8,10"
+                            </StackPanel>
+                            </ScrollViewer>
+
+                            <!-- Pinned footer: vault account row + settings (always reachable,
+                                 never scrolled away) -->
+                            <StackPanel Grid.Row="1">
+                                <Separator Margin="12,4" Background="{DynamicResource Divider}" />
+                                <Grid Margin="12,4,12,2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Border Width="28" Height="28" CornerRadius="8"
+                                                Background="{DynamicResource Accent.Soft}">
+                                            <materialDesign:PackIcon Kind="ShieldKey" Width="16" Height="16"
+                                                                     Foreground="{DynamicResource Accent}"
+                                                                     HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                        <TextBlock Text="{Binding VaultDisplayName}" FontSize="13" FontWeight="Medium"
+                                                   Foreground="{DynamicResource Text.Primary}" Margin="9,0"
+                                                   VerticalAlignment="Center" TextTrimming="CharacterEllipsis"
+                                                   MaxWidth="140"
+                                                   AutomationProperties.AutomationId="SidebarVaultName" />
+                                    </StackPanel>
+                                    <Button Grid.Column="1" Style="{StaticResource IconActionButton}" Width="28" Height="28"
+                                            Command="{Binding LockCommand}"
+                                            ToolTip="{loc:Loc Main.SwitchVault}"
+                                            AutomationProperties.Name="{loc:Loc Main.SwitchVault}"
+                                            AutomationProperties.AutomationId="SwitchVaultButton">
+                                        <materialDesign:PackIcon Kind="SwapHorizontal" Width="15" Height="15" />
+                                    </Button>
+                                </Grid>
+                                <Button Style="{StaticResource NavItemButton}" Margin="8,2,8,10"
                                         Command="{Binding DataContext.Settings.OpenCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                                         AutomationProperties.AutomationId="NavSettings">
                                     <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Kind="Cog" Width="20" Height="20" VerticalAlignment="Center" />
+                                        <materialDesign:PackIcon Kind="Cog" Width="18" Height="18" VerticalAlignment="Center" />
                                         <TextBlock Text="{loc:Loc Nav.Settings}" Margin="10,0" VerticalAlignment="Center" />
                                     </StackPanel>
                                 </Button>
                             </StackPanel>
-                        </ScrollViewer>
+                        </Grid>
                     </Border>
 
+                    <!-- Center-facing hairlines; hidden while Security Center spans the width -->
+                    <Rectangle Grid.Column="1" Fill="{DynamicResource Divider}">
+                        <Rectangle.Style>
+                            <Style TargetType="Rectangle">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SecuritySectionActive}" Value="True">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Rectangle.Style>
+                    </Rectangle>
+
                     <!-- ══ Center list (spans the details column while Security Center is active) ══ -->
-                    <Border Grid.Column="1" Margin="10,0">
+                    <Border Grid.Column="2" Background="{DynamicResource Bg.Base}">
                         <Border.Style>
-                            <Style TargetType="Border" BasedOn="{StaticResource CardBorder}">
+                            <Style TargetType="Border">
                                 <Setter Property="Grid.ColumnSpan" Value="1" />
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding SecuritySectionActive}" Value="True">
-                                        <Setter Property="Grid.ColumnSpan" Value="2" />
+                                        <Setter Property="Grid.ColumnSpan" Value="3" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -619,22 +735,39 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <!-- Header: contextual title / search / sort / new -->
+                            <!-- Header: contextual title + live count / search / sort / new -->
                             <Border Grid.Row="0" BorderBrush="{DynamicResource Divider}" BorderThickness="0,0,0,1"
-                                    Padding="16,10">
+                                    Padding="20,12,20,12">
                                 <StackPanel>
-                                    <TextBlock Text="{Binding ListHeader}" Style="{StaticResource SubtitleText}"
-                                               FontSize="16" Margin="0,2,0,10" />
+                                    <Grid Margin="0,1,0,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding ListHeader}" Style="{StaticResource SubtitleText}"
+                                                   VerticalAlignment="Center" />
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center"
+                                                    Margin="12,0,0,0">
+                                            <TextBlock Style="{StaticResource MicroText}" VerticalAlignment="Center"
+                                                       AutomationProperties.AutomationId="ListCount">
+                                                <Run Text="{Binding RowsView.Count, Mode=OneWay}" />
+                                                <Run Text="{loc:Loc List.CountSuffix}" />
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Grid>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <!-- Search with watermark -->
-                                        <Border Background="{DynamicResource Bg.Sunken}" CornerRadius="8" Padding="10,2">
+                                        <!-- Search: white field with hairline, watermark when empty -->
+                                        <Border Background="{DynamicResource Bg.Card}"
+                                                BorderBrush="{DynamicResource Divider.Strong}"
+                                                BorderThickness="1" CornerRadius="8" Padding="10,1">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto" />
@@ -644,26 +777,27 @@
                                                                          Foreground="{DynamicResource Text.Secondary}"
                                                                          VerticalAlignment="Center" />
                                                 <TextBox Grid.Column="1" Style="{StaticResource SearchBoxStyle}" BorderThickness="0"
-                                                         Background="Transparent" MinWidth="160" Margin="8,0"
+                                                         Background="Transparent" MinWidth="160" Margin="8,0" Padding="4,7"
                                                          Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged, Delay=150}"
                                                          AutomationProperties.AutomationId="SearchBox" />
                                                 <TextBlock Grid.Column="1" Text="{loc:Loc Search.Placeholder}"
-                                                           IsHitTestVisible="False" VerticalAlignment="Center"
-                                                           Foreground="{DynamicResource Text.Secondary}"
+                                                           IsHitTestVisible="False" VerticalAlignment="Center" Padding="4,0"
+                                                           Foreground="{DynamicResource Text.Disabled}"
                                                            Visibility="{Binding SearchText, Converter={StaticResource EmptyToVisible}}" />
                                             </Grid>
                                         </Border>
-                                        <ComboBox Grid.Column="1" Width="150" Margin="10,0" VerticalAlignment="Center"
+                                        <ComboBox Grid.Column="1" Width="140" Margin="10,0" VerticalAlignment="Center"
                                                   SelectedValue="{Binding SortBy}" SelectedValuePath="Tag"
                                                   AutomationProperties.Name="{loc:Loc Sort.Label}">
                                             <ComboBoxItem Tag="updated" Content="{loc:Loc Sort.Updated}" />
                                             <ComboBoxItem Tag="title" Content="{loc:Loc Sort.Title}" />
                                             <ComboBoxItem Tag="created" Content="{loc:Loc Sort.Created}" />
                                         </ComboBox>
-                                        <Button Grid.Column="2" Command="{Binding BeginCreateCommand}" Margin="10,0"
-                                                AutomationProperties.AutomationId="AddCredential" VerticalAlignment="Center">
+                                        <Button Grid.Column="2" Command="{Binding BeginCreateCommand}" Margin="0,0,10,0"
+                                                AutomationProperties.AutomationId="AddCredential" VerticalAlignment="Center"
+                                                Padding="12,6">
                                             <StackPanel Orientation="Horizontal">
-                                                <materialDesign:PackIcon Kind="Plus" Width="18" Height="18" VerticalAlignment="Center" />
+                                                <materialDesign:PackIcon Kind="Plus" Width="16" Height="16" VerticalAlignment="Center" />
                                                 <TextBlock Text="{loc:Loc Center.NewItem}" Margin="6,0,0,0" VerticalAlignment="Center" />
                                             </StackPanel>
                                         </Button>
@@ -673,24 +807,31 @@
 
                             <Grid Grid.Row="1">
                                 <!-- Security Center dashboard -->
-                                <StackPanel Margin="16"
+                                <StackPanel Margin="20,16,20,12"
                                             Visibility="{Binding SecuritySectionActive, Converter={StaticResource BoolToVisible}}"
                                             AutomationProperties.AutomationId="SecurityCenter">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{loc:Loc Security.Score}" Style="{StaticResource SecondaryText}" VerticalAlignment="Center" />
-                                        <TextBlock Text="{Binding SecurityScoreText}" FontSize="22" FontWeight="SemiBold"
-                                                   Foreground="{DynamicResource Accent}" Margin="8,0"
-                                                   AutomationProperties.AutomationId="SecurityScore" />
-                                        <Button Content="{loc:Loc Security.Refresh}" Style="{StaticResource IconButton}"
-                                                Command="{Binding RunSecurityAnalysisCommand}" Margin="16,0,0,0"
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding SecurityScoreText}" FontSize="32" FontWeight="SemiBold"
+                                                       Foreground="{DynamicResource Accent}"
+                                                       AutomationProperties.AutomationId="SecurityScore" />
+                                            <TextBlock Text="{loc:Loc Security.Score}" Style="{StaticResource SecondaryText}"
+                                                       VerticalAlignment="Center" Margin="10,0,0,0" />
+                                            <TextBlock Text="{loc:Loc Security.Working}" Style="{StaticResource SecondaryText}"
+                                                       VerticalAlignment="Center" Margin="10,0,0,0"
+                                                       Visibility="{Binding SecurityAnalysisBusy, Converter={StaticResource BoolToVisible}}" />
+                                        </StackPanel>
+                                        <Button Grid.Column="1" Content="{loc:Loc Security.Refresh}" Style="{StaticResource IconButton}"
+                                                Command="{Binding RunSecurityAnalysisCommand}"
                                                 AutomationProperties.AutomationId="SecurityRefresh" />
-                                        <TextBlock Text="{loc:Loc Security.Working}" Style="{StaticResource SecondaryText}"
-                                                   VerticalAlignment="Center" Margin="8,0,0,0"
-                                                   Visibility="{Binding SecurityAnalysisBusy, Converter={StaticResource BoolToVisible}}" />
-                                    </StackPanel>
+                                    </Grid>
                                     <TextBlock Text="{loc:Loc Security.OfflineNote}" Style="{StaticResource SecondaryText}"
-                                               Margin="0,4,0,0" />
-                                    <ProgressBar Height="6" Minimum="0" Maximum="100" Margin="0,12,0,0"
+                                               Margin="0,2,0,0" />
+                                    <ProgressBar Height="8" Minimum="0" Maximum="100" Margin="0,12,0,0"
                                                  Value="{Binding SecurityReport.Score, Mode=OneWay}" />
 
                                     <!-- Finding-kind chips: count + label; they double as filters -->
@@ -768,7 +909,7 @@
                                                             <ColumnDefinition Width="*" />
                                                         </Grid.ColumnDefinitions>
                                                         <materialDesign:PackIcon Kind="AlertOutline" Width="18" Height="18"
-                                                                                 Foreground="{DynamicResource Warning}"
+                                                                                 Foreground="{Binding Kind, Converter={StaticResource FindingKindBrush}}"
                                                                                  VerticalAlignment="Center" />
                                                         <StackPanel Grid.Column="1" Margin="10,0" HorizontalAlignment="Stretch">
                                                             <StackPanel Orientation="Horizontal">
@@ -806,56 +947,111 @@
                                                  AutomationProperties.AutomationId="CredentialList">
                                             <ListBox.ItemTemplate>
                                                 <DataTemplate>
-                                                    <Grid Margin="12,9" AutomationProperties.AutomationId="CredentialRow">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="Auto" />
-                                                            <ColumnDefinition Width="*" />
-                                                            <ColumnDefinition Width="Auto" />
-                                                        </Grid.ColumnDefinitions>
-                                                        <Border Width="34" Height="34" CornerRadius="8"
-                                                                Background="{DynamicResource Accent.Soft}">
-                                                            <materialDesign:PackIcon Width="18" Height="18"
-                                                                                     Foreground="{DynamicResource Accent}"
-                                                                                     Kind="{Binding Kind, Converter={StaticResource TypeToIcon}}"
-                                                                                     HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                        </Border>
-                                                        <StackPanel Grid.Column="1" Margin="10,0" VerticalAlignment="Center">
-                                                            <TextBlock Text="{Binding Title}" FontSize="14" FontWeight="Medium"
-                                                                       Foreground="{DynamicResource Text.Primary}" TextTrimming="CharacterEllipsis"
-                                                                       AutomationProperties.AutomationId="RowTitle" />
-                                                            <TextBlock Text="{Binding Subtitle}" FontSize="12"
-                                                                       Foreground="{DynamicResource Text.Secondary}" Margin="0,1,0,0"
-                                                                       TextTrimming="CharacterEllipsis"
-                                                                       AutomationProperties.AutomationId="RowUsername" />
-                                                        </StackPanel>
-                                                        <materialDesign:PackIcon Grid.Column="2" Kind="Star" Width="14" Height="14"
-                                                                                 Foreground="{DynamicResource Warning}"
-                                                                                 VerticalAlignment="Center"
-                                                                                 Visibility="{Binding Favorite, Converter={StaticResource BoolToVisible}}" />
-                                                    </Grid>
+                                                    <Border Margin="6,1" CornerRadius="8" Padding="10,7"
+                                                            AutomationProperties.AutomationId="CredentialRow">
+                                                        <Border.Style>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="Background" Value="Transparent" />
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="{DynamicResource Item.Hover}" />
+                                                                    </Trigger>
+                                                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
+                                                                        <Setter Property="Background" Value="{DynamicResource Accent.Soft}" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Border.Style>
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto" />
+                                                                <ColumnDefinition Width="Auto" />
+                                                                <ColumnDefinition Width="*" />
+                                                                <ColumnDefinition Width="Auto" />
+                                                            </Grid.ColumnDefinitions>
+                                                            <!-- Leading selection bar: column 0 = leading edge in
+                                                                 RTL and LTR (grid columns mirror with FlowDirection) -->
+                                                            <Rectangle Grid.Column="0" Width="3" RadiusX="1.5" RadiusY="1.5"
+                                                                       Fill="{DynamicResource Accent}" Margin="0,3,0,3">
+                                                                <Rectangle.Style>
+                                                                    <Style TargetType="Rectangle">
+                                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
+                                                                                <Setter Property="Visibility" Value="Visible" />
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </Rectangle.Style>
+                                                            </Rectangle>
+                                                            <Border Grid.Column="1" Width="36" Height="36" CornerRadius="10"
+                                                                    Background="{DynamicResource Accent.Soft}" Margin="9,0">
+                                                                <materialDesign:PackIcon Width="18" Height="18"
+                                                                                         Foreground="{DynamicResource Accent}"
+                                                                                         Kind="{Binding Kind, Converter={StaticResource TypeToIcon}}"
+                                                                                         HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                            </Border>
+                                                            <StackPanel Grid.Column="2" Margin="8,0" VerticalAlignment="Center">
+                                                                <TextBlock Text="{Binding Title}" FontSize="14" FontWeight="Medium"
+                                                                           Foreground="{DynamicResource Text.Primary}" TextTrimming="CharacterEllipsis"
+                                                                           AutomationProperties.AutomationId="RowTitle" />
+                                                                <TextBlock Text="{Binding Subtitle}" FontSize="12"
+                                                                           Foreground="{DynamicResource Text.Secondary}" Margin="0,1,0,0"
+                                                                           TextTrimming="CharacterEllipsis"
+                                                                           AutomationProperties.AutomationId="RowUsername" />
+                                                            </StackPanel>
+                                                            <materialDesign:PackIcon Grid.Column="3" Kind="Star" Width="14" Height="14"
+                                                                                     Foreground="{DynamicResource Warning}"
+                                                                                     VerticalAlignment="Center"
+                                                                                     Visibility="{Binding Favorite, Converter={StaticResource BoolToVisible}}" />
+                                                        </Grid>
+                                                    </Border>
                                                 </DataTemplate>
                                             </ListBox.ItemTemplate>
                                         </ListBox>
                                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center"
                                                     Visibility="{Binding RowsView.Count, Converter={StaticResource ZeroToVisible}}"
                                                     AutomationProperties.AutomationId="CenterEmpty">
-                                            <materialDesign:PackIcon Kind="ShieldOff" Width="48" Height="48"
-                                                                     Foreground="{DynamicResource Text.Secondary}"
-                                                                     HorizontalAlignment="Center" />
-                                            <TextBlock Text="{loc:Loc Center.EmptyTitle}" Style="{StaticResource TitleText}"
-                                                       HorizontalAlignment="Center" Margin="0,12,0,0" />
+                                            <Border Width="72" Height="72" CornerRadius="36"
+                                                    Background="{DynamicResource Accent.Soft}" HorizontalAlignment="Center">
+                                                <materialDesign:PackIcon Kind="ShieldOff" Width="32" Height="32"
+                                                                         Foreground="{DynamicResource Accent}"
+                                                                         HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            </Border>
+                                            <TextBlock Text="{loc:Loc Center.EmptyTitle}" Style="{StaticResource SubtitleText}"
+                                                       HorizontalAlignment="Center" Margin="0,14,0,0" />
                                             <TextBlock Text="{loc:Loc Center.EmptyText}" Style="{StaticResource SecondaryText}"
-                                                       HorizontalAlignment="Center" Margin="0,8,0,0"
+                                                       HorizontalAlignment="Center" Margin="0,6,0,0"
                                                        MaxWidth="260" TextWrapping="Wrap" TextAlignment="Center" />
                                         </StackPanel>
                                     </Grid>
                                 </Grid>
                             </Grid>
+
+                            <!-- Status bar: lives under the list column; the details column keeps
+                                 its own pinned action footer -->
+                            <Border Grid.Row="2" Background="{DynamicResource Bg.Sunken}"
+                                    BorderBrush="{DynamicResource Divider}" BorderThickness="0,1,0,0">
+                                <TextBlock Text="{Binding StatusMessage}" Style="{StaticResource SecondaryText}" Margin="20,0"
+                                           VerticalAlignment="Center" AutomationProperties.AutomationId="StatusText" />
+                            </Border>
                         </Grid>
                     </Border>
 
+                    <Rectangle Grid.Column="3" Fill="{DynamicResource Divider}">
+                        <Rectangle.Style>
+                            <Style TargetType="Rectangle">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SecuritySectionActive}" Value="True">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Rectangle.Style>
+                    </Rectangle>
+
                     <!-- ══ Details ══ -->
-                    <Border Grid.Column="2" Style="{StaticResource CardBorder}"
+                    <Border Grid.Column="4" Background="{DynamicResource Bg.Card}"
                             AutomationProperties.AutomationId="DetailsPane"
                             Visibility="{Binding SecuritySectionActive, Converter={StaticResource FalseToVisible}}">
                         <Grid>
@@ -868,14 +1064,17 @@
                             <!-- Empty state -->
                             <StackPanel Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center"
                                         Visibility="{Binding Detail, Converter={StaticResource NullToVisible}}">
-                                <materialDesign:PackIcon Kind="ShieldKey" Width="44" Height="44"
-                                                         Foreground="{DynamicResource Text.Secondary}"
-                                                         HorizontalAlignment="Center" />
-                                <TextBlock Text="{loc:Loc Details.PlaceholderTitle}" Style="{StaticResource TitleText}"
-                                           HorizontalAlignment="Center" TextAlignment="Center" Margin="0,12,0,0" />
+                                <Border Width="72" Height="72" CornerRadius="36"
+                                        Background="{DynamicResource Accent.Soft}" HorizontalAlignment="Center">
+                                    <materialDesign:PackIcon Kind="ShieldKey" Width="32" Height="32"
+                                                             Foreground="{DynamicResource Accent}"
+                                                             HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <TextBlock Text="{loc:Loc Details.PlaceholderTitle}" Style="{StaticResource SubtitleText}"
+                                           HorizontalAlignment="Center" TextAlignment="Center" Margin="0,14,0,0" />
                                 <TextBlock Text="{loc:Loc Details.PlaceholderText}" Style="{StaticResource SecondaryText}"
-                                           HorizontalAlignment="Center" TextAlignment="Center" Margin="0,8,0,0"
-                                           MaxWidth="260" TextWrapping="Wrap" />
+                                           HorizontalAlignment="Center" TextAlignment="Center" Margin="0,6,0,0"
+                                           MaxWidth="240" TextWrapping="Wrap" />
                             </StackPanel>
 
                             <!-- Header (item identity) -->
@@ -886,7 +1085,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <Border Width="42" Height="42" CornerRadius="10"
+                                <Border Width="44" Height="44" CornerRadius="12"
                                         Background="{DynamicResource Accent.Soft}" VerticalAlignment="Center">
                                     <materialDesign:PackIcon Width="22" Height="22"
                                                              Foreground="{DynamicResource Accent}"
@@ -928,85 +1127,83 @@
                                 <StackPanel Margin="20,4,20,12">
 
                                     <!-- Login credentials -->
-                                    <Border Style="{StaticResource SectionCard}"
-                                            Visibility="{Binding IsLoginDetail, Converter={StaticResource BoolToVisible}}">
-                                        <StackPanel>
+                                    <StackPanel Visibility="{Binding IsLoginDetail, Converter={StaticResource BoolToVisible}}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{loc:Loc Details.Username}" Style="{StaticResource FieldLabel}" Margin="0" />
+                                            <Button Grid.Column="1" Style="{StaticResource IconActionButton}"
+                                                    Command="{Binding CopyUsernameCommand}"
+                                                    ToolTip="{loc:Loc Details.CopyUsername}"
+                                                    AutomationProperties.Name="{loc:Loc Details.CopyUsername}"
+                                                    AutomationProperties.AutomationId="CopyUsername">
+                                                <materialDesign:PackIcon Kind="ContentCopy" Width="16" Height="16" />
+                                            </Button>
+                                        </Grid>
+                                        <TextBlock Text="{Binding DetailUsernameText}" Style="{StaticResource BodyText}"
+                                                   TextTrimming="CharacterEllipsis" Margin="0,2,0,0" />
+
+                                        <Grid Margin="0,8,0,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{loc:Loc Details.Password}" Style="{StaticResource FieldLabel}" Margin="0" />
+                                            <Button Grid.Column="1" Style="{StaticResource IconActionButton}"
+                                                    Command="{Binding ToggleRevealCommand}"
+                                                    ToolTip="{loc:Loc Details.Reveal}"
+                                                    AutomationProperties.Name="{loc:Loc Details.Reveal}"
+                                                    AutomationProperties.AutomationId="RevealPassword">
+                                                <materialDesign:PackIcon Width="16" Height="16">
+                                                    <materialDesign:PackIcon.Style>
+                                                        <Style TargetType="materialDesign:PackIcon">
+                                                            <Setter Property="Kind" Value="Eye" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding PasswordRevealed}" Value="True">
+                                                                    <Setter Property="Kind" Value="EyeOff" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </materialDesign:PackIcon.Style>
+                                                </materialDesign:PackIcon>
+                                            </Button>
+                                            <Button Grid.Column="2" Style="{StaticResource IconActionButton}"
+                                                    Command="{Binding CopyPasswordCommand}"
+                                                    ToolTip="{loc:Loc Details.CopyPassword}"
+                                                    AutomationProperties.Name="{loc:Loc Details.CopyPassword}"
+                                                    AutomationProperties.AutomationId="CopyPassword">
+                                                <materialDesign:PackIcon Kind="ContentCopy" Width="16" Height="16" />
+                                            </Button>
+                                        </Grid>
+                                        <TextBlock Text="{Binding PasswordDisplay}" Style="{StaticResource LtrValueText}"
+                                                   Margin="0,2,0,0"
+                                                   AutomationProperties.AutomationId="DetailPassword" />
+
+                                        <StackPanel Visibility="{Binding DetailWebsiteText, Converter={StaticResource NullToCollapsed}}">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <TextBlock Text="{loc:Loc Details.Username}" Style="{StaticResource FieldLabel}" Margin="0" />
+                                                <TextBlock Text="{loc:Loc Details.Website}" Style="{StaticResource FieldLabel}" Margin="0" />
                                                 <Button Grid.Column="1" Style="{StaticResource IconActionButton}"
-                                                        Command="{Binding CopyUsernameCommand}"
-                                                        ToolTip="{loc:Loc Details.CopyUsername}"
-                                                        AutomationProperties.Name="{loc:Loc Details.CopyUsername}"
-                                                        AutomationProperties.AutomationId="CopyUsername">
-                                                    <materialDesign:PackIcon Kind="ContentCopy" Width="16" Height="16" />
+                                                        Command="{Binding OpenWebsiteCommand}"
+                                                        ToolTip="{loc:Loc Details.OpenSite}"
+                                                        AutomationProperties.Name="{loc:Loc Details.OpenSite}">
+                                                    <materialDesign:PackIcon Kind="OpenInNew" Width="16" Height="16" />
                                                 </Button>
                                             </Grid>
-                                            <TextBlock Text="{Binding DetailUsernameText}" Style="{StaticResource BodyText}"
+                                            <TextBlock Text="{Binding DetailWebsiteText}" Style="{StaticResource LtrValueText}"
                                                        TextTrimming="CharacterEllipsis" Margin="0,2,0,0" />
-
-                                            <Grid Margin="0,10,0,0">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="Auto" />
-                                                    <ColumnDefinition Width="Auto" />
-                                                </Grid.ColumnDefinitions>
-                                                <TextBlock Text="{loc:Loc Details.Password}" Style="{StaticResource FieldLabel}" Margin="0" />
-                                                <Button Grid.Column="1" Style="{StaticResource IconActionButton}"
-                                                        Command="{Binding ToggleRevealCommand}"
-                                                        ToolTip="{loc:Loc Details.Reveal}"
-                                                        AutomationProperties.Name="{loc:Loc Details.Reveal}"
-                                                        AutomationProperties.AutomationId="RevealPassword">
-                                                    <materialDesign:PackIcon Width="16" Height="16">
-                                                        <materialDesign:PackIcon.Style>
-                                                            <Style TargetType="materialDesign:PackIcon">
-                                                                <Setter Property="Kind" Value="Eye" />
-                                                                <Style.Triggers>
-                                                                    <DataTrigger Binding="{Binding PasswordRevealed}" Value="True">
-                                                                        <Setter Property="Kind" Value="EyeOff" />
-                                                                    </DataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </materialDesign:PackIcon.Style>
-                                                    </materialDesign:PackIcon>
-                                                </Button>
-                                                <Button Grid.Column="2" Style="{StaticResource IconActionButton}"
-                                                        Command="{Binding CopyPasswordCommand}"
-                                                        ToolTip="{loc:Loc Details.CopyPassword}"
-                                                        AutomationProperties.Name="{loc:Loc Details.CopyPassword}"
-                                                        AutomationProperties.AutomationId="CopyPassword">
-                                                    <materialDesign:PackIcon Kind="ContentCopy" Width="16" Height="16" />
-                                                </Button>
-                                            </Grid>
-                                            <TextBlock Text="{Binding PasswordDisplay}" Style="{StaticResource LtrValueText}"
-                                                       Margin="0,2,0,0"
-                                                       AutomationProperties.AutomationId="DetailPassword" />
-
-                                            <StackPanel Visibility="{Binding DetailWebsiteText, Converter={StaticResource NullToCollapsed}}">
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="*" />
-                                                        <ColumnDefinition Width="Auto" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <TextBlock Text="{loc:Loc Details.Website}" Style="{StaticResource FieldLabel}" Margin="0" />
-                                                    <Button Grid.Column="1" Style="{StaticResource IconActionButton}"
-                                                            Command="{Binding OpenWebsiteCommand}"
-                                                            ToolTip="{loc:Loc Details.OpenSite}"
-                                                            AutomationProperties.Name="{loc:Loc Details.OpenSite}">
-                                                        <materialDesign:PackIcon Kind="OpenInNew" Width="16" Height="16" />
-                                                    </Button>
-                                                </Grid>
-                                                <TextBlock Text="{Binding DetailWebsiteText}" Style="{StaticResource LtrValueText}"
-                                                           TextTrimming="CharacterEllipsis" Margin="0,2,0,0" />
-                                            </StackPanel>
                                         </StackPanel>
-                                    </Border>
+                                        <Rectangle Height="1" Fill="{DynamicResource Divider}" Margin="0,14" />
+                                    </StackPanel>
 
-                                    <!-- TOTP -->
-                                    <Border Style="{StaticResource SectionCard}"
+                                    <!-- TOTP: sunken well, the code is the hero -->
+                                    <Border Style="{StaticResource WellBorder}" Padding="14"
                                             Visibility="{Binding TotpAvailable, Converter={StaticResource BoolToVisible}}"
                                             AutomationProperties.AutomationId="TotpSection">
                                         <StackPanel>
@@ -1016,19 +1213,20 @@
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
                                                 <TextBlock Text="{loc:Loc Totp.Title}" Style="{StaticResource FieldLabel}" Margin="0" />
-                                                <Button Grid.Column="1" Style="{StaticResource IconActionButton}"
+                                                <Button Grid.Column="1" Style="{StaticResource IconActionButton}" Width="28" Height="28"
                                                         Command="{Binding CopyTotpCommand}"
                                                         ToolTip="{loc:Loc Totp.Copy}"
                                                         AutomationProperties.Name="{loc:Loc Totp.Copy}"
                                                         AutomationProperties.AutomationId="CopyTotp">
-                                                    <materialDesign:PackIcon Kind="ContentCopy" Width="16" Height="16" />
+                                                    <materialDesign:PackIcon Kind="ContentCopy" Width="15" Height="15" />
                                                 </Button>
                                             </Grid>
                                             <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
                                                 <TextBlock Text="{Binding TotpCode}" FontSize="22" FontWeight="SemiBold"
+                                                           Foreground="{DynamicResource Accent}"
                                                            Style="{StaticResource LtrValueText}"
                                                            AutomationProperties.AutomationId="TotpCode" />
-                                                <TextBlock Margin="10,0" VerticalAlignment="Center"
+                                                <TextBlock Margin="12,0,0,0" VerticalAlignment="Center"
                                                            AutomationProperties.AutomationId="TotpSeconds"
                                                            Style="{StaticResource SecondaryText}">
                                                     <Run Text="{Binding TotpSecondsRemaining, Mode=OneWay}" />
@@ -1041,8 +1239,7 @@
                                     </Border>
 
                                     <!-- Type-specific fields (non-login) -->
-                                    <Border Style="{StaticResource SectionCard}"
-                                            Visibility="{Binding IsGenericDetail, Converter={StaticResource BoolToVisible}}">
+                                    <StackPanel Visibility="{Binding IsGenericDetail, Converter={StaticResource BoolToVisible}}">
                                         <ItemsControl ItemsSource="{Binding DetailDataRows}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
@@ -1089,11 +1286,12 @@
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
                                         </ItemsControl>
-                                    </Border>
+                                        <Rectangle Height="1" Fill="{DynamicResource Divider}" Margin="0,14" />
+                                    </StackPanel>
 
                                     <!-- Custom fields -->
-                                    <Border Style="{StaticResource SectionCard}"
-                                            Visibility="{Binding DetailCustomRows.Count, Converter={StaticResource ZeroToCollapsed}}">
+                                    <StackPanel Visibility="{Binding DetailCustomRows.Count, Converter={StaticResource ZeroToCollapsed}}">
+                                        <TextBlock Text="{loc:Loc Editor.CustomFields}" Style="{StaticResource GroupHeader}" />
                                         <ItemsControl ItemsSource="{Binding DetailCustomRows}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
@@ -1118,61 +1316,58 @@
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
                                         </ItemsControl>
-                                    </Border>
+                                        <Rectangle Height="1" Fill="{DynamicResource Divider}" Margin="0,14" />
+                                    </StackPanel>
 
                                     <!-- Notes / description -->
-                                    <Border Style="{StaticResource SectionCard}"
-                                            Visibility="{Binding DetailNotesText, Converter={StaticResource NullToCollapsed}}">
-                                        <StackPanel>
-                                            <TextBlock Text="{loc:Loc Details.Notes}" Style="{StaticResource FieldLabel}" Margin="0" />
-                                            <TextBlock Text="{Binding DetailNotesText}" Style="{StaticResource BodyText}"
-                                                       TextWrapping="Wrap" Margin="0,2,0,0" />
-                                        </StackPanel>
-                                    </Border>
+                                    <StackPanel Visibility="{Binding DetailNotesText, Converter={StaticResource NullToCollapsed}}">
+                                        <TextBlock Text="{loc:Loc Details.Notes}" Style="{StaticResource GroupHeader}" />
+                                        <TextBlock Text="{Binding DetailNotesText}" Style="{StaticResource BodyText}"
+                                                   TextWrapping="Wrap" Margin="0,0,0,0" />
+                                        <Rectangle Height="1" Fill="{DynamicResource Divider}" Margin="0,14" />
+                                    </StackPanel>
 
                                     <!-- Attachments (all item kinds) -->
-                                    <Border Style="{StaticResource SectionCard}"
-                                            Visibility="{Binding Attachments.Count, Converter={StaticResource ZeroToCollapsed}}">
-                                        <StackPanel>
-                                            <TextBlock Text="{loc:Loc Attachments.Title}" Style="{StaticResource FieldLabel}" Margin="0" />
-                                            <ItemsControl ItemsSource="{Binding Attachments}">
-                                                <ItemsControl.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <Grid Margin="0,3">
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="*" />
-                                                                <ColumnDefinition Width="Auto" />
-                                                                <ColumnDefinition Width="Auto" />
-                                                            </Grid.ColumnDefinitions>
-                                                            <TextBlock Text="{Binding Filename}" Style="{StaticResource BodyText}"
-                                                                       TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
-                                                            <Button Grid.Column="1" Style="{StaticResource IconActionButton}"
-                                                                    Click="OnExportAttachmentClick"
-                                                                    Command="{Binding DataContext.BeginExportAttachmentCommand,
-                                                                        RelativeSource={RelativeSource AncestorType=Window}}"
-                                                                    ToolTip="{loc:Loc Attachments.Export}">
-                                                                <materialDesign:PackIcon Kind="Download" Width="16" Height="16" />
-                                                            </Button>
-                                                            <Button Grid.Column="2" Style="{StaticResource IconActionButton}"
-                                                                    Command="{Binding DataContext.DeleteAttachmentCommand,
-                                                                        RelativeSource={RelativeSource AncestorType=Window}}"
-                                                                    ToolTip="{loc:Loc Details.Delete}">
-                                                                <materialDesign:PackIcon Kind="DeleteOutline" Width="16" Height="16" />
-                                                            </Button>
-                                                        </Grid>
-                                                    </DataTemplate>
-                                                </ItemsControl.ItemTemplate>
-                                            </ItemsControl>
-                                            <Button Style="{StaticResource IconButton}" Margin="0,6,0,0"
-                                                    Click="OnAddAttachmentClick"
-                                                    AutomationProperties.AutomationId="AddAttachment">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <materialDesign:PackIcon Kind="Paperclip" Width="16" Height="16" VerticalAlignment="Center" />
-                                                    <TextBlock Text="{loc:Loc Attachments.Add}" Margin="6,0,0,0" VerticalAlignment="Center" />
-                                                </StackPanel>
-                                            </Button>
-                                        </StackPanel>
-                                    </Border>
+                                    <StackPanel Visibility="{Binding Attachments.Count, Converter={StaticResource ZeroToCollapsed}}">
+                                        <TextBlock Text="{loc:Loc Attachments.Title}" Style="{StaticResource GroupHeader}" />
+                                        <ItemsControl ItemsSource="{Binding Attachments}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid Margin="0,3">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Text="{Binding Filename}" Style="{StaticResource BodyText}"
+                                                                   TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+                                                        <Button Grid.Column="1" Style="{StaticResource IconActionButton}" Width="28" Height="28"
+                                                                Click="OnExportAttachmentClick"
+                                                                Command="{Binding DataContext.BeginExportAttachmentCommand,
+                                                                    RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                ToolTip="{loc:Loc Attachments.Export}">
+                                                            <materialDesign:PackIcon Kind="Download" Width="15" Height="15" />
+                                                        </Button>
+                                                        <Button Grid.Column="2" Style="{StaticResource IconActionButton}" Width="28" Height="28"
+                                                                Command="{Binding DataContext.DeleteAttachmentCommand,
+                                                                    RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                ToolTip="{loc:Loc Details.Delete}">
+                                                            <materialDesign:PackIcon Kind="DeleteOutline" Width="15" Height="15" />
+                                                        </Button>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                        <Button Style="{StaticResource IconButton}" Margin="0,6,0,0"
+                                                Click="OnAddAttachmentClick"
+                                                AutomationProperties.AutomationId="AddAttachment">
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="Paperclip" Width="16" Height="16" VerticalAlignment="Center" />
+                                                <TextBlock Text="{loc:Loc Attachments.Add}" Margin="6,0,0,0" VerticalAlignment="Center" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Rectangle Height="1" Fill="{DynamicResource Divider}" Margin="0,14" />
+                                    </StackPanel>
                                     <!-- Attachment add affordance when the card is hidden (empty list) -->
                                     <Button Style="{StaticResource IconButton}" 
                                             Visibility="{Binding Attachments.Count, Converter={StaticResource ZeroToVisible}}"
@@ -1184,39 +1379,39 @@
                                     </Button>
 
                                     <!-- History (auto-loaded; restore needs a selected version) -->
-                                    <Border Style="{StaticResource SectionCard}"
-                                            Visibility="{Binding Versions.Count, Converter={StaticResource ZeroToCollapsed}}">
-                                        <StackPanel>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="Auto" />
-                                                </Grid.ColumnDefinitions>
-                                                <TextBlock Text="{loc:Loc History.Title}" Style="{StaticResource FieldLabel}" Margin="0" VerticalAlignment="Center" />
-                                                <Button Grid.Column="1" Content="{loc:Loc History.Restore}" Style="{StaticResource IconButton}"
-                                                        Command="{Binding RestoreVersionCommand}"
-                                                        IsEnabled="{Binding SelectedVersion, Converter={StaticResource NullToBool}}"
-                                                        AutomationProperties.AutomationId="RestoreVersion" />
-                                            </Grid>
-                                            <ListBox ItemsSource="{Binding Versions}" SelectedItem="{Binding SelectedVersion}"
-                                                     Background="Transparent" BorderThickness="0" MinHeight="26" MaxHeight="130"
-                                                     Margin="0,4,0,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                                     AutomationProperties.AutomationId="VersionList">
-                                                <ListBox.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock Margin="6,3" Style="{StaticResource BodyText}">
-                                                            <Run Text="v" />
-                                                            <Run Text="{Binding Version, Mode=OneWay}" />
-                                                            <Run Text=" — " />
-                                                            <Run Text="{Binding CreatedAt, Mode=OneWay}" />
-                                                        </TextBlock>
-                                                    </DataTemplate>
-                                                </ListBox.ItemTemplate>
-                                            </ListBox>
-                                        </StackPanel>
-                                    </Border>
+                                    <StackPanel Visibility="{Binding Versions.Count, Converter={StaticResource ZeroToCollapsed}}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{loc:Loc History.Title}" Style="{StaticResource GroupHeader}" VerticalAlignment="Center" />
+                                            <Button Grid.Column="1" Content="{loc:Loc History.Restore}" Style="{StaticResource IconButton}"
+                                                    Command="{Binding RestoreVersionCommand}"
+                                                    IsEnabled="{Binding SelectedVersion, Converter={StaticResource NullToBool}}"
+                                                    AutomationProperties.AutomationId="RestoreVersion" />
+                                        </Grid>
+                                        <ListBox ItemsSource="{Binding Versions}" SelectedItem="{Binding SelectedVersion}"
+                                                 Background="Transparent" BorderThickness="0" MinHeight="26" MaxHeight="130"
+                                                 Margin="0,4,0,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                 AutomationProperties.AutomationId="VersionList">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Margin="6,3" Style="{StaticResource BodyText}">
+                                                        <Run Text="v" />
+                                                        <Run Text="{Binding Version, Mode=OneWay}" />
+                                                        <Run Text=" — " />
+                                                        <Run Text="{Binding CreatedAt, Mode=OneWay}" />
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </StackPanel>
 
+                                    <!-- LTR flow so the Latin timestamps don't scramble inside an
+                                         RTL run (same isolation rule as technical values) -->
                                     <TextBlock Margin="0,4,0,10" Style="{StaticResource SecondaryText}"
+                                               FlowDirection="LeftToRight"
                                                AutomationProperties.AutomationId="DetailDates">
                                         <Run Text="{loc:Loc Details.Created}" />
                                         <Run Text="{Binding Detail.CreatedAt, Mode=OneWay}" />
@@ -1227,43 +1422,46 @@
                                 </StackPanel>
                             </ScrollViewer>
 
-                            <!-- Footer actions (pinned) -->
-                            <Grid Grid.Row="2" Margin="20,10,20,14"
-                                  Visibility="{Binding Detail, Converter={StaticResource NullToCollapsed}}">
-                                <StackPanel Orientation="Horizontal"
-                                            Visibility="{Binding TrashView, Converter={StaticResource FalseToVisible}}">
-                                    <Button Content="{loc:Loc Details.Edit}" Command="{Binding BeginEditCommand}"
-                                            Margin="8,0" AutomationProperties.AutomationId="EditCredential" />
-                                    <Button Content="{loc:Loc Details.Delete}" Command="{Binding BeginDeleteCommand}"
-                                            Style="{StaticResource DangerButton}"
-                                            AutomationProperties.AutomationId="DeleteCredential" />
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal"
-                                            Visibility="{Binding TrashView, Converter={StaticResource BoolToVisible}}">
-                                    <Button Content="{loc:Loc Trash.Restore}" Command="{Binding RestoreFromTrashCommand}"
-                                            Margin="8,0" AutomationProperties.AutomationId="RestoreFromTrash" />
-                                    <Button Content="{loc:Loc Trash.Purge}" Command="{Binding BeginPurgeFromTrashCommand}"
-                                            Style="{StaticResource DangerButton}" Margin="8,0"
-                                            AutomationProperties.AutomationId="PurgeFromTrash" />
-                                    <Button Content="{loc:Loc Trash.Empty}" Style="{StaticResource IconButton}"
-                                            Command="{Binding BeginEmptyTrashCommand}"
-                                            AutomationProperties.AutomationId="EmptyTrash" />
-                                </StackPanel>
-                            </Grid>
+                            <!-- Footer actions (pinned). Flow-safe trailing alignment: the
+                                 spacer column mirrors with FlowDirection, physical alignment
+                                 would not. -->
+                            <Border Grid.Row="2" Background="{DynamicResource Bg.Card}"
+                                    BorderBrush="{DynamicResource Divider}" BorderThickness="0,1,0,0"
+                                    Visibility="{Binding Detail, Converter={StaticResource NullToCollapsed}}">
+                                <Grid Margin="20,10,20,12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal"
+                                                Visibility="{Binding TrashView, Converter={StaticResource FalseToVisible}}">
+                                        <Button Content="{loc:Loc Details.Delete}" Command="{Binding BeginDeleteCommand}"
+                                                Style="{StaticResource DangerButton}"
+                                                AutomationProperties.AutomationId="DeleteCredential" />
+                                        <Button Content="{loc:Loc Details.Edit}" Command="{Binding BeginEditCommand}"
+                                                Margin="10,0,0,0" AutomationProperties.AutomationId="EditCredential" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal"
+                                                Visibility="{Binding TrashView, Converter={StaticResource BoolToVisible}}">
+                                        <Button Content="{loc:Loc Trash.Empty}" Style="{StaticResource IconButton}"
+                                                Command="{Binding BeginEmptyTrashCommand}"
+                                                AutomationProperties.AutomationId="EmptyTrash" />
+                                        <Button Content="{loc:Loc Trash.Restore}" Command="{Binding RestoreFromTrashCommand}"
+                                                Margin="10,0,0,0" AutomationProperties.AutomationId="RestoreFromTrash" />
+                                        <Button Content="{loc:Loc Trash.Purge}" Command="{Binding BeginPurgeFromTrashCommand}"
+                                                Style="{StaticResource DangerButton}" Margin="10,0,0,0"
+                                                AutomationProperties.AutomationId="PurgeFromTrash" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
                         </Grid>
                     </Border>
                 </Grid>
 
-                <!-- Status bar -->
-                <Border Grid.Row="2" Background="{DynamicResource Bg.Sunken}">
-                    <TextBlock Text="{Binding StatusMessage}" Style="{StaticResource SecondaryText}" Margin="16,0"
-                               VerticalAlignment="Center" AutomationProperties.AutomationId="StatusText" />
-                </Border>
-
                 <!-- Editor overlay -->
                 <Grid Grid.RowSpan="3" Background="{DynamicResource Overlay.Scrim}"
                       Visibility="{Binding EditorVisible, Converter={StaticResource BoolToVisible}}">
-                    <Border MaxWidth="620" MinWidth="540" Style="{StaticResource CardBorder}" Margin="24"
+                    <Border MaxWidth="780" MinWidth="600" Style="{StaticResource DialogCard}" Margin="24"
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             AutomationProperties.AutomationId="EditorPane">
                         <Grid>
@@ -1274,16 +1472,16 @@
                             </Grid.RowDefinitions>
 
                             <!-- Editor header -->
-                            <Grid Grid.Row="0" Margin="24,16,16,4">
+                            <Grid Grid.Row="0" Margin="24,18,20,4">
                                 <StackPanel Orientation="Horizontal">
-                                    <Border Width="34" Height="34" CornerRadius="9" Background="{DynamicResource Accent.Soft}">
-                                        <materialDesign:PackIcon Width="18" Height="18" Foreground="{DynamicResource Accent}"
+                                    <Border Width="36" Height="36" CornerRadius="10" Background="{DynamicResource Accent.Soft}">
+                                        <materialDesign:PackIcon Width="19" Height="19" Foreground="{DynamicResource Accent}"
                                                                  Kind="{Binding EditorKind, Converter={StaticResource TypeToIcon}}"
                                                                  HorizontalAlignment="Center" VerticalAlignment="Center" />
                                     </Border>
-                                    <TextBlock Margin="10,0" VerticalAlignment="Center">
+                                    <TextBlock Margin="12,0" VerticalAlignment="Center">
                                         <TextBlock.Style>
-                                            <Style TargetType="TextBlock" BasedOn="{StaticResource TitleText}">
+                                            <Style TargetType="TextBlock" BasedOn="{StaticResource DialogTitle}">
                                                 <Setter Property="Text" Value="{loc:Loc Editor.NewItemTitle}" />
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding EditingId, Converter={StaticResource NullToBool}}" Value="True">
@@ -1302,7 +1500,7 @@
                             </Grid>
 
                             <!-- Editor body -->
-                            <ScrollViewer Grid.Row="1" MaxHeight="560" VerticalScrollBarVisibility="Auto"
+                            <ScrollViewer Grid.Row="1" MaxHeight="620" VerticalScrollBarVisibility="Auto"
                                           Margin="24,4,24,0">
                                 <StackPanel>
                                     <!-- Type picker: create mode only -->
@@ -1384,7 +1582,7 @@
                                                     <TextBox Text="{Binding Label, UpdateSourceTrigger=PropertyChanged}"
                                                              Style="{StaticResource SearchBoxStyle}" Margin="4,0" MaxLength="100" />
                                                     <ComboBox Grid.Column="1" SelectedIndex="{Binding TypeIndex}" Margin="4,0"
-                                                              VerticalAlignment="Center"
+                                                              VerticalAlignment="Center" MinWidth="130"
                                                               ItemsSource="{x:Static vm:CustomFieldEditorViewModel.CustomFieldTypeValues}" />
                                                     <TextBox Grid.Column="2" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                                              Style="{StaticResource SearchBoxStyle}" Margin="4,0" MaxLength="5000" />
@@ -1410,28 +1608,49 @@
                                         </StackPanel>
                                     </Button>
 
-                                    <!-- Organization: folder + tags -->
-                                    <TextBlock Text="{loc:Loc Editor.Folder}" Style="{StaticResource FieldLabel}" Margin="0,6,0,4" />
-                                    <ComboBox ItemsSource="{Binding FolderNav}" SelectedValue="{Binding EditorFolderId}"
-                                              SelectedValuePath="Id" DisplayMemberPath="Name" Margin="0,0,0,6" />
-                                    <TextBlock Text="{loc:Loc Editor.Tags}" Style="{StaticResource FieldLabel}" Margin="0,4,0,4" />
-                                    <TextBox Text="{Binding EditorTagNames, UpdateSourceTrigger=PropertyChanged}"
-                                             Style="{StaticResource SearchBoxStyle}" Margin="0,0,0,4" MaxLength="500"
-                                             AutomationProperties.AutomationId="EditorTags" />
+                                    <!-- Organization: folder + tags side by side (uniform columns
+                                         mirror correctly in RTL) -->
+                                    <Grid Margin="0,6,0,4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="20" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0">
+                                            <TextBlock Text="{loc:Loc Editor.Folder}" Style="{StaticResource FieldLabel}" Margin="0,0,0,4" />
+                                            <ComboBox ItemsSource="{Binding FolderNav}" SelectedValue="{Binding EditorFolderId}"
+                                                      SelectedValuePath="Id" DisplayMemberPath="Name" />
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="2">
+                                            <TextBlock Text="{loc:Loc Editor.Tags}" Style="{StaticResource FieldLabel}" Margin="0,0,0,4" />
+                                            <TextBox Text="{Binding EditorTagNames, UpdateSourceTrigger=PropertyChanged}"
+                                                     Style="{StaticResource SearchBoxStyle}" MaxLength="500"
+                                                     AutomationProperties.AutomationId="EditorTags" />
+                                        </StackPanel>
+                                    </Grid>
                                     <TextBlock Text="{Binding EditorError}" Foreground="{DynamicResource Danger}"
                                                Style="{StaticResource SecondaryText}" Margin="0,4,0,0" />
                                 </StackPanel>
                             </ScrollViewer>
 
-                            <!-- Editor footer -->
-                            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,14,0,18">
-                                <Button Content="{loc:Loc Editor.Cancel}" Style="{StaticResource IconButton}"
-                                        Command="{Binding CancelEditorCommand}" Margin="8,0"
-                                        AutomationProperties.AutomationId="EditorCancel" />
-                                <Button Content="{loc:Loc Editor.Save}" Command="{Binding SaveEditorCommand}"
-                                        IsDefault="True" Click="OnEditorSaveClick"
-                                        AutomationProperties.AutomationId="EditorSave" />
-                            </StackPanel>
+                            <!-- Editor footer: quiet cancel + raised primary, trailing in both
+                                 directions via the mirrored spacer column -->
+                            <Border Grid.Row="2" BorderBrush="{DynamicResource Divider}" BorderThickness="0,1,0,0"
+                                    Margin="0,14,0,0">
+                                <Grid Margin="24,12,24,16">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="1" Content="{loc:Loc Editor.Cancel}" Style="{StaticResource IconButton}"
+                                            Command="{Binding CancelEditorCommand}" Margin="4,0" VerticalAlignment="Center"
+                                            AutomationProperties.AutomationId="EditorCancel" />
+                                    <Button Grid.Column="2" Content="{loc:Loc Editor.Save}" Command="{Binding SaveEditorCommand}"
+                                            IsDefault="True" Click="OnEditorSaveClick" Margin="10,0,0,0"
+                                            AutomationProperties.AutomationId="EditorSave" />
+                                </Grid>
+                            </Border>
                         </Grid>
                     </Border>
                 </Grid>
@@ -1439,19 +1658,19 @@
                 <!-- Generator overlay -->
                 <Grid Grid.RowSpan="3" Background="{DynamicResource Overlay.Scrim}"
                       Visibility="{Binding GeneratorVisible, Converter={StaticResource BoolToVisible}}">
-                    <Border MaxWidth="620" Style="{StaticResource CardBorder}" Margin="24"
+                    <Border MaxWidth="680" Style="{StaticResource DialogCard}" Margin="24"
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             AutomationProperties.AutomationId="GeneratorPane">
-                        <ScrollViewer MaxHeight="620" VerticalScrollBarVisibility="Auto">
+                        <ScrollViewer MaxHeight="640" VerticalScrollBarVisibility="Auto">
                             <StackPanel Margin="24,20,24,16">
                                 <StackPanel Orientation="Horizontal">
-                                    <Border Width="34" Height="34" CornerRadius="9" Background="{DynamicResource Accent.Soft}">
-                                        <materialDesign:PackIcon Kind="AutoFix" Width="18" Height="18"
+                                    <Border Width="36" Height="36" CornerRadius="10" Background="{DynamicResource Accent.Soft}">
+                                        <materialDesign:PackIcon Kind="AutoFix" Width="19" Height="19"
                                                                  Foreground="{DynamicResource Accent}"
                                                                  HorizontalAlignment="Center" VerticalAlignment="Center" />
                                     </Border>
-                                    <TextBlock Text="{loc:Loc Nav.Generator}" Style="{StaticResource TitleText}"
-                                               Margin="10,0" VerticalAlignment="Center"
+                                    <TextBlock Text="{loc:Loc Nav.Generator}" Style="{StaticResource DialogTitle}"
+                                               Margin="12,0" VerticalAlignment="Center"
                                                AutomationProperties.AutomationId="GeneratorTitle" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,14,0,4">
@@ -1463,7 +1682,7 @@
 
                                 <!-- Character mode -->
                                 <StackPanel Visibility="{Binding PassphraseMode, Converter={StaticResource FalseToVisible}}">
-                                    <Border Style="{StaticResource CardBorder}" Background="{DynamicResource Bg.Sunken}" Padding="12" Margin="0,8,0,0">
+                                    <Border Style="{StaticResource WellBorder}" Padding="14" Margin="0,8,0,0">
                                         <TextBlock AutomationProperties.AutomationId="GeneratorOutput"
                                                    Text="{Binding GeneratedPassword}" FontSize="16" FontWeight="SemiBold"
                                                    Style="{StaticResource LtrValueText}" TextWrapping="Wrap" />
@@ -1508,7 +1727,7 @@
 
                                 <!-- Passphrase mode -->
                                 <StackPanel Visibility="{Binding PassphraseMode, Converter={StaticResource BoolToVisible}}">
-                                    <Border Style="{StaticResource CardBorder}" Background="{DynamicResource Bg.Sunken}" Padding="12" Margin="0,8,0,0">
+                                    <Border Style="{StaticResource WellBorder}" Padding="14" Margin="0,8,0,0">
                                         <TextBlock AutomationProperties.AutomationId="PassphraseOutput"
                                                    Text="{Binding GeneratedPassphrase}" FontSize="16" FontWeight="SemiBold"
                                                    Style="{StaticResource LtrValueText}" TextWrapping="Wrap" />
@@ -1561,28 +1780,37 @@
                 <!-- Delete confirmation overlay -->
                 <Grid Grid.RowSpan="3" Background="{DynamicResource Overlay.Scrim}"
                       Visibility="{Binding DeleteConfirmVisible, Converter={StaticResource BoolToVisible}}">
-                    <Border MaxWidth="440" Style="{StaticResource CardBorder}" Padding="24" Margin="24"
+                    <Border MaxWidth="440" Style="{StaticResource DialogCard}" Margin="24"
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             AutomationProperties.AutomationId="DeleteConfirmPane">
-                        <StackPanel>
+                        <StackPanel Margin="24">
                             <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="AlertOutline" Width="24" Height="24"
-                                                         Foreground="{DynamicResource Danger}" VerticalAlignment="Center" />
-                                <TextBlock Text="{loc:Loc Confirm.DeleteTitle}" Style="{StaticResource TitleText}"
-                                           Margin="10,0" VerticalAlignment="Center" />
+                                <Border Width="40" Height="40" CornerRadius="20" Background="{DynamicResource Danger.Soft}"
+                                        VerticalAlignment="Center">
+                                    <materialDesign:PackIcon Kind="AlertOutline" Width="20" Height="20"
+                                                             Foreground="{DynamicResource Danger}"
+                                                             HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <TextBlock Text="{loc:Loc Confirm.DeleteTitle}" Style="{StaticResource DialogTitle}"
+                                           Margin="12,0" VerticalAlignment="Center" />
                             </StackPanel>
-                            <TextBlock Style="{StaticResource BodyText}" TextWrapping="Wrap" Margin="0,10,0,0">
+                            <TextBlock Style="{StaticResource BodyText}" TextWrapping="Wrap" Margin="0,12,0,0">
                                 <Run Text="{loc:Loc Confirm.DeleteText}" />
                                 <Run Text="{Binding SelectedCredential.Title, Mode=OneWay}" FontWeight="SemiBold" />
                             </TextBlock>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,18,0,0">
-                                <Button Content="{loc:Loc Picker.Cancel}" Style="{StaticResource IconButton}"
-                                        Command="{Binding CancelDeleteCommand}" Margin="8,0"
+                            <Grid Margin="0,18,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="1" Content="{loc:Loc Picker.Cancel}" Style="{StaticResource IconButton}"
+                                        Command="{Binding CancelDeleteCommand}" Margin="4,0" VerticalAlignment="Center"
                                         AutomationProperties.AutomationId="DeleteCancel" />
-                                <Button Content="{loc:Loc Picker.Yes}" Command="{Binding ConfirmDeleteCommand}"
-                                        Style="{StaticResource DangerButton}"
+                                <Button Grid.Column="2" Content="{loc:Loc Picker.Yes}" Command="{Binding ConfirmDeleteCommand}"
+                                        Style="{StaticResource DangerButton}" Margin="10,0,0,0"
                                         AutomationProperties.AutomationId="DeleteConfirm" />
-                            </StackPanel>
+                            </Grid>
                         </StackPanel>
                     </Border>
                 </Grid>
@@ -1590,26 +1818,35 @@
                 <!-- Empty-trash confirmation overlay -->
                 <Grid Grid.RowSpan="3" Background="{DynamicResource Overlay.Scrim}"
                       Visibility="{Binding EmptyTrashConfirmVisible, Converter={StaticResource BoolToVisible}}">
-                    <Border MaxWidth="440" Style="{StaticResource CardBorder}" Padding="24" Margin="24"
+                    <Border MaxWidth="440" Style="{StaticResource DialogCard}" Margin="24"
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             AutomationProperties.AutomationId="EmptyTrashConfirmPane">
-                        <StackPanel>
+                        <StackPanel Margin="24">
                             <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="DeleteOutline" Width="24" Height="24"
-                                                         Foreground="{DynamicResource Danger}" VerticalAlignment="Center" />
-                                <TextBlock Text="{loc:Loc Confirm.EmptyTrashTitle}" Style="{StaticResource TitleText}"
-                                           Margin="10,0" VerticalAlignment="Center" />
+                                <Border Width="40" Height="40" CornerRadius="20" Background="{DynamicResource Danger.Soft}"
+                                        VerticalAlignment="Center">
+                                    <materialDesign:PackIcon Kind="DeleteOutline" Width="20" Height="20"
+                                                             Foreground="{DynamicResource Danger}"
+                                                             HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <TextBlock Text="{loc:Loc Confirm.EmptyTrashTitle}" Style="{StaticResource DialogTitle}"
+                                           Margin="12,0" VerticalAlignment="Center" />
                             </StackPanel>
                             <TextBlock Text="{loc:Loc Confirm.EmptyTrashText}" Style="{StaticResource BodyText}"
-                                       TextWrapping="Wrap" Margin="0,10,0,0" />
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,18,0,0">
-                                <Button Content="{loc:Loc Picker.Cancel}" Style="{StaticResource IconButton}"
-                                        Command="{Binding CancelEmptyTrashCommand}" Margin="8,0"
+                                       TextWrapping="Wrap" Margin="0,12,0,0" />
+                            <Grid Margin="0,18,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="1" Content="{loc:Loc Picker.Cancel}" Style="{StaticResource IconButton}"
+                                        Command="{Binding CancelEmptyTrashCommand}" Margin="4,0" VerticalAlignment="Center"
                                         AutomationProperties.AutomationId="EmptyTrashCancel" />
-                                <Button Content="{loc:Loc Trash.Empty}" Command="{Binding ConfirmEmptyTrashCommand}"
-                                        Style="{StaticResource DangerButton}"
+                                <Button Grid.Column="2" Content="{loc:Loc Trash.Empty}" Command="{Binding ConfirmEmptyTrashCommand}"
+                                        Style="{StaticResource DangerButton}" Margin="10,0,0,0"
                                         AutomationProperties.AutomationId="EmptyTrashConfirm" />
-                            </StackPanel>
+                            </Grid>
                         </StackPanel>
                     </Border>
                 </Grid>
@@ -1641,21 +1878,29 @@
         <ContentControl Content="{Binding CurrentView}" Focusable="False" />
 
         <!-- ═══════════════ Settings overlay (app-level) ═══════════════ -->
+        <!-- Internal category nav is XAML-local (named radios + ElementName visibility) so no
+             view-model state is needed; every setting still persists immediately via the VM. -->
         <Grid Background="{DynamicResource Overlay.Scrim}"
               Visibility="{Binding Settings.IsVisible, Converter={StaticResource BoolToVisible}}">
-            <Border MaxWidth="480" Style="{StaticResource CardBorder}" Margin="24"
+            <Border MaxWidth="680" MinWidth="620" Style="{StaticResource DialogCard}" Margin="24"
                     HorizontalAlignment="Center" VerticalAlignment="Center"
                     AutomationProperties.AutomationId="SettingsPane">
-                <StackPanel Margin="24,20">
-                    <Grid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Header -->
+                    <Grid Grid.Row="0" Margin="24,18,20,6">
                         <StackPanel Orientation="Horizontal">
-                            <Border Width="34" Height="34" CornerRadius="9" Background="{DynamicResource Accent.Soft}">
-                                <materialDesign:PackIcon Kind="Cog" Width="18" Height="18"
+                            <Border Width="36" Height="36" CornerRadius="10" Background="{DynamicResource Accent.Soft}">
+                                <materialDesign:PackIcon Kind="Cog" Width="19" Height="19"
                                                          Foreground="{DynamicResource Accent}"
                                                          HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Border>
-                            <TextBlock Text="{loc:Loc Nav.Settings}" Style="{StaticResource TitleText}"
-                                       Margin="10,0" VerticalAlignment="Center" />
+                            <TextBlock Text="{loc:Loc Nav.Settings}" Style="{StaticResource DialogTitle}"
+                                       Margin="12,0" VerticalAlignment="Center" />
                         </StackPanel>
                         <Button Style="{StaticResource IconActionButton}" HorizontalAlignment="Right"
                                 Command="{Binding Settings.CloseCommand}" ToolTip="{loc:Loc Picker.Cancel}"
@@ -1664,96 +1909,152 @@
                         </Button>
                     </Grid>
 
-                    <TextBlock Text="{loc:Loc Settings.Language}" Style="{StaticResource FieldLabel}" Margin="0,18,0,4" />
-                    <StackPanel Orientation="Horizontal">
-                        <RadioButton GroupName="SettingsLanguage" Content="فارسی" Margin="0,0,16,0"
-                                     IsChecked="{Binding Settings.LanguageIndex, Converter={StaticResource IndexEquals}, ConverterParameter=0}" />
-                        <RadioButton GroupName="SettingsLanguage" Content="English"
-                                     IsChecked="{Binding Settings.LanguageIndex, Converter={StaticResource IndexEquals}, ConverterParameter=1}" />
-                    </StackPanel>
+                    <!-- Body: category nav | content -->
+                    <Grid Grid.Row="1" Margin="12,4,24,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="170" />
+                            <ColumnDefinition Width="24" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="{loc:Loc Settings.Theme}" Style="{StaticResource FieldLabel}" Margin="0,14,0,4" />
-                    <StackPanel Orientation="Horizontal">
-                        <RadioButton GroupName="SettingsTheme" Content="{loc:Loc Menu.Theme.Light}" Margin="0,0,16,0"
-                                     IsChecked="{Binding Settings.ThemeIndex, Converter={StaticResource IndexEquals}, ConverterParameter=0}" />
-                        <RadioButton GroupName="SettingsTheme" Content="{loc:Loc Menu.Theme.Dark}"
-                                     IsChecked="{Binding Settings.ThemeIndex, Converter={StaticResource IndexEquals}, ConverterParameter=1}" />
-                    </StackPanel>
+                        <StackPanel Grid.Column="0" Margin="0,4">
+                            <RadioButton GroupName="SettingsNav" x:Name="SettingsNavGeneral" IsChecked="True"
+                                         Style="{StaticResource NavRadioButtonItem}" Padding="12,8">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Tune" Width="18" Height="18" VerticalAlignment="Center" />
+                                    <TextBlock Text="{loc:Loc Settings.Category.General}" Margin="10,0" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton GroupName="SettingsNav" x:Name="SettingsNavAppearance"
+                                         Style="{StaticResource NavRadioButtonItem}" Padding="12,8">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="WhiteBalanceSunny" Width="18" Height="18" VerticalAlignment="Center" />
+                                    <TextBlock Text="{loc:Loc Settings.Category.Appearance}" Margin="10,0" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton GroupName="SettingsNav" x:Name="SettingsNavSecurity"
+                                         Style="{StaticResource NavRadioButtonItem}" Padding="12,8">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="ShieldCheck" Width="18" Height="18" VerticalAlignment="Center" />
+                                    <TextBlock Text="{loc:Loc Settings.Category.Security}" Margin="10,0" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton GroupName="SettingsNav" x:Name="SettingsNavImport"
+                                         AutomationProperties.AutomationId="SettingsNavImport"
+                                         Style="{StaticResource NavRadioButtonItem}" Padding="12,8">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="DatabaseImportOutline" Width="18" Height="18" VerticalAlignment="Center" />
+                                    <TextBlock Text="{loc:Loc Settings.Category.Import}" Margin="10,0" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </RadioButton>
+                        </StackPanel>
 
-                    <TextBlock Text="{loc:Loc Settings.Clipboard}" Style="{StaticResource FieldLabel}" Margin="0,14,0,4" />
-                    <StackPanel Orientation="Horizontal">
-                        <Slider Width="240" Minimum="10" Maximum="120" IsSnapToTickEnabled="True" TickFrequency="5"
-                                Value="{Binding Settings.ClipboardSeconds}" VerticalAlignment="Center" />
-                        <TextBlock Margin="10,0" VerticalAlignment="Center" Style="{StaticResource BodyText}">
-                            <Run Text="{Binding Settings.ClipboardSeconds, Mode=OneWay}" />
-                            <Run Text="{loc:Loc Settings.Seconds}" />
-                        </TextBlock>
-                    </StackPanel>
-                    <TextBlock Text="{loc:Loc Settings.ClipboardHint}" Style="{StaticResource SecondaryText}"
-                               TextWrapping="Wrap" Margin="0,4,0,0" />
+                        <!-- General -->
+                        <StackPanel Grid.Column="2" Margin="0,8,0,0"
+                                    Visibility="{Binding IsChecked, ElementName=SettingsNavGeneral, Converter={StaticResource BoolToVisible}}">
+                            <TextBlock Text="{loc:Loc Settings.Language}" Style="{StaticResource GroupHeader}" />
+                            <StackPanel Orientation="Horizontal" Margin="12,2,0,0">
+                                <RadioButton GroupName="SettingsLanguage" Content="فارسی" Margin="0,0,16,0"
+                                             IsChecked="{Binding Settings.LanguageIndex, Converter={StaticResource IndexEquals}, ConverterParameter=0}" />
+                                <RadioButton GroupName="SettingsLanguage" Content="English"
+                                             IsChecked="{Binding Settings.LanguageIndex, Converter={StaticResource IndexEquals}, ConverterParameter=1}" />
+                            </StackPanel>
+                        </StackPanel>
 
-                    <TextBlock Text="{loc:Loc Settings.AutoLock}" Style="{StaticResource FieldLabel}" Margin="0,14,0,4" />
-                    <StackPanel Orientation="Horizontal">
-                        <ComboBox ItemsSource="{Binding Settings.AutoLockValues}" SelectedIndex="{Binding Settings.AutoLockIndex}"
-                                  Width="200">
-                            <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock>
-                                    <TextBlock.Style>
-                                        <Style TargetType="TextBlock">
-                                            <Setter Property="Text" Value="{Binding}" />
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding}" Value="0">
-                                                    <Setter Property="Text" Value="{loc:Loc Settings.AutoLockNever}" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </TextBlock.Style>
+                        <!-- Appearance -->
+                        <StackPanel Grid.Column="2" Margin="0,8,0,0"
+                                    Visibility="{Binding IsChecked, ElementName=SettingsNavAppearance, Converter={StaticResource BoolToVisible}}">
+                            <TextBlock Text="{loc:Loc Settings.Theme}" Style="{StaticResource GroupHeader}" />
+                            <StackPanel Orientation="Horizontal" Margin="12,2,0,0">
+                                <RadioButton GroupName="SettingsTheme" Content="{loc:Loc Menu.Theme.Light}" Margin="0,0,16,0"
+                                             IsChecked="{Binding Settings.ThemeIndex, Converter={StaticResource IndexEquals}, ConverterParameter=0}" />
+                                <RadioButton GroupName="SettingsTheme" Content="{loc:Loc Menu.Theme.Dark}"
+                                             IsChecked="{Binding Settings.ThemeIndex, Converter={StaticResource IndexEquals}, ConverterParameter=1}" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- Security -->
+                        <StackPanel Grid.Column="2" Margin="0,8,0,0"
+                                    Visibility="{Binding IsChecked, ElementName=SettingsNavSecurity, Converter={StaticResource BoolToVisible}}">
+                            <TextBlock Text="{loc:Loc Settings.Clipboard}" Style="{StaticResource GroupHeader}" />
+                            <StackPanel Orientation="Horizontal" Margin="12,2,0,0">
+                                <Slider Width="220" Minimum="10" Maximum="120" IsSnapToTickEnabled="True" TickFrequency="5"
+                                        Value="{Binding Settings.ClipboardSeconds}" VerticalAlignment="Center" />
+                                <TextBlock Margin="12,0" VerticalAlignment="Center" Style="{StaticResource BodyText}">
+                                    <Run Text="{Binding Settings.ClipboardSeconds, Mode=OneWay}" />
+                                    <Run Text="{loc:Loc Settings.Seconds}" />
                                 </TextBlock>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                    </StackPanel>
+                            </StackPanel>
+                            <TextBlock Text="{loc:Loc Settings.ClipboardHint}" Style="{StaticResource SecondaryText}"
+                                       TextWrapping="Wrap" Margin="12,4,0,0" />
 
-                    <TextBlock Text="{loc:Loc Settings.ImportExport}" Style="{StaticResource FieldLabel}" Margin="0,18,0,4" />
-                    <Button Style="{StaticResource NavItemButton}" Margin="0,2"
-                            Command="{Binding OpenImportWizardCommand}" CommandParameter="chrome"
-                            AutomationProperties.AutomationId="ImportFromChrome"
-                            ToolTip="{loc:Loc Settings.ImportChromeHint}">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="GoogleChrome" Width="20" Height="20" VerticalAlignment="Center" />
-                            <TextBlock Text="{loc:Loc Settings.ImportChrome}" Margin="10,0" VerticalAlignment="Center" />
+                            <TextBlock Text="{loc:Loc Settings.AutoLock}" Style="{StaticResource GroupHeader}" Margin="0,16,0,0" />
+                            <ComboBox ItemsSource="{Binding Settings.AutoLockValues}" SelectedIndex="{Binding Settings.AutoLockIndex}"
+                                      Width="200" Margin="12,2,0,0" HorizontalAlignment="Left">
+                                <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Text" Value="{Binding}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding}" Value="0">
+                                                        <Setter Property="Text" Value="{loc:Loc Settings.AutoLockNever}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                         </StackPanel>
-                    </Button>
-                    <Button Style="{StaticResource NavItemButton}" Margin="0,2"
-                            Command="{Binding OpenImportWizardCommand}" CommandParameter="firefox"
-                            AutomationProperties.AutomationId="ImportFromFirefox"
-                            ToolTip="{loc:Loc Settings.ImportFirefoxHint}">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Firefox" Width="20" Height="20" VerticalAlignment="Center" />
-                            <TextBlock Text="{loc:Loc Settings.ImportFirefox}" Margin="10,0" VerticalAlignment="Center" />
+
+                        <!-- Import -->
+                        <StackPanel Grid.Column="2" Margin="0,8,0,0"
+                                    Visibility="{Binding IsChecked, ElementName=SettingsNavImport, Converter={StaticResource BoolToVisible}}">
+                            <Button Style="{StaticResource NavItemButton}" Margin="0,2"
+                                    Command="{Binding OpenImportWizardCommand}" CommandParameter="chrome"
+                                    AutomationProperties.AutomationId="ImportFromChrome"
+                                    ToolTip="{loc:Loc Settings.ImportChromeHint}">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="GoogleChrome" Width="20" Height="20" VerticalAlignment="Center" />
+                                    <TextBlock Text="{loc:Loc Settings.ImportChrome}" Margin="10,0" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                            <Button Style="{StaticResource NavItemButton}" Margin="0,2"
+                                    Command="{Binding OpenImportWizardCommand}" CommandParameter="firefox"
+                                    AutomationProperties.AutomationId="ImportFromFirefox"
+                                    ToolTip="{loc:Loc Settings.ImportFirefoxHint}">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Firefox" Width="20" Height="20" VerticalAlignment="Center" />
+                                    <TextBlock Text="{loc:Loc Settings.ImportFirefox}" Margin="10,0" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                            <TextBlock Text="{loc:Loc Import.NoPasswordInPreview}" Style="{StaticResource SecondaryText}"
+                                       TextWrapping="Wrap" Margin="12,8,0,0" />
                         </StackPanel>
-                    </Button>
-                </StackPanel>
+                    </Grid>
+                </Grid>
             </Border>
         </Grid>
 
         <!-- ═══════════════ Backup &amp; restore overlay (app-level) ═══════════════ -->
         <Grid Background="{DynamicResource Overlay.Scrim}"
               Visibility="{Binding Backup.IsVisible, Converter={StaticResource BoolToVisible}}">
-            <Border MaxWidth="520" MinWidth="480" Style="{StaticResource CardBorder}" Margin="24"
+            <Border MaxWidth="560" MinWidth="500" Style="{StaticResource DialogCard}" Margin="24"
                     HorizontalAlignment="Center" VerticalAlignment="Center"
                     AutomationProperties.AutomationId="BackupPane">
-                <StackPanel Margin="24,20">
+                <StackPanel Margin="24,18,24,20">
                     <Grid>
                         <StackPanel Orientation="Horizontal">
-                            <Border Width="34" Height="34" CornerRadius="9" Background="{DynamicResource Accent.Soft}">
-                                <materialDesign:PackIcon Kind="BackupRestore" Width="18" Height="18"
+                            <Border Width="36" Height="36" CornerRadius="10" Background="{DynamicResource Accent.Soft}">
+                                <materialDesign:PackIcon Kind="BackupRestore" Width="19" Height="19"
                                                          Foreground="{DynamicResource Accent}"
                                                          HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Border>
-                            <TextBlock Text="{loc:Loc Nav.Backup}" Style="{StaticResource TitleText}"
-                                       Margin="10,0" VerticalAlignment="Center" />
+                            <TextBlock Text="{loc:Loc Nav.Backup}" Style="{StaticResource DialogTitle}"
+                                       Margin="12,0" VerticalAlignment="Center" />
                         </StackPanel>
                         <Button Style="{StaticResource IconActionButton}" HorizontalAlignment="Right"
                                 Command="{Binding Backup.CloseCommand}" ToolTip="{loc:Loc Picker.Cancel}"
@@ -1765,36 +2066,65 @@
                     <ProgressBar Height="4" IsIndeterminate="True" Margin="0,12,0,0"
                                  Visibility="{Binding Backup.IsBusy, Converter={StaticResource BoolToVisible}}" />
 
-                    <!-- Menu stage -->
-                    <StackPanel Visibility="{Binding Backup.RestoreStage, Converter={StaticResource FalseToVisible}}">
-                        <Button Style="{StaticResource NavItemButton}" Margin="0,12,0,0"
+                    <!-- Menu stage: option rows with icon + title + description.
+                         Structure kept deliberately flat (bare PackIcon + stacked TextBlocks):
+                         richer content (Border tiles / explicit FontSize) inside a
+                         MaterialDesignFlatButton collapses at measure time in this dialog. -->
+                    <StackPanel Margin="0,8,0,0"
+                                Visibility="{Binding Backup.RestoreStage, Converter={StaticResource FalseToVisible}}">
+                        <Button Style="{StaticResource MenuRowButton}" Margin="0,0"
                                 Command="{Binding Backup.BeginCreateBackupCommand}"
                                 AutomationProperties.AutomationId="BackupCreate">
                             <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="ContentSave" Width="20" Height="20" VerticalAlignment="Center" />
-                                <TextBlock Text="{loc:Loc Backup.CreateTitle}" Margin="10,0" VerticalAlignment="Center" />
+                                <materialDesign:PackIcon Kind="ContentSave" Width="22" Height="22"
+                                                         Foreground="{DynamicResource Accent}"
+                                                         VerticalAlignment="Center" />
+                                <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                                    <TextBlock Text="{loc:Loc Backup.CreateTitle}" FontSize="14" FontWeight="SemiBold"
+                                               Foreground="{DynamicResource Text.Primary}" />
+                                    <TextBlock Text="{loc:Loc Backup.CreateDesc}" FontSize="12"
+                                               Foreground="{DynamicResource Text.Secondary}"
+                                               TextWrapping="Wrap" MaxWidth="380" Margin="0,2,0,0" />
+                                </StackPanel>
                             </StackPanel>
                         </Button>
-                        <Button Style="{StaticResource NavItemButton}" Margin="0,4,0,0"
+                        <Button Style="{StaticResource MenuRowButton}"
                                 Command="{Binding Backup.BeginVerifyBackupCommand}"
                                 AutomationProperties.AutomationId="BackupVerify">
                             <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="CheckCircleOutline" Width="20" Height="20" VerticalAlignment="Center" />
-                                <TextBlock Text="{loc:Loc Backup.VerifyTitle}" Margin="10,0" VerticalAlignment="Center" />
+                                <materialDesign:PackIcon Kind="CheckCircleOutline" Width="22" Height="22"
+                                                         Foreground="{DynamicResource Success}"
+                                                         VerticalAlignment="Center" />
+                                <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                                    <TextBlock Text="{loc:Loc Backup.VerifyTitle}" FontSize="14" FontWeight="SemiBold"
+                                               Foreground="{DynamicResource Text.Primary}" />
+                                    <TextBlock Text="{loc:Loc Backup.VerifyDesc}" FontSize="12"
+                                               Foreground="{DynamicResource Text.Secondary}"
+                                               TextWrapping="Wrap" MaxWidth="380" Margin="0,2,0,0" />
+                                </StackPanel>
                             </StackPanel>
                         </Button>
-                        <Button Style="{StaticResource NavItemButton}" Margin="0,4,0,0"
+                        <Button Style="{StaticResource MenuRowButton}"
                                 Command="{Binding Backup.BeginRestoreCommand}"
                                 AutomationProperties.AutomationId="BackupRestore">
                             <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="Restore" Width="20" Height="20" VerticalAlignment="Center" />
-                                <TextBlock Text="{loc:Loc Backup.RestoreTitle}" Margin="10,0" VerticalAlignment="Center" />
+                                <materialDesign:PackIcon Kind="Restore" Width="22" Height="22"
+                                                         Foreground="{DynamicResource Danger}"
+                                                         VerticalAlignment="Center" />
+                                <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                                    <TextBlock Text="{loc:Loc Backup.RestoreTitle}" FontSize="14" FontWeight="SemiBold"
+                                               Foreground="{DynamicResource Text.Primary}" />
+                                    <TextBlock Text="{loc:Loc Backup.RestoreDesc}" FontSize="12"
+                                               Foreground="{DynamicResource Text.Secondary}"
+                                               TextWrapping="Wrap" MaxWidth="380" Margin="0,2,0,0" />
+                                </StackPanel>
                             </StackPanel>
                         </Button>
                     </StackPanel>
 
                     <!-- Restore stage -->
-                    <StackPanel Visibility="{Binding Backup.RestoreStage, Converter={StaticResource BoolToVisible}}">
+                    <StackPanel Margin="0,8,0,0"
+                                Visibility="{Binding Backup.RestoreStage, Converter={StaticResource BoolToVisible}}">
                         <TextBlock Text="{loc:Loc Backup.RestoreTitle}" Style="{StaticResource SubtitleText}" Margin="0,12,0,2" />
                         <TextBlock Text="{Binding Backup.RestorePathDisplay}" Style="{StaticResource SecondaryText}"
                                    FontFamily="Consolas" TextTrimming="CharacterEllipsis" Margin="0,4,0,8" />
@@ -1813,12 +2143,18 @@
                         <TextBlock Text="{loc:Loc Backup.RestorePassword}" Style="{StaticResource FieldLabel}" />
                         <PasswordBox x:Name="BackupRestorePassword" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle}"
                                      MaxLength="1000" />
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16,0,0">
-                            <Button Content="{loc:Loc Picker.Cancel}" Style="{StaticResource IconButton}"
-                                    Command="{Binding Backup.CancelRestoreStageCommand}" Margin="8,0" />
-                            <Button Content="{loc:Loc Backup.RestoreTitle}" Click="OnBackupRestoreConfirmClick"
+                        <Grid Margin="0,16,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="1" Content="{loc:Loc Picker.Cancel}" Style="{StaticResource IconButton}"
+                                    Command="{Binding Backup.CancelRestoreStageCommand}" Margin="4,0" VerticalAlignment="Center" />
+                            <Button Grid.Column="2" Content="{loc:Loc Backup.RestoreTitle}" Click="OnBackupRestoreConfirmClick"
+                                    Margin="10,0,0,0"
                                     AutomationProperties.AutomationId="BackupRestoreConfirm" />
-                        </StackPanel>
+                        </Grid>
                     </StackPanel>
 
                     <TextBlock Text="{Binding Backup.VerifySummary}" Style="{StaticResource SecondaryText}"
@@ -1833,26 +2169,26 @@
         <!-- ═══════════════ Browser import wizard (app-level, shared Chrome/Firefox) ═══════════════ -->
         <Grid Background="{DynamicResource Overlay.Scrim}"
               Visibility="{Binding BrowserImport.IsVisible, Converter={StaticResource BoolToVisible}}">
-            <Border MaxWidth="720" MinWidth="520" Style="{StaticResource CardBorder}" Margin="24"
+            <Border MaxWidth="860" MinWidth="640" Style="{StaticResource DialogCard}" Margin="24"
                     HorizontalAlignment="Center" VerticalAlignment="Center"
                     AutomationProperties.AutomationId="ImportWizardPane">
-                <StackPanel Margin="24,20">
+                <StackPanel Margin="24,18,24,20">
                     <Grid>
                         <StackPanel Orientation="Horizontal">
-                            <Border Width="34" Height="34" CornerRadius="9" Background="{DynamicResource Accent.Soft}">
+                            <Border Width="36" Height="36" CornerRadius="10" Background="{DynamicResource Accent.Soft}">
                                 <Grid>
-                                    <materialDesign:PackIcon Kind="GoogleChrome" Width="18" Height="18"
+                                    <materialDesign:PackIcon Kind="GoogleChrome" Width="19" Height="19"
                                                              Foreground="{DynamicResource Accent}"
                                                              HorizontalAlignment="Center" VerticalAlignment="Center"
                                                              Visibility="{Binding BrowserImport.BrowserIndex, Converter={StaticResource IndexEquals}, ConverterParameter=0}" />
-                                    <materialDesign:PackIcon Kind="Firefox" Width="18" Height="18"
+                                    <materialDesign:PackIcon Kind="Firefox" Width="19" Height="19"
                                                              Foreground="{DynamicResource Accent}"
                                                              HorizontalAlignment="Center" VerticalAlignment="Center"
                                                              Visibility="{Binding BrowserImport.BrowserIndex, Converter={StaticResource IndexEquals}, ConverterParameter=1}" />
                                 </Grid>
                             </Border>
-                            <TextBlock Text="{Binding BrowserImport.WizardTitle}" Style="{StaticResource TitleText}"
-                                       Margin="10,0" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding BrowserImport.WizardTitle}" Style="{StaticResource DialogTitle}"
+                                       Margin="12,0" VerticalAlignment="Center" />
                         </StackPanel>
                         <Button Style="{StaticResource IconActionButton}" HorizontalAlignment="Right"
                                 Command="{Binding BrowserImport.CloseCommand}" ToolTip="{loc:Loc Picker.Cancel}"
@@ -1861,12 +2197,92 @@
                         </Button>
                     </Grid>
 
-                    <!-- Step indicator (text only — no fragile progress geometry in RTL) -->
-                    <TextBlock Style="{StaticResource SecondaryText}" Margin="0,10,0,0"
-                               AutomationProperties.AutomationId="ImportStepLabel">
-                        <Run Text="{Binding BrowserImport.Step, Mode=OneWay}" />
-                        <Run Text="{loc:Loc Import.StepOf}" />
-                    </TextBlock>
+                    <!-- Step indicator: 4 equal segments; the grid mirrors with FlowDirection so
+                         the order is direction-correct in RTL and LTR without geometry tricks. -->
+                    <Grid Margin="0,14,0,2" AutomationProperties.AutomationId="ImportStepLabel">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="8" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="8" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="8" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <Border Height="4" CornerRadius="2">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="{DynamicResource Accent.Soft}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding BrowserImport.IsInstructionsStep}" Value="True">
+                                                <Setter Property="Background" Value="{DynamicResource Accent}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                            </Border>
+                            <TextBlock Text="{loc:Loc Import.Step.Export}" FontSize="11" Margin="0,5,0,0"
+                                       TextAlignment="Center" Style="{StaticResource SecondaryText}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <Border Height="4" CornerRadius="2">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="{DynamicResource Divider}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding BrowserImport.IsFileStep}" Value="True">
+                                                <Setter Property="Background" Value="{DynamicResource Accent}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding BrowserImport.IsPreviewStep}" Value="True">
+                                                <Setter Property="Background" Value="{DynamicResource Accent.Soft}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding BrowserImport.IsProgressStep}" Value="True">
+                                                <Setter Property="Background" Value="{DynamicResource Accent.Soft}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                            </Border>
+                            <TextBlock Text="{loc:Loc Import.Step.File}" FontSize="11" Margin="0,5,0,0"
+                                       TextAlignment="Center" Style="{StaticResource SecondaryText}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="4">
+                            <Border Height="4" CornerRadius="2">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="{DynamicResource Divider}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding BrowserImport.IsPreviewStep}" Value="True">
+                                                <Setter Property="Background" Value="{DynamicResource Accent}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding BrowserImport.IsProgressStep}" Value="True">
+                                                <Setter Property="Background" Value="{DynamicResource Accent.Soft}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                            </Border>
+                            <TextBlock Text="{loc:Loc Import.Step.Preview}" FontSize="11" Margin="0,5,0,0"
+                                       TextAlignment="Center" Style="{StaticResource SecondaryText}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="6">
+                            <Border Height="4" CornerRadius="2">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="{DynamicResource Divider}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding BrowserImport.IsProgressStep}" Value="True">
+                                                <Setter Property="Background" Value="{DynamicResource Accent}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                            </Border>
+                            <TextBlock Text="{loc:Loc Import.Step.Done}" FontSize="11" Margin="0,5,0,0"
+                                       TextAlignment="Center" Style="{StaticResource SecondaryText}" />
+                        </StackPanel>
+                    </Grid>
 
                     <!-- ── Step 1: export instructions ── -->
                     <StackPanel Visibility="{Binding BrowserImport.IsInstructionsStep, Converter={StaticResource BoolToVisible}}">

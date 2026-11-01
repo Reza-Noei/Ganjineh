@@ -334,4 +334,20 @@
   <data name="Import.SourceChrome" xml:space="preserve"><value>Chrome</value></data>
   <data name="Import.SourceFirefox" xml:space="preserve"><value>Firefox</value></data>
   <data name="Error.SessionLost" xml:space="preserve"><value>The vault was locked; the operation was stopped.</value></data>
+  <data name="App.Brand" xml:space="preserve"><value>Ganjineh</value></data>
+  <data name="List.CountSuffix" xml:space="preserve"><value>items</value></data>
+  <data name="Settings.Category.General" xml:space="preserve"><value>General</value></data>
+  <data name="Settings.Category.Appearance" xml:space="preserve"><value>Appearance</value></data>
+  <data name="Settings.Category.Security" xml:space="preserve"><value>Security</value></data>
+  <data name="Settings.Category.Import" xml:space="preserve"><value>Import</value></data>
+  <data name="Backup.CreateDesc" xml:space="preserve"><value>Create an encrypted .gvbak backup file of this vault</value></data>
+  <data name="Backup.VerifyDesc" xml:space="preserve"><value>Check that a backup file is intact without restoring it</value></data>
+  <data name="Backup.RestoreDesc" xml:space="preserve"><value>Restore into another vault (destination password required)</value></data>
+  <data name="Import.Step.Export" xml:space="preserve"><value>Export</value></data>
+  <data name="Import.Step.File" xml:space="preserve"><value>File</value></data>
+  <data name="Import.Step.Preview" xml:space="preserve"><value>Preview</value></data>
+  <data name="Import.Step.Done" xml:space="preserve"><value>Done</value></data>
+  <data name="Create.Step.Details" xml:space="preserve"><value>Vault details</value></data>
+  <data name="Create.Step.Recovery" xml:space="preserve"><value>Recovery key</value></data>
+  <data name="Picker.Subtitle" xml:space="preserve"><value>Your passwords — offline and yours alone</value></data>
 </root>

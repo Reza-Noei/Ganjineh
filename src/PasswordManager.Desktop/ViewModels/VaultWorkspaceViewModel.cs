@@ -315,7 +315,17 @@ public sealed partial class VaultWorkspaceViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void SetSection(string section) => Section = section;
+    private void SetSection(string section)
+    {
+        Section = section;
+        // Entering the Security Center must (re)run the offline analysis — the nav entry is a
+        // section radio, so without this the dashboard would render empty until the user finds
+        // the refresh button. RunSecurityAnalysisAsync re-entrancy-guards via SecurityAnalysisBusy.
+        if (section == "Security")
+        {
+            _ = RunSecurityAnalysisAsync();
+        }
+    }
 
     // ── loading ──
 

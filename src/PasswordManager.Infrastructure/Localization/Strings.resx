@@ -340,4 +340,20 @@
   <data name="Import.SourceChrome" xml:space="preserve"><value>Chrome</value></data>
   <data name="Import.SourceFirefox" xml:space="preserve"><value>Firefox</value></data>
   <data name="Error.SessionLost" xml:space="preserve"><value>گاوصندوق قفل شد؛ عملیات متوقف شد.</value></data>
+  <data name="App.Brand" xml:space="preserve"><value>گنجینه</value></data>
+  <data name="List.CountSuffix" xml:space="preserve"><value>مورد</value></data>
+  <data name="Settings.Category.General" xml:space="preserve"><value>عمومی</value></data>
+  <data name="Settings.Category.Appearance" xml:space="preserve"><value>نمایش</value></data>
+  <data name="Settings.Category.Security" xml:space="preserve"><value>امنیت</value></data>
+  <data name="Settings.Category.Import" xml:space="preserve"><value>درون‌ریزی</value></data>
+  <data name="Backup.CreateDesc" xml:space="preserve"><value>تهیهٔ فایل پشتیبان رمزنگاری‌شدهٔ ‎.gvbak از همین گاوصندوق</value></data>
+  <data name="Backup.VerifyDesc" xml:space="preserve"><value>بررسی سالم و کامل بودن فایل پشتیبان، بدون بازیابی</value></data>
+  <data name="Backup.RestoreDesc" xml:space="preserve"><value>بازیابی به گاوصندوقی دیگر (رمز مقصد لازم است)</value></data>
+  <data name="Import.Step.Export" xml:space="preserve"><value>خروجی از مرورگر</value></data>
+  <data name="Import.Step.File" xml:space="preserve"><value>انتخاب فایل</value></data>
+  <data name="Import.Step.Preview" xml:space="preserve"><value>پیش‌نمایش</value></data>
+  <data name="Import.Step.Done" xml:space="preserve"><value>پایان</value></data>
+  <data name="Create.Step.Details" xml:space="preserve"><value>اطلاعات گاوصندوق</value></data>
+  <data name="Create.Step.Recovery" xml:space="preserve"><value>کلید بازیابی</value></data>
+  <data name="Picker.Subtitle" xml:space="preserve"><value>رمزهای شما — آفلاین و تنها متعلق به خودتان</value></data>
 </root>

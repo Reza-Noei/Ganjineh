@@ -16,6 +16,7 @@ Offline, Persian-first, multi-vault password manager for Windows. WPF / .NET 10 
 | [database-design.md](database-design.md) | SQLCipher config, schema, search, migrations, `.gvbak` backup format |
 | [architecture.md](architecture.md) | Projects, dependency rules, service contracts, secrets handling |
 | [ui-ux-specification.md](ui-ux-specification.md) | RTL design system, three-column shell, 13 screens, clipboard rules |
+| [ui-design-export.md](ui-design-export.md) | As-built UI reference for agents: tokens, styles, every screen/overlay, behaviors, automation IDs |
 | [implementation-roadmap.md](implementation-roadmap.md) | Phases 0–8, exit criteria, traceability |
 | [security-test-plan.md](security-test-plan.md) | ST-* test IDs: KATs, adversarial, at-rest, E2E, fuzz, benchmarks |
 

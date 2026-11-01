@@ -1,18 +1,30 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
-    <!-- Material Design rebase: the implicit control styles come from MaterialDesign3.Defaults.xaml
-         (merged before this dictionary in App.xaml). The styles here only add Ganjineh-specific
-         sizing/typography on top, and reference theme tokens via DynamicResource so live theme
-         swaps propagate. Note: no letter-spacing / uppercase styles anywhere — Persian script is
-         cursive and caseless; both would visibly break text shaping. -->
+    <!-- Ganjineh design system ("Calm Slate & Indigo", docs/ui-overhaul-audit.md).
+         Material Design rebase: implicit control styles come from MaterialDesign3.Defaults.xaml
+         (merged before this dictionary in App.xaml); the styles here add Ganjineh sizing,
+         typography and shape on top, and reference theme tokens via DynamicResource so live
+         theme swaps propagate. Note: no letter-spacing / uppercase styles anywhere — Persian
+         script is cursive and caseless; both would visibly break text shaping. -->
 
+    <!-- ── Typography ── -->
+    <!-- Screen + dialog hero titles. -->
     <Style x:Key="TitleText" TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignHeadline6TextBlock}">
+        <Setter Property="FontSize" Value="22" />
+        <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Foreground" Value="{DynamicResource Text.Primary}" />
     </Style>
 
+    <!-- Dialog titles (smaller than screen titles). -->
+    <Style x:Key="DialogTitle" TargetType="TextBlock" BasedOn="{StaticResource TitleText}">
+        <Setter Property="FontSize" Value="18" />
+    </Style>
+
+    <!-- Section / card titles and the list header. -->
     <Style x:Key="SubtitleText" TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignSubtitle1TextBlock}">
-        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Foreground" Value="{DynamicResource Text.Primary}" />
     </Style>
 
@@ -26,16 +38,28 @@
         <Setter Property="Foreground" Value="{DynamicResource Text.Secondary}" />
     </Style>
 
+    <!-- Micro text: paths, counts, metadata. -->
+    <Style x:Key="MicroText" TargetType="TextBlock" BasedOn="{StaticResource SecondaryText}">
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="Foreground" Value="{DynamicResource Text.Disabled}" />
+    </Style>
+
+    <!-- Sidebar group label. -->
     <Style x:Key="SectionHeader" TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignCaptionTextBlock}">
-        <Setter Property="FontSize" Value="12" />
-        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Foreground" Value="{DynamicResource Text.Secondary}" />
-        <Setter Property="Margin" Value="16,20,16,6" />
+        <Setter Property="Margin" Value="16,18,16,4" />
+    </Style>
+
+    <!-- Group label inside the details pane / dialogs (tighter than SectionHeader). -->
+    <Style x:Key="GroupHeader" TargetType="TextBlock" BasedOn="{StaticResource SectionHeader}">
+        <Setter Property="Margin" Value="0,0,0,4" />
     </Style>
 
     <!-- Field-group label inside the details/editor cards. -->
     <Style x:Key="FieldLabel" TargetType="TextBlock" BasedOn="{StaticResource SecondaryText}">
-        <Setter Property="Margin" Value="0,12,0,3" />
+        <Setter Property="Margin" Value="0,10,0,3" />
     </Style>
 
     <!-- Technical values (passwords, URLs, emails, codes): LTR + monospace regardless of the
@@ -46,10 +70,12 @@
         <Setter Property="TextAlignment" Value="Left" />
     </Style>
 
-    <!-- Implicit button: Material raised (primary action). -->
+    <!-- ── Buttons ── -->
+    <!-- Implicit button: Material raised (primary action). One raised per footer by convention. -->
     <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
         <Setter Property="Cursor" Value="Hand" />
-        <Setter Property="Padding" Value="14,6" />
+        <Setter Property="Padding" Value="16,7" />
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="8" />
     </Style>
 
     <!-- Destructive primary action (delete/purge): raised shape, danger color. -->
@@ -57,32 +83,43 @@
         <Setter Property="Background" Value="{DynamicResource Danger}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Danger}" />
         <Setter Property="Cursor" Value="Hand" />
-        <Setter Property="Padding" Value="14,6" />
+        <Setter Property="Padding" Value="16,7" />
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="8" />
     </Style>
 
-    <!-- Quiet text button for the top bar and secondary actions (Material flat). -->
+    <!-- Quiet text button for secondary actions (Material flat). -->
     <Style x:Key="IconButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
         <Setter Property="Foreground" Value="{DynamicResource Text.Secondary}" />
         <Setter Property="FontSize" Value="13" />
         <Setter Property="Padding" Value="10,5" />
         <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="8" />
     </Style>
 
-    <!-- Square icon-only button for per-field copy/reveal actions (tooltip carries the label). -->
+    <!-- Square icon-only button for per-field copy/reveal actions (tooltip carries the label).
+         Always pair with ToolTip + AutomationProperties.Name. -->
     <Style x:Key="IconActionButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignIconButton}">
-        <Setter Property="Width" Value="30" />
-        <Setter Property="Height" Value="30" />
+        <Setter Property="Width" Value="32" />
+        <Setter Property="Height" Value="32" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Foreground" Value="{DynamicResource Text.Secondary}" />
         <Setter Property="Cursor" Value="Hand" />
     </Style>
 
-    <!-- Navigation entry in the side column. A radio (not a button) so the active section shows
+    <!-- Secondary emphasized action (outlined, MD3) — e.g. picker "create vault". -->
+    <Style x:Key="OutlineButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignOutlinedButton}">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Padding" Value="16,7" />
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="8" />
+    </Style>
+
+    <!-- ── Navigation ── -->
+    <!-- Navigation entry in the sidebar. A radio (not a button) so the active section shows
          a persistent tinted state; the template stretches so the label aligns to the leading
          edge in both RTL and LTR without hard-coded Left/Right. -->
     <Style x:Key="NavRadioButton" TargetType="RadioButton">
         <Setter Property="Foreground" Value="{DynamicResource Text.Primary}" />
-        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontSize" Value="13" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Margin" Value="8,1" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -110,21 +147,24 @@
     </Style>
 
     <Style x:Key="NavRadioButtonItem" TargetType="RadioButton" BasedOn="{StaticResource NavRadioButton}">
-        <Setter Property="Padding" Value="12,8" />
+        <Setter Property="Padding" Value="10,7" />
     </Style>
 
-    <!-- Quiet full-width flat button (nav entries that open overlays). -->
+    <!-- Quiet full-width flat button (nav entries that open overlays, dialog option rows). -->
     <Style x:Key="NavItemButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
         <Setter Property="Foreground" Value="{DynamicResource Text.Primary}" />
-        <Setter Property="FontSize" Value="14" />
-        <Setter Property="Padding" Value="12,8" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Padding" Value="10,7" />
         <Setter Property="Margin" Value="8,1" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="8" />
     </Style>
 
-    <!-- Filter chip (security center finding kinds): checked = tinted + accent text. -->
+    <!-- ── Chips ── -->
+    <!-- Filter chip (security center finding kinds, generator presets):
+         checked = tinted + accent text. -->
     <Style x:Key="FilterChip" TargetType="RadioButton">
         <Setter Property="Foreground" Value="{DynamicResource Text.Secondary}" />
         <Setter Property="FontSize" Value="12" />
@@ -134,7 +174,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="RadioButton">
                     <Border x:Name="Root" CornerRadius="14" BorderBrush="{DynamicResource Divider}"
-                            BorderThickness="1" Background="Transparent" Padding="11,4">
+                            BorderThickness="1" Background="Transparent" Padding="12,5">
                         <ContentPresenter x:Name="Content" VerticalAlignment="Center" />
                     </Border>
                     <ControlTemplate.Triggers>
@@ -152,11 +192,12 @@
         </Setter>
     </Style>
 
+    <!-- ── Inputs ── -->
     <!-- Input fields on the implicit Material TextBox (filled, MD3). Character counters are
          disabled — they float into the following field's label in tight stacked forms. -->
     <Style x:Key="SearchBoxStyle" TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="Padding" Value="10,6" />
+        <Setter Property="Padding" Value="10,7" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="materialDesign:TextFieldAssist.CharacterCounterVisibility" Value="Collapsed" />
     </Style>
@@ -164,20 +205,23 @@
     <!-- Password twin of SearchBoxStyle (TargetType must match exactly). -->
     <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox" BasedOn="{StaticResource {x:Type PasswordBox}}">
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="Padding" Value="10,6" />
+        <Setter Property="Padding" Value="10,7" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="materialDesign:TextFieldAssist.CharacterCounterVisibility" Value="Collapsed" />
     </Style>
 
-    <!-- Secondary emphasized action (outlined, MD3) — e.g. picker "open existing". -->
-    <Style x:Key="OutlineButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignOutlinedButton}">
-        <Setter Property="Cursor" Value="Hand" />
-        <Setter Property="Padding" Value="14,6" />
+    <!-- Compact inline field for the sidebar (folder/tag name entry): no Material underline
+         decoration — the host Border provides the sunken field surface instead. -->
+    <Style x:Key="InlineFieldStyle" TargetType="TextBox" BasedOn="{StaticResource SearchBoxStyle}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="8,4" />
+        <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Collapsed" />
     </Style>
 
-    <!-- Card surface: Ganjineh's Bg.Card token + hairline divider border (MD3 tone-card look,
-         no heavy elevation shadows — "calm density" per ui-ux-specification.md §1). Bound to our
-         own token rather than a Material brush key so the surface can never silently resolve null. -->
+    <!-- ── Surfaces ── -->
+    <!-- Card surface: Ganjineh's Bg.Card token + hairline divider border. Bound to our own
+         token rather than a Material brush key so the surface can never silently resolve null. -->
     <Style x:Key="CardBorder" TargetType="Border">
         <Setter Property="Background" Value="{DynamicResource Bg.Card}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Divider}" />
@@ -185,9 +229,20 @@
         <Setter Property="CornerRadius" Value="12" />
     </Style>
 
-    <!-- Grouped section card inside the details pane / editor. -->
+    <!-- Dialog surface: larger radius, hairline keeps it legible over the dark-mode scrim. -->
+    <Style x:Key="DialogCard" TargetType="Border" BasedOn="{StaticResource CardBorder}">
+        <Setter Property="CornerRadius" Value="16" />
+    </Style>
+
+    <!-- Recessed well for generated/output values (no border — color alone signals depth). -->
+    <Style x:Key="WellBorder" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource Bg.Sunken}" />
+        <Setter Property="CornerRadius" Value="10" />
+    </Style>
+
+    <!-- Grouped section card (create-wizard password block and similar). -->
     <Style x:Key="SectionCard" TargetType="Border" BasedOn="{StaticResource CardBorder}">
-        <Setter Property="Padding" Value="14" />
+        <Setter Property="Padding" Value="16" />
         <Setter Property="Margin" Value="0,0,0,10" />
     </Style>
 
@@ -195,5 +250,21 @@
     <Style x:Key="StatCard" TargetType="Border" BasedOn="{StaticResource CardBorder}">
         <Setter Property="Padding" Value="14,12" />
         <Setter Property="CornerRadius" Value="10" />
+    </Style>
+
+    <!-- Menu option row (backup actions): icon + title + description, hover wash.
+         MinHeight + VerticalContentAlignment are deliberate: the MD flat-button template
+         mis-measures rich two-line content in this dialog (button collapses to one line and
+         clips, centered) — the explicit floor keeps the full row rendered. -->
+    <Style x:Key="MenuRowButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+        <Setter Property="Foreground" Value="{DynamicResource Text.Primary}" />
+        <Setter Property="Padding" Value="12,8" />
+        <Setter Property="Margin" Value="0,2" />
+        <Setter Property="MinHeight" Value="62" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="10" />
     </Style>
 </ResourceDictionary>

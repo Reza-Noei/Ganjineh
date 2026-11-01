@@ -62,8 +62,11 @@ public class Phase9UiTests
             Click(window, "RecoveryConfirm");
             WaitFor(window, "AddCredential", TimeSpan.FromSeconds(15));
 
-            // ── Settings → Import & Export → Chrome wizard ──
+            // ── Settings → Import category → Chrome wizard ──
+            // (The 2026-11 settings redesign uses an internal category rail; the Import panel is
+            // collapsed until its category is selected — same step a user takes.)
             InvokeUntil(window, "NavSettings", () => Exists(window, "SettingsCloseButton"), "the settings pane");
+            InvokeUntil(window, "SettingsNavImport", () => Exists(window, "ImportFromChrome"), "the import panel");
             InvokeUntil(window, "ImportFromChrome", () => Exists(window, "ImportClose"), "the chrome wizard");
             WaitFor(window, "ImportClose", TimeSpan.FromSeconds(5));
 
@@ -73,6 +76,7 @@ public class Phase9UiTests
 
             // Firefox reopens the SAME wizard, preconfigured (title swaps via WizardTitle).
             InvokeUntil(window, "NavSettings", () => Exists(window, "SettingsCloseButton"), "the settings pane");
+            InvokeUntil(window, "SettingsNavImport", () => Exists(window, "ImportFromFirefox"), "the import panel");
             InvokeUntil(window, "ImportFromFirefox", () => Exists(window, "ImportClose"), "the firefox wizard");
             InvokeUntil(window, "ImportInstructionsNext", () => Exists(window, "ImportBrowse"), "the file step");
 

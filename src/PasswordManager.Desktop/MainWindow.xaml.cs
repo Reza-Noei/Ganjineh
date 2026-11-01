@@ -213,10 +213,11 @@ public partial class MainWindow : Window
 
     private void OnEditorSaveClick(object sender, RoutedEventArgs e)
     {
-        // The editor PasswordBox lives in a DataTemplate name scope; find it relative to the button.
-        var pane = FindAncestor<System.Windows.Controls.Border>((DependencyObject)sender);
+        // The editor PasswordBox lives in the EditorPane overlay; locate the pane by its
+        // AutomationId so the handoff is robust to footer/header wrappers around the button.
+        var pane = FindDescendant<DependencyObject>((DependencyObject)Content, "EditorPane");
         var passwordBox = pane is null
-            ? FindDescendant<System.Windows.Controls.PasswordBox>((DependencyObject)Content)
+            ? null
             : FindDescendant<System.Windows.Controls.PasswordBox>(pane);
         if (passwordBox is null)
         {

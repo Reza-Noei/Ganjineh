@@ -1,30 +1,42 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <!-- Dark theme tokens, mapped to the Material dark palette. Keys must match Light.xaml exactly. -->
-    <Color x:Key="Bg.Base.Color">#121212</Color>              <!-- Material dark surface -->
-    <Color x:Key="Bg.Card.Color">#1E1E1E</Color>              <!-- Material dark elevated surface -->
-    <Color x:Key="Bg.Sunken.Color">#161616</Color>
-    <Color x:Key="Text.Primary.Color">#F5F5F5</Color>         <!-- Material Grey 50 -->
-    <Color x:Key="Text.Secondary.Color">#BDBDBD</Color>       <!-- Material Grey 400 -->
-    <Color x:Key="Accent.Color">#2196F3</Color>               <!-- Material Blue 500 -->
-    <Color x:Key="Accent.Soft.Color">#0D2B45</Color>
-    <Color x:Key="Danger.Color">#E57373</Color>               <!-- Material Red 300 -->
-    <Color x:Key="Success.Color">#81C784</Color>              <!-- Material Green 300 -->
-    <Color x:Key="Warning.Color">#FFB74D</Color>              <!-- Material Orange 300 -->
-    <Color x:Key="Divider.Color">#424242</Color>              <!-- Material Grey 800 -->
+    <!-- Dark theme tokens — designed on slate-navy, NOT an inversion of light
+         (docs/ui-overhaul-audit.md §3). Keys must match Light.xaml EXACTLY; every new
+         key is added to both dictionaries together. -->
+    <Color x:Key="Bg.Base.Color">#0F172A</Color>              <!-- slate-900 canvas -->
+    <Color x:Key="Bg.Card.Color">#1E293B</Color>              <!-- slate-800 surface -->
+    <Color x:Key="Bg.Sunken.Color">#131C2F</Color>            <!-- sunken wells, status bar -->
+    <Color x:Key="Text.Primary.Color">#F1F5F9</Color>         <!-- slate-100 -->
+    <Color x:Key="Text.Secondary.Color">#94A3B8</Color>       <!-- slate-400 -->
+    <Color x:Key="Text.Disabled.Color">#64748B</Color>        <!-- slate-500 -->
+    <Color x:Key="Accent.Color">#818CF8</Color>               <!-- indigo-400 -->
+    <Color x:Key="Accent.Soft.Color">#2A2F55</Color>          <!-- slate-indigo selected tint -->
+    <Color x:Key="Danger.Color">#F87171</Color>               <!-- red-400 -->
+    <Color x:Key="Danger.Soft.Color">#2EF87171</Color>        <!-- 18% red-400 tint -->
+    <Color x:Key="Success.Color">#4ADE80</Color>              <!-- green-400 -->
+    <Color x:Key="Success.Soft.Color">#2E4ADE80</Color>       <!-- 18% green-400 tint -->
+    <Color x:Key="Warning.Color">#FBBF24</Color>              <!-- amber-400 -->
+    <Color x:Key="Warning.Soft.Color">#2EFBBF24</Color>       <!-- 18% amber-400 tint -->
+    <Color x:Key="Divider.Color">#334155</Color>              <!-- slate-700 hairlines -->
+    <Color x:Key="Divider.Strong.Color">#475569</Color>       <!-- slate-600 input borders -->
 
     <SolidColorBrush x:Key="Bg.Base" Color="{StaticResource Bg.Base.Color}" />
     <SolidColorBrush x:Key="Bg.Card" Color="{StaticResource Bg.Card.Color}" />
     <SolidColorBrush x:Key="Bg.Sunken" Color="{StaticResource Bg.Sunken.Color}" />
     <SolidColorBrush x:Key="Text.Primary" Color="{StaticResource Text.Primary.Color}" />
     <SolidColorBrush x:Key="Text.Secondary" Color="{StaticResource Text.Secondary.Color}" />
+    <SolidColorBrush x:Key="Text.Disabled" Color="{StaticResource Text.Disabled.Color}" />
     <SolidColorBrush x:Key="Accent" Color="{StaticResource Accent.Color}" />
     <SolidColorBrush x:Key="Accent.Soft" Color="{StaticResource Accent.Soft.Color}" />
     <SolidColorBrush x:Key="Danger" Color="{StaticResource Danger.Color}" />
+    <SolidColorBrush x:Key="Danger.Soft" Color="{StaticResource Danger.Soft.Color}" />
     <SolidColorBrush x:Key="Success" Color="{StaticResource Success.Color}" />
+    <SolidColorBrush x:Key="Success.Soft" Color="{StaticResource Success.Soft.Color}" />
     <SolidColorBrush x:Key="Warning" Color="{StaticResource Warning.Color}" />
+    <SolidColorBrush x:Key="Warning.Soft" Color="{StaticResource Warning.Soft.Color}" />
     <SolidColorBrush x:Key="Divider" Color="{StaticResource Divider.Color}" />
-    <SolidColorBrush x:Key="Accent.Hover" Color="#42A5F5" />   <!-- Material Blue 400 -->
-    <SolidColorBrush x:Key="Item.Hover" Color="#1FFFFFFF" />
-    <SolidColorBrush x:Key="Overlay.Scrim" Color="#99000000" />
+    <SolidColorBrush x:Key="Divider.Strong" Color="{StaticResource Divider.Strong.Color}" />
+    <SolidColorBrush x:Key="Accent.Hover" Color="#6366F1" />   <!-- indigo-500 -->
+    <SolidColorBrush x:Key="Item.Hover" Color="#14FFFFFF" />   <!-- 8% white wash -->
+    <SolidColorBrush x:Key="Overlay.Scrim" Color="#990B1220" /><!-- 60% slate-tinted scrim -->
 </ResourceDictionary>
