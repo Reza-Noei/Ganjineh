@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace PasswordManager.Application.Security;
+namespace Ganjineh.Application.Security;
 
 /// <summary>
 /// Offline update authenticity verification (Phase 7 §15): the release manifest is signed with

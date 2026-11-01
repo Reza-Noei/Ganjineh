@@ -1,10 +1,10 @@
-﻿using PasswordManager.Cryptography;
-using PasswordManager.Cryptography.Errors;
-using PasswordManager.Cryptography.Kdf;
-using PasswordManager.Cryptography.KeyWrapping;
-using PasswordManager.Persistence.IO;
+﻿using Ganjineh.Cryptography;
+using Ganjineh.Cryptography.Errors;
+using Ganjineh.Cryptography.Kdf;
+using Ganjineh.Cryptography.KeyWrapping;
+using Ganjineh.Persistence.IO;
 
-namespace PasswordManager.Persistence.VaultHeader;
+namespace Ganjineh.Persistence.VaultHeader;
 
 /// <summary>Reads and writes header.bin through the atomic-write path; bumps the counter per rewrite.</summary>
 public sealed class HeaderFileStore

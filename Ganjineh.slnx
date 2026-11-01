@@ -1,19 +1,19 @@
 <Solution>
   <Folder Name="/src/">
-    <Project Path="src/PasswordManager.Application/PasswordManager.Application.csproj" />
-    <Project Path="src/PasswordManager.Cryptography/PasswordManager.Cryptography.csproj" />
-    <Project Path="src/PasswordManager.Desktop/PasswordManager.Desktop.csproj" />
-    <Project Path="src/PasswordManager.Domain/PasswordManager.Domain.csproj" />
-    <Project Path="src/PasswordManager.Infrastructure/PasswordManager.Infrastructure.csproj" />
-    <Project Path="src/PasswordManager.Persistence/PasswordManager.Persistence.csproj" />
+    <Project Path="src/Ganjineh.Application/Ganjineh.Application.csproj" />
+    <Project Path="src/Ganjineh.Cryptography/Ganjineh.Cryptography.csproj" />
+    <Project Path="src/Ganjineh.Desktop/Ganjineh.Desktop.csproj" />
+    <Project Path="src/Ganjineh.Domain/Ganjineh.Domain.csproj" />
+    <Project Path="src/Ganjineh.Infrastructure/Ganjineh.Infrastructure.csproj" />
+    <Project Path="src/Ganjineh.Persistence/Ganjineh.Persistence.csproj" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="tests/PasswordManager.Application.Tests/PasswordManager.Application.Tests.csproj" />
-    <Project Path="tests/PasswordManager.Cryptography.Tests/PasswordManager.Cryptography.Tests.csproj" />
-    <Project Path="tests/PasswordManager.Desktop.UITests/PasswordManager.Desktop.UITests.csproj" />
-    <Project Path="tests/PasswordManager.Domain.Tests/PasswordManager.Domain.Tests.csproj" />
-    <Project Path="tests/PasswordManager.IntegrationTests/PasswordManager.IntegrationTests.csproj" />
-    <Project Path="tests/PasswordManager.Persistence.Tests/PasswordManager.Persistence.Tests.csproj" />
-    <Project Path="tests/PasswordManager.SecurityTests/PasswordManager.SecurityTests.csproj" />
+    <Project Path="tests/Ganjineh.Application.Tests/Ganjineh.Application.Tests.csproj" />
+    <Project Path="tests/Ganjineh.Cryptography.Tests/Ganjineh.Cryptography.Tests.csproj" />
+    <Project Path="tests/Ganjineh.Desktop.UITests/Ganjineh.Desktop.UITests.csproj" />
+    <Project Path="tests/Ganjineh.Domain.Tests/Ganjineh.Domain.Tests.csproj" />
+    <Project Path="tests/Ganjineh.IntegrationTests/Ganjineh.IntegrationTests.csproj" />
+    <Project Path="tests/Ganjineh.Persistence.Tests/Ganjineh.Persistence.Tests.csproj" />
+    <Project Path="tests/Ganjineh.SecurityTests/Ganjineh.SecurityTests.csproj" />
   </Folder>
 </Solution>

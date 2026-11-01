@@ -1,13 +1,13 @@
 using System.Text;
-using PasswordManager.Application.Credentials;
-using PasswordManager.Application.Items;
-using PasswordManager.Application.Vaults;
-using PasswordManager.Persistence.Items;
-using PasswordManager.Persistence.Migrations;
-using PasswordManager.Persistence.Registry;
+using Ganjineh.Application.Credentials;
+using Ganjineh.Application.Items;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Persistence.Items;
+using Ganjineh.Persistence.Migrations;
+using Ganjineh.Persistence.Registry;
 using Xunit;
 
-namespace PasswordManager.IntegrationTests;
+namespace Ganjineh.IntegrationTests;
 
 /// <summary>Phase 4: item kinds, custom fields, organization, history, trash, attachments, migration.</summary>
 public sealed class Phase4Tests : IDisposable

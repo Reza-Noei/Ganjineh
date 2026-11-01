@@ -1,11 +1,11 @@
-using PasswordManager.Application.Vaults;
-using PasswordManager.Persistence;
-using PasswordManager.Persistence.IO;
-using PasswordManager.Persistence.Registry;
-using PasswordManager.Persistence.VaultHeader;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Persistence;
+using Ganjineh.Persistence.IO;
+using Ganjineh.Persistence.Registry;
+using Ganjineh.Persistence.VaultHeader;
 using Xunit;
 
-namespace PasswordManager.IntegrationTests;
+namespace Ganjineh.IntegrationTests;
 
 /// <summary>
 /// Crash safety at security-update boundaries: an interrupted header rewrite must leave the

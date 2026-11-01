@@ -1,9 +1,9 @@
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
-using PasswordManager.Application.Abstractions;
+using Ganjineh.Application.Abstractions;
 
-namespace PasswordManager.Desktop.Localization;
+namespace Ganjineh.Desktop.Localization;
 
 /// <summary>
 /// XAML markup extension: Text="{loc:Loc Nav.AllItems}". Binds to the ILocalizer string indexer

@@ -1,6 +1,6 @@
-using PasswordManager.Persistence.Items;
+using Ganjineh.Persistence.Items;
 
-namespace PasswordManager.Desktop.Services;
+namespace Ganjineh.Desktop.Services;
 
 public enum InputKind
 {

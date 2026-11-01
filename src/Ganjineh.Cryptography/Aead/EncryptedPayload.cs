@@ -1,6 +1,6 @@
-using PasswordManager.Cryptography.Errors;
+using Ganjineh.Cryptography.Errors;
 
-namespace PasswordManager.Cryptography.Aead;
+namespace Ganjineh.Cryptography.Aead;
 
 /// <summary>AEAD algorithm identifiers on the wire (little-endian u16 in envelope headers).</summary>
 public enum KeyDomain : ushort

@@ -1,4 +1,4 @@
-namespace PasswordManager.Cryptography.Recovery;
+namespace Ganjineh.Cryptography.Recovery;
 
 /// <summary>
 /// Standard CRC-32 (IEEE 802.3, reflected, poly 0xEDB88320). A transcription checksum, NOT a

@@ -1,4 +1,4 @@
-namespace PasswordManager.Cryptography;
+namespace Ganjineh.Cryptography;
 
 /// <summary>
 /// Wire-format constants for every Ganjineh crypto structure (cryptographic-specification.md).

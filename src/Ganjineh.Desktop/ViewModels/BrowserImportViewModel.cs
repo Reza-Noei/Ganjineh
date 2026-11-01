@@ -2,12 +2,12 @@ using System.Collections.ObjectModel;
 using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using PasswordManager.Application.Abstractions;
-using PasswordManager.Application.Credentials;
-using PasswordManager.Application.Import;
-using PasswordManager.Application.Vaults;
+using Ganjineh.Application.Abstractions;
+using Ganjineh.Application.Credentials;
+using Ganjineh.Application.Import;
+using Ganjineh.Application.Vaults;
 
-namespace PasswordManager.Desktop.ViewModels;
+namespace Ganjineh.Desktop.ViewModels;
 
 /// <summary>One preview-table row. Deliberately password-free: the preview model never sees the
 /// secret column — those live in the import session until the write step (import spec §3).</summary>

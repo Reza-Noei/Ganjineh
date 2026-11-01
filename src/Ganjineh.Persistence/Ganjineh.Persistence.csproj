@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <InternalsVisibleTo Include="PasswordManager.IntegrationTests" />
+    <InternalsVisibleTo Include="Ganjineh.IntegrationTests" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PasswordManager.Cryptography\PasswordManager.Cryptography.csproj" />
+    <ProjectReference Include="..\Ganjineh.Cryptography\Ganjineh.Cryptography.csproj" />
   </ItemGroup>
 
   <ItemGroup>

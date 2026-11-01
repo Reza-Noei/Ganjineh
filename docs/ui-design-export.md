@@ -10,15 +10,15 @@ Source-of-truth files (read these when this doc and the code disagree):
 
 | File | Role |
 |------|------|
-| `src/PasswordManager.Desktop/MainWindow.xaml` (~2100 lines) | **All** pages and overlays — one `DataTemplate` per view-model |
-| `src/PasswordManager.Desktop/MainWindow.xaml.cs` | Code-behind: keyboard shortcuts, file dialogs, PasswordBox handoff |
-| `src/PasswordManager.Desktop/Themes/Light.xaml` / `Themes/Dark.xaml` | Brand color tokens (light/dark dictionaries, identical keys) |
-| `src/PasswordManager.Desktop/Styles/Controls.xaml` | Ganjineh style layer on top of Material Design |
-| `src/PasswordManager.Desktop/App.xaml` | Resource merge order, fonts, converters |
-| `src/PasswordManager.Desktop/Services/ThemeService.cs` | Runtime light/dark rebuild (Material Indigo) |
-| `src/PasswordManager.Desktop/Services/ItemIconMapper.cs` | Item type → icon table |
-| `src/PasswordManager.Desktop/Localization/` | `LocExtension` markup + value converters |
-| `src/PasswordManager.Infrastructure/Localization/Strings.resx` (fa, neutral) + `Strings.en.resx` | All UI strings; zero literal strings in XAML; fa/en key parity is test-enforced |
+| `src/Ganjineh.Desktop/MainWindow.xaml` (~2100 lines) | **All** pages and overlays — one `DataTemplate` per view-model |
+| `src/Ganjineh.Desktop/MainWindow.xaml.cs` | Code-behind: keyboard shortcuts, file dialogs, PasswordBox handoff |
+| `src/Ganjineh.Desktop/Themes/Light.xaml` / `Themes/Dark.xaml` | Brand color tokens (light/dark dictionaries, identical keys) |
+| `src/Ganjineh.Desktop/Styles/Controls.xaml` | Ganjineh style layer on top of Material Design |
+| `src/Ganjineh.Desktop/App.xaml` | Resource merge order, fonts, converters |
+| `src/Ganjineh.Desktop/Services/ThemeService.cs` | Runtime light/dark rebuild (Material Indigo) |
+| `src/Ganjineh.Desktop/Services/ItemIconMapper.cs` | Item type → icon table |
+| `src/Ganjineh.Desktop/Localization/` | `LocExtension` markup + value converters |
+| `src/Ganjineh.Infrastructure/Localization/Strings.resx` (fa, neutral) + `Strings.en.resx` | All UI strings; zero literal strings in XAML; fa/en key parity is test-enforced |
 | `docs/ui-overhaul-audit.md` | 2026-11-01 redesign audit + art direction |
 | `docs/ui-ux-specification.md` | Original design spec (principles, intent) |
 | `docs/ui-redesign-audit.md` | 2026-10-23 audit (defect history — fixed) |

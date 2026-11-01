@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 
-namespace PasswordManager.Cryptography.Generation;
+namespace Ganjineh.Cryptography.Generation;
 
 /// <summary>Passphrase options.</summary>
 public sealed record PassphraseOptions
@@ -36,7 +36,7 @@ public sealed class PassphraseGenerator : IPassphraseGenerator
     {
         var assembly = typeof(PassphraseGenerator).Assembly;
         using var stream = assembly.GetManifestResourceStream(
-            "PasswordManager.Cryptography.Assets.eff_large_wordlist.txt")
+            "Ganjineh.Cryptography.Assets.eff_large_wordlist.txt")
             ?? throw new InvalidOperationException("EFF wordlist resource is missing.");
         using var reader = new StreamReader(stream);
         var words = new List<string>(7776);

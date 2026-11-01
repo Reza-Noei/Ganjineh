@@ -1,4 +1,4 @@
-namespace PasswordManager.Application.Abstractions;
+namespace Ganjineh.Application.Abstractions;
 
 public enum ApplicationDistributionMode
 {

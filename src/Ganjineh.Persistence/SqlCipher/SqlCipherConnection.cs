@@ -2,7 +2,7 @@ using System.Buffers.Binary;
 using System.Text;
 using SQLitePCL;
 
-namespace PasswordManager.Persistence.SqlCipher;
+namespace Ganjineh.Persistence.SqlCipher;
 
 /// <summary>
 /// Minimal raw-SQLitePCL wrapper over the genuine SQLCipher provider (e_sqlcipher).

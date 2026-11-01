@@ -1,17 +1,17 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
-using PasswordManager.Cryptography;
-using PasswordManager.Cryptography.Aead;
-using PasswordManager.Cryptography.Errors;
-using PasswordManager.Cryptography.Keys;
-using PasswordManager.Persistence;
-using PasswordManager.Application.Credentials;
-using PasswordManager.Application.Vaults;
-using PasswordManager.Persistence.Items;
-using PasswordManager.Persistence.Organization;
+using Ganjineh.Cryptography;
+using Ganjineh.Cryptography.Aead;
+using Ganjineh.Cryptography.Errors;
+using Ganjineh.Cryptography.Keys;
+using Ganjineh.Persistence;
+using Ganjineh.Application.Credentials;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Persistence.Items;
+using Ganjineh.Persistence.Organization;
 
-namespace PasswordManager.Application.Items;
+namespace Ganjineh.Application.Items;
 
 /// <summary>
 /// Unified vault-item use cases: CRUD across all item kinds, organization (folders/tags),

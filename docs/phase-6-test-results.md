@@ -1,6 +1,6 @@
 # Phase 6 Test Results
 
-Date: 2026-10-22 | Suite: `dotnet test PasswordManager.slnx` — **203/203 green**, zero warnings.
+Date: 2026-10-22 | Suite: `dotnet test Ganjineh.slnx` — **203/203 green**, zero warnings.
 
 ## Phase 6 coverage (8 integration tests, all green)
 

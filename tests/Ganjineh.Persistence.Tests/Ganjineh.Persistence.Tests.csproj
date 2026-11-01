@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\PasswordManager.Persistence\PasswordManager.Persistence.csproj" />
+    <ProjectReference Include="..\..\src\Ganjineh.Persistence\Ganjineh.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

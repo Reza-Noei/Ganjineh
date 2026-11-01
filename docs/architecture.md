@@ -5,18 +5,18 @@ Status: **Phase 0 — Proposed** | Clean Architecture + MVVM, modular monolith, 
 ## 1. Solution Layout
 
 ```
-PasswordManager.sln
+Ganjineh.sln
 ├── src/
-│   ├── PasswordManager.Domain/          entities, value objects, enums, domain errors, result types
-│   ├── PasswordManager.Application/     use cases, vault lifecycle, item CRUD, search, generator,
+│   ├── Ganjineh.Domain/          entities, value objects, enums, domain errors, result types
+│   ├── Ganjineh.Application/     use cases, vault lifecycle, item CRUD, search, generator,
 │   │                                    totp, security center, import/export orchestration
-│   ├── PasswordManager.Cryptography/    KDF, HKDF, AEAD envelopes, keyring, recovery codec
+│   ├── Ganjineh.Cryptography/    KDF, HKDF, AEAD envelopes, keyring, recovery codec
 │   │                                    (depends ONLY on Bcl + NSec; no WPF, no DB, no IO)
-│   ├── PasswordManager.Persistence/     SQLCipher access, header read/write, vault registry,
+│   ├── Ganjineh.Persistence/     SQLCipher access, header read/write, vault registry,
 │   │                                    backup file IO, atomic file operations
-│   ├── PasswordManager.Infrastructure/  clipboard, Windows session events, localization, logging,
+│   ├── Ganjineh.Infrastructure/  clipboard, Windows session events, localization, logging,
 │   │                                    settings storage, theming hooks, dialogs
-│   └── PasswordManager.Desktop/         WPF shell, views, view-models, DI composition root
+│   └── Ganjineh.Desktop/         WPF shell, views, view-models, DI composition root
 └── tests/
     ├── Domain.Tests/  Application.Tests/  Cryptography.Tests/  Persistence.Tests/
     ├── IntegrationTests/                 vault lifecycle end-to-end on real files
@@ -33,15 +33,15 @@ points; no generic repositories, no CQRS machinery, no unit-of-work abstractions
 concrete needs only).
 
 **As built (Phase 1):**
-- Solution file is `PasswordManager.slnx` (.NET 10 SDK default XML solution format).
-- Test projects carry the `PasswordManager.` prefix (`PasswordManager.Domain.Tests`, …,
-  `PasswordManager.Desktop.UITests`); folders mirror the names under `tests/`.
+- Solution file is `Ganjineh.slnx` (.NET 10 SDK default XML solution format).
+- Test projects carry the `Ganjineh.` prefix (`Ganjineh.Domain.Tests`, …,
+  `Ganjineh.Desktop.UITests`); folders mirror the names under `tests/`.
 - `Directory.Build.props` enforces `Nullable=enable` + `TreatWarningsAsErrors=true`
   (the zero-warnings baseline).
-- **Namespace collision to remember:** inside any `PasswordManager.*` namespace, the bare name
+- **Namespace collision to remember:** inside any `Ganjineh.*` namespace, the bare name
   `Application` resolves to the *Application project's namespace*, not WPF's
   `System.Windows.Application` — qualify it explicitly (UI tests and Desktop both hit this).
-- Vazirmatn (OFL) is vendored in `src/PasswordManager.Desktop/Assets/Fonts` (Regular/Medium/
+- Vazirmatn (OFL) is vendored in `src/Ganjineh.Desktop/Assets/Fonts` (Regular/Medium/
   SemiBold + OFL.txt), embedded as WPF resources with automatic system-font fallback.
 
 ## 2. Runtime Composition

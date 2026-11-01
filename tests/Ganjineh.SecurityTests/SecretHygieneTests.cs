@@ -1,10 +1,10 @@
 using System.Security.Cryptography;
-using PasswordManager.Application.Vaults;
-using PasswordManager.Cryptography.Errors;
-using PasswordManager.Persistence.Registry;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Cryptography.Errors;
+using Ganjineh.Persistence.Registry;
 using Xunit;
 
-namespace PasswordManager.SecurityTests;
+namespace Ganjineh.SecurityTests;
 
 /// <summary>Secret hygiene: failure paths must never carry sensitive material in messages (ST-SEC-9).</summary>
 public sealed class SecretHygieneTests : IDisposable
@@ -75,7 +75,7 @@ public sealed class SecretHygieneTests : IDisposable
     private static string ValidFormatWrongRecovery()
     {
         var secret = Enumerable.Range(5, 32).Select(i => (byte)i).ToArray();
-        return PasswordManager.Cryptography.Recovery.RecoveryKeyCodec.Encode(secret);
+        return Ganjineh.Cryptography.Recovery.RecoveryKeyCodec.Encode(secret);
     }
 
     public void Dispose()

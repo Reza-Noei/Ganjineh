@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\PasswordManager.Application\PasswordManager.Application.csproj" />
+    <ProjectReference Include="..\Ganjineh.Application\Ganjineh.Application.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

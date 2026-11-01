@@ -3,17 +3,17 @@ using System.ComponentModel;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using PasswordManager.Application.Abstractions;
-using PasswordManager.Application.Credentials;
-using PasswordManager.Application.Items;
-using PasswordManager.Application.Security;
-using PasswordManager.Application.Vaults;
-using PasswordManager.Cryptography.Generation;
-using PasswordManager.Desktop.Services;
-using PasswordManager.Persistence.Items;
-using PasswordManager.Persistence.VaultHeader;
+using Ganjineh.Application.Abstractions;
+using Ganjineh.Application.Credentials;
+using Ganjineh.Application.Items;
+using Ganjineh.Application.Security;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Cryptography.Generation;
+using Ganjineh.Desktop.Services;
+using Ganjineh.Persistence.Items;
+using Ganjineh.Persistence.VaultHeader;
 
-namespace PasswordManager.Desktop.ViewModels;
+namespace Ganjineh.Desktop.ViewModels;
 
 /// <summary>Row for the center list: never carries password material.</summary>
 public sealed class CredentialRowViewModel

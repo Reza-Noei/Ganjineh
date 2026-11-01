@@ -1,6 +1,6 @@
-using PasswordManager.Application.Abstractions;
+using Ganjineh.Application.Abstractions;
 
-namespace PasswordManager.Application.Abstractions;
+namespace Ganjineh.Application.Abstractions;
 
 /// <summary>Folder/file dialogs, abstracted so view-models stay testable and WPF-free.</summary>
 public interface IDialogService

@@ -1,8 +1,8 @@
-using PasswordManager.Cryptography.Kdf;
-using PasswordManager.Cryptography.Random;
-using PasswordManager.Cryptography.Secrets;
+using Ganjineh.Cryptography.Kdf;
+using Ganjineh.Cryptography.Random;
+using Ganjineh.Cryptography.Secrets;
 
-namespace PasswordManager.Cryptography.Keys;
+namespace Ganjineh.Cryptography.Keys;
 
 /// <summary>
 /// The complete per-session key set derived from the Vault Master Key (key-management.md §1).

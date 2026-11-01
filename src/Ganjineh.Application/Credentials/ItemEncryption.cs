@@ -1,9 +1,9 @@
 using System.Text;
-using PasswordManager.Cryptography;
-using PasswordManager.Cryptography.Aead;
-using PasswordManager.Cryptography.Keys;
+using Ganjineh.Cryptography;
+using Ganjineh.Cryptography.Aead;
+using Ganjineh.Cryptography.Keys;
 
-namespace PasswordManager.Application.Credentials;
+namespace Ganjineh.Application.Credentials;
 
 /// <summary>Login credential payload. Password handling follows the approved secure-memory
 /// design: the payload travels as one authenticated envelope; decrypted JSON lives only in
@@ -116,7 +116,7 @@ public sealed class ItemEncryption
         try
         {
             var dto = System.Text.Json.JsonSerializer.Deserialize<PayloadDto>(json)
-                ?? throw new PasswordManager.Persistence.DatabaseCorruptionException("Credential payload is empty.");
+                ?? throw new Ganjineh.Persistence.DatabaseCorruptionException("Credential payload is empty.");
             return new CredentialDetail(
                 itemId, dto.T ?? string.Empty, dto.U, dto.P ?? string.Empty, dto.W, dto.N,
                 favorite, createdAt, updatedAt);
@@ -136,7 +136,7 @@ public sealed class ItemEncryption
         try
         {
             var dto = System.Text.Json.JsonSerializer.Deserialize<PayloadDto>(json)
-                ?? throw new PasswordManager.Persistence.DatabaseCorruptionException("Credential payload is empty.");
+                ?? throw new Ganjineh.Persistence.DatabaseCorruptionException("Credential payload is empty.");
             return (dto.T ?? string.Empty, dto.U, dto.W);
         }
         finally
@@ -156,7 +156,7 @@ public sealed class ItemEncryption
         try
         {
             var dto = System.Text.Json.JsonSerializer.Deserialize<PayloadDto>(json)
-                ?? throw new PasswordManager.Persistence.DatabaseCorruptionException("Credential payload is empty.");
+                ?? throw new Ganjineh.Persistence.DatabaseCorruptionException("Credential payload is empty.");
             return string.Join('\n', dto.T, dto.U, dto.W, dto.N);
         }
         finally
@@ -166,7 +166,7 @@ public sealed class ItemEncryption
     }
 
     /// <summary>Serializes and seals a unified v1 payload (Application/Items model).</summary>
-    public byte[] EncryptPayload(VaultKeyring keyring, ReadOnlySpan<byte> vaultId, Guid itemId, PasswordManager.Application.Items.ItemPayload payload)
+    public byte[] EncryptPayload(VaultKeyring keyring, ReadOnlySpan<byte> vaultId, Guid itemId, Ganjineh.Application.Items.ItemPayload payload)
     {
         var json = System.Text.Encoding.UTF8.GetBytes(System.Text.Json.JsonSerializer.Serialize(payload));
         try

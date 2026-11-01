@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\PasswordManager.Domain\PasswordManager.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Ganjineh.Domain\Ganjineh.Domain.csproj" />
   </ItemGroup>
 
 </Project>

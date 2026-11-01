@@ -1,10 +1,10 @@
 using System.Diagnostics;
 using NSec.Cryptography;
-using PasswordManager.Cryptography.Kdf;
+using Ganjineh.Cryptography.Kdf;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace PasswordManager.Cryptography.Tests;
+namespace Ganjineh.Cryptography.Tests;
 
 /// <summary>
 /// Q2: Argon2id parameter benchmark (ADR-003 §3.1 procedure). Explicit-run only — excluded from

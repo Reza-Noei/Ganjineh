@@ -1,4 +1,4 @@
-namespace PasswordManager.Cryptography.Errors;
+namespace Ganjineh.Cryptography.Errors;
 
 /// <summary>Base type for all Ganjineh crypto-layer failures.</summary>
 public abstract class CryptoException(string message = "") : Exception(message);

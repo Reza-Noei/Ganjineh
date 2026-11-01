@@ -1,8 +1,8 @@
-﻿using PasswordManager.Cryptography.Aead;
-using PasswordManager.Cryptography.Errors;
+﻿using Ganjineh.Cryptography.Aead;
+using Ganjineh.Cryptography.Errors;
 using Xunit;
 
-namespace PasswordManager.Cryptography.Tests;
+namespace Ganjineh.Cryptography.Tests;
 
 public class EncryptedPayloadTests
 {

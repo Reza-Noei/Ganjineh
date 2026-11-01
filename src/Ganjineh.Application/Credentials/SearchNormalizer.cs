@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Text;
 
-namespace PasswordManager.Application.Credentials;
+namespace Ganjineh.Application.Credentials;
 
 /// <summary>
 /// Persian/Arabic-aware search normalization (search-design.md): folds Arabic character variants

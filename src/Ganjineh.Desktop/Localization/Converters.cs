@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace PasswordManager.Desktop.Localization;
+namespace Ganjineh.Desktop.Localization;
 
 /// <summary>Small converter set for template visibility switches.</summary>
 public sealed class BoolToVisibilityConverter : IValueConverter

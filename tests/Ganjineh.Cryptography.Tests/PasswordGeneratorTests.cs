@@ -1,11 +1,11 @@
 using System.Security.Cryptography;
 using System.Text;
-using PasswordManager.Cryptography.Generation;
-using PasswordManager.Cryptography.Otp;
+using Ganjineh.Cryptography.Generation;
+using Ganjineh.Cryptography.Otp;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace PasswordManager.Cryptography.Tests;
+namespace Ganjineh.Cryptography.Tests;
 
 /// <summary>Password generator: constraints, distribution sanity, entropy honesty.</summary>
 public class PasswordGeneratorTests

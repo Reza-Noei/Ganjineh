@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace PasswordManager.Cryptography.Kdf;
+namespace Ganjineh.Cryptography.Kdf;
 
 /// <summary>
 /// Purpose-bound key derivation from the Vault Master Key (crypto-specification.md §3).

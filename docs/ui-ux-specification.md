@@ -24,7 +24,7 @@ Status: **Implemented** | WPF on .NET 10, Material Design (MaterialDesignThemes 
 - **Typography:** Vazirmatn (OFL) as UI font, weights Regular/Medium/SemiBold; Latin fallback
   Segoe UI Variable. Scale: 12 / 14 (body) / 16 (subtitle) / 20 / 28 (title). Tabular figures
   for codes and counters. *As built (Phase 1): vendored at
-  `src/PasswordManager.Desktop/Assets/Fonts` (Regular/Medium/SemiBold + OFL.txt), embedded as
+  `src/Ganjineh.Desktop/Assets/Fonts` (Regular/Medium/SemiBold + OFL.txt), embedded as
   pack resources; missing-font fallback is automatic.*
 - **Iconography:** Material Design Icons via `materialDesign:PackIcon` (compile-checked
   `PackIconKind` enum), 16/20/24 px. Directional icons mirror with `FlowDirection`.

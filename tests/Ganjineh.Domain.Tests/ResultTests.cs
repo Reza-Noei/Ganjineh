@@ -1,7 +1,7 @@
-using PasswordManager.Domain;
+using Ganjineh.Domain;
 using Xunit;
 
-namespace PasswordManager.Domain.Tests;
+namespace Ganjineh.Domain.Tests;
 
 public class ResultTests
 {

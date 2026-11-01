@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\PasswordManager.Desktop\PasswordManager.Desktop.csproj" />
+    <ProjectReference Include="..\..\src\Ganjineh.Desktop\Ganjineh.Desktop.csproj" />
   </ItemGroup>
 
 </Project>

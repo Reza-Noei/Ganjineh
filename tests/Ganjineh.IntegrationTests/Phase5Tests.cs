@@ -1,13 +1,13 @@
 using System.Text;
-using PasswordManager.Application.Items;
-using PasswordManager.Application.Security;
-using PasswordManager.Application.Vaults;
-using PasswordManager.Cryptography.Otp;
-using PasswordManager.Persistence.Items;
-using PasswordManager.Persistence.Registry;
+using Ganjineh.Application.Items;
+using Ganjineh.Application.Security;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Cryptography.Otp;
+using Ganjineh.Persistence.Items;
+using Ganjineh.Persistence.Registry;
 using Xunit;
 
-namespace PasswordManager.IntegrationTests;
+namespace Ganjineh.IntegrationTests;
 
 /// <summary>Phase 5: strength estimation, otpauth parsing, TOTP data keys, security analyzer.</summary>
 public sealed class Phase5Tests : IDisposable

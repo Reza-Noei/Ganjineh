@@ -2,22 +2,22 @@
 using System.Windows.Input;
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
-using PasswordManager.Application.Abstractions;
-using PasswordManager.Application.Backup;
-using PasswordManager.Application.Credentials;
-using PasswordManager.Application.Import;
-using PasswordManager.Application.Items;
-using PasswordManager.Application.Security;
-using PasswordManager.Application.Vaults;
-using PasswordManager.Cryptography.Generation;
-using PasswordManager.Desktop.Services;
-using PasswordManager.Desktop.ViewModels;
-using PasswordManager.Infrastructure.Localization;
-using PasswordManager.Infrastructure.Paths;
-using PasswordManager.Infrastructure.Settings;
-using PasswordManager.Persistence.Registry;
+using Ganjineh.Application.Abstractions;
+using Ganjineh.Application.Backup;
+using Ganjineh.Application.Credentials;
+using Ganjineh.Application.Import;
+using Ganjineh.Application.Items;
+using Ganjineh.Application.Security;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Cryptography.Generation;
+using Ganjineh.Desktop.Services;
+using Ganjineh.Desktop.ViewModels;
+using Ganjineh.Infrastructure.Localization;
+using Ganjineh.Infrastructure.Paths;
+using Ganjineh.Infrastructure.Settings;
+using Ganjineh.Persistence.Registry;
 
-namespace PasswordManager.Desktop;
+namespace Ganjineh.Desktop;
 
 public partial class App : System.Windows.Application
 {

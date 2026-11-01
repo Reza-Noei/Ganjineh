@@ -1,7 +1,7 @@
 # Cryptographic Test Results — Phase 2
 
 Date: 2026-10-22 | Machine: Windows 11 Enterprise 22621, dev-class x64, .NET SDK 10.0.400
-Suite: `dotnet test PasswordManager.slnx` — **103/103 green** (zero warnings, TreatWarningsAsErrors).
+Suite: `dotnet test Ganjineh.slnx` — **103/103 green** (zero warnings, TreatWarningsAsErrors).
 
 ## Known-Answer and Cross-Validation Results
 

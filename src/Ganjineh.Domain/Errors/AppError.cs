@@ -1,4 +1,4 @@
-namespace PasswordManager.Domain;
+namespace Ganjineh.Domain;
 
 /// <summary>
 /// Stable error taxonomy shared by every application service (architecture.md §3).

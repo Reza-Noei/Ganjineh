@@ -10,7 +10,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$ProjectPath = "$PSScriptRoot\..\src\PasswordManager.Desktop\PasswordManager.Desktop.csproj"
+$ProjectPath = "$PSScriptRoot\..\src\Ganjineh.Desktop\Ganjineh.Desktop.csproj"
 $RepoRoot = "$PSScriptRoot\.."
 
 Write-Host "=== Ganjineh Release Build v$Version ==="

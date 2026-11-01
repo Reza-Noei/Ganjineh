@@ -1,8 +1,8 @@
-using PasswordManager.Cryptography.Aead;
-using PasswordManager.Cryptography.Errors;
+using Ganjineh.Cryptography.Aead;
+using Ganjineh.Cryptography.Errors;
 using Xunit;
 
-namespace PasswordManager.Cryptography.Tests;
+namespace Ganjineh.Cryptography.Tests;
 
 /// <summary>Raw chunked-AEAD protocol tests (attachment-encryption.md): ordering, truncation,
 /// tamper, terminator — independent of file orchestration.</summary>

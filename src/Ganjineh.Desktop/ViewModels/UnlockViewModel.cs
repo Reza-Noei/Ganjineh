@@ -1,10 +1,10 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using PasswordManager.Application.Abstractions;
-using PasswordManager.Application.Vaults;
-using PasswordManager.Cryptography.Errors;
+using Ganjineh.Application.Abstractions;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Cryptography.Errors;
 
-namespace PasswordManager.Desktop.ViewModels;
+namespace Ganjineh.Desktop.ViewModels;
 
 public partial class UnlockViewModel : ObservableObject
 {
@@ -81,11 +81,11 @@ public partial class UnlockViewModel : ObservableObject
             FailedAttempts++;
             Error = _localizer["Unlock.WrongPassword"];
         }
-        catch (PasswordManager.Persistence.StorageIoException)
+        catch (Ganjineh.Persistence.StorageIoException)
         {
             Error = _localizer["Error.VaultMissing"];
         }
-        catch (PasswordManager.Cryptography.Errors.UnsupportedFormatException)
+        catch (Ganjineh.Cryptography.Errors.UnsupportedFormatException)
         {
             Error = _localizer["Error.UnsupportedFormat"];
         }
@@ -118,7 +118,7 @@ public partial class UnlockViewModel : ObservableObject
             RecoveryKey = string.Empty;
             Unlocked?.Invoke(this, session);
         }
-        catch (PasswordManager.Cryptography.Errors.CryptoFormatException ex)
+        catch (Ganjineh.Cryptography.Errors.CryptoFormatException ex)
         {
             Error = _localizer["Validation.RecoveryInvalid"];
             _ = ex;

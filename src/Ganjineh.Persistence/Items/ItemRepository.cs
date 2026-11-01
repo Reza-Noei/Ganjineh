@@ -1,6 +1,6 @@
 using System.Buffers.Binary;
 
-namespace PasswordManager.Persistence.Items;
+namespace Ganjineh.Persistence.Items;
 
 /// <summary>
 /// Item-type identifiers (database-design.md §3). Phase 3 implements Login only; the column and

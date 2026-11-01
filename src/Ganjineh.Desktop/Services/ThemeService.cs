@@ -4,7 +4,7 @@ using MaterialDesignThemes.Wpf;
 
 
 
-namespace PasswordManager.Desktop.Services;
+namespace Ganjineh.Desktop.Services;
 
 /// <summary>
 /// Live theme switching, Material Design edition. Two swaps per Apply():
@@ -16,10 +16,10 @@ namespace PasswordManager.Desktop.Services;
 public sealed class ThemeService
 {
     private static readonly Uri LightUri =
-        new("pack://application:,,,/PasswordManager.Desktop;component/Themes/Light.xaml");
+        new("pack://application:,,,/Ganjineh;component/Themes/Light.xaml");
 
     private static readonly Uri DarkUri =
-        new("pack://application:,,,/PasswordManager.Desktop;component/Themes/Dark.xaml");
+        new("pack://application:,,,/Ganjineh;component/Themes/Dark.xaml");
 
     private const PrimaryColor Primary = PrimaryColor.Indigo;
     private const SecondaryColor Secondary = SecondaryColor.Indigo;

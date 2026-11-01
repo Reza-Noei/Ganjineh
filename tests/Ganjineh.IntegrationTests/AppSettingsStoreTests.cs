@@ -1,9 +1,9 @@
-using PasswordManager.Application.Abstractions;
-using PasswordManager.Infrastructure.Paths;
-using PasswordManager.Infrastructure.Settings;
+using Ganjineh.Application.Abstractions;
+using Ganjineh.Infrastructure.Paths;
+using Ganjineh.Infrastructure.Settings;
 using Xunit;
 
-namespace PasswordManager.IntegrationTests;
+namespace Ganjineh.IntegrationTests;
 
 public class AppSettingsStoreTests : IDisposable
 {

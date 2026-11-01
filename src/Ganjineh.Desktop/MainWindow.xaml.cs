@@ -3,11 +3,11 @@ using System.Windows.Input;
 using System.Windows.Automation;
 using System.Windows.Media;
 using Microsoft.Extensions.DependencyInjection;
-using PasswordManager.Application.Abstractions;
-using PasswordManager.Desktop.Services;
-using PasswordManager.Desktop.ViewModels;
+using Ganjineh.Application.Abstractions;
+using Ganjineh.Desktop.Services;
+using Ganjineh.Desktop.ViewModels;
 
-namespace PasswordManager.Desktop;
+namespace Ganjineh.Desktop;
 
 public partial class MainWindow : Window
 {

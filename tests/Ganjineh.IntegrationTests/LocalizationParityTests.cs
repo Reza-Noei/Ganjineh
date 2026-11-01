@@ -1,7 +1,7 @@
 using System.Xml.Linq;
 using Xunit;
 
-namespace PasswordManager.IntegrationTests;
+namespace Ganjineh.IntegrationTests;
 
 /// <summary>fa/en key parity: a missing English translation must fail the build's test run, not the UI.</summary>
 public class LocalizationParityTests
@@ -9,7 +9,7 @@ public class LocalizationParityTests
     private static readonly string RepoRoot = LocateRepoRoot();
 
     private static string StringsPath(string fileName) =>
-        Path.Combine(RepoRoot, "src", "PasswordManager.Infrastructure", "Localization", fileName);
+        Path.Combine(RepoRoot, "src", "Ganjineh.Infrastructure", "Localization", fileName);
 
     private static Dictionary<string, string> LoadKeys(string fileName)
     {

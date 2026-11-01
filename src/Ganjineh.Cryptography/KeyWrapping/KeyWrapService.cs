@@ -1,11 +1,11 @@
 using System.Security.Cryptography;
 using System.Text;
-using PasswordManager.Cryptography.Aead;
-using PasswordManager.Cryptography.Errors;
-using PasswordManager.Cryptography.Random;
-using PasswordManager.Cryptography.Secrets;
+using Ganjineh.Cryptography.Aead;
+using Ganjineh.Cryptography.Errors;
+using Ganjineh.Cryptography.Random;
+using Ganjineh.Cryptography.Secrets;
 
-namespace PasswordManager.Cryptography.KeyWrapping;
+namespace Ganjineh.Cryptography.KeyWrapping;
 
 /// <summary>An authenticated wrapping of a 256-bit key: nonce + ciphertext+tag (80 bytes on the wire).</summary>
 public sealed class KeyWrapRecord

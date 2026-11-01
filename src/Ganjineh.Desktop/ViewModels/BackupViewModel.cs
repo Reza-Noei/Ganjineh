@@ -1,11 +1,11 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using PasswordManager.Application.Abstractions;
-using PasswordManager.Application.Backup;
-using PasswordManager.Application.Vaults;
-using PasswordManager.Desktop.Services;
+using Ganjineh.Application.Abstractions;
+using Ganjineh.Application.Backup;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Desktop.Services;
 
-namespace PasswordManager.Desktop.ViewModels;
+namespace Ganjineh.Desktop.ViewModels;
 
 /// <summary>
 /// Backup &amp; restore overlay over <see cref="IVaultBackupService"/> (.gvbak v1). File dialogs

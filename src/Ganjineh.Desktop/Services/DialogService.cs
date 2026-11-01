@@ -1,7 +1,7 @@
 using Microsoft.Win32;
-using PasswordManager.Application.Abstractions;
+using Ganjineh.Application.Abstractions;
 
-namespace PasswordManager.Desktop.Services;
+namespace Ganjineh.Desktop.Services;
 
 public sealed class DialogService : IDialogService
 {

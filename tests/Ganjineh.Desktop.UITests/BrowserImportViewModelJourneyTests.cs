@@ -1,17 +1,17 @@
 using System.IO;
 using System.Reflection;
 using System.Text;
-using PasswordManager.Application.Abstractions;
-using PasswordManager.Application.Import;
-using PasswordManager.Application.Items;
-using PasswordManager.Application.Vaults;
-using PasswordManager.Desktop.ViewModels;
-using PasswordManager.Infrastructure.Localization;
-using PasswordManager.Persistence.Items;
-using PasswordManager.Persistence.Registry;
+using Ganjineh.Application.Abstractions;
+using Ganjineh.Application.Import;
+using Ganjineh.Application.Items;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Desktop.ViewModels;
+using Ganjineh.Infrastructure.Localization;
+using Ganjineh.Persistence.Items;
+using Ganjineh.Persistence.Registry;
 using Xunit;
 
-namespace PasswordManager.Desktop.UITests;
+namespace Ganjineh.Desktop.UITests;
 
 /// <summary>
 /// The complete import-wizard journey driven through the real view-model (the exact object the

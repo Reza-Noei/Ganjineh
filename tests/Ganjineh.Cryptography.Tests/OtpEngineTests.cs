@@ -1,7 +1,7 @@
-using PasswordManager.Cryptography.Otp;
+using Ganjineh.Cryptography.Otp;
 using Xunit;
 
-namespace PasswordManager.Cryptography.Tests;
+namespace Ganjineh.Cryptography.Tests;
 
 /// <summary>RFC 4226 / RFC 6238 known-answer vectors.</summary>
 public class OtpEngineTests

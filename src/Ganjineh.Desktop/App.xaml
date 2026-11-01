@@ -1,7 +1,7 @@
-﻿<Application x:Class="PasswordManager.Desktop.App"
+﻿<Application x:Class="Ganjineh.Desktop.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:loc="clr-namespace:PasswordManager.Desktop.Localization"
+             xmlns:loc="clr-namespace:Ganjineh.Desktop.Localization"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              ShutdownMode="OnMainWindowClose">
     <Application.Resources>
@@ -15,14 +15,14 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
                 <!-- Brand token dictionary (index 2) is swapped at runtime by ThemeService; keys must
                      match Themes/Dark.xaml exactly. -->
-                <ResourceDictionary Source="pack://application:,,,/PasswordManager.Desktop;component/Themes/Light.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/PasswordManager.Desktop;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ganjineh;component/Themes/Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ganjineh;component/Styles/Controls.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <!-- Vendored Vazirmatn (OFL); falls back to system fonts automatically if missing.
              Applied to the window (App.FontFamily) and to Material Design's font resource so MD
              chrome (hints, snackbar, tooltips) uses the same face. -->
-            <FontFamily x:Key="App.FontFamily">pack://application:,,,/PasswordManager.Desktop;component/Assets/Fonts/#Vazirmatn</FontFamily>
-            <FontFamily x:Key="MaterialDesignFont">pack://application:,,,/PasswordManager.Desktop;component/Assets/Fonts/#Vazirmatn</FontFamily>
+            <FontFamily x:Key="App.FontFamily">pack://application:,,,/Ganjineh;component/Assets/Fonts/#Vazirmatn</FontFamily>
+            <FontFamily x:Key="MaterialDesignFont">pack://application:,,,/Ganjineh;component/Assets/Fonts/#Vazirmatn</FontFamily>
             <!-- FontFamily resources declared above; converters registered here. -->
             <loc:BoolToVisibilityConverter x:Key="BoolToVisible" />
             <loc:BoolToVisibilityConverter x:Key="FalseToVisible" Invert="True" />

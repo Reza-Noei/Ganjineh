@@ -1,9 +1,9 @@
 using System.Text;
-using PasswordManager.Cryptography.Errors;
-using PasswordManager.Cryptography.Kdf;
+using Ganjineh.Cryptography.Errors;
+using Ganjineh.Cryptography.Kdf;
 using Xunit;
 
-namespace PasswordManager.Cryptography.Tests;
+namespace Ganjineh.Cryptography.Tests;
 
 /// <summary>
 /// Argon2id behavioral tests. The known-answer proof lives in Argon2idCrossValidationTests

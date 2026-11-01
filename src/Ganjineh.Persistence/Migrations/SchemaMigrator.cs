@@ -1,6 +1,6 @@
-using PasswordManager.Persistence.SqlCipher;
+using Ganjineh.Persistence.SqlCipher;
 
-namespace PasswordManager.Persistence.Migrations;
+namespace Ganjineh.Persistence.Migrations;
 
 /// <summary>
 /// Forward-only schema migrations (database-design.md §6).

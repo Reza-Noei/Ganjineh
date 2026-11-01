@@ -1,12 +1,12 @@
 using System.Text;
-using PasswordManager.Application.Import;
-using PasswordManager.Application.Items;
-using PasswordManager.Application.Vaults;
-using PasswordManager.Persistence.Items;
-using PasswordManager.Persistence.Registry;
+using Ganjineh.Application.Import;
+using Ganjineh.Application.Items;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Persistence.Items;
+using Ganjineh.Persistence.Registry;
 using Xunit;
 
-namespace PasswordManager.IntegrationTests;
+namespace Ganjineh.IntegrationTests;
 
 /// <summary>
 /// Phase 9: browser CSV import end-to-end on real SQLCipher vaults — parsing against a live

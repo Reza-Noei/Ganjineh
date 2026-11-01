@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
-using PasswordManager.Cryptography.Random;
+using Ganjineh.Cryptography.Random;
 
-namespace PasswordManager.Cryptography.Secrets;
+namespace Ganjineh.Cryptography.Secrets;
 
 /// <summary>
 /// Disposable secret container. Zeroization on Dispose is best-effort in a garbage-collected

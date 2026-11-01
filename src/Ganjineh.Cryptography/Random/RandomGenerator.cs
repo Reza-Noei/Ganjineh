@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 
-namespace PasswordManager.Cryptography.Random;
+namespace Ganjineh.Cryptography.Random;
 
 /// <summary>All secret randomness flows through this single seam (testability + audit).</summary>
 public interface IRandomGenerator

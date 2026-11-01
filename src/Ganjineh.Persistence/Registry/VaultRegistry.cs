@@ -1,8 +1,8 @@
 using System.IO;
 using System.Text.Json;
-using PasswordManager.Persistence.IO;
+using Ganjineh.Persistence.IO;
 
-namespace PasswordManager.Persistence.Registry;
+namespace Ganjineh.Persistence.Registry;
 
 /// <summary>
 /// Non-sensitive vault registry (vault-file-format.md §4): vault ID, path, last-opened time and

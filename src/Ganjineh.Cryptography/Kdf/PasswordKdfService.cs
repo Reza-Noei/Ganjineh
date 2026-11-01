@@ -1,7 +1,7 @@
 using NSec.Cryptography;
-using PasswordManager.Cryptography.Errors;
+using Ganjineh.Cryptography.Errors;
 
-namespace PasswordManager.Cryptography.Kdf;
+namespace Ganjineh.Cryptography.Kdf;
 
 /// <summary>Versioned Argon2id parameters (per vault, stored in the authenticated header).</summary>
 public readonly record struct KdfParameters(long MemoryKiB, long Passes, int Parallelism)

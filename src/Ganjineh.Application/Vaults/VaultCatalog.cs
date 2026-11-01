@@ -1,7 +1,7 @@
-using PasswordManager.Persistence;
-using PasswordManager.Persistence.Registry;
+using Ganjineh.Persistence;
+using Ganjineh.Persistence.Registry;
 
-namespace PasswordManager.Application.Vaults;
+namespace Ganjineh.Application.Vaults;
 
 /// <summary>
 /// Registered-vault catalog (application level): the non-sensitive registry view plus destructive

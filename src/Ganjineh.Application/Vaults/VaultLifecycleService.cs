@@ -1,20 +1,20 @@
 using System.Security.Cryptography;
 using System.Text;
-using PasswordManager.Cryptography;
-using PasswordManager.Cryptography.Aead;
-using PasswordManager.Cryptography.Kdf;
-using PasswordManager.Cryptography.KeyWrapping;
-using PasswordManager.Cryptography.Keys;
-using PasswordManager.Cryptography.Random;
-using PasswordManager.Cryptography.Recovery;
-using PasswordManager.Cryptography.Secrets;
-using PasswordManager.Persistence;
-using PasswordManager.Persistence.IO;
-using PasswordManager.Persistence.Registry;
-using PasswordManager.Persistence.SqlCipher;
-using PasswordManager.Persistence.VaultHeader;
+using Ganjineh.Cryptography;
+using Ganjineh.Cryptography.Aead;
+using Ganjineh.Cryptography.Kdf;
+using Ganjineh.Cryptography.KeyWrapping;
+using Ganjineh.Cryptography.Keys;
+using Ganjineh.Cryptography.Random;
+using Ganjineh.Cryptography.Recovery;
+using Ganjineh.Cryptography.Secrets;
+using Ganjineh.Persistence;
+using Ganjineh.Persistence.IO;
+using Ganjineh.Persistence.Registry;
+using Ganjineh.Persistence.SqlCipher;
+using Ganjineh.Persistence.VaultHeader;
 
-namespace PasswordManager.Application.Vaults;
+namespace Ganjineh.Application.Vaults;
 
 /// <summary>
 /// Orchestrates the full vault lifecycle (Phase 2): creation, both unlock paths, master-password

@@ -1,6 +1,6 @@
-using PasswordManager.Cryptography.Errors;
+using Ganjineh.Cryptography.Errors;
 
-namespace PasswordManager.Cryptography.Recovery;
+namespace Ganjineh.Cryptography.Recovery;
 
 /// <summary>
 /// Recovery Key codec (recovery-design.md §2): 32-byte secret + CRC-32(secret), each Crockford

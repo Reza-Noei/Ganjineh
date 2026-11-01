@@ -1,4 +1,4 @@
-namespace PasswordManager.Persistence.SqlCipher;
+namespace Ganjineh.Persistence.SqlCipher;
 
 /// <summary>
 /// Minimal v1 persistence schema proving real encrypted storage (full item CRUD is Phase 3):

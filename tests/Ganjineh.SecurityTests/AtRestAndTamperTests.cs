@@ -1,15 +1,15 @@
 using System.Security.Cryptography;
 using System.Text;
-using PasswordManager.Cryptography;
-using PasswordManager.Application.Vaults;
-using PasswordManager.Cryptography.Errors;
-using PasswordManager.Persistence;
-using PasswordManager.Persistence.Registry;
-using PasswordManager.Persistence.VaultHeader;
+using Ganjineh.Cryptography;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Cryptography.Errors;
+using Ganjineh.Persistence;
+using Ganjineh.Persistence.Registry;
+using Ganjineh.Persistence.VaultHeader;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace PasswordManager.SecurityTests;
+namespace Ganjineh.SecurityTests;
 
 /// <summary>
 /// Data-at-rest and adversarial-input guarantees (security-test-plan.md ST-DB-*, ST-SEC-3, ST-FZ-1).

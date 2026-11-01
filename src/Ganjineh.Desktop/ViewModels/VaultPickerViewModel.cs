@@ -3,10 +3,10 @@ using System.IO;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using PasswordManager.Application.Abstractions;
-using PasswordManager.Application.Vaults;
+using Ganjineh.Application.Abstractions;
+using Ganjineh.Application.Vaults;
 
-namespace PasswordManager.Desktop.ViewModels;
+namespace Ganjineh.Desktop.ViewModels;
 
 /// <summary>One row of the vault picker: only non-sensitive registry metadata.</summary>
 public sealed record VaultRow(string VaultId, string DisplayName, string Path, DateTimeOffset? LastOpenedAt);

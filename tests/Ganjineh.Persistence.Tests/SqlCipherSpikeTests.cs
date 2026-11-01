@@ -3,7 +3,7 @@ using SQLitePCL;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace PasswordManager.Persistence.Tests;
+namespace Ganjineh.Persistence.Tests;
 
 /// <summary>Q1 spike: verify the raw e_sqlcipher provider encrypts for real on this platform.</summary>
 public class SqlCipherSpikeTests

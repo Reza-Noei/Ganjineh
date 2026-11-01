@@ -2,7 +2,7 @@ using System.Buffers.Binary;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace PasswordManager.Cryptography.Aead;
+namespace Ganjineh.Cryptography.Aead;
 
 /// <summary>
 /// Chunked authenticated-encryption protocol for large files (cryptographic-specification.md §8).

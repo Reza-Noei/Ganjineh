@@ -1,6 +1,6 @@
-using PasswordManager.Cryptography.Errors;
+using Ganjineh.Cryptography.Errors;
 
-namespace PasswordManager.Persistence;
+namespace Ganjineh.Persistence;
 
 /// <summary>Vault file I/O failure (missing, unreadable, unwritable).</summary>
 public sealed class StorageIoException(string message) : Exception(message);

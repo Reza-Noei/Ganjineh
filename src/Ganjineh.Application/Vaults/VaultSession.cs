@@ -1,9 +1,9 @@
-using PasswordManager.Cryptography.Keys;
-using PasswordManager.Persistence;
-using PasswordManager.Persistence.SqlCipher;
-using PasswordManager.Persistence.VaultHeader;
+using Ganjineh.Cryptography.Keys;
+using Ganjineh.Persistence;
+using Ganjineh.Persistence.SqlCipher;
+using Ganjineh.Persistence.VaultHeader;
 
-namespace PasswordManager.Application.Vaults;
+namespace Ganjineh.Application.Vaults;
 
 /// <summary>Vault session states (Phase 2 contract §9).</summary>
 public enum VaultSessionState

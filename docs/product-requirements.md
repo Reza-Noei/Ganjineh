@@ -3,7 +3,7 @@
 Status: **Phase 0 — Proposed** | Owner: Architecture | Last updated: 2026-10-22
 
 > "Ganjineh" (گنجینه, *treasure vault*) is a working title; the code namespace remains
-> `PasswordManager.*` per the architecture contract. Rename is a cosmetic, low-risk change.
+> `Ganjineh.*` per the architecture contract. Rename is a cosmetic, low-risk change.
 
 ## 1. Vision
 

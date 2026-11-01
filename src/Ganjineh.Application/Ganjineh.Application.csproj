@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <InternalsVisibleTo Include="PasswordManager.Application.Tests" />
-    <InternalsVisibleTo Include="PasswordManager.IntegrationTests" />
-    <InternalsVisibleTo Include="PasswordManager.SecurityTests" />
+    <InternalsVisibleTo Include="Ganjineh.Application.Tests" />
+    <InternalsVisibleTo Include="Ganjineh.IntegrationTests" />
+    <InternalsVisibleTo Include="Ganjineh.SecurityTests" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PasswordManager.Domain\PasswordManager.Domain.csproj" />
-    <ProjectReference Include="..\PasswordManager.Cryptography\PasswordManager.Cryptography.csproj" />
-    <ProjectReference Include="..\PasswordManager.Persistence\PasswordManager.Persistence.csproj" />
+    <ProjectReference Include="..\Ganjineh.Domain\Ganjineh.Domain.csproj" />
+    <ProjectReference Include="..\Ganjineh.Cryptography\Ganjineh.Cryptography.csproj" />
+    <ProjectReference Include="..\Ganjineh.Persistence\Ganjineh.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>

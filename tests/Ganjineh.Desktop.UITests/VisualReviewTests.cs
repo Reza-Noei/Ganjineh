@@ -10,7 +10,7 @@ using FlaUI.Core.Tools;
 using FlaUI.UIA3;
 using Xunit;
 
-namespace PasswordManager.Desktop.UITests;
+namespace Ganjineh.Desktop.UITests;
 
 /// <summary>
 /// Visual review harness (UI redesign 2026-10-23): drives the real app through every major
@@ -26,7 +26,7 @@ public class VisualReviewTests
     [Fact]
     public void Capture_All_Screens()
     {
-        var exePath = Path.Combine(AppContext.BaseDirectory, "PasswordManager.Desktop.exe");
+        var exePath = Path.Combine(AppContext.BaseDirectory, "Ganjineh.exe");
         Assert.True(File.Exists(exePath), $"Desktop output not found: {exePath}");
 
         var outputDir = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "..", "artifacts", "ui-review"));

@@ -1,8 +1,8 @@
 using System.Text;
-using PasswordManager.Cryptography.Kdf;
+using Ganjineh.Cryptography.Kdf;
 using Xunit;
 
-namespace PasswordManager.Cryptography.Tests;
+namespace Ganjineh.Cryptography.Tests;
 
 /// <summary>HKDF-SHA-256 known-answer vectors from RFC 5869 Appendix A.</summary>
 public class HkdfKnownAnswerTests

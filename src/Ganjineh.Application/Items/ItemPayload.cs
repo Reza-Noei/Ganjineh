@@ -1,10 +1,10 @@
 using System.Globalization;
 using System.Text;
 using System.Text.Json;
-using PasswordManager.Application.Credentials;
-using PasswordManager.Persistence.Items;
+using Ganjineh.Application.Credentials;
+using Ganjineh.Persistence.Items;
 
-namespace PasswordManager.Application.Items;
+namespace Ganjineh.Application.Items;
 
 /// <summary>Custom field types (custom-fields.md). Values are strings; semantics per type.</summary>
 public enum CustomFieldType : int

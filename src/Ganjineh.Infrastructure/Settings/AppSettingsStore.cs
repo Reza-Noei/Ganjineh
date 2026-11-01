@@ -1,8 +1,8 @@
 using System.IO;
 using System.Text.Json;
-using PasswordManager.Application.Abstractions;
+using Ganjineh.Application.Abstractions;
 
-namespace PasswordManager.Infrastructure.Settings;
+namespace Ganjineh.Infrastructure.Settings;
 
 /// <summary>
 /// JSON settings store. The file is tiny and non-sensitive, so persistence is synchronous with a

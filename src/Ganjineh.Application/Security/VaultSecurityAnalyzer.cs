@@ -1,11 +1,11 @@
 using System.Text;
 using System.Security.Cryptography;
-using PasswordManager.Application.Credentials;
-using PasswordManager.Application.Items;
-using PasswordManager.Application.Vaults;
-using PasswordManager.Persistence.Items;
+using Ganjineh.Application.Credentials;
+using Ganjineh.Application.Items;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Persistence.Items;
 
-namespace PasswordManager.Application.Security;
+namespace Ganjineh.Application.Security;
 
 public enum FindingSeverity
 {

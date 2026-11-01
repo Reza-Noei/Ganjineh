@@ -1,9 +1,9 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using PasswordManager.Desktop.Services;
-using PasswordManager.Persistence.Items;
+using Ganjineh.Desktop.Services;
+using Ganjineh.Persistence.Items;
 
-namespace PasswordManager.Desktop.ViewModels;
+namespace Ganjineh.Desktop.ViewModels;
 
 /// <summary>
 /// Redesign pass additions (2026-10-23 audit): live editor type switching, folder/tag nav

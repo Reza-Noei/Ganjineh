@@ -1,13 +1,13 @@
 using System.Security.Cryptography;
-using PasswordManager.Cryptography;
-using PasswordManager.Cryptography.Aead;
-using PasswordManager.Cryptography.Keys;
-using PasswordManager.Persistence;
-using PasswordManager.Persistence.Items;
-using PasswordManager.Persistence.Registry;
-using PasswordManager.Persistence.SqlCipher;
+using Ganjineh.Cryptography;
+using Ganjineh.Cryptography.Aead;
+using Ganjineh.Cryptography.Keys;
+using Ganjineh.Persistence;
+using Ganjineh.Persistence.Items;
+using Ganjineh.Persistence.Registry;
+using Ganjineh.Persistence.SqlCipher;
 
-namespace PasswordManager.Application.Vaults;
+namespace Ganjineh.Application.Vaults;
 
 /// <summary>
 /// Owns the single active unlocked vault session plus a monotonically increasing generation.

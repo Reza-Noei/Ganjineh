@@ -1,8 +1,8 @@
 using System.Security.Cryptography;
-using PasswordManager.Cryptography.Errors;
-using PasswordManager.Cryptography.Random;
+using Ganjineh.Cryptography.Errors;
+using Ganjineh.Cryptography.Random;
 
-namespace PasswordManager.Cryptography.Aead;
+namespace Ganjineh.Cryptography.Aead;
 
 /// <summary>
 /// Contract suggested by the Phase 2 spec: authenticated encryption with versioned envelope output.

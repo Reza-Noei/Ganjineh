@@ -2,11 +2,11 @@ using System.Text;
 using NSec.Cryptography;
 using Org.BouncyCastle.Crypto.Generators;
 using Org.BouncyCastle.Security;
-using PasswordManager.Cryptography.Kdf;
+using Ganjineh.Cryptography.Kdf;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace PasswordManager.Cryptography.Tests;
+namespace Ganjineh.Cryptography.Tests;
 
 /// <summary>
 /// Argon2id verification without a memorized third-party vector:

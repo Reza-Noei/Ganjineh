@@ -1,9 +1,9 @@
-using PasswordManager.Cryptography.Errors;
-using PasswordManager.Cryptography.KeyWrapping;
-using PasswordManager.Cryptography.Secrets;
+using Ganjineh.Cryptography.Errors;
+using Ganjineh.Cryptography.KeyWrapping;
+using Ganjineh.Cryptography.Secrets;
 using Xunit;
 
-namespace PasswordManager.Cryptography.Tests;
+namespace Ganjineh.Cryptography.Tests;
 
 public class KeyWrapTests
 {

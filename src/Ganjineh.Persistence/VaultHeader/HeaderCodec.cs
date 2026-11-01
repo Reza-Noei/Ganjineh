@@ -1,12 +1,12 @@
 ﻿using System.Buffers.Binary;
 using System.Security.Cryptography;
 using System.Text;
-using PasswordManager.Cryptography;
-using PasswordManager.Cryptography.Errors;
-using PasswordManager.Cryptography.Kdf;
-using PasswordManager.Cryptography.KeyWrapping;
+using Ganjineh.Cryptography;
+using Ganjineh.Cryptography.Errors;
+using Ganjineh.Cryptography.Kdf;
+using Ganjineh.Cryptography.KeyWrapping;
 
-namespace PasswordManager.Persistence.VaultHeader;
+namespace Ganjineh.Persistence.VaultHeader;
 
 /// <summary>
 /// Parsed view of the 512-byte bootstrap header (vault-file-format.md Â§2, FORMAT_VERSION 1).

@@ -2,12 +2,12 @@ using System.Buffers.Binary;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
-using PasswordManager.Cryptography;
-using PasswordManager.Cryptography.Aead;
-using PasswordManager.Cryptography.Errors;
-using PasswordManager.Cryptography.Generation;
+using Ganjineh.Cryptography;
+using Ganjineh.Cryptography.Aead;
+using Ganjineh.Cryptography.Errors;
+using Ganjineh.Cryptography.Generation;
 
-namespace PasswordManager.Application.Backup;
+namespace Ganjineh.Application.Backup;
 
 /// <summary>
 /// `.gvbak` v1 wire format (database-design.md §7, extended for Phase 4 attachments):

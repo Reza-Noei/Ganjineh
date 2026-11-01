@@ -1,10 +1,10 @@
 using System.Globalization;
-using PasswordManager.Cryptography.Aead;
-using PasswordManager.Cryptography.Keys;
-using PasswordManager.Persistence.Items;
-using PasswordManager.Application.Vaults;
+using Ganjineh.Cryptography.Aead;
+using Ganjineh.Cryptography.Keys;
+using Ganjineh.Persistence.Items;
+using Ganjineh.Application.Vaults;
 
-namespace PasswordManager.Application.Credentials;
+namespace Ganjineh.Application.Credentials;
 
 /// <summary>
 /// Login-credential use cases bound to an active vault session. Keys never leave the Application
@@ -56,7 +56,7 @@ public sealed class CredentialService : ICredentialService
         foreach (var row in repository.ListRows((int)ItemType.Login))
         {
             var envelope = repository.GetCurrentPayload(row.Id)
-                ?? throw new PasswordManager.Persistence.DatabaseCorruptionException("Credential payload missing.");
+                ?? throw new Ganjineh.Persistence.DatabaseCorruptionException("Credential payload missing.");
             var (title, username, website) = _encryption.DecryptListingFields(
                 session.Keyring, session.Header.VaultId, row.Id, envelope);
             summaries.Add(new CredentialSummary(
@@ -74,7 +74,7 @@ public sealed class CredentialService : ICredentialService
         var repository = new ItemRepository(session.Database);
         var row = repository.GetRow(id) ?? throw new KeyNotFoundException("Credential not found.");
         var envelope = repository.GetCurrentPayload(id)
-            ?? throw new PasswordManager.Persistence.DatabaseCorruptionException("Credential payload missing.");
+            ?? throw new Ganjineh.Persistence.DatabaseCorruptionException("Credential payload missing.");
         var detail = _encryption.DecryptPayload(
             session.Keyring, session.Header.VaultId, id, envelope, row.Favorite,
             DateTimeOffset.FromUnixTimeSeconds(row.CreatedAt),
@@ -116,7 +116,7 @@ public sealed class CredentialService : ICredentialService
         foreach (var row in repository.ListRows((int)ItemType.Login))
         {
             var envelope = repository.GetCurrentPayload(row.Id)
-                ?? throw new PasswordManager.Persistence.DatabaseCorruptionException("Credential payload missing.");
+                ?? throw new Ganjineh.Persistence.DatabaseCorruptionException("Credential payload missing.");
             entries.Add(new CredentialSearchEntry(
                 row.Id,
                 _encryption.DecryptSearchText(session.Keyring, session.Header.VaultId, row.Id, envelope)));

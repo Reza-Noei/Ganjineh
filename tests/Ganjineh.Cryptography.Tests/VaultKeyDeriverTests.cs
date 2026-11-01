@@ -1,10 +1,10 @@
-using PasswordManager.Cryptography.Kdf;
-using PasswordManager.Cryptography.Keys;
-using PasswordManager.Cryptography.Random;
-using PasswordManager.Cryptography.Secrets;
+using Ganjineh.Cryptography.Kdf;
+using Ganjineh.Cryptography.Keys;
+using Ganjineh.Cryptography.Random;
+using Ganjineh.Cryptography.Secrets;
 using Xunit;
 
-namespace PasswordManager.Cryptography.Tests;
+namespace Ganjineh.Cryptography.Tests;
 
 public class VaultKeyDeriverTests
 {

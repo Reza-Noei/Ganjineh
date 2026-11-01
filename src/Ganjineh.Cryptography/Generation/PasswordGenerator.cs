@@ -1,7 +1,7 @@
 using System.Numerics;
 using System.Security.Cryptography;
 
-namespace PasswordManager.Cryptography.Generation;
+namespace Ganjineh.Cryptography.Generation;
 
 /// <summary>Generator presets (Phase 5 contract §3.2).</summary>
 public enum PasswordPreset

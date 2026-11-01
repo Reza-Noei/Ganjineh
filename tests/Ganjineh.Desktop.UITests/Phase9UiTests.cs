@@ -6,7 +6,7 @@ using FlaUI.Core.Tools;
 using FlaUI.UIA3;
 using Xunit;
 
-namespace PasswordManager.Desktop.UITests;
+namespace Ganjineh.Desktop.UITests;
 
 /// <summary>
 /// Phase 9 shell E2E (FlaUI/UIA3): Settings → Import &amp; Export → the shared wizard with each
@@ -24,7 +24,7 @@ public class Phase9UiTests
     [Fact]
     public void Settings_ImportExport_Both_Wizards_Step_Navigate_And_Browse()
     {
-        var exePath = Path.Combine(AppContext.BaseDirectory, "PasswordManager.Desktop.exe");
+        var exePath = Path.Combine(AppContext.BaseDirectory, "Ganjineh.exe");
         Assert.True(File.Exists(exePath), $"Desktop output not found: {exePath}");
 
         var settingsPath = Path.Combine(

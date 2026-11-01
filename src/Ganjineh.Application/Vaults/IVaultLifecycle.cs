@@ -1,6 +1,6 @@
-using PasswordManager.Cryptography.Secrets;
+using Ganjineh.Cryptography.Secrets;
 
-namespace PasswordManager.Application.Vaults;
+namespace Ganjineh.Application.Vaults;
 
 /// <summary>Request to create a new vault (Phase 2 engine API; UI wiring arrives in Phase 3).</summary>
 public sealed record CreateVaultRequest

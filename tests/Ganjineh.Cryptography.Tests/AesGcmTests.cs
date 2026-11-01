@@ -1,9 +1,9 @@
-using PasswordManager.Cryptography.Aead;
-using PasswordManager.Cryptography.Errors;
-using PasswordManager.Cryptography.Random;
+using Ganjineh.Cryptography.Aead;
+using Ganjineh.Cryptography.Errors;
+using Ganjineh.Cryptography.Random;
 using Xunit;
 
-namespace PasswordManager.Cryptography.Tests;
+namespace Ganjineh.Cryptography.Tests;
 
 /// <summary>AES-256-GCM known-answer vectors (McGrew/Viega test cases 14, 15, 18 — widely mirrored).</summary>
 public class AesGcmKnownAnswerTests

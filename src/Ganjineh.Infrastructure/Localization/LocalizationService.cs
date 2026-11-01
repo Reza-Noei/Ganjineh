@@ -1,9 +1,9 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Resources;
-using PasswordManager.Application.Abstractions;
+using Ganjineh.Application.Abstractions;
 
-namespace PasswordManager.Infrastructure.Localization;
+namespace Ganjineh.Infrastructure.Localization;
 
 /// <summary>
 /// resx-backed localizer. The neutral (invariant) resource file holds Persian; Strings.en.resx is
@@ -13,7 +13,7 @@ namespace PasswordManager.Infrastructure.Localization;
 public sealed class LocalizationService : ILocalizer
 {
     private static readonly ResourceManager Strings =
-        new("PasswordManager.Infrastructure.Localization.Strings", typeof(LocalizationService).Assembly);
+        new("Ganjineh.Infrastructure.Localization.Strings", typeof(LocalizationService).Assembly);
 
     private CultureInfo _culture = new("fa");
 

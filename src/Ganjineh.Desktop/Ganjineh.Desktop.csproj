@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\PasswordManager.Domain\PasswordManager.Domain.csproj" />
-    <ProjectReference Include="..\PasswordManager.Application\PasswordManager.Application.csproj" />
-    <ProjectReference Include="..\PasswordManager.Persistence\PasswordManager.Persistence.csproj" />
-    <ProjectReference Include="..\PasswordManager.Infrastructure\PasswordManager.Infrastructure.csproj" />
-    <ProjectReference Include="..\PasswordManager.Cryptography\PasswordManager.Cryptography.csproj" />
+    <ProjectReference Include="..\Ganjineh.Domain\Ganjineh.Domain.csproj" />
+    <ProjectReference Include="..\Ganjineh.Application\Ganjineh.Application.csproj" />
+    <ProjectReference Include="..\Ganjineh.Persistence\Ganjineh.Persistence.csproj" />
+    <ProjectReference Include="..\Ganjineh.Infrastructure\Ganjineh.Infrastructure.csproj" />
+    <ProjectReference Include="..\Ganjineh.Cryptography\Ganjineh.Cryptography.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +20,12 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <!-- Product exe name (installer + shortcuts expect Ganjineh.exe, not Ganjineh.Desktop.exe). -->
+    <AssemblyName>Ganjineh</AssemblyName>
+    <AssemblyTitle>Ganjineh</AssemblyTitle>
+    <Product>Ganjineh</Product>
+    <!-- Shell + taskbar/window icon. -->
+    <ApplicationIcon>Assets\Icons\Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
     <ItemGroup>
@@ -27,6 +33,9 @@
       <Resource Include="Assets\Fonts\Vazirmatn-Regular.ttf" />
       <Resource Include="Assets\Fonts\Vazirmatn-Medium.ttf" />
       <Resource Include="Assets\Fonts\Vazirmatn-SemiBold.ttf" />
+      <!-- Brand: exe/window icon and product logo. -->
+      <Resource Include="Assets\Icons\Icon.ico" />
+      <Resource Include="Assets\Images\Logo.png" />
     </ItemGroup>
 </Project>
 

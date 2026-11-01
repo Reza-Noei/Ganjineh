@@ -1,8 +1,8 @@
 using System.Runtime.InteropServices;
 using System.Windows;
-using PasswordManager.Application.Abstractions;
+using Ganjineh.Application.Abstractions;
 
-namespace PasswordManager.Desktop.Services;
+namespace Ganjineh.Desktop.Services;
 
 /// <summary>
 /// Clipboard copy with ownership-safe expiration: the delayed clear fires only if the clipboard

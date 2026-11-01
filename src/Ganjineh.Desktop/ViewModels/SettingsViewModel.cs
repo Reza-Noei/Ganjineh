@@ -1,9 +1,9 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using PasswordManager.Application.Abstractions;
-using PasswordManager.Desktop.Services;
+using Ganjineh.Application.Abstractions;
+using Ganjineh.Desktop.Services;
 
-namespace PasswordManager.Desktop.ViewModels;
+namespace Ganjineh.Desktop.ViewModels;
 
 /// <summary>
 /// Settings overlay: language (fa/en), theme (Light/Dark), clipboard lifetime, auto-lock delay.

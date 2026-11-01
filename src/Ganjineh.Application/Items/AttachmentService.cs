@@ -1,15 +1,15 @@
 using System.Security.Cryptography;
-using PasswordManager.Persistence;
-using PasswordManager.Application.Credentials;
-using PasswordManager.Application.Vaults;
-using PasswordManager.Persistence.Items;
-using PasswordManager.Cryptography;
-using PasswordManager.Cryptography.Aead;
-using PasswordManager.Cryptography.Errors;
-using PasswordManager.Cryptography.Keys;
-using PasswordManager.Persistence.Organization;
+using Ganjineh.Persistence;
+using Ganjineh.Application.Credentials;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Persistence.Items;
+using Ganjineh.Cryptography;
+using Ganjineh.Cryptography.Aead;
+using Ganjineh.Cryptography.Errors;
+using Ganjineh.Cryptography.Keys;
+using Ganjineh.Persistence.Organization;
 
-namespace PasswordManager.Application.Items;
+namespace Ganjineh.Application.Items;
 
 /// <summary>Attachment metadata for listings (filename decrypted, content never here).</summary>
 public sealed record AttachmentInfo(Guid Id, Guid ItemId, string Filename, long SizeBytes, DateTimeOffset CreatedAt);

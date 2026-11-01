@@ -1,14 +1,14 @@
 using System.Security.Cryptography;
 using System.Text;
-using PasswordManager.Application.Credentials;
-using PasswordManager.Application.Vaults;
-using PasswordManager.Persistence.Items;
-using PasswordManager.Cryptography;
-using PasswordManager.Cryptography.Aead;
-using PasswordManager.Cryptography.Keys;
-using PasswordManager.Persistence.Organization;
+using Ganjineh.Application.Credentials;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Persistence.Items;
+using Ganjineh.Cryptography;
+using Ganjineh.Cryptography.Aead;
+using Ganjineh.Cryptography.Keys;
+using Ganjineh.Persistence.Organization;
 
-namespace PasswordManager.Application.Items;
+namespace Ganjineh.Application.Items;
 
 /// <summary>Hierarchical folder management (names encrypted; cycle-safe moves; transactional deletes).</summary>
 public interface IFolderService

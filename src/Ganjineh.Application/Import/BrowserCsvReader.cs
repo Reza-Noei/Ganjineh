@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Text;
 using Sylvan.Data.Csv;
 
-namespace PasswordManager.Application.Import;
+namespace Ganjineh.Application.Import;
 
 /// <summary>
 /// Bounded RFC 4180 row reader over an untrusted browser CSV file. The RFC 4180 mechanics come

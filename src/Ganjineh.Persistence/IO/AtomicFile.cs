@@ -1,4 +1,4 @@
-namespace PasswordManager.Persistence.IO;
+namespace Ganjineh.Persistence.IO;
 
 /// <summary>
 /// Fault-injection points used by crash-safety tests. Production code always passes None.

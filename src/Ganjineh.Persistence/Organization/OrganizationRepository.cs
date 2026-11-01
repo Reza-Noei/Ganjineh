@@ -1,6 +1,6 @@
 using System.Buffers.Binary;
 
-namespace PasswordManager.Persistence.Organization;
+namespace Ganjineh.Persistence.Organization;
 
 /// <summary>Encrypted folder row (name is an envelope; hierarchy is structural).</summary>
 public sealed record FolderRow(Guid Id, Guid? ParentId, byte[] NameCipher, int SortOrder, long CreatedAt);

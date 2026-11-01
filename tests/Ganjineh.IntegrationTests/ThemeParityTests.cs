@@ -1,7 +1,7 @@
 using System.Xml.Linq;
 using Xunit;
 
-namespace PasswordManager.IntegrationTests;
+namespace Ganjineh.IntegrationTests;
 
 /// <summary>Light/Dark must expose exactly the same resource keys or live theme swaps break.</summary>
 public class ThemeParityTests
@@ -16,7 +16,7 @@ public class ThemeParityTests
 
     private static HashSet<string> ResourceKeys(string themeFile)
     {
-        var doc = XDocument.Load(Path.Combine(RepoRoot, "src", "PasswordManager.Desktop", "Themes", themeFile));
+        var doc = XDocument.Load(Path.Combine(RepoRoot, "src", "Ganjineh.Desktop", "Themes", themeFile));
         var xKey = XName.Get("Key", "http://schemas.microsoft.com/winfx/2006/xaml");
         return doc.Descendants()
             .Where(e => e.Attribute(xKey) is not null)

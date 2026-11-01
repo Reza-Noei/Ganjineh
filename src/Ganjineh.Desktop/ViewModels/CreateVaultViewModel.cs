@@ -3,11 +3,11 @@ using System.Globalization;
 using System.Security.Cryptography;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using PasswordManager.Application.Abstractions;
-using PasswordManager.Application.Vaults;
-using PasswordManager.Cryptography.Recovery;
+using Ganjineh.Application.Abstractions;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Cryptography.Recovery;
 
-namespace PasswordManager.Desktop.ViewModels;
+namespace Ganjineh.Desktop.ViewModels;
 
 /// <summary>Guided vault creation: name → location → password → recovery confirmation.</summary>
 public partial class CreateVaultViewModel : ObservableObject

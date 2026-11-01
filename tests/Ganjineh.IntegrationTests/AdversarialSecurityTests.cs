@@ -1,23 +1,23 @@
 using System.Text;
-using PasswordManager.Application.Backup;
-using PasswordManager.Application.Items;
-using PasswordManager.Application.Security;
-using PasswordManager.Application.Vaults;
-using PasswordManager.Cryptography.Aead;
-using PasswordManager.Cryptography.Errors;
-using PasswordManager.Cryptography.Generation;
-using PasswordManager.Cryptography.Kdf;
-using PasswordManager.Cryptography.Otp;
-using PasswordManager.Cryptography.Random;
-using PasswordManager.Cryptography.Secrets;
-using PasswordManager.Persistence;
-using PasswordManager.Persistence.Items;
-using PasswordManager.Persistence.Registry;
-using PasswordManager.Persistence.VaultHeader;
+using Ganjineh.Application.Backup;
+using Ganjineh.Application.Items;
+using Ganjineh.Application.Security;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Cryptography.Aead;
+using Ganjineh.Cryptography.Errors;
+using Ganjineh.Cryptography.Generation;
+using Ganjineh.Cryptography.Kdf;
+using Ganjineh.Cryptography.Otp;
+using Ganjineh.Cryptography.Random;
+using Ganjineh.Cryptography.Secrets;
+using Ganjineh.Persistence;
+using Ganjineh.Persistence.Items;
+using Ganjineh.Persistence.Registry;
+using Ganjineh.Persistence.VaultHeader;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace PasswordManager.IntegrationTests;
+namespace Ganjineh.IntegrationTests;
 
 /// <summary>
 /// Phase 8 adversarial tests: probe the actual attack surfaces documented in the threat model.

@@ -50,7 +50,7 @@ the feature — no separate UI phase at the end.
 ## Progress Log
 
 - **2026-10-22 — Phase 0** delivered and approved by the user.
-- **2026-10-22 — Phase 1 complete.** 13-project skeleton (`PasswordManager.slnx`) with the
+- **2026-10-22 — Phase 1 complete.** 13-project skeleton (`Ganjineh.slnx`) with the
   documented dependency rules; DI composition root in Desktop; three-column RTL shell
   (nav/list/details placeholders); fa-neutral + en-satellite localization with live language and
   FlowDirection switching; Light/Dark theme dictionaries with live swap; Vazirmatn vendored

@@ -20,14 +20,14 @@ browser extensions, no native messaging, no direct browser database access (ADR-
    `ItemEncryption`, envelope format). Generic CSV/Bitwarden import and plaintext export
    remain unimplemented and are now documented as a gap (see import-export.md).
 2. **`.gitignore` bug**: the `Backup*/` rule (line 266) silently ignores
-   `src/PasswordManager.Application/Backup/` — `VaultBackupService.cs` and `BackupFormat.cs`
+   `src/Ganjineh.Application/Backup/` — `VaultBackupService.cs` and `BackupFormat.cs`
    have never been committed despite shipping since Phase 6. Fix: add a negation rule
-   (`!src/PasswordManager.Application/Backup/**`) and commit the two files alongside this
+   (`!src/Ganjineh.Application/Backup/**`) and commit the two files alongside this
    phase.
 
 ### Architecture (files created/modified)
 
-**Application layer** (`src/PasswordManager.Application/Import/`):
+**Application layer** (`src/Ganjineh.Application/Import/`):
 - `BrowserImportModels.cs` — `ImportBrowser`, `ImportRowAction`, `ImportRecordStatus`,
   `ImportFileLimits` (10 MB / 50 000 records / field & record caps), password-free
   `ImportPreviewRow`, `ImportRowPlan`, secret-holding `BrowserImportSession : IDisposable`,
@@ -53,7 +53,7 @@ browser extensions, no native messaging, no direct browser database access (ADR-
   Provenance (`sourceBrowser`, `importedAt`, `sourceRecordId`, Firefox
   `sourceTimePasswordChanged` as PRTime µs → Unix s) inside the encrypted payload.
 
-**Desktop layer** (`src/PasswordManager.Desktop/`):
+**Desktop layer** (`src/Ganjineh.Desktop/`):
 - `ViewModels/BrowserImportViewModel.cs` — shared four-step wizard VM: browser preconfig,
   instructions → file → preview (filter via `SearchNormalizer`, select all/none, per-row
   conflict combo for duplicates defaulting to Skip) → progress/results (counts, failure lines,

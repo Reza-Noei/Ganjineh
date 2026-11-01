@@ -3,7 +3,7 @@ using NSec.Cryptography;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace PasswordManager.Cryptography.Tests;
+namespace Ganjineh.Cryptography.Tests;
 
 /// <summary>Q1 spike: verify NSec/libsodium Argon2id runs on this platform before building on it.</summary>
 public class Argon2idSpikeTests

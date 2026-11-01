@@ -20,9 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\PasswordManager.Application\PasswordManager.Application.csproj" />
-    <ProjectReference Include="..\..\src\PasswordManager.Cryptography\PasswordManager.Cryptography.csproj" />
-    <ProjectReference Include="..\..\src\PasswordManager.Persistence\PasswordManager.Persistence.csproj" />
+    <ProjectReference Include="..\..\src\Ganjineh.Application\Ganjineh.Application.csproj" />
+    <ProjectReference Include="..\..\src\Ganjineh.Cryptography\Ganjineh.Cryptography.csproj" />
+    <ProjectReference Include="..\..\src\Ganjineh.Persistence\Ganjineh.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

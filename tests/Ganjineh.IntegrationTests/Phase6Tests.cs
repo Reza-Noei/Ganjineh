@@ -1,14 +1,14 @@
 using System.Text;
-using PasswordManager.Application.Backup;
-using PasswordManager.Application.Credentials;
-using PasswordManager.Application.Items;
-using PasswordManager.Application.Security;
-using PasswordManager.Application.Vaults;
-using PasswordManager.Persistence.Items;
-using PasswordManager.Persistence.Registry;
+using Ganjineh.Application.Backup;
+using Ganjineh.Application.Credentials;
+using Ganjineh.Application.Items;
+using Ganjineh.Application.Security;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Persistence.Items;
+using Ganjineh.Persistence.Registry;
 using Xunit;
 
-namespace PasswordManager.IntegrationTests;
+namespace Ganjineh.IntegrationTests;
 
 /// <summary>Phase 6: backup/verify/restore/import/export end-to-end on real files.</summary>
 public sealed class Phase6Tests : IDisposable

@@ -1,10 +1,10 @@
 using System.Security.Cryptography;
 using System.Text;
-using PasswordManager.Application.Credentials;
-using PasswordManager.Application.Vaults;
-using PasswordManager.Persistence.Organization;
+using Ganjineh.Application.Credentials;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Persistence.Organization;
 
-namespace PasswordManager.Application.Items;
+namespace Ganjineh.Application.Items;
 
 /// <summary>Tag management (encrypted names; duplicate prevention by normalized comparison).</summary>
 public interface ITagService

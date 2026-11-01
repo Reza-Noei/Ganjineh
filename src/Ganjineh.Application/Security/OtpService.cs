@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
-using PasswordManager.Cryptography.Otp;
+using Ganjineh.Cryptography.Otp;
 
-namespace PasswordManager.Application.Security;
+namespace Ganjineh.Application.Security;
 
 /// <summary>Parsed otpauth:// URI (RFC-aligned subset).</summary>
 public sealed record OtpauthUri(

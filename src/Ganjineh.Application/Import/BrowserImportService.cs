@@ -1,12 +1,12 @@
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text.Json;
-using PasswordManager.Application.Credentials;
-using PasswordManager.Application.Items;
-using PasswordManager.Application.Vaults;
-using PasswordManager.Persistence.Items;
+using Ganjineh.Application.Credentials;
+using Ganjineh.Application.Items;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Persistence.Items;
 
-namespace PasswordManager.Application.Import;
+namespace Ganjineh.Application.Import;
 
 /// <summary>
 /// Browser-CSV import: parse → validate → duplicate-match against the active vault → write

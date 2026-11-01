@@ -1,8 +1,8 @@
 using System.Text;
-using PasswordManager.Application.Import;
+using Ganjineh.Application.Import;
 using Xunit;
 
-namespace PasswordManager.Application.Tests;
+namespace Ganjineh.Application.Tests;
 
 /// <summary>
 /// Unit coverage for the browser CSV import pipeline (Phase 9 §14): schema matching, header

@@ -1,6 +1,6 @@
 # Phase 4 Test Results
 
-Date: 2026-10-22 | Suite: `dotnet test PasswordManager.slnx` — **137/137 green**, zero warnings.
+Date: 2026-10-22 | Suite: `dotnet test Ganjineh.slnx` — **137/137 green**, zero warnings.
 
 ## New coverage (Phase 4)
 

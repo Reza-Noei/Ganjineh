@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace PasswordManager.Application.Abstractions;
+namespace Ganjineh.Application.Abstractions;
 
 /// <summary>Clock abstraction so time-dependent services stay testable.</summary>
 public interface IClock

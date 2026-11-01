@@ -1,7 +1,7 @@
 using System.Runtime.Versioning;
 using System.Threading;
 
-namespace PasswordManager.Application.Abstractions;
+namespace Ganjineh.Application.Abstractions;
 
 /// <summary>
 /// Single-instance enforcement via a named Mutex (Phase 7 §10). Windows-only APIs; the

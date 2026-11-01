@@ -1,28 +1,28 @@
 using System.Buffers.Binary;
 using System.Security.Cryptography;
 using System.Text;
-using PasswordManager.Application.Credentials;
-using PasswordManager.Application.Items;
-using PasswordManager.Application.Security;
-using PasswordManager.Application.Vaults;
-using PasswordManager.Cryptography;
-using PasswordManager.Cryptography.Aead;
-using PasswordManager.Cryptography.Errors;
-using PasswordManager.Cryptography.Generation;
-using PasswordManager.Cryptography.Kdf;
-using PasswordManager.Cryptography.KeyWrapping;
-using PasswordManager.Cryptography.Keys;
-using PasswordManager.Cryptography.Recovery;
-using PasswordManager.Cryptography.Otp;
-using PasswordManager.Persistence;
-using PasswordManager.Persistence.Items;
-using PasswordManager.Persistence.Migrations;
-using PasswordManager.Persistence.Organization;
-using PasswordManager.Persistence.Registry;
-using PasswordManager.Persistence.SqlCipher;
-using PasswordManager.Persistence.VaultHeader;
+using Ganjineh.Application.Credentials;
+using Ganjineh.Application.Items;
+using Ganjineh.Application.Security;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Cryptography;
+using Ganjineh.Cryptography.Aead;
+using Ganjineh.Cryptography.Errors;
+using Ganjineh.Cryptography.Generation;
+using Ganjineh.Cryptography.Kdf;
+using Ganjineh.Cryptography.KeyWrapping;
+using Ganjineh.Cryptography.Keys;
+using Ganjineh.Cryptography.Recovery;
+using Ganjineh.Cryptography.Otp;
+using Ganjineh.Persistence;
+using Ganjineh.Persistence.Items;
+using Ganjineh.Persistence.Migrations;
+using Ganjineh.Persistence.Organization;
+using Ganjineh.Persistence.Registry;
+using Ganjineh.Persistence.SqlCipher;
+using Ganjineh.Persistence.VaultHeader;
 
-namespace PasswordManager.Application.Backup;
+namespace Ganjineh.Application.Backup;
 
 public sealed record BackupRequest
 {

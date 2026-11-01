@@ -1,10 +1,10 @@
 using System.Text;
-using PasswordManager.Application.Vaults;
-using PasswordManager.Cryptography.Errors;
-using PasswordManager.Persistence.Registry;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Cryptography.Errors;
+using Ganjineh.Persistence.Registry;
 using Xunit;
 
-namespace PasswordManager.IntegrationTests;
+namespace Ganjineh.IntegrationTests;
 
 /// <summary>
 /// Full lifecycle on real files: create, lock, both unlock paths, master-password change,
@@ -112,7 +112,7 @@ public sealed class VaultLifecycleTests : IDisposable
     {
         // A structurally valid PMRK1 string with a different random secret (checksum correct).
         var secret = Enumerable.Range(3, 32).Select(i => (byte)i).ToArray();
-        return PasswordManager.Cryptography.Recovery.RecoveryKeyCodec.Encode(secret);
+        return Ganjineh.Cryptography.Recovery.RecoveryKeyCodec.Encode(secret);
     }
 
     [Fact]

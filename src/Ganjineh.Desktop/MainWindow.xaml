@@ -1,14 +1,15 @@
-<Window x:Class="PasswordManager.Desktop.MainWindow"
+<Window x:Class="Ganjineh.Desktop.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:loc="clr-namespace:PasswordManager.Desktop.Localization"
+        xmlns:loc="clr-namespace:Ganjineh.Desktop.Localization"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:vm="clr-namespace:PasswordManager.Desktop.ViewModels"
+        xmlns:vm="clr-namespace:Ganjineh.Desktop.ViewModels"
         Title="{loc:Loc App.Title}"
         Width="1240" Height="800" MinWidth="1000" MinHeight="680"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource Bg.Base}"
         FontFamily="{StaticResource App.FontFamily}"
+        Icon="pack://application:,,,/Ganjineh;component/Assets/Icons/Icon.ico"
         AutomationProperties.AutomationId="MainWindow"
         FlowDirection="{Binding ShellFlowDirection}">
 
@@ -33,14 +34,11 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <!-- Brand hero -->
+                <!-- Brand hero: the product logo (treasure chest) -->
                 <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,6">
-                    <Border Width="56" Height="56" CornerRadius="16"
-                            Background="{DynamicResource Accent.Soft}" HorizontalAlignment="Center">
-                        <materialDesign:PackIcon Kind="ShieldKey" Width="28" Height="28"
-                                                 Foreground="{DynamicResource Accent}"
-                                                 HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Border>
+                    <Image Width="72" Height="72" HorizontalAlignment="Center"
+                           Source="pack://application:,,,/Ganjineh;component/Assets/Images/Logo.png"
+                           RenderOptions.BitmapScalingMode="HighQuality" />
                     <TextBlock Text="{loc:Loc Picker.Title}" Style="{StaticResource TitleText}"
                                HorizontalAlignment="Center" Margin="0,14,0,0" />
                     <TextBlock Text="{loc:Loc Picker.Subtitle}" Style="{StaticResource SecondaryText}"
@@ -369,10 +367,9 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <Border Width="32" Height="32" CornerRadius="9" Background="{DynamicResource Accent}">
-                                <TextBlock Text="{loc:Loc App.Brand}" Foreground="#FFFFFF" FontWeight="SemiBold" FontSize="17"
-                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Border>
+                            <Image Width="28" Height="28" VerticalAlignment="Center"
+                                   Source="pack://application:,,,/Ganjineh;component/Assets/Images/Logo.png"
+                                   RenderOptions.BitmapScalingMode="HighQuality" />
                             <TextBlock Text="{loc:Loc App.Brand}" FontSize="15" FontWeight="SemiBold"
                                        Foreground="{DynamicResource Text.Primary}" Margin="10,0,0,0"
                                        VerticalAlignment="Center" />

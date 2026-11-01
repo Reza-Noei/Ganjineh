@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 
-namespace PasswordManager.Cryptography.Otp;
+namespace Ganjineh.Cryptography.Otp;
 
 /// <summary>OTP algorithms (RFC 4226 §5.3 / RFC 6238).</summary>
 public enum OtpAlgorithm

@@ -5,7 +5,7 @@ using FlaUI.Core.Tools;
 using FlaUI.UIA3;
 using Xunit;
 
-namespace PasswordManager.Desktop.UITests;
+namespace Ganjineh.Desktop.UITests;
 
 /// <summary>
 /// Phase 3 E2E ( FlaUI/UIA3): picker → create vault with recovery confirmation → add credential →
@@ -18,7 +18,7 @@ public class Phase3UiTests
     [Fact]
     public void Full_Flow_CreateVault_AddCredential_Search_Lock_Unlock()
     {
-        var exePath = Path.Combine(AppContext.BaseDirectory, "PasswordManager.Desktop.exe");
+        var exePath = Path.Combine(AppContext.BaseDirectory, "Ganjineh.exe");
         Assert.True(File.Exists(exePath), $"Desktop output not found: {exePath}");
 
         var settingsPath = Path.Combine(

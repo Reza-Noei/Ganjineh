@@ -1,8 +1,8 @@
-using PasswordManager.Cryptography.Errors;
-using PasswordManager.Cryptography.Recovery;
+using Ganjineh.Cryptography.Errors;
+using Ganjineh.Cryptography.Recovery;
 using Xunit;
 
-namespace PasswordManager.Cryptography.Tests;
+namespace Ganjineh.Cryptography.Tests;
 
 public class RecoveryKeyCodecTests
 {

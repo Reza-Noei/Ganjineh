@@ -1,8 +1,8 @@
 using System.Text;
 using NSec.Cryptography;
-using PasswordManager.Application.Security;
+using Ganjineh.Application.Security;
 
-namespace PasswordManager.IntegrationTests;
+namespace Ganjineh.IntegrationTests;
 
 /// <summary>
 /// Phase 7: offline update authenticity. Uses RFC 8032 (Ed25519) test vectors for known-answer

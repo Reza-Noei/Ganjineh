@@ -1,13 +1,13 @@
-using PasswordManager.Application.Abstractions;
-using PasswordManager.Application.Credentials;
-using PasswordManager.Application.Vaults;
-using PasswordManager.Infrastructure.Settings;
-using PasswordManager.Persistence;
-using PasswordManager.Persistence.IO;
-using PasswordManager.Persistence.Registry;
+using Ganjineh.Application.Abstractions;
+using Ganjineh.Application.Credentials;
+using Ganjineh.Application.Vaults;
+using Ganjineh.Infrastructure.Settings;
+using Ganjineh.Persistence;
+using Ganjineh.Persistence.IO;
+using Ganjineh.Persistence.Registry;
 using Xunit;
 
-namespace PasswordManager.IntegrationTests;
+namespace Ganjineh.IntegrationTests;
 
 /// <summary>Phase 3 service-level coverage: catalog, credentials CRUD, search, session safety.</summary>
 public sealed class Phase3ServiceTests : IDisposable

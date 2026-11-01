@@ -1,4 +1,4 @@
-namespace PasswordManager.Domain;
+namespace Ganjineh.Domain;
 
 /// <summary>Result without a payload. Exceptions never cross the Application boundary.</summary>
 public sealed class Result

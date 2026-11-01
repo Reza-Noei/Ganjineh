@@ -1,6 +1,6 @@
-using PasswordManager.Application.Abstractions;
+using Ganjineh.Application.Abstractions;
 
-namespace PasswordManager.Infrastructure.Paths;
+namespace Ganjineh.Infrastructure.Paths;
 
 /// <summary>
 /// Resolves the application data root per ADR-006: portable mode when a Data directory exists

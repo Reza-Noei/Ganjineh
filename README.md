@@ -15,13 +15,13 @@ Requires the .NET 10 SDK.
 ```powershell
 dotnet build
 dotnet test          # unit + integration tests
-dotnet test tests/PasswordManager.Desktop.UITests   # FlaUI UI smoke (launches the app briefly)
+dotnet test tests/Ganjineh.Desktop.UITests   # FlaUI UI smoke (launches the app briefly)
 ```
 
 Run the app:
 
 ```powershell
-dotnet run --project src/PasswordManager.Desktop
+dotnet run --project src/Ganjineh.Desktop
 ```
 
 ## Layout

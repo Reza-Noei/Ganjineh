@@ -1,7 +1,7 @@
-using PasswordManager.Application.Abstractions;
+using Ganjineh.Application.Abstractions;
 using Xunit;
 
-namespace PasswordManager.Application.Tests;
+namespace Ganjineh.Application.Tests;
 
 public class AppSettingsTests
 {

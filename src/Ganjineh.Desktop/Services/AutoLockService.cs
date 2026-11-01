@@ -1,10 +1,10 @@
 using System.Windows;
 using System.Windows.Threading;
 using Microsoft.Win32;
-using PasswordManager.Application.Abstractions;
-using PasswordManager.Application.Vaults;
+using Ganjineh.Application.Abstractions;
+using Ganjineh.Application.Vaults;
 
-namespace PasswordManager.Desktop.Services;
+namespace Ganjineh.Desktop.Services;
 
 /// <summary>
 /// Auto-lock: configurable idle timeout plus immediate lock on Windows session lock. Raises

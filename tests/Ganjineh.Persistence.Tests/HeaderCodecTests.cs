@@ -1,12 +1,12 @@
-using PasswordManager.Cryptography;
-using PasswordManager.Cryptography.Kdf;
-using PasswordManager.Cryptography.KeyWrapping;
-using PasswordManager.Cryptography.Random;
-using PasswordManager.Cryptography.Secrets;
-using PasswordManager.Persistence.VaultHeader;
+using Ganjineh.Cryptography;
+using Ganjineh.Cryptography.Kdf;
+using Ganjineh.Cryptography.KeyWrapping;
+using Ganjineh.Cryptography.Random;
+using Ganjineh.Cryptography.Secrets;
+using Ganjineh.Persistence.VaultHeader;
 using Xunit;
 
-namespace PasswordManager.Persistence.Tests;
+namespace Ganjineh.Persistence.Tests;
 
 public class HeaderCodecTests
 {
@@ -72,7 +72,7 @@ public class HeaderCodecTests
         HeaderCodec.VerifyHeaderMac(macKey, bytes);
 
         bytes[0x020] ^= 0x01; // tamper inside the authenticated span must break the MAC
-        Assert.Throws<PasswordManager.Cryptography.Errors.CryptoAuthenticationException>(
+        Assert.Throws<Ganjineh.Cryptography.Errors.CryptoAuthenticationException>(
             () => HeaderCodec.VerifyHeaderMac(macKey, bytes));
     }
 }

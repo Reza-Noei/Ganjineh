@@ -1,7 +1,7 @@
 using MaterialDesignThemes.Wpf;
-using PasswordManager.Persistence.Items;
+using Ganjineh.Persistence.Items;
 
-namespace PasswordManager.Desktop.Services;
+namespace Ganjineh.Desktop.Services;
 
 /// <summary>
 /// Visual identity per item kind: the same Material icon is used in the nav categories, the item

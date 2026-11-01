@@ -1,6 +1,6 @@
 using Zxcvbn;
 
-namespace PasswordManager.Application.Security;
+namespace Ganjineh.Application.Security;
 
 /// <summary>Strength score bands (0–4, zxcvbn scale) with Persian-facing labels.</summary>
 public enum StrengthScore

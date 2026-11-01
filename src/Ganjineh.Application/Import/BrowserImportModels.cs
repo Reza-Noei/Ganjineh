@@ -1,4 +1,4 @@
-namespace PasswordManager.Application.Import;
+namespace Ganjineh.Application.Import;
 
 /// <summary>Browser CSV export sources supported by the wizard (Phase 9). CSV is only an import
 /// transport format — parsed rows are mapped onto the existing Login item model and sealed by
