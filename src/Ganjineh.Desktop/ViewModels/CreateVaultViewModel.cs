@@ -40,9 +40,12 @@ public partial class CreateVaultViewModel : ObservableObject
     [ObservableProperty] private string _challengeInput = string.Empty;
     [ObservableProperty] private string? _challengeError;
 
-    /// <summary>Localized challenge prompt with the group number (invariant digits for testability).</summary>
+    /// <summary>Localized challenge prompt (invariant digits for testability). The displayed
+    /// number counts every dash-separated token of the key from 1 — including the PMRK1 prefix
+    /// token, which is how the grouped key naturally reads — so it is the verified payload
+    /// group plus one.</summary>
     public string ChallengePrompt => string.Format(
-        CultureInfo.InvariantCulture, _localizer["Create.RecoveryChallenge"], ChallengeGroup);
+        CultureInfo.InvariantCulture, _localizer["Create.RecoveryChallenge"], ChallengeGroup + 1);
 
     partial void OnChallengeGroupChanged(int value) => OnPropertyChanged(nameof(ChallengePrompt));
 
@@ -118,7 +121,9 @@ public partial class CreateVaultViewModel : ObservableObject
                 new CreateVaultRequest { Directory = Location, MasterPassword = _password! });
             _ = _lifecycle.RenameVaultAsync(_created.Session, VaultName.Trim());
 
-            // Show the recovery key and require a transcription challenge.
+            // Show the recovery key and require a transcription challenge. ChallengeGroup is the
+            // 1-based payload group (1..14 — the 15th token is the 3-char checksum tail); the
+            // prompt shows ChallengeGroup + 1 because users count the PMRK1 prefix as group 1.
             RecoveryKey = _created.RecoveryKeyEncoded;
             ChallengeGroup = RandomNumberGenerator.GetInt32(1, 15);
             RecoveryStage = true;

@@ -114,10 +114,11 @@ public class Phase3UiTests
         }
     }
 
-    private static string GroupFor(int oneBasedGroup, string recoveryKey)
+    // The prompt counts the PMRK1 prefix token as group 1, so payload group = prompt group - 1.
+    private static string GroupFor(int promptGroup, string recoveryKey)
     {
         var payload = recoveryKey["PMRK1-".Length..].Replace("-", string.Empty);
-        return payload.Substring((oneBasedGroup - 1) * 4, 4);
+        return payload.Substring((promptGroup - 2) * 4, 4);
     }
 
     private static void Click(Window window, string automationId) =>
