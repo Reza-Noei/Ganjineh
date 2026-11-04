@@ -219,6 +219,57 @@
         <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Collapsed" />
     </Style>
 
+    <!-- ── Hinted field: leading PackIcon inside the field surface ── -->
+    <!-- Same surface recipe as the workspace search box (white card + hairline). The icon lives
+         in an Auto Grid column so RTL mirroring is automatic — Grid columns mirror with
+         FlowDirection, physical margins never do. Symmetric margins everywhere. -->
+    <Style x:Key="FieldBox" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource Bg.Card}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Divider.Strong}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="10,1" />
+    </Style>
+
+    <!-- Leading icon inside FieldBox (single-line default; multiline rows set Top + top margin inline). -->
+    <Style x:Key="FieldIcon" TargetType="materialDesign:PackIcon">
+        <Setter Property="Width" Value="18" />
+        <Setter Property="Height" Value="18" />
+        <Setter Property="Foreground" Value="{DynamicResource Text.Secondary}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="2,0" />
+    </Style>
+
+    <!-- Borderless entry hosted by FieldBox (TargetType twins per control). -->
+    <Style x:Key="FieldEntry" TargetType="TextBox" BasedOn="{StaticResource SearchBoxStyle}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="4,7" />
+        <Setter Property="Margin" Value="8,0" />
+    </Style>
+
+    <Style x:Key="FieldEntryPassword" TargetType="PasswordBox" BasedOn="{StaticResource PasswordBoxStyle}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="4,7" />
+        <Setter Property="Margin" Value="8,0" />
+    </Style>
+
+    <!-- ── Mandatory / Optional badges (explicit text in both languages — never color-only) ── -->
+    <Style x:Key="FieldBadgeRequired" TargetType="TextBlock" BasedOn="{StaticResource SecondaryText}">
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="Foreground" Value="{DynamicResource Accent}" />
+        <Setter Property="Margin" Value="6,0" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="FieldBadgeOptional" TargetType="TextBlock" BasedOn="{StaticResource SecondaryText}">
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="Foreground" Value="{DynamicResource Text.Disabled}" />
+        <Setter Property="Margin" Value="6,0" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
     <!-- ── Surfaces ── -->
     <!-- Card surface: Ganjineh's Bg.Card token + hairline divider border. Bound to our own
          token rather than a Material brush key so the surface can never silently resolve null. -->

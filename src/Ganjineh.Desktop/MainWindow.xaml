@@ -188,21 +188,45 @@
                 <StackPanel Grid.Row="1" AutomationProperties.AutomationId="CreateDetails"
                             Visibility="{Binding RecoveryStage, Converter={StaticResource FalseToVisible}}">
                     <TextBlock Text="{loc:Loc Create.Title}" Style="{StaticResource TitleText}" Margin="0,0,0,20" />
-                    <TextBlock Text="{loc:Loc Create.NameLabel}" Style="{StaticResource BodyText}" />
-                    <TextBox Text="{Binding VaultName, UpdateSourceTrigger=PropertyChanged}"
-                             Style="{StaticResource SearchBoxStyle}" Margin="0,6,0,4"
-                             AutomationProperties.AutomationId="CreateName" MaxLength="100" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{loc:Loc Create.NameLabel}" Style="{StaticResource BodyText}" />
+                        <TextBlock Text="{loc:Loc Field.Required}" Style="{StaticResource FieldBadgeRequired}" />
+                    </StackPanel>
+                    <Border Style="{StaticResource FieldBox}" Margin="0,6,0,4">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:PackIcon Style="{StaticResource FieldIcon}" Kind="Safe" />
+                            <TextBox Grid.Column="1" Text="{Binding VaultName, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource FieldEntry}"
+                                     AutomationProperties.AutomationId="CreateName" MaxLength="100" />
+                        </Grid>
+                    </Border>
                     <TextBlock Text="{loc:Loc Create.NameHint}" Style="{StaticResource SecondaryText}" Margin="0,0,0,16" />
 
-                    <TextBlock Text="{loc:Loc Create.LocationLabel}" Style="{StaticResource BodyText}" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{loc:Loc Create.LocationLabel}" Style="{StaticResource BodyText}" />
+                        <TextBlock Text="{loc:Loc Field.Required}" Style="{StaticResource FieldBadgeRequired}" />
+                    </StackPanel>
                     <Grid Margin="0,6,0,16">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBox Text="{Binding Location, UpdateSourceTrigger=PropertyChanged}"
-                                 Style="{StaticResource SearchBoxStyle}" IsReadOnly="True"
-                                 AutomationProperties.AutomationId="CreateLocation" />
+                        <Border Style="{StaticResource FieldBox}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <materialDesign:PackIcon Style="{StaticResource FieldIcon}" Kind="FolderOutline" />
+                                <TextBox Grid.Column="1" Text="{Binding Location, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource FieldEntry}" IsReadOnly="True"
+                                         AutomationProperties.AutomationId="CreateLocation" />
+                            </Grid>
+                        </Border>
                         <Button Grid.Column="1" Content="{loc:Loc Create.Browse}" Style="{StaticResource IconButton}"
                                 Command="{Binding BrowseCommand}" Margin="8,0"
                                 AutomationProperties.AutomationId="CreateBrowse" VerticalAlignment="Center" />
@@ -210,12 +234,36 @@
 
                     <Border Style="{StaticResource SectionCard}">
                         <StackPanel>
-                            <TextBlock Text="{loc:Loc Create.PasswordLabel}" Style="{StaticResource BodyText}" />
-                            <PasswordBox x:Name="CreatePassword" Margin="0,6,0,12" Style="{StaticResource PasswordBoxStyle}"
-                                         AutomationProperties.AutomationId="CreatePassword" MaxLength="1000" />
-                            <TextBlock Text="{loc:Loc Create.ConfirmPasswordLabel}" Style="{StaticResource BodyText}" />
-                            <PasswordBox x:Name="CreatePasswordConfirm" Margin="0,6,0,4" Style="{StaticResource PasswordBoxStyle}"
-                                         AutomationProperties.AutomationId="CreatePasswordConfirm" MaxLength="1000" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{loc:Loc Create.PasswordLabel}" Style="{StaticResource BodyText}" />
+                                <TextBlock Text="{loc:Loc Field.Required}" Style="{StaticResource FieldBadgeRequired}" />
+                            </StackPanel>
+                            <Border Style="{StaticResource FieldBox}" Margin="0,6,0,12">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:PackIcon Style="{StaticResource FieldIcon}" Kind="LockOutline" />
+                                    <PasswordBox Grid.Column="1" x:Name="CreatePassword" Style="{StaticResource FieldEntryPassword}"
+                                                 AutomationProperties.AutomationId="CreatePassword" MaxLength="1000" />
+                                </Grid>
+                            </Border>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{loc:Loc Create.ConfirmPasswordLabel}" Style="{StaticResource BodyText}" />
+                                <TextBlock Text="{loc:Loc Field.Required}" Style="{StaticResource FieldBadgeRequired}" />
+                            </StackPanel>
+                            <Border Style="{StaticResource FieldBox}" Margin="0,6,0,4">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:PackIcon Style="{StaticResource FieldIcon}" Kind="LockCheckOutline" />
+                                    <PasswordBox Grid.Column="1" x:Name="CreatePasswordConfirm" Style="{StaticResource FieldEntryPassword}"
+                                                 AutomationProperties.AutomationId="CreatePasswordConfirm" MaxLength="1000" />
+                                </Grid>
+                            </Border>
                             <TextBlock x:Name="StrengthText" Text="{Binding StrengthHint}" Style="{StaticResource SecondaryText}"
                                        Margin="0,4,0,0" AutomationProperties.AutomationId="StrengthHint" />
                         </StackPanel>
@@ -240,11 +288,21 @@
                     <TextBlock Text="{Binding ChallengePrompt}" Style="{StaticResource BodyText}"
                                TextWrapping="Wrap" Margin="0,20,0,4"
                                AutomationProperties.AutomationId="RecoveryChallengePrompt" />
-                    <TextBox Text="{Binding ChallengeInput, UpdateSourceTrigger=PropertyChanged}"
-                             Style="{StaticResource SearchBoxStyle}" MaxLength="8"
-                             AutomationProperties.AutomationId="RecoveryChallengeInput" />
+                    <Border Style="{StaticResource FieldBox}" MaxWidth="280" HorizontalAlignment="Left">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:PackIcon Style="{StaticResource FieldIcon}" Kind="Keyboard" />
+                            <TextBox Grid.Column="1" Text="{Binding ChallengeInput, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource FieldEntry}" MaxLength="8"
+                                     AutomationProperties.AutomationId="RecoveryChallengeInput" />
+                        </Grid>
+                    </Border>
                     <TextBlock Text="{Binding ChallengeError}" Foreground="{DynamicResource Danger}"
-                               Style="{StaticResource SecondaryText}" Margin="0,4,0,0" />
+                               Style="{StaticResource SecondaryText}" Margin="0,4,0,0"
+                               AutomationProperties.AutomationId="RecoveryChallengeError" />
                 </StackPanel>
 
                 <!-- Footer -->
@@ -291,18 +349,42 @@
 
                     <StackPanel Visibility="{Binding RecoveryMode, Converter={StaticResource FalseToVisible}}"
                                 AutomationProperties.AutomationId="UnlockPasswordPane">
-                        <TextBlock Text="{loc:Loc Create.PasswordLabel}" Style="{StaticResource BodyText}" />
-                        <PasswordBox x:Name="UnlockPassword" Margin="0,6,0,4" Style="{StaticResource PasswordBoxStyle}"
-                                     AutomationProperties.AutomationId="UnlockPasswordBox" MaxLength="1000"
-                                     KeyDown="OnUnlockPasswordKeyDown" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{loc:Loc Create.PasswordLabel}" Style="{StaticResource BodyText}" />
+                            <TextBlock Text="{loc:Loc Field.Required}" Style="{StaticResource FieldBadgeRequired}" />
+                        </StackPanel>
+                        <Border Style="{StaticResource FieldBox}" Margin="0,6,0,4">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <materialDesign:PackIcon Style="{StaticResource FieldIcon}" Kind="LockOutline" />
+                                <PasswordBox Grid.Column="1" x:Name="UnlockPassword" Style="{StaticResource FieldEntryPassword}"
+                                             AutomationProperties.AutomationId="UnlockPasswordBox" MaxLength="1000"
+                                             KeyDown="OnUnlockPasswordKeyDown" />
+                            </Grid>
+                        </Border>
                     </StackPanel>
 
                     <StackPanel Visibility="{Binding RecoveryMode, Converter={StaticResource BoolToVisible}}"
                                 AutomationProperties.AutomationId="UnlockRecoveryPane">
-                        <TextBlock Text="{loc:Loc Unlock.RecoveryLabel}" Style="{StaticResource BodyText}" />
-                        <TextBox Text="{Binding RecoveryKey, UpdateSourceTrigger=PropertyChanged}"
-                                 Style="{StaticResource SearchBoxStyle}" Margin="0,6,0,0"
-                                 AutomationProperties.AutomationId="UnlockRecoveryInput" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{loc:Loc Unlock.RecoveryLabel}" Style="{StaticResource BodyText}" />
+                            <TextBlock Text="{loc:Loc Field.Required}" Style="{StaticResource FieldBadgeRequired}" />
+                        </StackPanel>
+                        <Border Style="{StaticResource FieldBox}" Margin="0,6,0,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <materialDesign:PackIcon Style="{StaticResource FieldIcon}" Kind="KeyOutline" />
+                                <TextBox Grid.Column="1" Text="{Binding RecoveryKey, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource FieldEntry}"
+                                         AutomationProperties.AutomationId="UnlockRecoveryInput" />
+                            </Grid>
+                        </Border>
                     </StackPanel>
 
                     <TextBlock Text="{Binding Error}" Foreground="{DynamicResource Danger}"
@@ -335,6 +417,7 @@
                             </Button.Content>
                         </Button>
                         <Button Grid.Column="2" Command="{Binding UnlockCommand}" IsDefault="True" Margin="10,0,0,0"
+                                Click="OnUnlockClick"
                                 AutomationProperties.AutomationId="UnlockButton"
                                 Visibility="{Binding RecoveryMode, Converter={StaticResource FalseToVisible}}">
                             <StackPanel Orientation="Horizontal">
@@ -1505,34 +1588,100 @@
                                         <TextBlock Text="{loc:Loc Editor.Type}" Style="{StaticResource FieldLabel}" Margin="0,0,0,4" />
                                         <ComboBox ItemsSource="{Binding EditorKindChoices}" SelectedItem="{Binding EditorKind}"
                                                   Margin="0,0,0,6"
+                                                  AutomationProperties.AutomationId="EditorKind"
                                                   ItemTemplate="{StaticResource ItemTypeComboTemplate}" />
                                     </StackPanel>
 
+                                    <!-- Title: shared by every item type (was login-only — non-login
+                                         saves failed with "Title required" because the field was hidden) -->
+                                    <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                                        <TextBlock Text="{loc:Loc Details.Title}" Style="{StaticResource FieldLabel}" />
+                                        <TextBlock Text="{loc:Loc Field.Required}" Style="{StaticResource FieldBadgeRequired}" />
+                                    </StackPanel>
+                                    <Border Style="{StaticResource FieldBox}" Margin="0,4,0,10">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <materialDesign:PackIcon Style="{StaticResource FieldIcon}" Kind="FormatTitle" />
+                                            <TextBox Grid.Column="1" Text="{Binding EditorTitle, UpdateSourceTrigger=PropertyChanged}"
+                                                     Style="{StaticResource FieldEntry}" MaxLength="200"
+                                                     AutomationProperties.AutomationId="EditorTitle" />
+                                        </Grid>
+                                    </Border>
+
                                     <!-- Login fields -->
                                     <StackPanel Visibility="{Binding EditorIsLogin, Converter={StaticResource BoolToVisible}}">
-                                        <TextBlock Text="{loc:Loc Details.Title}" Style="{StaticResource FieldLabel}" Margin="0,6,0,0" />
-                                        <TextBox Text="{Binding EditorTitle, UpdateSourceTrigger=PropertyChanged}"
-                                                 Style="{StaticResource SearchBoxStyle}" Margin="0,4,0,10" MaxLength="200"
-                                                 AutomationProperties.AutomationId="EditorTitle" />
-                                        <TextBlock Text="{loc:Loc Details.Username}" Style="{StaticResource FieldLabel}" />
-                                        <TextBox Text="{Binding EditorUsername, UpdateSourceTrigger=PropertyChanged}"
-                                                 Style="{StaticResource SearchBoxStyle}" Margin="0,4,0,10" MaxLength="320"
-                                                 AutomationProperties.AutomationId="EditorUsername" />
-                                        <TextBlock Text="{loc:Loc Details.Password}" Style="{StaticResource FieldLabel}" />
-                                        <PasswordBox x:Name="EditorPassword" Margin="0,4,0,2" Style="{StaticResource PasswordBoxStyle}"
-                                                     MaxLength="1000" AutomationProperties.AutomationId="EditorPassword" />
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{loc:Loc Details.Username}" Style="{StaticResource FieldLabel}" />
+                                            <TextBlock Text="{loc:Loc Field.Optional}" Style="{StaticResource FieldBadgeOptional}" />
+                                        </StackPanel>
+                                        <Border Style="{StaticResource FieldBox}" Margin="0,4,0,10">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <materialDesign:PackIcon Style="{StaticResource FieldIcon}" Kind="AccountOutline" />
+                                                <TextBox Grid.Column="1" Text="{Binding EditorUsername, UpdateSourceTrigger=PropertyChanged}"
+                                                         Style="{StaticResource FieldEntry}" MaxLength="320"
+                                                         AutomationProperties.AutomationId="EditorUsername" />
+                                            </Grid>
+                                        </Border>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{loc:Loc Details.Password}" Style="{StaticResource FieldLabel}" />
+                                            <TextBlock Text="{loc:Loc Field.Optional}" Style="{StaticResource FieldBadgeOptional}" />
+                                        </StackPanel>
+                                        <Border Style="{StaticResource FieldBox}" Margin="0,4,0,2">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <materialDesign:PackIcon Style="{StaticResource FieldIcon}" Kind="KeyOutline" />
+                                                <PasswordBox Grid.Column="1" x:Name="EditorPassword" Style="{StaticResource FieldEntryPassword}"
+                                                             MaxLength="1000" AutomationProperties.AutomationId="EditorPassword" />
+                                            </Grid>
+                                        </Border>
                                         <TextBlock Text="{loc:Loc Editor.PasswordKeep}" Style="{StaticResource SecondaryText}"
                                                    Margin="0,0,0,10"
                                                    Visibility="{Binding EditingId, Converter={StaticResource NullToCollapsed}}" />
-                                        <TextBlock Text="{loc:Loc Details.Website}" Style="{StaticResource FieldLabel}" />
-                                        <TextBox Text="{Binding EditorWebsiteUrl, UpdateSourceTrigger=PropertyChanged}"
-                                                 Style="{StaticResource SearchBoxStyle}" Margin="0,4,0,10" MaxLength="2048"
-                                                 AutomationProperties.AutomationId="EditorWebsite" />
-                                        <TextBlock Text="{loc:Loc Details.Notes}" Style="{StaticResource FieldLabel}" />
-                                        <TextBox Text="{Binding EditorNotes, UpdateSourceTrigger=PropertyChanged}"
-                                                 Style="{StaticResource SearchBoxStyle}" Margin="0,4,0,4" MaxLength="10000"
-                                                 AcceptsReturn="True" TextWrapping="Wrap" MinHeight="70" VerticalScrollBarVisibility="Auto"
-                                                 AutomationProperties.AutomationId="EditorNotes" />
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{loc:Loc Details.Website}" Style="{StaticResource FieldLabel}" />
+                                            <TextBlock Text="{loc:Loc Field.Optional}" Style="{StaticResource FieldBadgeOptional}" />
+                                        </StackPanel>
+                                        <Border Style="{StaticResource FieldBox}" Margin="0,4,0,10">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <materialDesign:PackIcon Style="{StaticResource FieldIcon}" Kind="Web" />
+                                                <TextBox Grid.Column="1" Text="{Binding EditorWebsiteUrl, UpdateSourceTrigger=PropertyChanged}"
+                                                         Style="{StaticResource FieldEntry}" MaxLength="2048"
+                                                         AutomationProperties.AutomationId="EditorWebsite" />
+                                            </Grid>
+                                        </Border>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{loc:Loc Details.Notes}" Style="{StaticResource FieldLabel}" />
+                                            <TextBlock Text="{loc:Loc Field.Optional}" Style="{StaticResource FieldBadgeOptional}" />
+                                        </StackPanel>
+                                        <Border Style="{StaticResource FieldBox}" Margin="0,4,0,4">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <materialDesign:PackIcon Style="{StaticResource FieldIcon}" Kind="TextLong"
+                                                                         VerticalAlignment="Top" Margin="2,12,2,0" />
+                                                <TextBox Grid.Column="1" Text="{Binding EditorNotes, UpdateSourceTrigger=PropertyChanged}"
+                                                         Style="{StaticResource FieldEntry}" VerticalContentAlignment="Top"
+                                                         MaxLength="10000" AcceptsReturn="True" TextWrapping="Wrap"
+                                                         MinHeight="70" VerticalScrollBarVisibility="Auto"
+                                                         AutomationProperties.AutomationId="EditorNotes" />
+                                            </Grid>
+                                        </Border>
                                     </StackPanel>
 
                                     <!-- Type-specific dynamic rows (non-login) -->
@@ -1541,30 +1690,70 @@
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <StackPanel Margin="0,8,0,6">
-                                                    <TextBlock Text="{Binding LabelKey, Converter={StaticResource LocKey}}"
-                                                               Style="{StaticResource FieldLabel}" Margin="0" />
-                                                    <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
-                                                             Style="{StaticResource SearchBoxStyle}" Margin="0,4,0,0" MaxLength="2000"
-                                                             Visibility="{Binding IsSingleLine, Converter={StaticResource BoolToVisible}}" />
-                                                    <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
-                                                             Style="{StaticResource SearchBoxStyle}" Margin="0,4,0,0" MinHeight="60"
-                                                             AcceptsReturn="True" TextWrapping="Wrap"
-                                                             Visibility="{Binding IsMultiline, Converter={StaticResource BoolToVisible}}" />
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding LabelKey, Converter={StaticResource LocKey}}"
+                                                                   Style="{StaticResource FieldLabel}" Margin="0" />
+                                                        <TextBlock Text="{loc:Loc Field.Optional}" Style="{StaticResource FieldBadgeOptional}" />
+                                                    </StackPanel>
+                                                    <Border Style="{StaticResource FieldBox}" Margin="0,4,0,0"
+                                                            Visibility="{Binding IsSingleLine, Converter={StaticResource BoolToVisible}}">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto" />
+                                                                <ColumnDefinition Width="*" />
+                                                            </Grid.ColumnDefinitions>
+                                                            <materialDesign:PackIcon Style="{StaticResource FieldIcon}"
+                                                                                     Kind="{Binding DataKey, Converter={StaticResource DataKeyIcon}}" />
+                                                            <TextBox Grid.Column="1" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{StaticResource FieldEntry}" MaxLength="2000" />
+                                                        </Grid>
+                                                    </Border>
+                                                    <Border Style="{StaticResource FieldBox}" Margin="0,4,0,0"
+                                                            Visibility="{Binding IsMultiline, Converter={StaticResource BoolToVisible}}">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto" />
+                                                                <ColumnDefinition Width="*" />
+                                                            </Grid.ColumnDefinitions>
+                                                            <materialDesign:PackIcon Style="{StaticResource FieldIcon}"
+                                                                                     Kind="{Binding DataKey, Converter={StaticResource DataKeyIcon}}"
+                                                                                     VerticalAlignment="Top" Margin="2,12,2,0" />
+                                                            <TextBox Grid.Column="1" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{StaticResource FieldEntry}" VerticalContentAlignment="Top"
+                                                                     MinHeight="60" AcceptsReturn="True" TextWrapping="Wrap" />
+                                                        </Grid>
+                                                    </Border>
                                                     <CheckBox Content="{Binding DataKey}" IsChecked="{Binding BooleanValue}"
                                                               Visibility="{Binding IsBoolean, Converter={StaticResource BoolToVisible}}" />
                                                 </StackPanel>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
-                                    <TextBlock Text="{loc:Loc Editor.Description}" Style="{StaticResource FieldLabel}"
-                                               Visibility="{Binding EditorIsLogin, Converter={StaticResource FalseToVisible}}" />
-                                    <TextBox Text="{Binding EditorDescription, UpdateSourceTrigger=PropertyChanged}"
-                                             Style="{StaticResource SearchBoxStyle}" Margin="0,4,0,10" MaxLength="2000"
-                                             AcceptsReturn="True" TextWrapping="Wrap" MinHeight="50"
-                                             Visibility="{Binding EditorIsLogin, Converter={StaticResource FalseToVisible}}" />
+                                    <StackPanel Orientation="Horizontal" Margin="0,8,0,0"
+                                                Visibility="{Binding EditorIsLogin, Converter={StaticResource FalseToVisible}}">
+                                        <TextBlock Text="{loc:Loc Editor.Description}" Style="{StaticResource FieldLabel}" />
+                                        <TextBlock Text="{loc:Loc Field.Optional}" Style="{StaticResource FieldBadgeOptional}" />
+                                    </StackPanel>
+                                    <Border Style="{StaticResource FieldBox}" Margin="0,4,0,10"
+                                            Visibility="{Binding EditorIsLogin, Converter={StaticResource FalseToVisible}}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <materialDesign:PackIcon Style="{StaticResource FieldIcon}" Kind="TextLong"
+                                                                     VerticalAlignment="Top" Margin="2,12,2,0" />
+                                            <TextBox Grid.Column="1" Text="{Binding EditorDescription, UpdateSourceTrigger=PropertyChanged}"
+                                                     Style="{StaticResource FieldEntry}" VerticalContentAlignment="Top"
+                                                     MaxLength="2000" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="50" />
+                                        </Grid>
+                                    </Border>
 
                                     <!-- Custom fields -->
-                                    <TextBlock Text="{loc:Loc Editor.CustomFields}" Style="{StaticResource FieldLabel}" Margin="0,8,0,2" />
+                                    <StackPanel Orientation="Horizontal" Margin="0,8,0,2">
+                                        <TextBlock Text="{loc:Loc Editor.CustomFields}" Style="{StaticResource FieldLabel}" Margin="0" />
+                                        <TextBlock Text="{loc:Loc Field.Optional}" Style="{StaticResource FieldBadgeOptional}" />
+                                    </StackPanel>
                                     <ItemsControl ItemsSource="{Binding EditorCustomFields}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
@@ -1576,13 +1765,31 @@
                                                         <ColumnDefinition Width="Auto" />
                                                         <ColumnDefinition Width="Auto" />
                                                     </Grid.ColumnDefinitions>
-                                                    <TextBox Text="{Binding Label, UpdateSourceTrigger=PropertyChanged}"
-                                                             Style="{StaticResource SearchBoxStyle}" Margin="4,0" MaxLength="100" />
+                                                    <Border Style="{StaticResource FieldBox}" Margin="4,0">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto" />
+                                                                <ColumnDefinition Width="*" />
+                                                            </Grid.ColumnDefinitions>
+                                                            <materialDesign:PackIcon Style="{StaticResource FieldIcon}" Kind="LabelOutline" />
+                                                            <TextBox Grid.Column="1" Text="{Binding Label, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{StaticResource FieldEntry}" MaxLength="100" />
+                                                        </Grid>
+                                                    </Border>
                                                     <ComboBox Grid.Column="1" SelectedIndex="{Binding TypeIndex}" Margin="4,0"
                                                               VerticalAlignment="Center" MinWidth="130"
                                                               ItemsSource="{x:Static vm:CustomFieldEditorViewModel.CustomFieldTypeValues}" />
-                                                    <TextBox Grid.Column="2" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
-                                                             Style="{StaticResource SearchBoxStyle}" Margin="4,0" MaxLength="5000" />
+                                                    <Border Grid.Column="2" Style="{StaticResource FieldBox}" Margin="4,0">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto" />
+                                                                <ColumnDefinition Width="*" />
+                                                            </Grid.ColumnDefinitions>
+                                                            <materialDesign:PackIcon Style="{StaticResource FieldIcon}" Kind="TextShort" />
+                                                            <TextBox Grid.Column="1" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{StaticResource FieldEntry}" MaxLength="5000" />
+                                                        </Grid>
+                                                    </Border>
                                                     <CheckBox Grid.Column="3" IsChecked="{Binding Concealed}" VerticalAlignment="Center"
                                                               Margin="4,0" ToolTip="{loc:Loc Details.Hide}" />
                                                     <Button Grid.Column="4" Style="{StaticResource IconActionButton}"
@@ -1614,19 +1821,35 @@
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <StackPanel Grid.Column="0">
-                                            <TextBlock Text="{loc:Loc Editor.Folder}" Style="{StaticResource FieldLabel}" Margin="0,0,0,4" />
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{loc:Loc Editor.Folder}" Style="{StaticResource FieldLabel}" Margin="0,0,0,4" />
+                                                <TextBlock Text="{loc:Loc Field.Optional}" Style="{StaticResource FieldBadgeOptional}" />
+                                            </StackPanel>
                                             <ComboBox ItemsSource="{Binding FolderNav}" SelectedValue="{Binding EditorFolderId}"
                                                       SelectedValuePath="Id" DisplayMemberPath="Name" />
                                         </StackPanel>
                                         <StackPanel Grid.Column="2">
-                                            <TextBlock Text="{loc:Loc Editor.Tags}" Style="{StaticResource FieldLabel}" Margin="0,0,0,4" />
-                                            <TextBox Text="{Binding EditorTagNames, UpdateSourceTrigger=PropertyChanged}"
-                                                     Style="{StaticResource SearchBoxStyle}" MaxLength="500"
-                                                     AutomationProperties.AutomationId="EditorTags" />
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{loc:Loc Editor.Tags}" Style="{StaticResource FieldLabel}" Margin="0,0,0,4" />
+                                                <TextBlock Text="{loc:Loc Field.Optional}" Style="{StaticResource FieldBadgeOptional}" />
+                                            </StackPanel>
+                                            <Border Style="{StaticResource FieldBox}">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <materialDesign:PackIcon Style="{StaticResource FieldIcon}" Kind="TagOutline" />
+                                                    <TextBox Grid.Column="1" Text="{Binding EditorTagNames, UpdateSourceTrigger=PropertyChanged}"
+                                                             Style="{StaticResource FieldEntry}" MaxLength="500"
+                                                             AutomationProperties.AutomationId="EditorTags" />
+                                                </Grid>
+                                            </Border>
                                         </StackPanel>
                                     </Grid>
                                     <TextBlock Text="{Binding EditorError}" Foreground="{DynamicResource Danger}"
-                                               Style="{StaticResource SecondaryText}" Margin="0,4,0,0" />
+                                               Style="{StaticResource SecondaryText}" Margin="0,4,0,0"
+                                               AutomationProperties.AutomationId="EditorError" />
                                 </StackPanel>
                             </ScrollViewer>
 
@@ -1672,8 +1895,10 @@
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,14,0,4">
                                     <RadioButton Content="{loc:Loc Generator.Password}" IsChecked="{Binding PassphraseMode, Converter={StaticResource FalseToVisible}}"
+                                                 AutomationProperties.AutomationId="GeneratorPasswordMode"
                                                  GroupName="GenMode" Margin="0,0,16,0" />
                                     <RadioButton Content="{loc:Loc Generator.Passphrase}" IsChecked="{Binding PassphraseMode}"
+                                                 AutomationProperties.AutomationId="GeneratorPassphraseMode"
                                                  GroupName="GenMode" />
                                 </StackPanel>
 
@@ -1716,10 +1941,22 @@
                                         <CheckBox Content="!@#" IsChecked="{Binding GenSymbols}" Margin="0,0,12,0" />
                                         <CheckBox Content="{loc:Loc Generator.NoAmbiguous}" IsChecked="{Binding GenExcludeAmbiguous}" />
                                     </WrapPanel>
-                                    <TextBlock Text="{loc:Loc Generator.Excluded}" Style="{StaticResource FieldLabel}" />
-                                    <TextBox Text="{Binding GenExcludedCharacters, UpdateSourceTrigger=PropertyChanged}"
-                                             Style="{StaticResource SearchBoxStyle}" Margin="0,4,0,0" MaxLength="100"
-                                             AutomationProperties.AutomationId="GeneratorExcluded" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{loc:Loc Generator.Excluded}" Style="{StaticResource FieldLabel}" />
+                                        <TextBlock Text="{loc:Loc Field.Optional}" Style="{StaticResource FieldBadgeOptional}" />
+                                    </StackPanel>
+                                    <Border Style="{StaticResource FieldBox}" Margin="0,4,0,0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <materialDesign:PackIcon Style="{StaticResource FieldIcon}" Kind="CloseCircleOutline" />
+                                            <TextBox Grid.Column="1" Text="{Binding GenExcludedCharacters, UpdateSourceTrigger=PropertyChanged}"
+                                                     Style="{StaticResource FieldEntry}" MaxLength="100"
+                                                     AutomationProperties.AutomationId="GeneratorExcluded" />
+                                        </Grid>
+                                    </Border>
                                 </StackPanel>
 
                                 <!-- Passphrase mode -->
@@ -1740,9 +1977,18 @@
                                     <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
                                         <TextBlock Text="{loc:Loc Generator.Separator}" Style="{StaticResource SecondaryText}"
                                                    VerticalAlignment="Center" Margin="8,0" />
-                                        <TextBox Text="{Binding PassphraseSeparator, UpdateSourceTrigger=PropertyChanged}"
-                                                 Style="{StaticResource SearchBoxStyle}" MaxLength="3" Width="80"
-                                                 AutomationProperties.AutomationId="PassphraseSeparator" />
+                                        <Border Style="{StaticResource FieldBox}" Width="88">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <materialDesign:PackIcon Style="{StaticResource FieldIcon}" Kind="DotsHorizontal" />
+                                                <TextBox Grid.Column="1" Text="{Binding PassphraseSeparator, UpdateSourceTrigger=PropertyChanged}"
+                                                         Style="{StaticResource FieldEntry}" MaxLength="3"
+                                                         AutomationProperties.AutomationId="PassphraseSeparator" />
+                                            </Grid>
+                                        </Border>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
                                         <CheckBox Content="{loc:Loc Generator.Capitalize}" IsChecked="{Binding PassphraseCapitalize}"
@@ -1752,7 +1998,8 @@
                                 </StackPanel>
 
                                 <TextBlock Text="{Binding GeneratorStrengthText}" Foreground="{DynamicResource Warning}"
-                                           Style="{StaticResource SecondaryText}" Margin="0,8,0,0" />
+                                           Style="{StaticResource SecondaryText}" Margin="0,8,0,0"
+                                           AutomationProperties.AutomationId="GeneratorStrength" />
 
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16,0,0">
                                     <Button Content="{loc:Loc Generator.Regenerate}" Style="{StaticResource IconButton}"
@@ -2125,21 +2372,45 @@
                         <TextBlock Text="{loc:Loc Backup.RestoreTitle}" Style="{StaticResource SubtitleText}" Margin="0,12,0,2" />
                         <TextBlock Text="{Binding Backup.RestorePathDisplay}" Style="{StaticResource SecondaryText}"
                                    FontFamily="Consolas" TextTrimming="CharacterEllipsis" Margin="0,4,0,8" />
-                        <TextBlock Text="{loc:Loc Backup.RestoreDest}" Style="{StaticResource FieldLabel}" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{loc:Loc Backup.RestoreDest}" Style="{StaticResource FieldLabel}" />
+                            <TextBlock Text="{loc:Loc Field.Required}" Style="{StaticResource FieldBadgeRequired}" />
+                        </StackPanel>
                         <Grid Margin="0,4,0,10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <TextBox Text="{Binding Backup.RestoreDestinationDisplay, Mode=OneWay}"
-                                     Style="{StaticResource SearchBoxStyle}" IsReadOnly="True" />
+                            <Border Style="{StaticResource FieldBox}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:PackIcon Style="{StaticResource FieldIcon}" Kind="FolderOutline" />
+                                    <TextBox Grid.Column="1" Text="{Binding Backup.RestoreDestinationDisplay, Mode=OneWay}"
+                                             Style="{StaticResource FieldEntry}" IsReadOnly="True" />
+                                </Grid>
+                            </Border>
                             <Button Grid.Column="1" Content="{loc:Loc Backup.Browse}" Style="{StaticResource IconButton}"
                                     Command="{Binding Backup.PickRestoreDestinationCommand}" Margin="8,0,0,0"
                                     VerticalAlignment="Center" />
                         </Grid>
-                        <TextBlock Text="{loc:Loc Backup.RestorePassword}" Style="{StaticResource FieldLabel}" />
-                        <PasswordBox x:Name="BackupRestorePassword" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle}"
-                                     MaxLength="1000" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{loc:Loc Backup.RestorePassword}" Style="{StaticResource FieldLabel}" />
+                            <TextBlock Text="{loc:Loc Field.Required}" Style="{StaticResource FieldBadgeRequired}" />
+                        </StackPanel>
+                        <Border Style="{StaticResource FieldBox}" Margin="0,4,0,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <materialDesign:PackIcon Style="{StaticResource FieldIcon}" Kind="LockOutline" />
+                                <PasswordBox Grid.Column="1" x:Name="BackupRestorePassword" Style="{StaticResource FieldEntryPassword}"
+                                             MaxLength="1000" />
+                            </Grid>
+                        </Border>
                         <Grid Margin="0,16,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -2316,9 +2587,18 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <TextBox Text="{Binding BrowserImport.SelectedFilePath, Mode=OneWay}"
-                                     Style="{StaticResource SearchBoxStyle}" IsReadOnly="True"
-                                     AutomationProperties.AutomationId="ImportFilePath" />
+                            <Border Style="{StaticResource FieldBox}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:PackIcon Style="{StaticResource FieldIcon}" Kind="FileOutline" />
+                                    <TextBox Grid.Column="1" Text="{Binding BrowserImport.SelectedFilePath, Mode=OneWay}"
+                                             Style="{StaticResource FieldEntry}" IsReadOnly="True"
+                                             AutomationProperties.AutomationId="ImportFilePath" />
+                                </Grid>
+                            </Border>
                             <Button Grid.Column="1" Content="{loc:Loc Backup.Browse}" Style="{StaticResource IconButton}"
                                     Command="{Binding BrowserImport.BrowseForFileCommand}" Margin="8,0,0,0"
                                     VerticalAlignment="Center"
@@ -2351,10 +2631,19 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <TextBox Text="{Binding BrowserImport.FilterText, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{StaticResource SearchBoxStyle}"
-                                     materialDesign:HintAssist.Hint="{loc:Loc Import.FilterLabel}"
-                                     AutomationProperties.AutomationId="ImportFilter" />
+                            <Border Style="{StaticResource FieldBox}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:PackIcon Style="{StaticResource FieldIcon}" Kind="FilterOutline" />
+                                    <TextBox Grid.Column="1" Text="{Binding BrowserImport.FilterText, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource FieldEntry}"
+                                             materialDesign:HintAssist.Hint="{loc:Loc Import.FilterLabel}"
+                                             AutomationProperties.AutomationId="ImportFilter" />
+                                </Grid>
+                            </Border>
                             <Button Grid.Column="1" Content="{loc:Loc Import.SelectAll}" Style="{StaticResource IconButton}"
                                     Command="{Binding BrowserImport.SelectAllCommand}" Margin="8,0,0,0"
                                     VerticalAlignment="Center" AutomationProperties.AutomationId="ImportSelectAll" />

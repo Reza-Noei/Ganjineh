@@ -192,6 +192,17 @@ public partial class MainWindow : Window
         }
     }
 
+    /// <summary>Mouse-click unlock: the command only sees SetPassword state, and without this
+    /// the Enter-key path was the sole password transfer — clicking the button with a typed
+    /// password always reported "Password is required". Click fires before the command.</summary>
+    private void OnUnlockClick(object sender, RoutedEventArgs e)
+    {
+        if (FindDescendant<System.Windows.Controls.PasswordBox>(this, "UnlockPasswordBox") is { } box)
+        {
+            _viewModel.Unlock.SetPassword(TakeChars(box));
+        }
+    }
+
     private void OnCreateNextClick(object sender, RoutedEventArgs e)
     {
         var pane = FindAncestor<System.Windows.Controls.Grid>((DependencyObject)sender);

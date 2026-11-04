@@ -110,11 +110,17 @@
   <data name="Validation.PasswordRequired" xml:space="preserve"><value>Password is required.</value></data>
   <data name="Validation.RecoveryRequired" xml:space="preserve"><value>Enter the Recovery Key.</value></data>
   <data name="Validation.RecoveryInvalid" xml:space="preserve"><value>The Recovery Key format is invalid.</value></data>
+  <data name="Validation.TitleRequired" xml:space="preserve"><value>A title is required.</value></data>
   <data name="Validation.TitleTooLong" xml:space="preserve"><value>The title is too long.</value></data>
   <data name="Validation.UsernameTooLong" xml:space="preserve"><value>The username is too long.</value></data>
   <data name="Validation.PasswordTooLong" xml:space="preserve"><value>The password is too long.</value></data>
   <data name="Validation.UrlTooLong" xml:space="preserve"><value>The website URL is too long.</value></data>
   <data name="Validation.NotesTooLong" xml:space="preserve"><value>The notes are too long.</value></data>
+  <data name="Validation.VaultNameRequired" xml:space="preserve"><value>The vault name is required.</value></data>
+  <data name="Validation.VaultNameTooLong" xml:space="preserve"><value>The vault name is too long (max 100 characters).</value></data>
+  <data name="Validation.MasterPasswordRequired" xml:space="preserve"><value>The master password is required.</value></data>
+  <data name="Field.Required" xml:space="preserve"><value>Required</value></data>
+  <data name="Field.Optional" xml:space="preserve"><value>Optional</value></data>
   <data name="Error.VaultMissing" xml:space="preserve"><value>The vault file could not be found.</value></data>
   <data name="Error.UnsupportedFormat" xml:space="preserve"><value>This vault was created by a newer version of the application.</value></data>
   <data name="Error.OpenUrl" xml:space="preserve"><value>Could not open the browser.</value></data>

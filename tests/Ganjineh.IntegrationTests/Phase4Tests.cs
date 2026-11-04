@@ -183,6 +183,24 @@ public sealed class Phase4Tests : IDisposable
         Assert.Null(detailDeep.FolderId);
     }
 
+    [Fact]
+    public async Task Folder_Counts_Read_Text_Stored_Folder_Ids()
+    {
+        // Regression: FolderItemCounts unboxed the TEXT-stored folder_id straight to Guid?,
+        // throwing InvalidCastException on the first item saved into a folder (all-NULL
+        // groupings unbox null legally, so unfiled vaults never fired it).
+        var (items, folders, _, _) = Services();
+        using var session = await VaultAsync(Lifecycle());
+
+        var folder = await folders.CreateAsync(session, "پروژه", null);
+        await items.CreateAsync(session, new ItemDraft { Kind = ItemType.Login, Title = "filed", FolderId = folder.Id });
+        await items.CreateAsync(session, new ItemDraft { Kind = ItemType.Login, Title = "unfiled" });
+
+        var counts = await folders.GetCountsAsync(session);
+        Assert.Single(counts);
+        Assert.Equal(1, counts[folder.Id]);
+    }
+
     // ── Tags ──
 
     [Fact]

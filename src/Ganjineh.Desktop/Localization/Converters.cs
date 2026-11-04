@@ -174,6 +174,64 @@ public sealed class FindingDetailConverter : IValueConverter
 }
 
 /// <summary>
+/// Dynamic editor field DataKey → its leading PackIcon (matches ItemFormRegistry specs).
+/// Unknown keys yield UnsetValue so the field simply renders without an icon.
+/// </summary>
+public sealed class DataKeyToIconConverter : IValueConverter
+{
+    private static readonly Dictionary<string, MaterialDesignThemes.Wpf.PackIconKind> Icons =
+        new(StringComparer.Ordinal)
+        {
+            // Login
+            ["username"] = MaterialDesignThemes.Wpf.PackIconKind.AccountOutline,
+            ["password"] = MaterialDesignThemes.Wpf.PackIconKind.KeyOutline,
+            ["urls"] = MaterialDesignThemes.Wpf.PackIconKind.Web,
+            // Secure note
+            ["content"] = MaterialDesignThemes.Wpf.PackIconKind.TextLong,
+            ["category"] = MaterialDesignThemes.Wpf.PackIconKind.TagOutline,
+            // Payment card
+            ["holder"] = MaterialDesignThemes.Wpf.PackIconKind.AccountOutline,
+            ["number"] = MaterialDesignThemes.Wpf.PackIconKind.CreditCardOutline,
+            ["expMonth"] = MaterialDesignThemes.Wpf.PackIconKind.CalendarOutline,
+            ["expYear"] = MaterialDesignThemes.Wpf.PackIconKind.CalendarOutline,
+            ["cvv"] = MaterialDesignThemes.Wpf.PackIconKind.LockOutline,
+            ["issuer"] = MaterialDesignThemes.Wpf.PackIconKind.OfficeBuilding,
+            // Identity
+            ["fullName"] = MaterialDesignThemes.Wpf.PackIconKind.AccountOutline,
+            ["dob"] = MaterialDesignThemes.Wpf.PackIconKind.CalendarOutline,
+            ["emails"] = MaterialDesignThemes.Wpf.PackIconKind.EmailOutline,
+            ["phones"] = MaterialDesignThemes.Wpf.PackIconKind.PhoneOutline,
+            ["address"] = MaterialDesignThemes.Wpf.PackIconKind.MapMarkerOutline,
+            ["idNumbers"] = MaterialDesignThemes.Wpf.PackIconKind.KeyOutline,
+            // Wi-Fi
+            ["ssid"] = MaterialDesignThemes.Wpf.PackIconKind.Wifi,
+            ["security"] = MaterialDesignThemes.Wpf.PackIconKind.Security,
+            // API credential
+            ["service"] = MaterialDesignThemes.Wpf.PackIconKind.Server,
+            ["apiKey"] = MaterialDesignThemes.Wpf.PackIconKind.KeyOutline,
+            ["apiSecret"] = MaterialDesignThemes.Wpf.PackIconKind.KeyOutline,
+            ["token"] = MaterialDesignThemes.Wpf.PackIconKind.KeyOutline,
+            ["endpoint"] = MaterialDesignThemes.Wpf.PackIconKind.LinkVariant,
+            ["environment"] = MaterialDesignThemes.Wpf.PackIconKind.LabelOutline,
+            ["expiresAt"] = MaterialDesignThemes.Wpf.PackIconKind.CalendarOutline,
+            // Software license
+            ["product"] = MaterialDesignThemes.Wpf.PackIconKind.PackageVariantClosed,
+            ["key"] = MaterialDesignThemes.Wpf.PackIconKind.KeyOutline,
+            ["email"] = MaterialDesignThemes.Wpf.PackIconKind.EmailOutline,
+            ["purchasedAt"] = MaterialDesignThemes.Wpf.PackIconKind.CalendarOutline,
+            ["vendorUrl"] = MaterialDesignThemes.Wpf.PackIconKind.LinkVariant,
+            // Recovery codes
+            ["codes"] = MaterialDesignThemes.Wpf.PackIconKind.FormatListNumbered,
+        };
+
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        value is string key && Icons.TryGetValue(key, out var kind) ? kind : DependencyProperty.UnsetValue;
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        throw new NotSupportedException();
+}
+
+/// <summary>
 /// FindingKind → severity brush, resolved from the live theme dictionaries so it follows
 /// light/dark swaps: credential-quality defects (weak/reused/empty password) read as danger,
 /// hygiene findings (old, missing authenticator, duplicates, expiring) read as warning.

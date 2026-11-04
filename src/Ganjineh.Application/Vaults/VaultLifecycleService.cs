@@ -251,13 +251,13 @@ public sealed class VaultLifecycleService : IVaultLifecycle
     {
         if (string.IsNullOrWhiteSpace(newName))
         {
-            throw new PolicyViolationException("Vault name must not be empty.");
+            throw new PolicyViolationException("VaultNameRequired");
         }
 
         newName = newName.Trim();
         if (newName.Length > 100)
         {
-            throw new PolicyViolationException("Vault name is too long (max 100 characters).");
+            throw new PolicyViolationException("VaultNameTooLong");
         }
 
         await Task.Run(() =>
@@ -386,10 +386,10 @@ public sealed class VaultLifecycleService : IVaultLifecycle
     {
         if (password.IsEmpty || password.Span.IndexOfAnyExcept('\0') < 0)
         {
-            throw new PolicyViolationException("Master password must not be empty.");
+            throw new PolicyViolationException("MasterPasswordRequired");
         }
     }
 }
 
-/// <summary>Request violates vault policy (empty password). Mapped to ErrorCode.PolicyViolation.</summary>
+/// <summary>Request violates vault policy. Message is a resource key (Validation.*), never user prose — callers localize via ILocalizer.</summary>
 public sealed class PolicyViolationException(string message) : Exception(message);

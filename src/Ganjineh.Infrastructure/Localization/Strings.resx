@@ -115,11 +115,17 @@
   <data name="Validation.PasswordRequired" xml:space="preserve"><value>رمز عبور الزامی است.</value></data>
   <data name="Validation.RecoveryRequired" xml:space="preserve"><value>کلید بازیابی را وارد کنید.</value></data>
   <data name="Validation.RecoveryInvalid" xml:space="preserve"><value>قالب کلید بازیابی درست نیست.</value></data>
+  <data name="Validation.TitleRequired" xml:space="preserve"><value>عنوان الزامی است.</value></data>
   <data name="Validation.TitleTooLong" xml:space="preserve"><value>عنوان بیش از حد طولانی است.</value></data>
   <data name="Validation.UsernameTooLong" xml:space="preserve"><value>نام کاربری بیش از حد طولانی است.</value></data>
   <data name="Validation.PasswordTooLong" xml:space="preserve"><value>رمز عبور بیش از حد طولانی است.</value></data>
   <data name="Validation.UrlTooLong" xml:space="preserve"><value>آدرس وب‌سایت بیش از حد طولانی است.</value></data>
   <data name="Validation.NotesTooLong" xml:space="preserve"><value>یادداشت‌ها بیش از حد طولانی هستند.</value></data>
+  <data name="Validation.VaultNameRequired" xml:space="preserve"><value>نام گاوصندوق الزامی است.</value></data>
+  <data name="Validation.VaultNameTooLong" xml:space="preserve"><value>نام گاوصندوق بیش از حد طولانی است (حداکثر ۱۰۰ نویسه).</value></data>
+  <data name="Validation.MasterPasswordRequired" xml:space="preserve"><value>رمز عبور اصلی الزامی است.</value></data>
+  <data name="Field.Required" xml:space="preserve"><value>الزامی</value></data>
+  <data name="Field.Optional" xml:space="preserve"><value>اختیاری</value></data>
   <data name="Error.VaultMissing" xml:space="preserve"><value>فایل گاوصندوق پیدا نشد.</value></data>
   <data name="Error.UnsupportedFormat" xml:space="preserve"><value>این گاوصندوق با نسخه جدیدتری از برنامه ساخته شده است.</value></data>
   <data name="Error.OpenUrl" xml:space="preserve"><value>بازکردن مرورگر ممکن نشد.</value></data>

@@ -169,7 +169,8 @@ public sealed class ItemRepository
     public IReadOnlyList<(Guid? FolderId, int Count)> FolderItemCounts() =>
         _database.Connection.Query(
                 "SELECT folder_id, COUNT(*) FROM items WHERE trashed_at IS NULL GROUP BY folder_id;")
-            .Select(r => ((Guid?)r[0] is null ? (Guid?)null : new Guid((string)r[0]!), (int)(long)r[1]!))
+            // folder_id is TEXT — type-test then parse (see OrganizationRepository.FolderItemCounts).
+            .Select(r => (r[0] is string folderId ? (Guid?)new Guid(folderId) : null, (int)(long)r[1]!))
             .ToList();
 
     public byte[]? GetCurrentPayload(Guid id) =>

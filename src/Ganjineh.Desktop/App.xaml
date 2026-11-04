@@ -36,6 +36,7 @@
             <loc:LocKeyConverter x:Key="LocKey" />
             <loc:StringEqualsConverter x:Key="SectionEquals" />
             <loc:ItemTypeToIconConverter x:Key="TypeToIcon" />
+            <loc:DataKeyToIconConverter x:Key="DataKeyIcon" />
             <loc:ItemTypeToLabelConverter x:Key="TypeToLabel" />
             <loc:FindingKindConverter x:Key="FindingKindLabel" />
             <loc:FindingDetailConverter x:Key="FindingDetail" />
