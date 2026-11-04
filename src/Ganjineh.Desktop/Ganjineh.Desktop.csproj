@@ -25,7 +25,7 @@
     <AssemblyTitle>Ganjineh</AssemblyTitle>
     <Product>Ganjineh</Product>
     <!-- Shell + taskbar/window icon. -->
-    <ApplicationIcon>Assets\Icons\Icon.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\Icons\ganjineh_E1_1000x1000.ico</ApplicationIcon>
   </PropertyGroup>
 
     <ItemGroup>
@@ -34,8 +34,8 @@
       <Resource Include="Assets\Fonts\Vazirmatn-Medium.ttf" />
       <Resource Include="Assets\Fonts\Vazirmatn-SemiBold.ttf" />
       <!-- Brand: exe/window icon and product logo. -->
-      <Resource Include="Assets\Icons\Icon.ico" />
-      <Resource Include="Assets\Images\Logo.png" />
+      <Resource Include="Assets\Icons\ganjineh_E1_1000x1000.ico" />
+      <Resource Include="Assets\Images\ganjineh_E1_1000x1000.png" />
     </ItemGroup>
 </Project>
 

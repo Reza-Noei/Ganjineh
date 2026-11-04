@@ -9,7 +9,7 @@
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource Bg.Base}"
         FontFamily="{StaticResource App.FontFamily}"
-        Icon="pack://application:,,,/Ganjineh;component/Assets/Icons/Icon.ico"
+        Icon="pack://application:,,,/Ganjineh;component/Assets/Icons/ganjineh_E1_1000x1000.ico"
         AutomationProperties.AutomationId="MainWindow"
         FlowDirection="{Binding ShellFlowDirection}">
 
@@ -37,7 +37,7 @@
                 <!-- Brand hero: the product logo (treasure chest) -->
                 <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,6">
                     <Image Width="72" Height="72" HorizontalAlignment="Center"
-                           Source="pack://application:,,,/Ganjineh;component/Assets/Images/Logo.png"
+                           Source="pack://application:,,,/Ganjineh;component/Assets/Images/ganjineh_E1_1000x1000.png"
                            RenderOptions.BitmapScalingMode="HighQuality" />
                     <TextBlock Text="{loc:Loc Picker.Title}" Style="{StaticResource TitleText}"
                                HorizontalAlignment="Center" Margin="0,14,0,0" />
@@ -368,7 +368,7 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Image Width="28" Height="28" VerticalAlignment="Center"
-                                   Source="pack://application:,,,/Ganjineh;component/Assets/Images/Logo.png"
+                                   Source="pack://application:,,,/Ganjineh;component/Assets/Images/ganjineh_E1_1000x1000.png"
                                    RenderOptions.BitmapScalingMode="HighQuality" />
                             <TextBlock Text="{loc:Loc App.Brand}" FontSize="15" FontWeight="SemiBold"
                                        Foreground="{DynamicResource Text.Primary}" Margin="10,0,0,0"
