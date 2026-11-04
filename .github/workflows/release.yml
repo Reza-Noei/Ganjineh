@@ -104,7 +104,8 @@ jobs:
       - name: WiX MSI (machine-wide alternative channel)
         shell: pwsh
         run: |
-          dotnet tool install --global wix
+          # WiX v5 pinned (docs/installer-design.md); v7+ requires an OSMF EULA acceptance.
+          dotnet tool install --global wix --version 5.0.2
           wix build installer/Ganjineh.Installer.wxs -arch x64 -o "artifacts/release/Ganjineh-Setup-x64-${{ steps.version.outputs.version }}.msi" -d "PublishDir=artifacts/publish/win-x64"
 
       - name: Sign Velopack packages (optional — runs only when VPK_SIGN_PARAMS secret exists)
