@@ -15,7 +15,7 @@ public sealed class LocalizationService : ILocalizer
     private static readonly ResourceManager Strings =
         new("Ganjineh.Infrastructure.Localization.Strings", typeof(LocalizationService).Assembly);
 
-    private CultureInfo _culture = new("fa");
+    private CultureInfo _culture = new("en");
 
     public string this[string key] => Strings.GetString(key, _culture) ?? $"[{key}]";
 

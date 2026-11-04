@@ -346,6 +346,18 @@
   <data name="Import.SourceChrome" xml:space="preserve"><value>Chrome</value></data>
   <data name="Import.SourceFirefox" xml:space="preserve"><value>Firefox</value></data>
   <data name="Error.SessionLost" xml:space="preserve"><value>گاوصندوق قفل شد؛ عملیات متوقف شد.</value></data>
+  <data name="Update.Title" xml:space="preserve"><value>به‌روزرسانی‌ها</value></data>
+  <data name="Update.CurrentVersion" xml:space="preserve"><value>نسخهٔ فعلی:</value></data>
+  <data name="Update.Check" xml:space="preserve"><value>بررسی به‌روزرسانی</value></data>
+  <data name="Update.Checking" xml:space="preserve"><value>بررسی به‌روزرسانی…</value></data>
+  <data name="Update.UpToDate" xml:space="preserve"><value>شما آخرین نسخه را در اختیار دارید.</value></data>
+  <data name="Update.Available" xml:space="preserve"><value>نسخهٔ {0} در دسترس است.</value></data>
+  <data name="Update.Offline" xml:space="preserve"><value>دسترسی به منبع به‌روزرسانی ممکن نشد (آفلاین؟).</value></data>
+  <data name="Update.Download" xml:space="preserve"><value>دریافت به‌روزرسانی</value></data>
+  <data name="Update.Downloading" xml:space="preserve"><value>در حال دریافت… {0}٪</value></data>
+  <data name="Update.RestartToApply" xml:space="preserve"><value>برای نصب، دوباره اجرا کنید</value></data>
+  <data name="Update.Downloaded" xml:space="preserve"><value>نسخهٔ {0} دریافت شد — آمادهٔ نصب.</value></data>
+  <data name="Update.Fail" xml:space="preserve"><value>عملیات به‌روزرسانی ناموفق بود.</value></data>
   <data name="App.Brand" xml:space="preserve"><value>گنجینه</value></data>
   <data name="List.CountSuffix" xml:space="preserve"><value>مورد</value></data>
   <data name="Settings.Category.General" xml:space="preserve"><value>عمومی</value></data>

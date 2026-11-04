@@ -16,6 +16,7 @@ using Ganjineh.Infrastructure.Localization;
 using Ganjineh.Infrastructure.Paths;
 using Ganjineh.Infrastructure.Settings;
 using Ganjineh.Persistence.Registry;
+using Velopack;
 
 namespace Ganjineh.Desktop;
 
@@ -26,6 +27,22 @@ public partial class App : System.Windows.Application
     /// where markup extensions fall back to raw keys.
     /// </summary>
     public static IServiceProvider? Services { get; private set; }
+
+    /// <summary>
+    /// Velopack entry hooks (install/update/uninstall/first-run) MUST run before any WPF work —
+    /// after an update the app may be relaunched into a hook that swaps binaries. That is why
+    /// StartupObject points at this Main instead of the XAML-generated one.
+    /// </summary>
+    [STAThread]
+    public static void Main(string[] args)
+    {
+        VelopackApp.Build()
+            .Run();
+
+        var app = new App();
+        app.InitializeComponent();
+        app.Run();
+    }
 
     protected override void OnStartup(StartupEventArgs e)
     {
@@ -62,6 +79,8 @@ public partial class App : System.Windows.Application
         services.AddSingleton<SettingsViewModel>();
         services.AddSingleton<BackupViewModel>();
         services.AddSingleton<BrowserImportViewModel>();
+        services.AddSingleton<Application.Abstractions.IAppUpdateService, Infrastructure.Updates.VelopackUpdateService>();
+        services.AddSingleton<UpdateViewModel>();
         services.AddSingleton<AppViewModel>();
         services.AddSingleton<MainWindow>();
         Services = services.BuildServiceProvider();
@@ -83,6 +102,11 @@ public partial class App : System.Windows.Application
         var autoLock = Services.GetRequiredService<AutoLockService>();
         var mainWindow = Services.GetRequiredService<MainWindow>();
         var appViewModel = Services.GetRequiredService<AppViewModel>();
+
+        // Quiet update-availability check on startup: never downloads, never installs —
+        // the result only surfaces in Settings → Updates (user-initiated from there).
+        _ = Services.GetRequiredService<UpdateViewModel>().CheckOnStartupCommand.ExecuteAsync(null);
+
         autoLock.LockRequested += (_, _) => mainWindow.Dispatcher.Invoke(() =>
         {
             if (appViewModel.Screen == AppScreen.Workspace)

@@ -2203,6 +2203,35 @@
                                 <RadioButton GroupName="SettingsLanguage" Content="English"
                                              IsChecked="{Binding Settings.LanguageIndex, Converter={StaticResource IndexEquals}, ConverterParameter=1}" />
                             </StackPanel>
+
+                            <!-- Updates: user-initiated check / download / apply only -->
+                            <StackPanel Visibility="{Binding Update.IsUpdateSectionVisible}">
+                                <TextBlock Text="{loc:Loc Update.Title}" Style="{StaticResource GroupHeader}" Margin="0,14,0,0" />
+                                <StackPanel Orientation="Horizontal" Margin="12,2,0,0">
+                                    <TextBlock Text="{loc:Loc Update.CurrentVersion}" Style="{StaticResource SecondaryText}"
+                                               VerticalAlignment="Center" Margin="0,0,10,0" />
+                                    <TextBlock Text="{Binding Update.VersionText}" Style="{StaticResource BodyText}"
+                                               VerticalAlignment="Center" AutomationProperties.AutomationId="UpdateVersion" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="12,8,0,0">
+                                    <Button Content="{loc:Loc Update.Check}" Style="{StaticResource OutlineButton}"
+                                            Command="{Binding Update.CheckCommand}" Margin="0,0,10,0"
+                                            AutomationProperties.AutomationId="UpdateCheck" />
+                                    <Button Content="{loc:Loc Update.Download}" Style="{StaticResource OutlineButton}"
+                                            Command="{Binding Update.DownloadCommand}" Margin="0,0,10,0"
+                                            AutomationProperties.AutomationId="UpdateDownload" />
+                                    <Button Content="{loc:Loc Update.RestartToApply}" Style="{StaticResource DangerButton}"
+                                            Command="{Binding Update.RestartToApplyCommand}"
+                                            AutomationProperties.AutomationId="UpdateApply"
+                                            Visibility="{Binding Update.UpdateReadyToApply, Converter={StaticResource BoolToVisible}}" />
+                                </StackPanel>
+                                <TextBlock Text="{Binding Update.StatusText}" Style="{StaticResource SecondaryText}"
+                                           Margin="12,6,0,0" TextWrapping="Wrap"
+                                           AutomationProperties.AutomationId="UpdateStatus" />
+                                <TextBlock Text="{Binding Update.ActionText}" Style="{StaticResource SecondaryText}"
+                                           Margin="12,2,0,0" TextWrapping="Wrap"
+                                           AutomationProperties.AutomationId="UpdateAction" />
+                            </StackPanel>
                         </StackPanel>
 
                         <!-- Appearance -->

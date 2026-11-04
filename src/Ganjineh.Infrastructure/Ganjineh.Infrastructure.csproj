@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ganjineh.Application\Ganjineh.Application.csproj" />
+    <PackageReference Include="Velopack" Version="1.2.161" />
   </ItemGroup>
 
   <PropertyGroup>

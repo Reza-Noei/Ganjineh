@@ -12,6 +12,7 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     <PackageReference Include="MaterialDesignThemes" Version="5.3.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.13" />
+    <PackageReference Include="Velopack" Version="1.2.161" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -24,9 +25,21 @@
     <AssemblyName>Ganjineh</AssemblyName>
     <AssemblyTitle>Ganjineh</AssemblyTitle>
     <Product>Ganjineh</Product>
+    <!-- Single source of release truth: CI reads this for tags, Velopack and MSI versioning. -->
+    <Version>1.0.0</Version>
+    <Authors>Reza Noei</Authors>
+    <Description>Offline, Persian-first, multi-vault password manager for Windows.</Description>
+    <!-- Velopack: VelopackApp hooks must run before any WPF overhead — custom Main below.
+         App.xaml is compiled as a Page because the StartupObject is our own Main. -->
+    <StartupObject>Ganjineh.Desktop.App</StartupObject>
     <!-- Shell + taskbar/window icon. -->
     <ApplicationIcon>Assets\Icons\ganjineh_E1_1000x1000.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ApplicationDefinition Remove="App.xaml" />
+    <Page Include="App.xaml" />
+  </ItemGroup>
 
     <ItemGroup>
       <!-- Vendored Vazirmatn, SIL Open Font License 1.1 (Assets/Fonts/OFL.txt). -->

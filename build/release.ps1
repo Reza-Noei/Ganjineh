@@ -1,10 +1,11 @@
-# Release build script — Phase 7
-# Produces self-contained publish, portable ZIP, WiX installer, hashes, and manifest.
-# Prerequisites: .NET 10 SDK, WiX v5 dotnet tool (dotnet tool install --global wix), 7z or Compress-Archive.
-#Usage: .\build\release.ps1 [-Version "1.0.0"] [-Architectures "x64","arm64"]
+# Release build script — Phase 7 + Velopack (2026-11-04)
+# Produces: Velopack setup + packages (primary channel), portable ZIP, WiX MSI, SHA256SUMS.
+# Prerequisites: .NET 10 SDK, dotnet tool install --global vpk, dotnet tool install --global wix
+# Usage: .\build\release.ps1 [-Version "1.0.0"] [-Architectures "x64"]
+# Version defaults to the single source of truth: <Version> in Ganjineh.Desktop.csproj.
 
 param(
-    [string]$Version = "1.0.0",
+    [string]$Version = "",
     [string[]]$Architectures = @("x64"),
     [string]$OutputRoot = "$PSScriptRoot\..\artifacts\release"
 )
@@ -12,6 +13,15 @@ param(
 $ErrorActionPreference = "Stop"
 $ProjectPath = "$PSScriptRoot\..\src\Ganjineh.Desktop\Ganjineh.Desktop.csproj"
 $RepoRoot = "$PSScriptRoot\.."
+
+if ([string]::IsNullOrWhiteSpace($Version)) {
+    $csproj = Get-Content $ProjectPath -Raw
+    if ($csproj -match '<Version>([^<]+)</Version>') {
+        $Version = $Matches[1]
+    } else {
+        throw "No <Version> found in Ganjineh.Desktop.csproj — pass -Version explicitly."
+    }
+}
 
 Write-Host "=== Ganjineh Release Build v$Version ==="
 
@@ -30,6 +40,24 @@ foreach ($arch in $Architectures) {
         -o $publishDir
     if ($LASTEXITCODE -ne 0) { throw "Publish failed for $rid" }
 
+    # Velopack: primary distribution channel (per-user install, delta updates from GitHub Releases)
+    if ($arch -eq "x64") {
+        $velopackDir = "$OutputRoot\velopack"
+        Write-Host "`n--- Velopack pack v$Version ---"
+        & "$env:USERPROFILE\.dotnet\tools\vpk.exe" pack `
+            --packId Ganjineh `
+            --packVersion $Version `
+            --packDir $publishDir `
+            --mainExe Ganjineh.exe `
+            --packAuthors "Reza Noei" `
+            --packTitle "Ganjineh" `
+            --icon "$RepoRoot\src\Ganjineh.Desktop\Assets\Icons\ganjineh_E1_1000x1000.ico" `
+            --outputDir $velopackDir
+        if ($LASTEXITCODE -ne 0) { throw "vpk pack failed" }
+        # Setup executable is the user-facing installer; feed metadata + nupkgs ride along.
+        $artifacts += (Get-ChildItem $velopackDir -Filter *.exe | Select-Object -First 1).FullName
+    }
+
     # Portable ZIP
     $portableDir = "$OutputRoot\portable"
     New-Item -ItemType Directory -Force -Path $portableDir | Out-Null
@@ -38,7 +66,7 @@ foreach ($arch in $Architectures) {
     Compress-Archive -Path "$publishDir\*" -DestinationPath $portableZip -Force
     $artifacts += $portableZip
 
-    # Installer (WiX) — x64 only for now
+    # Installer (WiX MSI) — machine-wide alternative channel; x64 only for now
     if ($arch -eq "x64") {
         $installerDir = "$OutputRoot\installer"
         New-Item -ItemType Directory -Force -Path $installerDir | Out-Null
@@ -54,15 +82,14 @@ foreach ($arch in $Architectures) {
 }
 
 # Hashes
-$manifestDir = "$OutputRoot\manifests"
-New-Item -ItemType Directory -Force -Path $manifestDir | Out-Null
-$hashFile = "$OutputRoot\..\checksums\SHA256SUMS.txt"
+$hashFile = "$OutputRoot\SHA256SUMS.txt"
 New-Item -ItemType Directory -Force -Path (Split-Path $hashFile) | Out-Null
 $hashLines = foreach ($a in $artifacts) {
     $hash = (Get-FileHash $a -Algorithm SHA256).Hash.ToLower()
-    "$(hash)  $(Split-Path $a -Leaf)"
+    "$hash  $(Split-Path $a -Leaf)"
 }
 $hashLines | Set-Content $hashFile -Encoding UTF8
+$artifacts += $hashFile
 
 $manifest = @{
     version = $Version
@@ -70,7 +97,7 @@ $manifest = @{
     artifacts = $artifacts
     builtAt = (Get-Date).ToUniversalTime().ToString("o")
 }
-$manifest | ConvertTo-Json -Depth 3 | Set-Content "$OutputRoot\manifests\release-manifest.json" -Encoding UTF8
+$manifest | ConvertTo-Json -Depth 3 | Set-Content "$OutputRoot\release-manifest.json" -Encoding UTF8
 
-Write-Host "`n=== Release build complete ==="
+Write-Host "`n=== Release build complete v$Version ==="
 foreach ($a in $artifacts) { Write-Host "  $a" }

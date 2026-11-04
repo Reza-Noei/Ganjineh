@@ -37,6 +37,7 @@ public sealed partial class AppViewModel : ObservableObject
     public SettingsViewModel Settings { get; }
     public BackupViewModel Backup { get; }
     public BrowserImportViewModel BrowserImport { get; }
+    public UpdateViewModel Update { get; }
 
     /// <summary>fa renders right-to-left; en mirrors the shell to left-to-right.</summary>
     public FlowDirection ShellFlowDirection { get; private set; } = FlowDirection.RightToLeft;
@@ -77,7 +78,8 @@ public sealed partial class AppViewModel : ObservableObject
         Services.ClipboardService clipboard,
         Services.ThemeService theme,
         IVaultBackupService backups,
-        Application.Import.IBrowserImportService import)
+        Application.Import.IBrowserImportService import,
+        UpdateViewModel update)
     {
         _sessions = sessions;
         _localizer = localizer;
@@ -96,6 +98,7 @@ public sealed partial class AppViewModel : ObservableObject
         Settings = new SettingsViewModel(settings, localizer, theme);
         Backup = new BackupViewModel(backups, sessions, localizer, dialogs);
         BrowserImport = new BrowserImportViewModel(import, sessions, localizer);
+        Update = update;
 
         Picker.CreateRequested += (_, _) => { Screen = AppScreen.CreateVault; };
         Picker.UnlockRequested += (_, row) =>

@@ -1,0 +1,213 @@
+# Ganjineh release pipeline.
+# Trigger: push a tag `vX.Y.Z`, or run manually (version defaults to the csproj <Version>).
+# Publishes: Velopack setup + update feed (primary channel), portable ZIP, WiX MSI, SHA256SUMS
+# — all as assets of the GitHub Release `vX.Y.Z` in THIS repository. Never runs from PRs.
+#
+# Update trust model: Velopack verifies package integrity (SHA-256) against the feed. Publisher
+# authenticity via Authenticode is wired through the optional VPK_SIGN_PARAMS secret; when that
+# secret is absent the setup is unsigned and the app only applies updates the user confirms
+# in-app (never silent).
+
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (defaults to <Version> in Ganjineh.Desktop.csproj)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET 10 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Resolve version
+        id: version
+        shell: pwsh
+        run: |
+          $tag = "${{ github.ref_name }}"
+          if ($tag -like 'v*') {
+            $version = $tag.Substring(1)
+          } else {
+            $input = "${{ inputs.version }}"
+            if ($input) { $version = $input }
+            else {
+              $csproj = Get-Content src/Ganjineh.Desktop/Ganjineh.Desktop.csproj -Raw
+              if ($csproj -match '<Version>([^<]+)</Version>') { $version = $Matches[1] }
+              else { throw "No version from tag, input, or csproj <Version>." }
+            }
+          }
+          if ($version -notmatch '^\d+\.\d+\.\d+$') { throw "Version '$version' is not X.Y.Z." }
+          "version=$version" | Out-File $env:GITHUB_OUTPUT -Append
+          Write-Host "Releasing v$version"
+
+      - name: NuGet cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj') }}
+          restore-keys: nuget-${{ runner.os }}-
+
+      - name: Restore
+        run: dotnet restore Ganjineh.slnx
+
+      - name: Build (Release)
+        run: dotnet build Ganjineh.slnx -c Release --no-restore
+
+      - name: Test (unit + integration; UI tests are interactive-only and run off-CI)
+        run: dotnet test Ganjineh.slnx -c Release --no-build --filter "FullyQualifiedName!~Desktop.UITests"
+
+      - name: Publish win-x64 (self-contained, version stamped)
+        run: >
+          dotnet publish src/Ganjineh.Desktop/Ganjineh.Desktop.csproj
+          -c Release -r win-x64 --self-contained true
+          -p:Version=${{ steps.version.outputs.version }}
+          -p:PublishSingleFile=false -p:PublishTrimmed=false
+          -p:DebugType=None -p:DebugSymbols=false
+          -o artifacts/publish/win-x64
+
+      - name: Install Velopack CLI
+        run: dotnet tool install --global vpk
+
+      - name: Velopack pack
+        run: >
+          vpk pack
+          --packId Ganjineh
+          --packVersion ${{ steps.version.outputs.version }}
+          --packDir artifacts/publish/win-x64
+          --mainExe Ganjineh.exe
+          --packAuthors "Reza Noei"
+          --packTitle "Ganjineh"
+          --icon src/Ganjineh.Desktop/Assets/Icons/ganjineh_E1_1000x1000.ico
+          --outputDir artifacts/release/velopack
+
+      - name: WiX MSI (machine-wide alternative channel)
+        shell: pwsh
+        run: |
+          dotnet tool install --global wix
+          wix build installer/Ganjineh.Installer.wxs -arch x64 -o "artifacts/release/Ganjineh-Setup-x64-${{ steps.version.outputs.version }}.msi" -d "PublishDir=artifacts/publish/win-x64"
+
+      - name: Sign Velopack packages (optional — runs only when VPK_SIGN_PARAMS secret exists)
+        if: env.VPK_SIGN_PARAMS != ''
+        env:
+          VPK_SIGN_PARAMS: ${{ secrets.VPK_SIGN_PARAMS }}
+        shell: pwsh
+        run: |
+          # Authenticode-sign every executable artifact with the configured signtool parameters.
+          Get-ChildItem artifacts/release/velopack -Filter *.exe | ForEach-Object {
+            signtool sign ($env:VPK_SIGN_PARAMS -split ' ') -- $_.FullName
+          }
+          signtool sign ($env:VPK_SIGN_PARAMS -split ' ') -- "artifacts/release/Ganjineh-Setup-x64-${{ steps.version.outputs.version }}.msi"
+
+      - name: SHA256SUMS
+        shell: pwsh
+        run: |
+          $v = "${{ steps.version.outputs.version }}"
+          $files = @(
+            "artifacts/release/velopack/Ganjineh-win-Setup.exe",
+            "artifacts/release/velopack/Ganjineh-win-Portable.zip",
+            "artifacts/release/Ganjineh-Setup-x64-$v.msi")
+          $lines = foreach ($f in $files) {
+            $h = (Get-FileHash $f -Algorithm SHA256).Hash.ToLower()
+            "$h  $(Split-Path $f -Leaf)"
+          }
+          $lines | Set-Content artifacts/release/SHA256SUMS.txt
+          Get-Content artifacts/release/SHA256SUMS.txt
+
+      - name: Generate release notes from commit history
+        id: notes
+        shell: pwsh
+        run: |
+          $v = "${{ steps.version.outputs.version }}"
+          $prev = git tag --list 'v*' --sort=-creatordate | Select-Object -Skip 1 -First 1
+          $range = if ($prev) { "$prev..HEAD" } else { "HEAD" }
+          $commits = git log $range --pretty=format:"- %s (%h)" | Out-String
+          $notes = @"
+          ## Ganjineh v$v
+
+          Released: $(Get-Date -Format 'yyyy-MM-dd')
+
+          ### Changes
+          $commits
+
+          ### Install (Windows x64)
+          - **Recommended:** download ``Ganjineh-win-Setup.exe`` and run it. Per-user install, no admin required, automatic delta updates from this repository.
+          - Portable: ``Ganjineh-win-Portable.zip`` (unpack and run — no self-update).
+          - Machine-wide MSI: ``Ganjineh-Setup-x64-$v.msi`` (requires admin; no self-update).
+
+          ### Notes
+          - Self-contained build — no .NET runtime download needed.
+          - Updates are integrity-checked against this release feed; installs are user-initiated from inside the app.
+          - Vault data (``Documents\Ganjineh``, ``%APPDATA%\Ganjineh``) is never touched by updates or uninstall.
+          "@
+          $notes | Out-File artifacts/release/NOTES.md -Encoding utf8
+          "path=artifacts/release/NOTES.md" | Out-File $env:GITHUB_OUTPUT -Append
+
+      - name: Guard — release must not already exist (no accidental overwrites)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: pwsh
+        run: |
+          $tag = "v${{ steps.version.outputs.version }}"
+          $code = gh release view $tag --json name 2>&1; $exit = $LASTEXITCODE
+          if ($exit -eq 0) { throw "Release $tag already exists — refusing to overwrite. Bump the version or delete the release explicitly." }
+          Write-Host "Release $tag does not exist — proceeding."
+
+      - name: Upload Velopack feed + create the GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >
+          vpk upload github
+          --outputDir artifacts/release/velopack
+          --repoUrl https://github.com/${{ github.repository }}
+          --token ${{ secrets.GITHUB_TOKEN }}
+          --releaseName "Ganjineh v${{ steps.version.outputs.version }}"
+          --tag v${{ steps.version.outputs.version }}
+          --targetCommitish ${{ github.sha }}
+          --publish
+
+      - name: Upload auxiliary assets (portable, MSI, checksums)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >
+          gh release upload "v${{ steps.version.outputs.version }}"
+          "artifacts/release/velopack/Ganjineh-win-Portable.zip"
+          "artifacts/release/Ganjineh-Setup-x64-${{ steps.version.outputs.version }}.msi"
+          artifacts/release/SHA256SUMS.txt --clobber
+
+      - name: Validate published release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: pwsh
+        run: |
+          $v = "${{ steps.version.outputs.version }}"
+          gh release view "v$v" --json tagName,isDraft,publishedAt,assets
+          $feed = gh release download "v$v" --pattern "releases.win.json" --stdout 2>$null
+          if (-not $feed) { throw "Velopack feed (releases.win.json) missing from the release." }
+          Write-Host "Velopack feed present; release published."
+
+      - name: Report release URL
+        shell: pwsh
+        run: |
+          $url = gh release view "v${{ steps.version.outputs.version }}" --json url --jq .url
+          Write-Host "::notice::Release published: $url"
