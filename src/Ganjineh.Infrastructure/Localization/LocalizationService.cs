@@ -31,13 +31,13 @@ public sealed class LocalizationService : ILocalizer
     {
         ArgumentNullException.ThrowIfNull(name);
         var culture = CultureInfo.GetCultureInfo(name);
+        CultureInfo.CurrentUICulture = culture;
         if (culture.Equals(_culture))
         {
             return;
         }
 
         _culture = culture;
-        CultureInfo.CurrentUICulture = culture;
         CultureChanged?.Invoke(this, EventArgs.Empty);
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Item[]"));
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsRightToLeft)));

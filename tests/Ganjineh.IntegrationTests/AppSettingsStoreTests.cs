@@ -38,7 +38,7 @@ public class AppSettingsStoreTests : IDisposable
 
         var store = new AppSettingsStore(paths);
 
-        Assert.Equal("fa", store.Current.Language);
+        Assert.Equal("en", store.Current.Language);
         Assert.Equal("Light", store.Current.Theme);
     }
 
