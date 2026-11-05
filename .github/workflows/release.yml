@@ -204,6 +204,12 @@ jobs:
           "artifacts/release/Ganjineh-Setup-x64-${{ steps.version.outputs.version }}.msi"
           artifacts/release/SHA256SUMS.txt --clobber
 
+      - name: Attach release notes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: pwsh
+        run: gh release edit "v${{ steps.version.outputs.version }}" --notes-file artifacts/release/NOTES.md
+
       - name: Validate published release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -211,8 +217,10 @@ jobs:
         run: |
           $v = "${{ steps.version.outputs.version }}"
           gh release view "v$v" --json tagName,isDraft,publishedAt,assets
-          $feed = gh release download "v$v" --pattern "releases.win.json" --stdout 2>$null
-          if (-not $feed) { throw "Velopack feed (releases.win.json) missing from the release." }
+          # gh release download --stdout proved unreliable in CI (v1.0.0 run); check the
+          # asset list instead — presence of the Velopack feed is what we're validating.
+          $assets = gh release view "v$v" --json assets --jq '.assets[].name'
+          if ($assets -notcontains 'releases.win.json') { throw "Velopack feed (releases.win.json) missing from the release." }
           Write-Host "Velopack feed present; release published."
 
       - name: Report release URL
