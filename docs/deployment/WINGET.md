@@ -42,6 +42,9 @@ in this repository: ` installer.yaml`, `defaultLocale.yaml` (en-US), `locale.fa-
 
 ## Status
 
-- Manifests for 1.0.0: generated + `winget validate` — see the release report.
+- Manifests for 1.0.0: generated, `winget validate` (v1.29.380) — submitted as new package
+  PR [microsoft/winget-pkgs#471348](https://github.com/microsoft/winget-pkgs/pull/471348)
+  on 2026-11-05 (branch `ganjineh-1.0.0` on the `Reza-Noei` fork, built via the Git Data API —
+  no local clone of winget-pkgs needed).
 - Catalog presence is claimed ONLY after the winget-pkgs PR merges. Until then Ganjineh is
   installable via the GitHub Release directly.
