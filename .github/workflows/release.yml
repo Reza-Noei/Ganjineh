@@ -105,8 +105,13 @@ jobs:
         shell: pwsh
         run: |
           # WiX v5 pinned (docs/installer-design.md); v7+ requires an OSMF EULA acceptance.
+          # PublishDir must be ABSOLUTE — the harvest path resolves against the .wxs location.
           dotnet tool install --global wix --version 5.0.2
-          wix build installer/Ganjineh.Installer.wxs -arch x64 -o "artifacts/release/Ganjineh-Setup-x64-${{ steps.version.outputs.version }}.msi" -d "PublishDir=artifacts/publish/win-x64"
+          $publish = (Resolve-Path artifacts/publish/win-x64).Path
+          wix build installer/Ganjineh.Installer.wxs -arch x64 `
+            -o "artifacts/release/Ganjineh-Setup-x64-${{ steps.version.outputs.version }}.msi" `
+            -d "PublishDir=$publish" `
+            -d "MsiVersion=${{ steps.version.outputs.version }}"
 
       - name: Sign Velopack packages (optional — runs only when VPK_SIGN_PARAMS secret exists)
         if: env.VPK_SIGN_PARAMS != ''

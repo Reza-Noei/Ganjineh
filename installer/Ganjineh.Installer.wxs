@@ -1,9 +1,9 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-  <Package Name="Ganjineh Password Manager"
-           Manufacturer="Ganjineh Project"
-           Version="1.0.0"
+  <Package Name="Ganjineh"
+           Manufacturer="Reza Noei"
+           Version="$(MsiVersion)"
            UpgradeCode="7A8B9C0D-1E2F-3A4B-5C6D-7E8F9A0B1C2D"
-           Scope="perMachineOrPerUser">
+           Scope="perMachine">
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
     <MediaTemplate EmbedCab="yes" />
     <StandardDirectory Id="ProgramFiles64Folder">
@@ -12,14 +12,25 @@
     <StandardDirectory Id="ProgramMenuFolder">
       <Directory Id="GanjinehMenuDir" Name="Ganjineh" />
     </StandardDirectory>
+    <ComponentGroup Id="AppBinaries" Directory="INSTALLFOLDER">
+      <Files Include="$(PublishDir)\**" />
+    </ComponentGroup>
+    <ComponentGroup Id="Shortcuts">
+      <Component Id="StartMenuShortcutComponent" Directory="GanjinehMenuDir">
+        <RegistryValue Root="HKCU" Key="Software\RezaNoei\Ganjineh" Name="StartMenuShortcut"
+                       Type="integer" Value="1" KeyPath="yes" />
+        <Shortcut Id="StartMenuShortcut" Name="Ganjineh"
+                  Target="[INSTALLFOLDER]Ganjineh.exe" WorkingDirectory="INSTALLFOLDER"
+                  Icon="AppIcon.exe" />
+      </Component>
+    </ComponentGroup>
     <Feature Id="Main" Title="Ganjineh Password Manager" Level="1">
-      <FilesFromDirectory Id="AppBinaries" DirectoryId="INSTALLFOLDER" Source="publish/win-x64" />
-      <Shortcut Id="StartMenuShortcut" Directory="GanjinehMenuDir" Name="Ganjineh"
-                WorkingDirectory="INSTALLFOLDER" Icon="AppIcon.exe" Advertise="yes" />
+      <ComponentGroupRef Id="AppBinaries" />
+      <ComponentGroupRef Id="Shortcuts" />
     </Feature>
-    <Icon Id="AppIcon.exe" SourceFile="publish/win-x64/Ganjineh.exe" />
+    <Icon Id="AppIcon.exe" SourceFile="$(PublishDir)\Ganjineh.exe" />
     <Property Id="ARPPRODUCTICON" Value="AppIcon.exe" />
-    <Property Id="ARPHELPLINK" Value="https://github.com/ganjineh/ganjineh" />
+    <Property Id="ARPHELPLINK" Value="https://github.com/Reza-Noei/Ganjineh" />
     <Property Id="ARPNOREPAIR" Value="1" Secure="yes" />
   </Package>
 </Wix>
