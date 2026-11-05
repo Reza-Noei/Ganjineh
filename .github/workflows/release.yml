@@ -178,6 +178,9 @@ jobs:
           $code = gh release view $tag --json name 2>&1; $exit = $LASTEXITCODE
           if ($exit -eq 0) { throw "Release $tag already exists — refusing to overwrite. Bump the version or delete the release explicitly." }
           Write-Host "Release $tag does not exist — proceeding."
+          # The runner exits the step with $LASTEXITCODE (gh returned 1 above = "not found");
+          # reset it explicitly or the step fails despite proceeding.
+          exit 0
 
       - name: Upload Velopack feed + create the GitHub Release
         env:
