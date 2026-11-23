@@ -26,7 +26,7 @@
     <AssemblyTitle>Ganjineh</AssemblyTitle>
     <Product>Ganjineh</Product>
     <!-- Single source of release truth: CI reads this for tags, Velopack and MSI versioning. -->
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Authors>Reza Noei</Authors>
     <Description>Offline, Persian-first, multi-vault password manager for Windows.</Description>
     <!-- Velopack: VelopackApp hooks must run before any WPF overhead — custom Main below.
